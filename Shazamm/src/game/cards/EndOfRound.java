@@ -3,20 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package shazamm;
-
-import java.util.ArrayList;
+package game.cards;
 
 /**
  *
  * @author darven
  */
-public class Shazamm {
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-    }
+public class EndOfRound extends AbstractCard {
     
 }

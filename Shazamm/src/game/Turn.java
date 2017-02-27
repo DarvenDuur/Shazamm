@@ -3,20 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package shazamm;
-
-import java.util.ArrayList;
+package game;
 
 /**
  *
  * @author darven
  */
-public class Shazamm {
+public class Turn {
+    protected Bridge bridge;
 
     /**
-     * @param args the command line arguments
+     * @return the bridge
      */
-    public static void main(String[] args) {
+    public Bridge getBridge() {
+        return bridge;
     }
-    
 }
