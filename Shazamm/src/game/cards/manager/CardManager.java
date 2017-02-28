@@ -5,6 +5,9 @@
  */
 package game.cards.manager;
 
+import static game.Config.HAND_MAX_SIZE;
+import game.cards.AbstractCard;
+
 /**
  *
  * @author darven
@@ -21,6 +24,9 @@ public class CardManager {
     
     // TO DO
     public CardManager() {
+        deck.shuffle();
+        discard.shuffle();
+        hand.shuffle();
     }
     
 //******************************************************************************
@@ -30,7 +36,14 @@ public class CardManager {
      * @return false if no card can be drawn (hand already full, no card left)
      */
     public boolean drawCard(){
-        throw new UnsupportedOperationException("drawCard not supproted yet");
+        if (this.hand.size() < HAND_MAX_SIZE){
+            AbstractCard card = deck.getFirst();
+            deck.removeFirst();
+            hand.add(card);
+            return true;
+        }else{
+            return false;
+        }
     }
     
     @Override
