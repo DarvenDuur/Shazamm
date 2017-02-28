@@ -5,10 +5,18 @@
  */
 package game.cards;
 
+import game.Bridge;
+
 /**
  *
  * @author darven
  */
 public class Middle extends AbstractCard {
     
+    
+    
+    @Override
+    public void apply(Bridge bridge){
+        
+    }
 }

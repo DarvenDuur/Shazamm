@@ -12,9 +12,12 @@ import game.cards.manager.CardManager;
  * @author darven
  */
 public class PlayerState implements Cloneable{
+    
     private final Player player;
+    
     private int position; /*0 for the middle of the bridge, < 0 for the left side of the
     bridge, > 0 for the left side of the bridge*/
+    
     private CardManager cardManager; //regroups deck, discarded cards and hand
 
     public PlayerState(Player player, int position, CardManager cardManager) {

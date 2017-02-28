@@ -5,10 +5,19 @@
  */
 package game.cards;
 
+import game.Bridge;
+
 /**
  *
  * @author darven
  */
 public class Mutism extends AbstractCard {
     
+    
+    
+    
+    @Override
+    public void apply(Bridge bridge){
+        
+    }
 }

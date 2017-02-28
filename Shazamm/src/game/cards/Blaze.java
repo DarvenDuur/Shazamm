@@ -5,10 +5,19 @@
  */
 package game.cards;
 
+import game.Bridge;
+
 /**
  *
  * @author darven
  */
 public class Blaze extends AbstractCard {
     
+    
+    
+    
+    @Override
+    public void apply(Bridge bridge){
+        
+    }
 }
