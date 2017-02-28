@@ -5,10 +5,17 @@
  */
 package game.cards;
 
+import game.Bridge;
+
 /**
  *
  * @author darven
  */
 public class AttackBoost extends AbstractCard {
     
+    
+    @Override
+    public void apply(Bridge bridge){
+        
+    }
 }
