@@ -18,7 +18,7 @@ public class Bridge implements Cloneable {
     private int firewallLocation; /*0 for the middle of the bridge, < 0 for the 
     left side of the bridge, > 0 for the left side of the bridge*/
 
-//*****************************CONSTRUCTOR**************************************    
+//**************************** CONSTRUCTOR *************************************    
    
     public Bridge(PlayerState player1, PlayerState player2, int size, int firewallLocation) {
         this.player1 = player1;
@@ -35,7 +35,7 @@ public class Bridge implements Cloneable {
         this(player1, player2, 0);
     }
 
-//*****************************GET**********************************************
+//**************************** GETTER ******************************************
     
     /**
      * @return the player1
@@ -65,7 +65,7 @@ public class Bridge implements Cloneable {
         return this.firewallLocation;
     }
 
-//*****************************SET**********************************************
+//**************************** SETTER ******************************************
     
     /**
      * @param firewallLocation the firewallLocation to set
