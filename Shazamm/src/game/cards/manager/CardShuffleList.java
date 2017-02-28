@@ -6,21 +6,22 @@
 package game.cards.manager;
 
 import game.cards.AbstractCard;
-import java.util.ArrayList;
+import java.util.Collection;
+import java.util.LinkedList;
 
 /**
  *
  * @author darven
  */
-public class Deck {
-    ArrayList<AbstractCard> cards;
-    
-    /**
-     * 
-     * @return first card of the deck
-     */
-    public AbstractCard giveCard(){
-        throw new UnsupportedOperationException("Not supported yet.");
+public class CardShuffleList extends LinkedList<AbstractCard>{
+
+    public CardShuffleList() {
+        super();
+    }
+
+    public CardShuffleList(Collection<AbstractCard> collection) {
+        super();
+        this.addAll(collection);
     }
     
     public void shuffle(){
@@ -29,9 +30,5 @@ public class Deck {
     
     private void swapCards(int firstIndex, int secondIndex){
         
-    }
-    
-    public boolean add(AbstractCard card){
-        return true;
     }
 }

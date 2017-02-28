@@ -9,7 +9,7 @@ package game;
  *
  * @author darven
  */
-public class Turn {
+public class Turn implements Cloneable {
     protected Bridge bridge;
 
     /**
@@ -17,5 +17,12 @@ public class Turn {
      */
     public Bridge getBridge() {
         return bridge;
+    }
+    
+    @Override
+    public Object clone() throws CloneNotSupportedException{
+        Turn clone = (Turn) super.clone();
+        clone.bridge = (Bridge) clone.bridge.clone();
+        return clone;
     }
 }

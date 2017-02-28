@@ -9,7 +9,7 @@ package game;
  *
  * @author darven
  */
-public class Bridge {
+public class Bridge implements Cloneable {
     private PlayerState player1;
     private PlayerState player2;
     private int size; /*half the total size of the bridge, 0 : only the central portion 
@@ -17,10 +17,26 @@ public class Bridge {
     private int firewallLocation; /*0 for the middle of the bridge, < 0 for the left 
     side of the bridge, > 0 for the left side of the bridge*/
 
-    public Bridge(){
-        
+    public Bridge(PlayerState player1, PlayerState player2, int size, int firewallLocation) {
+        this.player1 = player1;
+        this.player2 = player2;
+        this.size = size;
+        this.firewallLocation = firewallLocation;
+    }
+    public Bridge(PlayerState player1, PlayerState player2, int firewallLocation) {
+        this(player1, player2, Config.BRIDGE_MAX_SIZE, 0);
+    }
+    public Bridge(PlayerState player1, PlayerState player2) {
+        this(player1, player2, 0);
     }
     
+    @Override
+    public Object clone() throws CloneNotSupportedException{
+        Bridge clone = (Bridge) super.clone();
+        clone.player1 = (PlayerState) clone.player1.clone();
+        clone.player2 = (PlayerState) clone.player2.clone();
+        return clone;
+    }
     
     /**
      * @return the player1

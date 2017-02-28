@@ -11,8 +11,8 @@ import game.cards.manager.CardManager;
  *
  * @author darven
  */
-public class PlayerState {
-    private Player player;
+public class PlayerState implements Cloneable{
+    private final Player player;
     private int position; /*0 for the middle of the bridge, < 0 for the left side of the
     bridge, > 0 for the left side of the bridge*/
     private CardManager cardManager; //regroups deck, discarded cards and hand
@@ -22,29 +22,12 @@ public class PlayerState {
         this.position = position;
         this.cardManager = cardManager;
     }
-
-    /**
-     * Copy inputed PlayerState, and apply new informations
-     * @param state PlayerState to copy
-     * @param position new position
-     * @param cardManager new CardManager
-     */
-    public PlayerState(PlayerState state, int position, CardManager cardManager) {
-    }
     
-    /**
-     * Copy inputed PlayerState, and apply new informations
-     * @param state PlayerState to copy
-     * @param position new position
-     */
-    public PlayerState(PlayerState state, int position) {
-    }
-
-    /**
-     * Copy constructor, copy inputed PlayerState, and Clone CardManager
-     * @param state PlayerState to copy
-     */
-    public PlayerState(PlayerState state) {
+    @Override
+    public Object clone() throws CloneNotSupportedException{
+        PlayerState clone = (PlayerState) super.clone();
+        clone.cardManager = (CardManager) clone.cardManager.clone();
+        return clone;
     }
     
     /**

@@ -10,5 +10,6 @@ package game;
  * @author darven
  */
 public class Config {
-    
+    static public int BRIDGE_MAX_SIZE = 19 / 2; /*half the maximum total size of
+    the bridge, 0 : only the central portion remains*/
 }

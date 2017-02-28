@@ -10,11 +10,17 @@ import game.Bridge;
 /**
  *
  */
-public abstract class AbstractCard {
+public abstract class AbstractCard implements Cloneable {
     protected int id; //from 1 to 14
     protected String name; //card name used for display
     protected String imageName; //image file name, do not contain extension
     protected String description; //decription of the card usage and effects
+    
+    @Override
+    public Object clone() throws CloneNotSupportedException{
+        AbstractCard clone = (AbstractCard) super.clone();
+        return clone;
+    }
     
     public abstract void apply(Bridge bridge);
 
