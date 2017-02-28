@@ -19,7 +19,36 @@ public class Game {
     // TO DO
     public Game() {
         
+        this.rounds=new LinkedList<>();
+        
+        
+        String name1;
+        String name2;
+        
+        String color1;
+        String color2;
+        
+        //attribute values to names and colors
+        
+        //create 2 players
+        Player player1=new Player(name1,color1);
+        Player player2=new Player(name2,color2);
+        
+        
+        //create 2 players State corresponding to the players
+        PlayerState playerS1=new PlayerState(player1);
+        PlayerState playerS2=new PlayerState(player2);
+        
+        Bridge bridge=new Bridge(playerS1,playerS2);
+        Turn firstTurn=new Turn(bridge);
+        Round firstRound=new Round();
+        firstRound.addTurn(firstTurn);
+        
+        
+        
     }
+    
+   
     
 //***************************** GETTER *****************************************    
     

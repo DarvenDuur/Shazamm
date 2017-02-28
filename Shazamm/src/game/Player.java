@@ -21,6 +21,8 @@ public class Player {
         this.COLOR = color;
         this.NAME = name;
     }
+    
+    
 
 //***************************** GETTER *****************************************
 

@@ -21,11 +21,16 @@ public class PlayerState implements Cloneable{
     private CardManager cardManager; //regroups deck, discarded cards and hand
     
 //***************************** CONSTRUCTOR ************************************
-    
+    @Deprecated
     public PlayerState(Player player, int position, CardManager cardManager) {
         this.player = player;
         this.position = position;
         this.cardManager = cardManager;
+    }
+    
+    // TO DO
+    public PlayerState(Player player){
+        this.player=player;
     }
     
 //***************************** GETTER *****************************************

@@ -13,6 +13,13 @@ public class Turn implements Cloneable {
     
     protected Bridge bridge;// TO DO
 
+//***************************** CONSTRUCTOR ************************************
+    // TO DO
+    public Turn(Bridge bridge) {
+        this.bridge = bridge;
+    }
+    
+    
 //***************************** GETTER *****************************************
     /**
      * @return the bridge
@@ -21,12 +28,12 @@ public class Turn implements Cloneable {
         return bridge;
     }
     
-//******************************************************************************    
-    
     @Override
     public Object clone() throws CloneNotSupportedException{
         Turn clone = (Turn) super.clone();
         clone.bridge = (Bridge) clone.bridge.clone();
         return clone;
     }
+    
+ 
 }
