@@ -10,14 +10,18 @@ package game;
  * @author darven
  */
 public class Turn implements Cloneable {
-    protected Bridge bridge;
+    
+    protected Bridge bridge;// TO DO
 
+//***************************** GETTER *****************************************
     /**
      * @return the bridge
      */
     public Bridge getBridge() {
         return bridge;
     }
+    
+//******************************************************************************    
     
     @Override
     public Object clone() throws CloneNotSupportedException{

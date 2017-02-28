@@ -19,15 +19,15 @@ public class PlayerState implements Cloneable{
     side of the bridge, > 0 for the left side of the bridge*/
     
     private CardManager cardManager; //regroups deck, discarded cards and hand
- 
+    
+//***************************** CONSTRUCTOR ************************************
+    
     public PlayerState(Player player, int position, CardManager cardManager) {
         this.player = player;
         this.position = position;
         this.cardManager = cardManager;
     }
     
-   
-
 //***************************** GETTER *****************************************
 
     /**

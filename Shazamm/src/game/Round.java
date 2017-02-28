@@ -12,15 +12,26 @@ import java.util.LinkedList;
  * @author darven
  */
 public class Round {
+    
     protected LinkedList<Turn> turns; /*last turn of the list is the talt turn 
     played*/
 
+//***************************** CONSTRUCTOR ************************************
+    
+    // TO DO
+    public Round() {
+    }
+
+//***************************** GETTER *****************************************
+       
     /**
      * @return the turns
      */
     public LinkedList<Turn> getTurns() {
         return turns;
     }
+    
+//******************************************************************************    
     
     /**
      * add turn to the end of the turn list
