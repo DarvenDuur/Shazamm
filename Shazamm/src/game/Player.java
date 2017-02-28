@@ -10,13 +10,17 @@ package game;
  * @author darven
  */
 public class Player {
-    private final String COLOR;
-    private final String NAME;
+    
+    private final String COLOR;//
+    
+    private final String NAME;//
 
     public Player(String color, String name) {
         this.COLOR = color;
         this.NAME = name;
     }
+
+//***************************** GETTER *****************************************
 
     /**
      * @return the COLOR

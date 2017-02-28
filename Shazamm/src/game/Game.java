@@ -11,8 +11,10 @@ import java.util.LinkedList;
  * 
  */
 public class Game {
-    private LinkedList<Round> rounds;
     
+    private LinkedList<Round> rounds;// represent a game
+
+
     /**
      * makes the players play a round
      */
@@ -26,4 +28,6 @@ public class Game {
     public LinkedList<Round> getRounds() {
         return rounds;
     }
+
+
 }
