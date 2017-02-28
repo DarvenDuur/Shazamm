@@ -19,7 +19,7 @@ public class CardManager {
      * @return false if no card can be drawn (hand already full, no card left)
      */
     public boolean drawCard(){
-        return true;
+        throw new UnsupportedOperationException("drawCard not supproted yet");
     }
     
     @Override
