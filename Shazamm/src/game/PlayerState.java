@@ -13,26 +13,23 @@ import game.cards.manager.CardManager;
  */
 public class PlayerState implements Cloneable{
     
-    private final Player player;
+    private final Player player;//TO DO
     
-    private int position; /*0 for the middle of the bridge, < 0 for the left side of the
-    bridge, > 0 for the left side of the bridge*/
+    private int position; /*0 for the middle of the bridge, < 0 for the left 
+    side of the bridge, > 0 for the left side of the bridge*/
     
     private CardManager cardManager; //regroups deck, discarded cards and hand
-
+ 
     public PlayerState(Player player, int position, CardManager cardManager) {
         this.player = player;
         this.position = position;
         this.cardManager = cardManager;
     }
     
-    @Override
-    public Object clone() throws CloneNotSupportedException{
-        PlayerState clone = (PlayerState) super.clone();
-        clone.cardManager = (CardManager) clone.cardManager.clone();
-        return clone;
-    }
-    
+   
+
+//***************************** GETTER *****************************************
+
     /**
      * @return the player
      */
@@ -46,7 +43,16 @@ public class PlayerState implements Cloneable{
     public int getPosition() {
         return position;
     }
-
+    
+    /**
+     * @return the cardManager
+     */
+    public CardManager getCardManager() {
+        return cardManager;
+    }
+    
+//***************************** SETTER *****************************************
+    
     /**
      * @param position the position to set
      */
@@ -54,10 +60,12 @@ public class PlayerState implements Cloneable{
         this.position = position;
     }
 
-    /**
-     * @return the cardManager
-     */
-    public CardManager getCardManager() {
-        return cardManager;
+//******************************************************************************
+    
+    @Override
+    public Object clone() throws CloneNotSupportedException{
+        PlayerState clone = (PlayerState) super.clone();
+        clone.cardManager = (CardManager) clone.cardManager.clone();
+        return clone;
     }
 }

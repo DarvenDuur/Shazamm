@@ -11,10 +11,12 @@ package game;
  */
 public class Player {
     
-    private final String COLOR;//
+    private final String COLOR;// TO DO
     
-    private final String NAME;//
-
+    private final String NAME;// TO DO
+    
+//***************************** CONSTRUCTOR ************************************
+    
     public Player(String color, String name) {
         this.COLOR = color;
         this.NAME = name;
@@ -35,4 +37,6 @@ public class Player {
     public String getName() {
         return NAME;
     }
+    
+//***************************** SETTER *****************************************
 }

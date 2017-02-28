@@ -12,9 +12,12 @@ package game;
 public class Bridge implements Cloneable {
     
     private PlayerState player1;
+    
     private PlayerState player2;
+    
     private int size; /*half the total size of the bridge, 0 : only the central 
     portion remains*/
+    
     private int firewallLocation; /*0 for the middle of the bridge, < 0 for the 
     left side of the bridge, > 0 for the left side of the bridge*/
 
