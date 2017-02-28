@@ -17,6 +17,7 @@ import java.util.Random;
  */
 public class CardShuffleList extends LinkedList<AbstractCard>{
 
+//***************************** CONSTRUCTOR ************************************
     public CardShuffleList() {
         super();
     }
@@ -25,6 +26,7 @@ public class CardShuffleList extends LinkedList<AbstractCard>{
         super();
         this.addAll(collection);
     }
+//******************************************************************************
     
     public void shuffle(){
         for (int i=0; i < SUFFLE_STEPS; i++) {

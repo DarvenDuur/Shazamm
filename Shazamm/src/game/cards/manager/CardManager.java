@@ -10,9 +10,20 @@ package game.cards.manager;
  * @author darven
  */
 public class CardManager {
-    CardShuffleList deck;
-    CardShuffleList discard;
-    CardShuffleList hand;
+    
+    private CardShuffleList deck; // TO DO
+    
+    private CardShuffleList discard;// TO DO
+    
+    private CardShuffleList hand; // TO DO
+
+//***************************** CONSTRUCTOR ************************************    
+    
+    // TO DO
+    public CardManager() {
+    }
+    
+//******************************************************************************
     
     /**
      * remove a card from deck to add it to hand
@@ -30,4 +41,5 @@ public class CardManager {
         clone.hand = (CardShuffleList) clone.hand.clone();
         return clone;
     }
+
 }

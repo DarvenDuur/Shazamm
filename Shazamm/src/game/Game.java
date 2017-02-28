@@ -14,7 +14,6 @@ public class Game {
     
     private LinkedList<Round> rounds;// represent a game
 
-
 //***************************** CONSTRUCTOR ************************************
     
     // TO DO
