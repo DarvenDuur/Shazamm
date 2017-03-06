@@ -11,13 +11,13 @@ package game;
  */
 public class Config {
     
-    final static public int BRIDGE_MAX_SIZE = 19 / 2; /* half the maximum total size
-    of the bridge, 0 : only the central portion remains */
+    public static final int BRIDGE_MAX_SIZE = 19 / 2; /* half the maximum total 
+    size of the bridge, 0 : only the central portion remains */
     
-    static public final int MAX_MANA=30; /*init mana value */
+    public static final int MAX_MANA=30; /*init mana value */
     
-    final static public int SUFFLE_STEPS = 100; /* number of time two cards are
+    public static final int SUFFLE_STEPS = 100; /* number of time two cards are
     swapped when CardShuffleList.shuffle() is used */
     
-   final  static public int HAND_MAX_SIZE = 5; /* max size of the hand */
+    public static final int HAND_MAX_SIZE = 5; /* max size of the hand */
 }
