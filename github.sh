@@ -2,8 +2,6 @@
 #@author Maxime GUILLAUME
 
 git pull 
-git add .
-read -p "define the message of the commit: " stringCom
-
-git commit -m $stringCom
+git add --all
+git commit -m "fix script"
 git push
