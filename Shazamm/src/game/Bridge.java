@@ -23,15 +23,15 @@ public class Bridge implements Cloneable {
 
 //**************************** CONSTRUCTOR *************************************    
     
-    public Bridge(PlayerState player1, PlayerState player2, int size) {
+    public Bridge(PlayerState player1, PlayerState player2, int size, int firewallLocation) {
         this.player1 = player1;
         this.player2 = player2;
         this.SIZE = size;
-        this.firewallLocation = 0;
+        this.firewallLocation = firewallLocation;
     }
     
     public Bridge(PlayerState player1, PlayerState player2) {
-        this(player1, player2, Config.BRIDGE_MAX_SIZE);
+        this(player1, player2, Config.BRIDGE_MAX_SIZE, 0);
     }
 
 //**************************** GETTER ******************************************

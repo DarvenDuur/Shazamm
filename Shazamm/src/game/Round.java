@@ -18,7 +18,7 @@ public class Round {
 
     protected boolean ended;
     // TO DO
-    public Round(Player player1,Player player2,int size) {
+    public Round(Player player1, Player player2, int size, int firewallLocation) {
         //init empty list
         this.turns=new LinkedList<>();
         this.ended=false;
@@ -27,7 +27,7 @@ public class Round {
         PlayerState playerState2=new PlayerState(player2);
         
         //init the new turn 
-        Bridge bridge =new Bridge(playerState1, playerState2,size);
+        Bridge bridge =new Bridge(playerState1, playerState2, size, firewallLocation);
         Turn initTurn=new Turn(bridge);
         this.turns.add(initTurn);
     }

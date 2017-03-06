@@ -38,7 +38,7 @@ public class Game {
         Player player1 = new Player(namePlayer1, greenPlayer1);
         Player player2 = new Player(namePlayer2, !greenPlayer1);
 
-        Round firstRound = new Round(player1,player2,Config.BRIDGE_MAX_SIZE);
+        Round firstRound = new Round(player1, player2, Config.BRIDGE_MAX_SIZE, 0);
 
     }
 
