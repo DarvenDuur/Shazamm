@@ -11,13 +11,13 @@ package game;
  */
 public class Player {
     
-    private final boolean COLOR;// TO DO
+    private final boolean GREEN;// TO DO
     
     private final String NAME;// TO DO
     
     
-    public Player(boolean color, String name) {
-        this.COLOR = color;
+    public Player(String name,boolean green) {
+        this.GREEN = green;
         this.NAME = name;
     }
 
@@ -25,8 +25,8 @@ public class Player {
     /**
      * @return the COLOR
      */
-    public String getColor() {
-        return COLOR;
+    public boolean getColor() {
+        return GREEN;
     }
 
     /**
