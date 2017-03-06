@@ -12,12 +12,18 @@ import game.Bridge;
  * @author darven
  */
 public class Mutism extends AbstractCard {
-    
-    
-    
+
+    public Mutism() {
+        this.id = CardsEnum.Mutism.getId();
+        this.name = CardsEnum.Mutism.getName();
+        this.imageName = CardsEnum.Mutism.getImageName();
+        this.description = CardsEnum.Mutism.getDescription();
+    }
     
     @Override
     public void apply(Bridge bridge){
-        
+        if (!bridge.isMute()){
+            bridge.setMute();
+        }
     }
 }
