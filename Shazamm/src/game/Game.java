@@ -43,11 +43,7 @@ public class Game {
         PlayerState playerS2   = new PlayerState(player2);
 
         Bridge      bridge     = new Bridge(playerS1, playerS2);
-        Turn        firstTurn  = new Turn(bridge);
         Round       firstRound = new Round();
-        
-        //init firstTurn
-        firstRound.addTurn(firstTurn);
 
     }
 
