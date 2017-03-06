@@ -73,8 +73,8 @@ public class Bridge implements Cloneable {
     /**
      * @param firewallLocation the firewallLocation to set
      */
-    public void setFirewallLocation(int firewallLocation) {
-        this.firewallLocation = firewallLocation;
+    public void moveFirewallLocation(int move) {
+        this.firewallLocation = firewallLocation+move;
     }
     
     /**

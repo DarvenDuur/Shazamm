@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -11,29 +12,55 @@ import game.cards.manager.CardManager;
  *
  * @author darven
  */
-public class PlayerState implements Cloneable{
-    
-    private final Player player;//TO DO
-    
-    private int position; /*0 for the middle of the bridge, < 0 for the left 
-    side of the bridge, > 0 for the left side of the bridge*/
-    
-    private CardManager cardManager; //regroups deck, discarded cards and hand
-    
-//***************************** CONSTRUCTOR ************************************
-    @Deprecated
-    public PlayerState(Player player, int position, CardManager cardManager) {
-        this.player = player;
-        this.position = position;
-        this.cardManager = cardManager;
-    }
-    
+public class PlayerState implements Cloneable {
+    private final Player player;         // TO DO
+    private int          position;       /*
+                                          * 0 for the middle of the bridge, < 0 for the left
+                                          * side of the bridge, > 0 for the left side of the bridge
+                                          */
+    private int          mana;
+    private CardManager  cardManager;    // regroups deck, discarded cards and hand
+
+
     // TO DO
-    public PlayerState(Player player){
-        this.player=player;
+    public PlayerState(Player player) {
+
+        this.player      = player;
+        this.cardManager = new CardManager();
+        this.mana        = Config.MAX_MANA;
+        this.position    = (this.player.getColor())
+                           ? 3
+                           : -3;
+
     }
-    
-//***************************** GETTER *****************************************
+
+    public void bet() {
+        boolean betDone=false;
+        while(!betDone){
+            int manaAmount=Test.printAndIntReception("choose the amount of"
+                + " mana to bet");
+            betDone=this.verifyBet(manaAmount);
+  
+        }
+        
+
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        PlayerState clone = (PlayerState) super.clone();
+
+        clone.cardManager = (CardManager) clone.cardManager.clone();
+
+        return clone;
+    }
+
+    /**
+     * @return the cardManager
+     */
+    public CardManager getCardManager() {
+        return cardManager;
+    }
 
     /**
      * @return the player
@@ -48,15 +75,11 @@ public class PlayerState implements Cloneable{
     public int getPosition() {
         return position;
     }
-    
-    /**
-     * @return the cardManager
-     */
-    public CardManager getCardManager() {
-        return cardManager;
+
+    private void removeMana(int manaAmount) {
+        this.mana-=manaAmount;
     }
-    
-//***************************** SETTER *****************************************
+
     
     /**
      * @param position the position to set
@@ -65,12 +88,17 @@ public class PlayerState implements Cloneable{
         this.position = position;
     }
 
-//******************************************************************************
-    
-    @Override
-    public Object clone() throws CloneNotSupportedException{
-        PlayerState clone = (PlayerState) super.clone();
-        clone.cardManager = (CardManager) clone.cardManager.clone();
-        return clone;
+    private boolean verifyBet(int manaAmount) {
+        
+       if(manaAmount > this.mana){
+           System.out.println("error");
+           return false;
+       }
+       return true;
+          
     }
+   
+    
 }
+
+

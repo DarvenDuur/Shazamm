@@ -18,5 +18,9 @@ public class Test {
         System.out.println(string);
         return SCANNER.next();
     }
+    public static int printAndIntReception(String string) {
+        System.out.println(string);
+        return SCANNER.nextInt();
+    }
     
 }
