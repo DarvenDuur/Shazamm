@@ -16,14 +16,22 @@ public class Round {
     protected LinkedList<Turn> turns; /*last turn of the list is the talt turn 
     played*/
 
-//***************************** CONSTRUCTOR ************************************
-    
+    protected boolean ended;
     // TO DO
-    public Round() {
+    public Round(Player player1,Player player2,int size) {
+        //init empty list
+        this.turns=new LinkedList<>();
+        this.ended=false;
+        //init playerState
+        PlayerState playerState1=new PlayerState(player1);
+        PlayerState playerState2=new PlayerState(player2);
         
+        //init the new turn 
+        Bridge bridge =new Bridge(playerState1, playerState2,size);
+        Turn initTurn=new Turn(bridge);
+        this.turns.add(initTurn);
     }
 
-//***************************** GETTER *****************************************
        
     /**
      * @return the turns
@@ -31,8 +39,10 @@ public class Round {
     public LinkedList<Turn> getTurns() {
         return turns;
     }
+    public void end(){
+        this.ended=true;
+    }
     
-//******************************************************************************    
     
     /**
      * add turn to the end of the turn list
