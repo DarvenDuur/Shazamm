@@ -11,20 +11,16 @@ package game;
  */
 public class Player {
     
-    private final String COLOR;// TO DO
+    private final boolean COLOR;// TO DO
     
     private final String NAME;// TO DO
     
-//***************************** CONSTRUCTOR ************************************
     
-    public Player(String color, String name) {
+    public Player(boolean color, String name) {
         this.COLOR = color;
         this.NAME = name;
     }
-    
-    
 
-//***************************** GETTER *****************************************
 
     /**
      * @return the COLOR
@@ -40,5 +36,4 @@ public class Player {
         return NAME;
     }
     
-//***************************** SETTER *****************************************
 }
