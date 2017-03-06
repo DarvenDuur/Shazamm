@@ -21,8 +21,8 @@ public class Mutism extends AbstractCard {
     }
     
     @Override
-    public void apply(Bridge bridge){
-        if (!bridge.isMute()){
+    public void apply(Bridge bridge, boolean firstPlayer){
+        if (super.generalApply(bridge, this, firstPlayer)){
             bridge.setMute();
         }
     }

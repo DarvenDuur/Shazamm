@@ -16,7 +16,13 @@ public class Clone extends AbstractCard {
     
     
     @Override
-    public void apply(Bridge bridge){
-        
+    public void apply(Bridge bridge, boolean firstPlayer){
+        if (super.generalApply(bridge, this, firstPlayer)){
+            if (firstPlayer){
+                //bridge.getPlayer2().get;
+            }else{
+                
+            }
+        }
     }
 }
