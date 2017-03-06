@@ -25,7 +25,7 @@ public enum CardsEnum {
             + " et on commence une nouvelle manche."),
     Middle(5,"Milieu","","Je replace immédiatement le mur de feu à égale "
             + "distance des deux" +
-"sorciers. Le tour continue ensuite normalement."),
+            "sorciers. Le tour continue ensuite normalement."),
     Recycling(6,"Recyclage","","Je peux rectifier ma mise, en ajoutant ou "
             + "retranchant jusqu’à 5" +
             "points de mana."),
@@ -45,8 +45,8 @@ public enum CardsEnum {
             + " (i.e. si le mur de feu avance effectivement"
             + " vers" +"moi), ma mise n’est pas retranchée de ma réserve de"
             + " Mana."),
-    StockBoost(13,"Boost réserve","","Ma réserve de Mana s’augmente de 13 points. Après que j’ai payé\n" +
-"ce que je dois."),
+    StockBoost(13,"Boost réserve","","Ma réserve de Mana s’augmente de "
+            + "13 points. Après que j’ai payé" +"ce que je dois."),
     SuckBet(14,"Aspiration","","Ma réserve de Mana s’augmente du montant de la "
             + "mise de" +"l’adversaire.");
     
