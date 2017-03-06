@@ -15,7 +15,7 @@ public class Bridge implements Cloneable {
     
     private PlayerState player2;
     
-    private int size; /*half the total size of the bridge, 0 : only the central 
+    private final int SIZE; /*half the total size of the bridge, 0 : only the central 
     portion remains*/
     
     private int firewallLocation; /*0 for the middle of the bridge, < 0 for the 
@@ -26,7 +26,7 @@ public class Bridge implements Cloneable {
     public Bridge(PlayerState player1, PlayerState player2, int size) {
         this.player1 = player1;
         this.player2 = player2;
-        this.size = size;
+        this.SIZE = size;
         this.firewallLocation = 0;
     }
     
@@ -51,10 +51,10 @@ public class Bridge implements Cloneable {
     }
 
     /**
-     * @return the size
+     * @return the SIZE
      */
     public int getSize() {
-        return this.size;
+        return this.SIZE;
     }
    
     /**
@@ -75,20 +75,13 @@ public class Bridge implements Cloneable {
     public void moveFirewallLocation(int amount) {
         this.firewallLocation += amount;
         //if firewall is too far on the left, move it back to aceptable limit
-        if (this.firewallLocation < -this.size){
-            this.firewallLocation = -this.size;
+        if (this.firewallLocation < -this.SIZE){
+            this.firewallLocation = -this.SIZE;
             
         //if firewall is too far on the right, move it back to aceptable limit
-        }else if (this.firewallLocation > this.size){
-            this.firewallLocation = this.size;
+        }else if (this.firewallLocation > this.SIZE){
+            this.firewallLocation = this.SIZE;
         }
-    }
-    
-    /**
-     * @param size the size to set
-     */
-    public void setSize(int size) {
-        this.size = size;
     }
 
 //******************************************************************************
