@@ -31,19 +31,14 @@ public class Game {
 
         // uniqueness of name
         while (namePlayer1.equals(namePlayer2)) {
-            System.err.println("please try a new username");
+            System.out.println("please try a new username");
         }
 
         // create 2 players
         Player player1 = new Player(namePlayer1, greenPlayer1);
         Player player2 = new Player(namePlayer2, !greenPlayer1);
 
-        // create 2 players State corresponding to the players
-        PlayerState playerS1   = new PlayerState(player1);
-        PlayerState playerS2   = new PlayerState(player2);
-
-        Bridge      bridge     = new Bridge(playerS1, playerS2);
-        Round       firstRound = new Round();
+        Round firstRound = new Round(player1,player2,Config.BRIDGE_MAX_SIZE);
 
     }
 
