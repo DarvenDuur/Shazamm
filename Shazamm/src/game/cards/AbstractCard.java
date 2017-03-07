@@ -48,7 +48,7 @@ public abstract class AbstractCard implements Cloneable {
      * @return
      *      true if action can proceed
      */
-    protected boolean generalApply(Bridge bridge, AbstractCard card, boolean firstPlayer){
+    protected boolean generalApply(Bridge bridge, boolean firstPlayer){
         
         if (bridge.isMute()){
             return false;

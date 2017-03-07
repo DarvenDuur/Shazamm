@@ -17,11 +17,11 @@ public class Clone extends AbstractCard {
     
     @Override
     public void apply(Bridge bridge, boolean firstPlayer){
-        if (super.generalApply(bridge, this, firstPlayer)){
+        if (super.generalApply(bridge, firstPlayer)){
             if (firstPlayer){
-                //bridge.getPlayer2().get;
+                throw new UnsupportedOperationException("Clone does not work yet");
             }else{
-                
+                throw new UnsupportedOperationException("Clone does not work yet");
             }
         }
     }
