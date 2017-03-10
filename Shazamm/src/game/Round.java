@@ -13,7 +13,7 @@ import java.util.LinkedList;
  */
 public class Round {
     
-    protected LinkedList<Turn> turns; /*last turn of the list is the talt turn 
+    protected LinkedList<Turn> turns; /*last turn of the list is the last turn 
     played*/
 
     protected boolean ended;
@@ -73,16 +73,16 @@ public class Round {
         this.ended=false;
         
         //recover previous lest turn
-        Turn lastTurn = round.getTurns().peekLast();
+        Bridge lastBridge = round.getLastTurn().getBridge();
         
         //init playerState
-        PlayerState playerState1 = new PlayerState(lastTurn.getBridge().getPlayer1());
-        PlayerState playerState2 = new PlayerState(lastTurn.getBridge().getPlayer2());
+        PlayerState playerState1 = new PlayerState(lastBridge.getPlayer1());
+        PlayerState playerState2 = new PlayerState(lastBridge.getPlayer2());
         
         //init the new turn 
         Bridge bridge = new Bridge(playerState1, playerState2, 
-                lastTurn.getBridge().getSize()-1, 
-                lastTurn.getBridge().getFirewallLocation());
+                lastBridge.getSize()-1, 
+                lastBridge.getFirewallLocation());
         Turn initTurn = new Turn(bridge);
         this.turns.add(initTurn);
     }   
@@ -95,6 +95,9 @@ public class Round {
         return turns;
     }
     
+    public Turn getLastTurn(){
+        return this.turns.getLast();
+    }
     
     public void end(){
         this.ended=true;

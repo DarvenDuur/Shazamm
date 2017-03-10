@@ -92,6 +92,18 @@ public class Bridge implements Cloneable {
 
 //******************************************************************************
     
+    /**
+     * check if a player has fallen out of the bridge
+     * @return 
+     *      true if at least one of the player is out of the bridge
+     */
+    public boolean hasOutOfBridge(){
+        return (this.player1.getPosition()< -this.getSize() ||
+                this.player1.getPosition()> this.getSize() ||
+                this.player2.getPosition()< -this.getSize() ||
+                this.player2.getPosition()> this.getSize());
+    }
+    
     @Override
     public Object clone() throws CloneNotSupportedException{
         Bridge clone = (Bridge) super.clone();

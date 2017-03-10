@@ -54,10 +54,16 @@ public class Game {
 
 //******************************************************************************
 
+    public void play(){
+        
+    }
+    
     /**
      * makes the players play a round
+     * @return
+     *      true if the game has ended (if a player is in the lava)
      */
-    public void playRound() {
+    public boolean playRound() {
         Round round;
         
         if (rounds.isEmpty()){
@@ -69,6 +75,8 @@ public class Game {
         round.play();
         
         rounds.add(round);
+        
+        return round.getLastTurn().getBridge().hasOutOfBridge();
     }
     
     /**
