@@ -20,10 +20,7 @@ public class Round {
     
     private short winner; //0 for draw, -1 for player1, 1 for player2
     
-    
-    
-    
-    
+//***************************** CONSTRUCTOR ************************************   
     
     /**
      * Create a new round from all parameters
@@ -87,6 +84,7 @@ public class Round {
         this.turns.add(initTurn);
     }   
     
+//***************************** GETTERS ****************************************
     
     /**
      * @return the turns
@@ -95,11 +93,27 @@ public class Round {
         return turns;
     }
     
+    /**
+     * @return last turn
+     */
     public Turn getLastTurn(){
         return this.turns.getLast();
     }
+
+    /**
+     * @return the ended
+     */
+    public boolean isEnded() {
+        return ended;
+    }
     
-    public void end(){
+//******************************************************************************
+    
+    /**
+     * set ended to false: end the round, necessary to avoid doing extra turns 
+     *      or replaying the whole round
+     */
+    protected void end(){
         this.ended=true;
     }
     
@@ -119,14 +133,10 @@ public class Round {
         return winner;
     }
 
-    void play() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
     /**
-     * @return the ended
+     * play turns untill the end of the round
      */
-    public boolean isEnded() {
-        return ended;
+    public void play() {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }
