@@ -13,10 +13,10 @@ import java.util.LinkedList;
  */
 public class Round {
     
-    protected LinkedList<Turn> turns; /*last turn of the list is the last turn 
+    private final LinkedList<Turn> turns; /*last turn of the list is the last turn 
     played*/
 
-    protected boolean ended;
+    private boolean ended;
     
     private short winner; //0 for draw, -1 for player1, 1 for player2
     
@@ -121,5 +121,12 @@ public class Round {
 
     void play() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    /**
+     * @return the ended
+     */
+    public boolean isEnded() {
+        return ended;
     }
 }

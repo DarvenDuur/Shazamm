@@ -13,21 +13,24 @@ import java.util.Random;
  *
  */
 public class Game {
-    private LinkedList<Round> rounds;    // represent a game
+    private final LinkedList<Round> rounds;    // represent a game
     Player player1, player2;
 
 //***************************** CONSTRUCTOR ************************************
 
-    // TO DO
+    /**
+     * Constructor
+     *      initialize the player data by calling inputs
+     */
     public Game() {
 
         // init list of rounds
         this.rounds = new LinkedList<>();
 
         // attribute values
-        String  namePlayer1  = Test.printAndReception("Player 1, what is your username?");
         Random  random       = new Random();
         boolean greenPlayer1 = random.nextBoolean();
+        String  namePlayer1  = Test.printAndReception("Player 1, what is your username?");
         String  namePlayer2  = Test.printAndReception("Player 2, what is your username?");
 
         // uniqueness of name
@@ -39,8 +42,10 @@ public class Game {
         this.player1 = new Player(namePlayer1, greenPlayer1);
         this.player2 = new Player(namePlayer2, !greenPlayer1);
 
+        // create the first round of the game
         Round firstRound = new Round(this.player1, this.player2, Config.BRIDGE_MAX_SIZE, 0);
 
+        // add the first round to list of rounds
         this.rounds.add(firstRound);
     }
 
@@ -72,10 +77,13 @@ public class Game {
     public boolean playRound() {
         Round round;
         
-        /*create a round from scratch if no round is available (just a safety),
-        otherwize use the data of the last round*/
+        /*create a round from scratch if no round is available (just a safety);
+        if the last round added to rounds is not ended, will use it;
+        otherwize use the data of the last round to create a new one*/
         if (rounds.isEmpty()){
             round = new Round(this.player1, this.player2);
+        }else if (rounds.getFirst().isEnded()){
+            round = rounds.getFirst();
         }else{
             round = new Round(this.rounds.getLast());
         }
