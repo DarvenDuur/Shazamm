@@ -41,6 +41,7 @@ public class Game {
 
         Round firstRound = new Round(this.player1, this.player2, Config.BRIDGE_MAX_SIZE, 0);
 
+        this.rounds.add(firstRound);
     }
 
 //***************************** GETTER *****************************************    
@@ -54,6 +55,9 @@ public class Game {
 
 //******************************************************************************
 
+    /**
+     * loop rounds until game end condition is met (a player is in the lava)
+     */
     public void play(){
         while(!playRound()){
             //play rounds while the ending conditions are not met
@@ -68,16 +72,23 @@ public class Game {
     public boolean playRound() {
         Round round;
         
+        /*create a round from scratch if no round is available (just a safety),
+        otherwize use the data of the last round*/
         if (rounds.isEmpty()){
             round = new Round(this.player1, this.player2);
         }else{
             round = new Round(this.rounds.getLast());
         }
         
+        //execute the round
         round.play();
         
+        /*when the round is finished, add to list of rounds
+        (could be before executing the round)*/
         rounds.add(round);
         
+        /*return true if, in the last turn of the round, at least one of the
+        players is out of the bridge*/
         return round.getLastTurn().getBridge().hasOutOfBridge();
     }
     
@@ -95,5 +106,3 @@ public class Game {
         return winner;
     }
 }
-
-
