@@ -45,15 +45,15 @@ public class Bridge implements Cloneable {
     /**
      * @return the player1
      */
-    public PlayerState getPlayer1() {
-        return this.player1;
+    public Player getPlayer1() {
+        return this.player1.getPlayer();
     }
 
     /**
      * @return the player2
      */
-    public PlayerState getPlayer2() {
-        return this.player2;
+    public Player getPlayer2() {
+        return this.player2.getPlayer();
     }
 
     /**

@@ -14,6 +14,7 @@ import java.util.Random;
  */
 public class Game {
     private LinkedList<Round> rounds;    // represent a game
+    Player player1, player2;
 
 //***************************** CONSTRUCTOR ************************************
 
@@ -35,10 +36,10 @@ public class Game {
         }
 
         // create 2 players
-        Player player1 = new Player(namePlayer1, greenPlayer1);
-        Player player2 = new Player(namePlayer2, !greenPlayer1);
+        this.player1 = new Player(namePlayer1, greenPlayer1);
+        this.player2 = new Player(namePlayer2, !greenPlayer1);
 
-        Round firstRound = new Round(player1, player2, Config.BRIDGE_MAX_SIZE, 0);
+        Round firstRound = new Round(this.player1, this.player2, Config.BRIDGE_MAX_SIZE, 0);
 
     }
 
@@ -56,7 +57,33 @@ public class Game {
     /**
      * makes the players play a round
      */
-    public void playRound() {}
+    public void playRound() {
+        Round round;
+        
+        if (rounds.isEmpty()){
+            round = new Round(this.player1, this.player2);
+        }else{
+            round = new Round(this.rounds.getLast());
+        }
+        
+        round.play();
+        
+        rounds.add(round);
+    }
+    
+    /**
+     * get the winer of the game
+     * @return 
+     *      0 for draw, positive for player1, negative for player2
+     *      the bigger the value, the wider the difference in victories
+     */
+    public short winner() {
+        short winner = 0;
+        for (Round round : rounds){
+            winner += round.getWinner();
+        }
+        return winner;
+    }
 }
 
 
