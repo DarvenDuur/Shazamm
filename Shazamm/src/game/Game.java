@@ -55,7 +55,9 @@ public class Game {
 //******************************************************************************
 
     public void play(){
-        
+        while(!playRound()){
+            //play rounds while the ending conditions are not met
+        }
     }
     
     /**
