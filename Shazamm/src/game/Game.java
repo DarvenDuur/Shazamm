@@ -88,16 +88,13 @@ public class Game {
             round = new Round(this.rounds.getLast());
         }
         
-        //execute the round
-        round.play();
-        
         /*when the round is finished, add to list of rounds
-        (could be before executing the round)*/
+        (could be after executing the round)*/
         rounds.add(round);
         
-        /*return true if, in the last turn of the round, at least one of the
-        players is out of the bridge*/
-        return round.getLastTurn().getBridge().hasOutOfBridge();
+        /*execute the round, and returns true if the raoun fills the game ending
+        condition*/
+        return round.play();
     }
     
     /**

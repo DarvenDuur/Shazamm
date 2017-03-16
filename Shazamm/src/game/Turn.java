@@ -5,6 +5,9 @@
  */
 package game;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author darven
@@ -35,5 +38,28 @@ public class Turn implements Cloneable {
         return clone;
     }
     
- 
+    /**
+     * Play turn 
+     * get action input and apply it to the turn
+     * @return 
+     *      turn resulting of actions played
+     */
+    public Turn play(){
+        try {
+            //generate next turn
+            Turn resultTurn = (Turn) this.clone();
+            
+            //collect actions input
+            
+            //apply actions to the turn
+            
+            
+            
+            return resultTurn;
+            
+        } catch (CloneNotSupportedException ex) {
+            Logger.getLogger(Turn.class.getName()).log(Level.SEVERE, null, ex);
+            return this;
+        }    
+    }
 }

@@ -135,8 +135,29 @@ public class Round {
 
     /**
      * play turns untill the end of the round
+     * @return 
+     *      true if the game has ended (if a player is in the lava)
      */
-    public void play() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public boolean play() {
+        if (!this.turns.isEmpty()){
+            throw new IndexOutOfBoundsException("No initial turn defined !");
+        }
+        
+        //play turns while turn does not end the round
+        Turn turn;
+        while (!this.isEnded()){
+            //get last turn added; if first turn, uses initial turn
+            turn = this.getLastTurn();
+            
+            //play turn
+            Turn resultTurn = turn.play();
+                        
+            //add resulting turn to the turns
+            this.turns.add(resultTurn);
+        }
+        
+        /*true if, in the last turn of the round, at least one of the
+        players is out of the bridge (game ending condition)*/
+        return this.getLastTurn().getBridge().hasOutOfBridge();
     }
 }
