@@ -10,7 +10,7 @@ import game.Bridge;
 /**
  *
  */
-public abstract class AbstractCard implements Cloneable {
+public abstract class AbstractCard implements Cloneable, Comparable<AbstractCard> {
     
     protected int id; //from 1 to 14
     
@@ -21,6 +21,12 @@ public abstract class AbstractCard implements Cloneable {
     protected String description; //decription of the card usage and effects
 
 //******************************************************************************    
+    
+    @Override
+    public int compareTo(AbstractCard o) {
+        //ascending order of IDs
+        return this.getId() - o.getId();
+    }
     
     @Override
     public Object clone() throws CloneNotSupportedException{
