@@ -81,6 +81,7 @@ public class Round {
                 lastBridge.getSize()-1, 
                 lastBridge.getFirewallLocation());
         Turn initTurn = new Turn(bridge);
+        initTurn.endOfRoundActions();
         this.turns.add(initTurn);
     }   
     

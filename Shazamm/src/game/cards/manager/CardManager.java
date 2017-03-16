@@ -8,6 +8,7 @@ package game.cards.manager;
 import static game.Config.HAND_MAX_SIZE;
 import game.cards.*;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 /**
  *
@@ -17,7 +18,7 @@ public class CardManager {
     
     private CardShuffleList deck; // TO DO
     
-    private CardShuffleList discard;// TO DO
+    private LinkedList<AbstractCard> discard;// TO DO
     
     private ArrayList<AbstractCard> hand; // TO DO
 

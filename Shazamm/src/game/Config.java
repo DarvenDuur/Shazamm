@@ -20,4 +20,10 @@ public class Config {
     swapped when CardShuffleList.shuffle() is used */
     
     public static final int HAND_MAX_SIZE = 5; /* max size of the hand */
+    
+    public static final int END_OF_ROUND_DRAW = 3; /* number of cards 
+    each player draw at the end of each round */
+    
+    public static final int FIRST_ROUND_DRAW = 5; /* number of cards 
+    each player draw at the first round */
 }

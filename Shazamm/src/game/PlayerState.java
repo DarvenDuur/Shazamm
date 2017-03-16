@@ -19,8 +19,8 @@ public class PlayerState implements Cloneable {
      *  0 for the middle of the bridge, < 0 for the left side of the bridge,
      * > 0 for the right side of the bridge
      */
-    private int         position;
-    private int         mana;
+    private int position;
+    private int mana;
     private CardManager cardManager;    // regroups deck, discarded cards and hand
 
     // TO DO
@@ -28,9 +28,7 @@ public class PlayerState implements Cloneable {
         this.player      = player;
         this.cardManager = new CardManager();
         this.mana        = Config.MAX_MANA;
-        this.position    = (this.player.getColor())
-                           ? 3
-                           : -3;
+        this.position    = (this.player.getColor()) ? 3 : -3;
     }
 
     public void bet() {
