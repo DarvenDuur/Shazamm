@@ -13,13 +13,6 @@ import game.Bridge;
 public abstract class AbstractCard implements Cloneable, Comparable<AbstractCard> {
     
     protected int id; //from 1 to 14
-    
-    //all three could be accessed by CardsEnum.CARDS[id-1]
-    protected String name; //card name used for display
-    
-    protected String imageName; //image file name, do not contain extension
-    
-    protected String description; //decription of the card usage and effects
 
 //******************************************************************************    
     
@@ -73,23 +66,23 @@ public abstract class AbstractCard implements Cloneable, Comparable<AbstractCard
     }
 
     /**
-     * @return the name
+     * @return the card name used for display
      */
     public String getName() {
-        return name;
+        return CardsEnum.CARDS[id-1].getName();
     }
 
     /**
-     * @return the imageName
+     * @return the image file name, do not contain extension
      */
     public String getImageName() {
-        return imageName;
+        return CardsEnum.CARDS[id-1].getImageName();
     }
 
     /**
-     * @return the description
+     * @return the decription of the card usage and effects
      */
     public String getDescription() {
-        return description;
+        return CardsEnum.CARDS[id-1].getDescription();
     }
 }

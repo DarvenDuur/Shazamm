@@ -15,9 +15,6 @@ public class Mutism extends AbstractCard {
 
     public Mutism() {
         this.id = CardsEnum.Mutism.getId();
-        this.name = CardsEnum.Mutism.getName();
-        this.imageName = CardsEnum.Mutism.getImageName();
-        this.description = CardsEnum.Mutism.getDescription();
     }
     
     @Override
