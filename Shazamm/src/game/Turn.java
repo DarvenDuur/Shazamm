@@ -5,6 +5,8 @@
  */
 package game;
 
+import game.gui.Console;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -50,6 +52,11 @@ public class Turn implements Cloneable {
             Turn resultTurn = (Turn) this.clone();
             
             //collect actions input
+            //TO CLEAN
+            ArrayList<Integer> player1Cards = Console.askCards(
+                    this.bridge.getPlayerState1().getCardManager().getHand());
+            ArrayList<Integer> player2Cards = Console.askCards(
+                    this.bridge.getPlayerState2().getCardManager().getHand());
             
             //apply actions to the turn
             

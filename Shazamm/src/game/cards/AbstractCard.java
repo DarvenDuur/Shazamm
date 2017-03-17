@@ -14,6 +14,7 @@ public abstract class AbstractCard implements Cloneable, Comparable<AbstractCard
     
     protected int id; //from 1 to 14
     
+    //all three could be accessed by CardsEnum.CARDS[id-1]
     protected String name; //card name used for display
     
     protected String imageName; //image file name, do not contain extension
