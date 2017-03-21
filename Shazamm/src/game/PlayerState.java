@@ -24,9 +24,9 @@ public class PlayerState implements Cloneable {
     private CardManager cardManager;    // regroups deck, discarded cards and hand
 
     // TO DO
-    public PlayerState(Player player) {
+    public PlayerState(Player player, boolean belongPlayer1) {
         this.player      = player;
-        this.cardManager = new CardManager();
+        this.cardManager = new CardManager(belongPlayer1);
         this.mana        = Config.MAX_MANA;
         this.position    = (this.player.getColor()) ? 3 : -3;
     }

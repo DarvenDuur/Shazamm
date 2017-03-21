@@ -20,13 +20,29 @@ public class Bridge implements Cloneable {
     private int firewallLocation;    
 
 //**************************** MUTISM ******************************************
+    
     private boolean mute;
 
-    public Bridge(PlayerState player1, PlayerState player2) {
-        this(player1, player2, Config.BRIDGE_MAX_SIZE, 0);
+    /**
+     * @return the mute
+     */
+    public boolean isMute() {
+        return mute;
+    }
+    
+    /**
+     * mute to false
+     */
+    public void setMute() {
+        this.mute = true;
     }
 
-//**************************** CONSTRUCTOR *************************************    
+//**************************** CONSTRUCTOR *************************************
+    
+    public Bridge(PlayerState player1, PlayerState player2) {
+        this(player1, player2, Config.BRIDGE_MAX_SIZE, 0);
+    }    
+    
     public Bridge(PlayerState player1, PlayerState player2, int size, int firewallLocation) {
         this.playerState1          = player1;
         this.playerState2     = player2;
@@ -35,11 +51,13 @@ public class Bridge implements Cloneable {
         this.mute             = false;
     }
 
+//******************************************************************************
+    
     @Override
     public Object clone() throws CloneNotSupportedException {
         Bridge clone = (Bridge) super.clone();
 
-        clone.playerState1      = (PlayerState) clone.playerState1.clone();
+        clone.playerState1 = (PlayerState) clone.playerState1.clone();
         clone.playerState2 = (PlayerState) clone.playerState2.clone();
 
         return clone;
@@ -66,28 +84,7 @@ public class Bridge implements Cloneable {
         }
     }
 
-    /**
-     * @return the firewallLocation
-     */
-    public int getFirewallLocation() {
-        return this.firewallLocation;
-    }
-
-    /**
-     * @return the mute
-     */
-    public boolean isMute() {
-        return mute;
-    }
-
-    /**
-     * mute to false
-     */
-    public void setMute() {
-        this.mute = true;
-    }
-
-//******************************************************************************
+//**************************** GETTER ******************************************
 
     /**
      * check if a player has fallen out of the bridge
@@ -100,9 +97,14 @@ public class Bridge implements Cloneable {
                 || (this.playerState2.getPosition() < -this.getSize())
                 || (this.playerState2.getPosition() > this.getSize()));
     }
-
-//**************************** GETTER ******************************************
-
+    
+    /**
+     * @return the firewallLocation
+     */
+    public int getFirewallLocation() {
+        return this.firewallLocation;
+    }
+    
     /**
      * @return the playerState1
      */

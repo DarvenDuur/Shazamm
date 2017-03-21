@@ -34,8 +34,8 @@ public class Round {
         this.turns=new LinkedList<>();
         this.ended=false;
         //init playerState
-        PlayerState playerState1=new PlayerState(player1);
-        PlayerState playerState2=new PlayerState(player2);
+        PlayerState playerState1 = new PlayerState(player1, true);
+        PlayerState playerState2 = new PlayerState(player2, false);
         
         //init the new turn 
         Bridge bridge =new Bridge(playerState1, playerState2, size, firewallLocation);
@@ -51,9 +51,10 @@ public class Round {
         //init empty list
         this.turns=new LinkedList<>();
         this.ended=false;
+        
         //init playerState
-        PlayerState playerState1 = new PlayerState(player1);
-        PlayerState playerState2 = new PlayerState(player2);
+        PlayerState playerState1 = new PlayerState(player1, true);
+        PlayerState playerState2 = new PlayerState(player2, false);
         
         //init the new turn 
         Bridge bridge = new Bridge(playerState1, playerState2);
@@ -74,8 +75,8 @@ public class Round {
         Bridge lastBridge = round.getLastTurn().getBridge();
         
         //init playerState
-        PlayerState playerState1 = new PlayerState(lastBridge.getPlayer1());
-        PlayerState playerState2 = new PlayerState(lastBridge.getPlayer2());
+        PlayerState playerState1 = new PlayerState(lastBridge.getPlayer1(), true);
+        PlayerState playerState2 = new PlayerState(lastBridge.getPlayer2(), false);
         
         //init the new turn 
         Bridge bridge = new Bridge(playerState1, playerState2, 
