@@ -44,6 +44,9 @@ public class PlayerState implements Cloneable {
         this.position = (this.player.getColor()) ? 3 : -3;
     }
  
+    /**
+     * call the method verifyBet while the input is an error and set the bet
+     */
     public void bet() {
         boolean betDone = false;
         int manaAmount = 0;
@@ -60,7 +63,7 @@ public class PlayerState implements Cloneable {
 
     /**
      * @see Object.clone()
-     * @return
+     * @return a clone of the playerState
      * @throws CloneNotSupportedException 
      */
     @Override
