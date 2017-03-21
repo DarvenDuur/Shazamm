@@ -5,6 +5,7 @@
  */
 package game.cards;
 
+import game.PlayerState;
 import game.Round;
 
 /**
@@ -52,7 +53,7 @@ public abstract class AbstractCard implements Cloneable, Comparable<AbstractCard
      */
     protected boolean generalApply(Round round){
         
-        if (bridge.isMute()){
+        if (round.getLastTurn().getBridge().isMute()){
             return false;
         }
         return true;
@@ -93,5 +94,17 @@ public abstract class AbstractCard implements Cloneable, Comparable<AbstractCard
      */
     public boolean isBelongPlayer1() {
         return belongPlayer1;
+    }
+    
+    /**
+     * return the owner of the card
+     * @param round
+     * @return
+     */
+    protected PlayerState getOwnerPLayer(Round round){
+        if(this.isBelongPlayer1()){
+           return round.getLastTurn().getBridge().getPlayerState1(); 
+        }
+        return round.getLastTurn().getBridge().getPlayerState2();
     }
 }
