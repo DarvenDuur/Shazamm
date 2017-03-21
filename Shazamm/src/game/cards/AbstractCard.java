@@ -5,7 +5,7 @@
  */
 package game.cards;
 
-import game.Bridge;
+import game.Round;
 
 /**
  *
@@ -13,6 +13,8 @@ import game.Bridge;
 public abstract class AbstractCard implements Cloneable, Comparable<AbstractCard> {
     
     protected int id; //from 1 to 14
+    
+    private boolean belongPlayer1; //true if card belong to player 1
 
 //******************************************************************************    
     
@@ -35,7 +37,7 @@ public abstract class AbstractCard implements Cloneable, Comparable<AbstractCard
      * @param firstPlayer 
      *      true if the first player apply the action
      */
-    public abstract void apply(Bridge bridge, boolean firstPlayer);
+    public abstract void apply(Round round);
     
     /**
      * actions to apply for each
@@ -48,7 +50,7 @@ public abstract class AbstractCard implements Cloneable, Comparable<AbstractCard
      * @return
      *      true if action can proceed
      */
-    protected boolean generalApply(Bridge bridge, boolean firstPlayer){
+    protected boolean generalApply(Round round){
         
         if (bridge.isMute()){
             return false;
@@ -84,5 +86,12 @@ public abstract class AbstractCard implements Cloneable, Comparable<AbstractCard
      */
     public String getDescription() {
         return CardsEnum.CARDS[id-1].getDescription();
+    }
+
+    /**
+     * @return the belongPlayer1
+     */
+    public boolean isBelongPlayer1() {
+        return belongPlayer1;
     }
 }

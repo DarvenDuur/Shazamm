@@ -58,6 +58,8 @@ public class Turn implements Cloneable {
                     this.bridge.getPlayerState2());
             
             //filter cards by player ? (with boolean ?)
+            
+            
             //sort cards
             //apply actions to the turn
             
