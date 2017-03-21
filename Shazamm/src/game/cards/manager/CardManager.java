@@ -9,6 +9,8 @@ import game.cards.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import static game.Config.HAND_REFILL_SIZE;
+import static game.Config.SUFFLE_STEPS;
+import java.util.Random;
 
 /**
  *
@@ -16,11 +18,11 @@ import static game.Config.HAND_REFILL_SIZE;
  */
 public class CardManager {
     
-    private CardShuffleList deck; // TO DO
+    private LinkedList<AbstractCard> deck; //deck, cards available to draw to hand
     
-    private LinkedList<AbstractCard> discard;// TO DO
+    private LinkedList<AbstractCard> discard;//cards discarded from hand
     
-    private ArrayList<AbstractCard> hand; // TO DO
+    private ArrayList<AbstractCard> hand; //player's hand
 
 //***************************** CONSTRUCTOR ************************************    
     
@@ -30,15 +32,61 @@ public class CardManager {
      */
     public CardManager() {
         //deck initialisation
-        this.deck = new CardShuffleList();
+        this.deck = new LinkedList<>();
         this.initDeck();
-        this.deck.shuffle();
+        this.shuffleDeck();
         
         //discard and hand initialisation
-        this.discard = new CardShuffleList();
+        this.discard = new LinkedList<>();
     }
     
-//******************************************************************************
+//***************************** DECK SHUFFLE ***********************************
+    
+    /**
+     * suffle deck by swaping random cards SUFFLE_STEPS times
+     */
+    private void shuffleDeck(){
+        for (int i=0; i < SUFFLE_STEPS; i++) {
+            this.swapDeckCards();
+        }
+    }
+    
+    /**
+     * swap two random cards in deck
+     */
+    private void swapDeckCards(){
+        //generation of two random indexes
+        Random random = new Random();
+        int firstIndex = random.nextInt(this.deck.size());
+        int secondIndex = random.nextInt(this.deck.size());
+        
+        //swap the cards at the two indexes
+        AbstractCard tempCard = this.deck.get(firstIndex);
+        this.deck.set(firstIndex, this.deck.get(secondIndex));
+        this.deck.set(firstIndex, tempCard);
+    }    
+
+//***************************** CARD MANIPULATION ******************************
+    
+    /**
+     * initialize deck with a single exemplary of each card
+     */
+    private void initDeck() {
+        this.deck.add(new AttackBoost());
+        this.deck.add(new Blaze());
+        this.deck.add(new Clone());
+        this.deck.add(new DoubleDose());
+        this.deck.add(new EndOfRound());
+        this.deck.add(new Middle());
+        this.deck.add(new Mutism());
+        this.deck.add(new Recycling());
+        this.deck.add(new Rezilliance());
+        this.deck.add(new Scrooge());
+        this.deck.add(new StockBoost());
+        this.deck.add(new SuckBet());
+        this.deck.add(new Theft());
+        this.deck.add(new WhoWinLose());
+    }
     
     /**
      * remove a card from deck to add it to hand
@@ -98,9 +146,27 @@ public class CardManager {
     public void discardToDeck(){
         this.deck.addAll(this.discard);
         this.discard.clear();
-        this.deck.shuffle();
+        this.shuffleDeck();
     }
     
+    /**
+     * clone cardManager:
+     *      clone hand, deck and discard to avoid synchronisation
+     * @return
+     *      cloned object
+     * @throws CloneNotSupportedException 
+     */
+    @Override
+    public Object clone() throws CloneNotSupportedException{
+        CardManager clone = (CardManager) super.clone();
+        clone.deck = (LinkedList<AbstractCard>) clone.deck.clone();
+        clone.discard = (LinkedList<AbstractCard>) clone.discard.clone();
+        clone.hand = (ArrayList<AbstractCard>) clone.hand.clone();
+        return clone;
+    }
+
+//***************************** GETTER *****************************************
+
     /**
      * @return 
      *      clone of hand
@@ -108,34 +174,4 @@ public class CardManager {
     public ArrayList<AbstractCard> getHand(){
         return (ArrayList<AbstractCard>) this.hand.clone();
     }
-    
-    @Override
-    public Object clone() throws CloneNotSupportedException{
-        CardManager clone = (CardManager) super.clone();
-        clone.deck = (CardShuffleList) clone.deck.clone();
-        clone.discard = (CardShuffleList) clone.discard.clone();
-        clone.hand = (ArrayList<AbstractCard>) clone.hand.clone();
-        return clone;
-    }
-
-    /**
-     * initialize deck with a single exemplary of each card
-     */
-    private void initDeck() {
-        this.deck.add(new AttackBoost());
-        this.deck.add(new Blaze());
-        this.deck.add(new Clone());
-        this.deck.add(new DoubleDose());
-        this.deck.add(new EndOfRound());
-        this.deck.add(new Middle());
-        this.deck.add(new Mutism());
-        this.deck.add(new Recycling());
-        this.deck.add(new Rezilliance());
-        this.deck.add(new Scrooge());
-        this.deck.add(new StockBoost());
-        this.deck.add(new SuckBet());
-        this.deck.add(new Theft());
-        this.deck.add(new WhoWinLose());
-    }
-
 }
