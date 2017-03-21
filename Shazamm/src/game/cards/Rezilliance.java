@@ -22,12 +22,12 @@ public class Rezilliance extends AbstractCard {
     @Override
     public void apply(Round round) {
         //Application for player 1
-        if(isBelongPlayer1() && !round.getSecondLastTurn().getIsPlayer1Winner()){
+        if(isBelongPlayer1() && round.getSecondLastTurn().getWinner() == -1){
             round.getLastTurn().getBridge().getPlayerState1().setMana(
                 round.getLastTurn().getBridge().getPlayerState1().getBet());
         }
         //Application for player 2
-        else if(!isBelongPlayer1() && round.getSecondLastTurn().getIsPlayer1Winner()){
+        else if(!isBelongPlayer1() && round.getSecondLastTurn().getWinner() == 1){
             round.getLastTurn().getBridge().getPlayerState2().setMana(
                 round.getLastTurn().getBridge().getPlayerState2().getBet());
         }
