@@ -102,6 +102,19 @@ public class Round {
     public Turn getLastTurn(){
         return this.turns.getLast();
     }
+    
+    /**
+     * @return 
+     *      turn before current turn
+     *      if less than two turns (including current turn), return null
+     */
+    public Turn getSecondLastTurn(){
+        if (this.turns.size() < 2){
+            return null;
+        }else{
+            return this.turns.get(this.turns.size()-2);
+        }
+    }
 
     /**
      * @return the ended
