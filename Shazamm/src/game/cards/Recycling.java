@@ -5,7 +5,6 @@
  */
 package game.cards;
 
-import game.Bridge;
 import game.PlayerState;
 import game.Round;
 import game.gui.Console;
@@ -28,10 +27,7 @@ public class Recycling extends AbstractCard {
         PlayerState ownerPlayer=super.getOwnerPLayer(round);
         if(Console.getConfirmation("do you want to up to 5 you mana")){
             ownerPlayer.setBet(ownerPlayer.getBet()+5);
-        else{
-            ownerPlayer.setBet(ownerPlayer.getBet()-5);    
-                }
-            
         }
+        ownerPlayer.setBet(ownerPlayer.getBet()-5);    
     }
 }

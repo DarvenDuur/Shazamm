@@ -6,6 +6,7 @@
 package game.cards;
 
 import game.Bridge;
+import game.Round;
 
 /**
  *
@@ -15,7 +16,10 @@ public class AttackBoost extends AbstractCard {
     
     
     @Override
-    public void apply(Bridge bridge){
-        
+    /**
+     * add 7 points of mana to the attack
+     */
+    public void apply(Round round){
+        super.getOwnerPLayer(round).setBet(13);
     }
 }

@@ -6,6 +6,8 @@
 package game.cards;
 
 import game.Bridge;
+import game.PlayerState;
+import game.Round;
 
 /**
  *
@@ -14,9 +16,12 @@ import game.Bridge;
 public class DoubleDose extends AbstractCard {
     
     
-    
+    /**
+     * double the bet
+     */
     @Override
-    public void apply(Bridge bridge){
-        
+    public void apply(Round round){
+        PlayerState ownerPlayer=super.getOwnerPLayer(round);
+        ownerPlayer.setBet(ownerPlayer.getBet()*2);
     }
 }
