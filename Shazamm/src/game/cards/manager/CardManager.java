@@ -23,14 +23,20 @@ public class CardManager {
     private LinkedList<AbstractCard> discard;//cards discarded from hand
     
     private ArrayList<AbstractCard> hand; //player's hand
+    
+    private boolean belongPlayer1; //true if this belongs to player 1
 
 //***************************** CONSTRUCTOR ************************************    
     
     /**
      * CONSTRUCTOR
      * use default initialisation of deck (see private void initDeck())
+     * @param belongPlayer1
+     *      true if this belongs to player 1 (used when applying card's effects)
      */
-    public CardManager() {
+    public CardManager(boolean belongPlayer1) {
+        this.belongPlayer1 = belongPlayer1;
+        
         //deck initialisation
         this.deck = new LinkedList<>();
         this.initDeck();
@@ -72,20 +78,20 @@ public class CardManager {
      * initialize deck with a single exemplary of each card
      */
     private void initDeck() {
-        this.deck.add(new AttackBoost());
-        this.deck.add(new Blaze());
-        this.deck.add(new Clone());
-        this.deck.add(new DoubleDose());
-        this.deck.add(new EndOfRound());
-        this.deck.add(new Middle());
-        this.deck.add(new Mutism());
-        this.deck.add(new Recycling());
-        this.deck.add(new Rezilliance());
-        this.deck.add(new Scrooge());
-        this.deck.add(new StockBoost());
-        this.deck.add(new SuckBet());
-        this.deck.add(new Theft());
-        this.deck.add(new WhoWinLose());
+        this.deck.add(new AttackBoost(this.belongPlayer1));
+        this.deck.add(new Blaze(this.belongPlayer1));
+        this.deck.add(new Clone(this.belongPlayer1));
+        this.deck.add(new DoubleDose(this.belongPlayer1));
+        this.deck.add(new EndOfRound(this.belongPlayer1));
+        this.deck.add(new Middle(this.belongPlayer1));
+        this.deck.add(new Mutism(this.belongPlayer1));
+        this.deck.add(new Recycling(this.belongPlayer1));
+        this.deck.add(new Rezilliance(this.belongPlayer1));
+        this.deck.add(new Scrooge(this.belongPlayer1));
+        this.deck.add(new StockBoost(this.belongPlayer1));
+        this.deck.add(new SuckBet(this.belongPlayer1));
+        this.deck.add(new Theft(this.belongPlayer1));
+        this.deck.add(new WhoWinLose(this.belongPlayer1));
     }
     
     /**
@@ -173,5 +179,12 @@ public class CardManager {
      */
     public ArrayList<AbstractCard> getHand(){
         return (ArrayList<AbstractCard>) this.hand.clone();
+    }
+
+    /**
+     * @return the belongPlayer1
+     */
+    public boolean isBelongPlayer1() {
+        return belongPlayer1;
     }
 }
