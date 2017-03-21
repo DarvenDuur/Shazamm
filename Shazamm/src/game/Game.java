@@ -29,9 +29,11 @@ public class Game {
 
         // attribute values
         Random  random       = new Random();
-        boolean greenPlayer1 = random.nextBoolean();
-        String  namePlayer1  = Test.printAndReception("Player 1, what is your username?");
-        String  namePlayer2  = Test.printAndReception("Player 2, what is your username?");
+        boolean greenPlayer = random.nextBoolean();
+        String  namePlayer1  = Test.printAndReception("Player 1, what"
+                + " is your username?");
+        String  namePlayer2  = Test.printAndReception("Player 2, what"
+                + " is your username?");
 
         // uniqueness of name
         while (namePlayer1.equals(namePlayer2)) {
@@ -39,11 +41,17 @@ public class Game {
         }
 
         // create 2 players
-        this.player1 = new Player(namePlayer1, greenPlayer1);
-        this.player2 = new Player(namePlayer2, !greenPlayer1);
-
+        if(greenPlayer){
+            this.player1 = new Player(namePlayer1, greenPlayer);
+            this.player2 = new Player(namePlayer2, !greenPlayer);
+        }
+        else{
+            this.player1 = new Player(namePlayer2, !greenPlayer);
+            this.player2 = new Player(namePlayer1, greenPlayer);
+        }
         // create the first round of the game
-        Round firstRound = new Round(this.player1, this.player2, Config.BRIDGE_MAX_SIZE, 0);
+        Round firstRound = new Round(this.player1, this.player2, 
+                Config.BRIDGE_MAX_SIZE, 0);
 
         // add the first round to list of rounds
         this.rounds.add(firstRound);
