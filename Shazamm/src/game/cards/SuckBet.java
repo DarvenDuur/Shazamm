@@ -15,6 +15,13 @@ public class SuckBet extends AbstractCard {
 
     @Override
     public void apply(Round round) {
-        round.getLastTurn().getBridge().getPlayerState1().
+        if(isBelongPlayer1()){
+            round.getLastTurn().getBridge().getPlayerState1().setMana(
+                round.getLastTurn().getBridge().getPlayerState2().getBet());
+        }
+        else{
+            round.getLastTurn().getBridge().getPlayerState2().setMana(
+                round.getLastTurn().getBridge().getPlayerState1().getBet());
+        }
     }
 }
