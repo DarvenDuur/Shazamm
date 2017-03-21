@@ -44,10 +44,6 @@ public class Turn implements Cloneable {
         Turn clone = (Turn) super.clone();
         clone.bridge = (Bridge) clone.bridge.clone();
         
-        //default bets
-        clone.player1bet = 0;
-        clone.player2bet = 0;
-        
         //default end and turn victory
         clone.ended = false;
         clone.winner = 0;
