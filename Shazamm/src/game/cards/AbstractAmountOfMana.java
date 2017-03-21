@@ -14,6 +14,20 @@ import game.Round;
  */
 public abstract class AbstractAmountOfMana extends AbstractCard{
         
+    /**
+     * call the applyManaAmount
+     * @param round 
+     */
+    public void apply(Round round){
+    if(super.generalApply(round)){
+            this.applyManaAmount(super.getOwnerPLayer(round));
+       }
+    }
+   /**
+    * define the operation on the mana amount
+    * @param ownerPlayer 
+    */
+   public abstract void applyManaAmount(PlayerState ownerPlayer);
    
     
     
