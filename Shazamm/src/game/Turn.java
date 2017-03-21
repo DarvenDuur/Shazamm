@@ -90,7 +90,7 @@ public class Turn implements Cloneable {
      * @return 
      *      turn resulting of actions played
      */
-    public Turn play(){
+    public Turn play(Round round){
         try {
             //generate next turn
             Turn resultTurn = (Turn) this.clone();
@@ -98,6 +98,10 @@ public class Turn implements Cloneable {
             //get current player states
             PlayerState player1 = this.bridge.getPlayerState1();
             PlayerState player2 = this.bridge.getPlayerState2();
+            
+            //get bet
+            player1.getBet();
+            player2.getBet();
             
             //collect actions input
             ArrayList<AbstractCard> player1Cards = Console.askCards(player1);
@@ -107,13 +111,11 @@ public class Turn implements Cloneable {
             ArrayList<AbstractCard> cards = player1Cards;
             cards.addAll(player2Cards);
             Collections.sort(cards);
-            
-            //get bet
-            player1.getBet();
-            player2.getBet();
                     
-            //apply actions to the turn
-            
+            //apply cards' action to the turn
+            for (AbstractCard card : cards){
+                card.apply(round);
+            }
             
             //apply bet
             this.applyBets();

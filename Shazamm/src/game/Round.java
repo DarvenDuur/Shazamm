@@ -198,7 +198,7 @@ public class Round {
             turn = this.getLastTurn();
             
             //play turn
-            Turn resultTurn = turn.play();
+            Turn resultTurn = turn.play(this);
                         
             //add resulting turn to the turns
             this.turns.add(resultTurn);
