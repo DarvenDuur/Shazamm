@@ -5,10 +5,10 @@
  */
 package game.cards.manager;
 
-import static game.Config.HAND_MAX_SIZE;
 import game.cards.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import static game.Config.HAND_REFILL_SIZE;
 
 /**
  *
@@ -42,15 +42,34 @@ public class CardManager {
     
     /**
      * remove a card from deck to add it to hand
-     * @return false if no card can be drawn (hand already full, no card left)
+     * @return 
+     *      false if no card can be drawn (no card left)
      */
     public boolean drawCard(){
-        if (this.hand.size() < HAND_MAX_SIZE){
+        if (this.deck.isEmpty()){
+            return false;
+        }else{
             AbstractCard card = this.deck.pollFirst();
             this.hand.add(card);
             return true;
-        }else{
-            return false;
+        }
+    }
+    
+    /**
+     * refill hand by drawing cards untill hand has the minimam amount of cards
+     *      if no cards are left, use discardToDeck() automaticaly
+     *      WARNING : HAND_REFILL_SIZE has to be inferior or equal
+     *      to the size of the deck
+     */
+    public void refillHand(){
+        while  (this.hand.size() < HAND_REFILL_SIZE){
+            //draw cards while hand has less than the minimum amount of cards
+            boolean cardsLeft = this.drawCard();
+            
+            //if no ards are left in the deck
+            if (!cardsLeft){
+                this.discardToDeck();
+            }
         }
     }
     
