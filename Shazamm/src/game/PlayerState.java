@@ -31,6 +31,11 @@ public class PlayerState implements Cloneable {
         this.position    = (this.player.getColor()) ? 3 : -3;
     }
 
+    public int getBet(){
+        
+        return 0;
+    }
+    
     public void bet() {
         boolean betDone = false;
 
@@ -50,8 +55,8 @@ public class PlayerState implements Cloneable {
         return clone;
     }
 
-    private void removeMana(int manaAmount) {
-        this.mana -= manaAmount;
+    public void setMana(int manaAmount) {
+        this.mana += manaAmount;
     }
 
     private boolean verifyBet(int manaAmount) {

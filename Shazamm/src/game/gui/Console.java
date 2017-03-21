@@ -141,6 +141,9 @@ public class Console {
         return answer.equals("y");
     }
     
+    public static int askBet(){
+        return 0;
+    }
     
     public static void main(String[] args) {
         ArrayList<AbstractCard> hand = new ArrayList<>();

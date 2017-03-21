@@ -5,17 +5,16 @@
  */
 package game.cards;
 
-import game.Bridge;
+import game.Round;
 
 /**
  *
  * @author darven
  */
 public class SuckBet extends AbstractCard {
-    
-    
+
     @Override
-    public void apply(Bridge bridge){
-        
+    public void apply(Round round) {
+        round.getLastTurn().getBridge().getPlayerState1().
     }
 }
