@@ -52,11 +52,10 @@ public class Turn implements Cloneable {
             Turn resultTurn = (Turn) this.clone();
             
             //collect actions input
-            //TO CLEAN
             ArrayList<Integer> player1Cards = Console.askCards(
-                    this.bridge.getPlayerState1().getCardManager().getHand());
+                    this.bridge.getPlayerState1());
             ArrayList<Integer> player2Cards = Console.askCards(
-                    this.bridge.getPlayerState2().getCardManager().getHand());
+                    this.bridge.getPlayerState2());
             
             //apply actions to the turn
             

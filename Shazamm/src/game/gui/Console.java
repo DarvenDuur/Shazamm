@@ -5,6 +5,7 @@
  */
 package game.gui;
 
+import game.PlayerState;
 import game.cards.AbstractCard;
 import static game.cards.CardsEnum.CARDS;
 import game.cards.Mutism;
@@ -20,25 +21,26 @@ import java.util.regex.Pattern;
 public class Console {
     
     /**
-     * 
-     * @param hand
+     * Get input choice from user (with confirmation)
+     * @param cards
+     *      Cards available for choice
      * @return 
-     *      Cards form hand 
+     *      Cards chosen by the user
      */
-    public static ArrayList<Integer> askCards(ArrayList<AbstractCard> hand){
+    public static ArrayList<Integer> askCards(ArrayList<AbstractCard> cards){
         Scanner sc = new Scanner(System.in);
         ArrayList<Integer> output = new ArrayList<>();
         
         //safety mesure for unvalid parameters
-        if (hand == null || hand.isEmpty()){
+        if (cards == null || cards.isEmpty()){
             return new ArrayList<>();
         }
         
         do {
             //print all cards, and get all available IDs
             ArrayList<Integer> handIDs = new ArrayList<>();
-            System.out.println("You can use the folowing cards: ");
-            for (AbstractCard card : hand){
+            System.out.println("You can chose the folowing cards: ");
+            for (AbstractCard card : cards){
                 handIDs.add(card.getId());
                 System.out.println(String.format("%s. %s",
                         card.getId(), card.getName()));
@@ -61,7 +63,7 @@ public class Console {
             }
 
             //filter input
-            //IDs not contained in the hand
+            //IDs not contained in the cards
             ArrayList<Integer> refusedInput = new ArrayList<>();
             for (Integer integer : splitInput){
                 if (!handIDs.contains(integer)){
@@ -83,17 +85,42 @@ public class Console {
             
             //show confirmation
             if (output.isEmpty()){
-                System.out.println("No card will be used");
+                System.out.println("No card will be chosen");
             }else{
-                System.out.println("Those cards will be used:");
+                System.out.println("Those cards will be chosen:");
                 for (Integer integer : output){
                     System.out.println(CARDS[integer - 1].getName());
                 }
             }
             
-        }while(!getConfirmation("Do you whant to use those cards ?"));
+        }while(!getConfirmation("Do you whant to chose those cards ?"));
         
         return output;
+    }
+    
+    /**
+     * Warps askCards(hand) and displays 
+     * @param playerState
+     *      PlayerState of player to ask
+     * @return 
+     *      Cards from hand chosen by the user
+     * @see askCards(hand)
+     */
+    public static ArrayList<Integer> askCards(PlayerState playerState){
+        
+        ArrayList<AbstractCard> hand = playerState.getCardManager().getHand();
+        
+        //only if hand is not empty
+        if (!hand.isEmpty()){
+            String.format("Player %s (%s), please chose a card from your hand.",
+                    playerState.getPlayer().getColor(),
+                    playerState.getPlayer().getName());
+            
+            return askCards(hand);
+            
+        }else{
+            return new ArrayList<>();
+        }
     }
     
     /**
