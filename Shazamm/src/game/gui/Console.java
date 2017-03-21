@@ -138,7 +138,7 @@ public class Console {
      * @return 
      *      user's answer
      */
-    private static boolean getConfirmation(String question) {
+    public static boolean getConfirmation(String question) {
         Scanner sc = new Scanner(System.in);
         String answer = "";
         
@@ -149,8 +149,29 @@ public class Console {
         return answer.equals("y");
     }
     
+    /**
+     * 
+     * @return 
+     */
     public static int askBet(){
-        return 0;
+        Scanner sc = new Scanner(System.in);
+        
+        String input = "";
+        
+        while (input.isEmpty()){
+            //get input
+            System.out.println("Enter a bet:");
+            input = sc.nextLine();
+            
+            //filter input
+            Pattern reg = Pattern.compile("\\d+");
+            Matcher matcher = reg.matcher(input);
+            
+            input = matcher.group();
+        }
+        
+        //return first found number
+        return Integer.parseInt(input);
     }
     
     public static void main(String[] args) {

@@ -7,6 +7,7 @@
 package game;
 
 import game.cards.manager.CardManager;
+import game.gui.Console;
 
 /**
  *
@@ -16,34 +17,50 @@ public class PlayerState implements Cloneable {
     private final Player player;    // TO DO
 
     /*
-     *  0 for the middle of the bridge, < 0 for the left side of the bridge,
+     * 0 for the middle of the bridge, < 0 for the left side of the bridge,
      * > 0 for the right side of the bridge
      */
     private int position;
+    
+    // mana pool
     private int mana;
-    private CardManager cardManager;    // regroups deck, discarded cards and hand
+    
+    // bet
+    private int bet;
+    
+    // regroups deck, discarded cards and hand
+    private CardManager cardManager;    
 
     // TO DO
     public PlayerState(Player player, boolean belongPlayer1) {
-        this.player      = player;
+        this.player = player;
         this.cardManager = new CardManager(belongPlayer1);
-        this.mana        = Config.MAX_MANA;
-        this.position    = (this.player.getColor()) ? 3 : -3;
+        this.mana = Config.MAX_MANA;
+        this.bet = 0;
+        this.position = (this.player.getColor()) ? 3 : -3;
     }
 
+    
     public int getBet(){
-        
-        return 0;
+        return this.bet;
+    }
+    
+    public void setBet(int value){
+        this.bet = value;
     }
     
     public void bet() {
         boolean betDone = false;
-
+        int manaAmount = 0;
+        
+        //while input is invalid, ask for a valid bet
         while (!betDone) {
-            int manaAmount = Test.printAndIntReception("choose the amount of" + " mana to bet");
-
+            manaAmount = Console.askBet();
+            
             betDone = this.verifyBet(manaAmount);
         }
+        
+        this.bet = manaAmount; 
     }
 
     @Override

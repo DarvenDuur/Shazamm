@@ -20,9 +20,6 @@ public class Turn implements Cloneable {
     
     protected Bridge bridge;// TO DO
     
-    private int player1bet;
-    private int player2bet;
-    
     private boolean ended;
     
     private short winner; //0 for draw, -1 for player1, 1 for player2
@@ -81,22 +78,28 @@ public class Turn implements Cloneable {
             //generate next turn
             Turn resultTurn = (Turn) this.clone();
             
-            //collect actions input
-            ArrayList<AbstractCard> player1Cards = Console.askCards(
-                    this.bridge.getPlayerState1());
-            ArrayList<AbstractCard> player2Cards = Console.askCards(
-                    this.bridge.getPlayerState2());
+            //get current player states
+            PlayerState player1 = this.bridge.getPlayerState1();
+            PlayerState player2 = this.bridge.getPlayerState2();
             
-            //get bet
-
+            //collect actions input
+            ArrayList<AbstractCard> player1Cards = Console.askCards(player1);
+            ArrayList<AbstractCard> player2Cards = Console.askCards(player2);
+            
             //merge and sort card lists
             ArrayList<AbstractCard> cards = player1Cards;
             cards.addAll(player2Cards);
             Collections.sort(cards);
             
+            //get bet
+            player1.getBet();
+            player2.getBet();
+                    
             //apply actions to the turn
             
+            
             //apply bet
+            this.applyBets();
             
             return resultTurn;
             
@@ -110,13 +113,22 @@ public class Turn implements Cloneable {
      * set isPlayer1Winner to 0 for draw, -1 for player1, 1 for player2
      */
     public void applyBets(){
-        if (this.player1bet < this.player2bet){
-            this.winner = -1;
-        }else if (this.player1bet > this.player2bet){
+        //get bets
+        int player1bet = this.bridge.getPlayerState1().getBet();
+        int player2bet = this.bridge.getPlayerState2().getBet();
+        
+        //compare bets to determine winner
+        if (player1bet < player2bet){
             this.winner = 1;
+            
+        }else if (player1bet > player2bet){
+            this.winner = -1;
+            
         }else{
             this.winner = 0;
         }
+        
+        //end Turn
         this.ended = true;
     }
     
