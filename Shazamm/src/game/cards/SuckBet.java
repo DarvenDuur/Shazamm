@@ -21,7 +21,7 @@ public class SuckBet extends AbstractCard {
      */
     @Override
     public void apply(Round round) {   
-        super.getOwnerPLayer(round).setMana(
+        super.getOwnerPLayer(round).addMana(
                 super.getNotOwnerPlayer(round).getBet());
     }
 }

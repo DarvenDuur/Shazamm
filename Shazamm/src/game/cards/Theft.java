@@ -6,6 +6,7 @@
 package game.cards;
 
 import game.Bridge;
+import game.Round;
 
 /**
  *
@@ -14,9 +15,10 @@ import game.Bridge;
 public class Theft extends AbstractCard {
     
     
-    
+   
+
     @Override
-    public void apply(Bridge bridge){
-        
+    public void apply(Round round) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

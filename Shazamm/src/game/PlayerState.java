@@ -31,7 +31,11 @@ public class PlayerState implements Cloneable {
     // regroups deck, discarded cards and hand
     private CardManager cardManager;    
 
-    // TO DO
+    /**
+     * init a playerState and create a cardManager automatically
+     * @param player
+     * @param belongPlayer1 
+     */
     public PlayerState(Player player, boolean belongPlayer1) {
         this.player = player;
         this.cardManager = new CardManager(belongPlayer1);
@@ -39,16 +43,7 @@ public class PlayerState implements Cloneable {
         this.bet = 0;
         this.position = (this.player.getColor()) ? 3 : -3;
     }
-
-    
-    public int getBet(){
-        return this.bet;
-    }
-    
-    public void setBet(int value){
-        this.bet = value;
-    }
-    
+ 
     public void bet() {
         boolean betDone = false;
         int manaAmount = 0;
@@ -60,9 +55,14 @@ public class PlayerState implements Cloneable {
             betDone = this.verifyBet(manaAmount);
         }
         
-        this.bet = manaAmount; 
+        this.setBet(manaAmount); 
     }
 
+    /**
+     * @see Object.clone()
+     * @return
+     * @throws CloneNotSupportedException 
+     */
     @Override
     public Object clone() throws CloneNotSupportedException {
         PlayerState clone = (PlayerState) super.clone();
@@ -72,12 +72,16 @@ public class PlayerState implements Cloneable {
         return clone;
     }
 
-    public void setMana(int manaAmount) {
+    public void addMana(int manaAmount) {
         this.mana += manaAmount;
     }
-
+    
+    /**
+     * @param manaAmount
+     * @return true if the bet is possible
+     */
     private boolean verifyBet(int manaAmount) {
-        if (manaAmount > this.mana) {
+        if (manaAmount > this.getMana()) {
             System.out.println("error");
 
             return false;
@@ -112,6 +116,27 @@ public class PlayerState implements Cloneable {
      */
     public void setPosition(int position) {
         this.position = position;
+    }
+
+    /**
+     * @return the bet
+     */
+    public int getBet() {
+        return bet;
+    }
+
+    /**
+     * @return the mana
+     */
+    public int getMana() {
+        return mana;
+    }
+
+    /**
+     * @param bet the bet to set
+     */
+    public void setBet(int bet) {
+        this.bet = bet;
     }
 }
 
