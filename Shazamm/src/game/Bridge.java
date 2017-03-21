@@ -139,4 +139,10 @@ public class Bridge implements Cloneable {
     public int getSize() {
         return this.SIZE;
     }
+    
+//***************************** OTHER ******************************************
+
+    public void addFirewallLocation(int add){
+        this.firewallLocation += add;
+    }
 }

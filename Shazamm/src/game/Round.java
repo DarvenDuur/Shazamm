@@ -125,6 +125,14 @@ public class Round {
     }
     
     /**
+     * Return the last bridge
+     * @return 
+     */
+    public Bridge getSecondLastBridge(){
+        return this.getSecondLastTurn().getBridge();
+    }
+    
+    /**
      * return the last playstate 1
      * @return 
      */

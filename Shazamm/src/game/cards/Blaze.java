@@ -5,7 +5,7 @@
  */
 package game.cards;
 
-import game.Bridge;
+import game.Round;
 
 /**
  *
@@ -13,11 +13,25 @@ import game.Bridge;
  */
 public class Blaze extends AbstractCard {
     
-    
-    
-    
+    /**
+     * The fire wall moves two spaces instead of one. Only if he had to move.
+     * @param round
+     * 
+     * @author Adrien
+     */
     @Override
-    public void apply(Bridge bridge){
+    public void apply(Round round) {
+        //Second last fire wall location
+        int secondLast = round.getSecondLastBridge().getFirewallLocation();
         
+        //Last fire wall location
+        int last = round.getLastBridge().getFirewallLocation();
+        
+        if(secondLast < last){
+            round.getLastBridge().addFirewallLocation(1);
+        }
+        else if(secondLast > last){
+            round.getLastBridge().addFirewallLocation(-1);
+        }
     }
 }
