@@ -73,7 +73,6 @@ public class Turn implements Cloneable {
     /**
      * apply end of turn actions:
      *      - each player draws cards (number set in Config.END_OF_ROUND_DRAW)
-     *      - mana stored is reset
      */
     public void endOfRoundActions(){
         PlayerState player1, player2;

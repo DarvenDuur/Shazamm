@@ -61,7 +61,8 @@ public class Round {
         this.turns.add(initTurn);
     }
     /**
-     * Create a new round from another round, as the next round
+     * Create a new round from another round, as the round following it
+     *      call endOfRoundActions()
      * @param round
      */
     public Round(Round round) {
