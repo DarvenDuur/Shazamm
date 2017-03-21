@@ -103,8 +103,15 @@ public abstract class AbstractCard implements Cloneable, Comparable<AbstractCard
      */
     protected PlayerState getOwnerPLayer(Round round){
         if(this.isBelongPlayer1()){
-           return round.getLastTurn().getBridge().getPlayerState1(); 
+           return round.getLastPlayerStateOne();
         }
-        return round.getLastTurn().getBridge().getPlayerState2();
+        return round.getLastPlayerStateTwo();
+    }
+    
+    protected PlayerState getNotOwnerPlayer(Round round){
+        if(this.isBelongPlayer1()){
+           return round.getLastPlayerStateTwo();
+        }
+        return round.getLastPlayerStateOne();
     }
 }

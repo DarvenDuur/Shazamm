@@ -115,7 +115,31 @@ public class Round {
             return this.turns.get(this.turns.size()-2);
         }
     }
-
+    
+    /**
+     * Return the last bridge
+     * @return 
+     */
+    public Bridge getLastBridge(){
+        return this.getLastTurn().getBridge();
+    }
+    
+    /**
+     * return the last playstate 1
+     * @return 
+     */
+    public PlayerState getLastPlayerStateOne(){
+        return this.getLastBridge().getPlayerState1();
+    }
+    
+    /**
+     * return the last playstate 2
+     * @return 
+     */
+    public PlayerState getLastPlayerStateTwo(){
+        return this.getLastBridge().getPlayerState1();
+    }
+    
     /**
      * @return the ended
      */
