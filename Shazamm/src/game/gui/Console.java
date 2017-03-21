@@ -27,9 +27,9 @@ public class Console {
      * @return 
      *      Cards chosen by the user
      */
-    public static ArrayList<Integer> askCards(ArrayList<AbstractCard> cards){
+    public static ArrayList<AbstractCard> askCards(ArrayList<AbstractCard> cards){
         Scanner sc = new Scanner(System.in);
-        ArrayList<Integer> output = new ArrayList<>();
+        ArrayList<Integer> acceptedInput = new ArrayList<>();
         
         //safety mesure for unvalid parameters
         if (cards == null || cards.isEmpty()){
@@ -69,7 +69,7 @@ public class Console {
                 if (!handIDs.contains(integer)){
                     refusedInput.add(integer);
                 }else{
-                    output.add(integer);
+                    acceptedInput.add(integer);
                 }
             }
 
@@ -84,16 +84,24 @@ public class Console {
             }
             
             //show confirmation
-            if (output.isEmpty()){
+            if (acceptedInput.isEmpty()){
                 System.out.println("No card will be chosen");
             }else{
                 System.out.println("Those cards will be chosen:");
-                for (Integer integer : output){
+                for (Integer integer : acceptedInput){
                     System.out.println(CARDS[integer - 1].getName());
                 }
             }
             
         }while(!getConfirmation("Do you whant to chose those cards ?"));
+        
+        //get card from integer
+        ArrayList<AbstractCard> output = new ArrayList<>();
+        for (AbstractCard card : cards){
+            if (acceptedInput.contains(card.getId())){
+                output.add(card);
+            }
+        }
         
         return output;
     }
@@ -106,7 +114,7 @@ public class Console {
      *      Cards from hand chosen by the user
      * @see askCards(hand)
      */
-    public static ArrayList<Integer> askCards(PlayerState playerState){
+    public static ArrayList<AbstractCard> askCards(PlayerState playerState){
         
         ArrayList<AbstractCard> hand = playerState.getCardManager().getHand();
         

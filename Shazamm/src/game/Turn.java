@@ -5,8 +5,10 @@
  */
 package game;
 
+import game.cards.AbstractCard;
 import game.gui.Console;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -52,18 +54,21 @@ public class Turn implements Cloneable {
             Turn resultTurn = (Turn) this.clone();
             
             //collect actions input
-            ArrayList<Integer> player1Cards = Console.askCards(
+            ArrayList<AbstractCard> player1Cards = Console.askCards(
                     this.bridge.getPlayerState1());
-            ArrayList<Integer> player2Cards = Console.askCards(
+            ArrayList<AbstractCard> player2Cards = Console.askCards(
                     this.bridge.getPlayerState2());
             
-            //filter cards by player ? (with boolean ?)
+            //get bet
+
+            //merge and sort card lists
+            ArrayList<AbstractCard> cards = player1Cards;
+            cards.addAll(player2Cards);
+            Collections.sort(cards);
             
-            
-            //sort cards
             //apply actions to the turn
             
-            
+            //apply bet
             
             return resultTurn;
             
