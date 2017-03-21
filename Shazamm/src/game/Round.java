@@ -202,6 +202,11 @@ public class Round {
                         
             //add resulting turn to the turns
             this.turns.add(resultTurn);
+            
+            //check if the turn fills round end condition
+            if (this.getLastTurn().isRoundEnd()){
+                this.end();
+            }
         }
         
         /*true if, in the last turn of the round, at least one of the

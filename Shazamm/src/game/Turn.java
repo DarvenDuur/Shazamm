@@ -61,6 +61,27 @@ public class Turn implements Cloneable {
         return winner;
     }
     
+    /**
+     * check if this turn fills end of round condition
+     * @return
+     *      true if this fills round end conditions
+     */
+    public boolean isRoundEnd(){
+        int firewall = this.bridge.getFirewallLocation();
+        int player1Position = this.bridge.getPlayerState1().getPosition();
+        int player2Position = this.bridge.getPlayerState2().getPosition();
+        
+        boolean firewallKill = (firewall <= player1Position) ||
+                (firewall >= player2Position);
+        
+        int player1Mana = this.bridge.getPlayerState1().getMana();
+        int player2Mana = this.bridge.getPlayerState2().getMana();
+        
+        boolean manaRounout = player1Mana <= 0 || player2Mana <= 0;
+        
+        return firewallKill || manaRounout;
+    }
+    
 //******************************************************************************
     
     /**
