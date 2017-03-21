@@ -19,13 +19,20 @@ import java.util.logging.Logger;
 public class Turn implements Cloneable {
     
     protected Bridge bridge;// TO DO
+    
+    private int player1bet;
+    private int player2bet;
+    
+    private boolean ended;
+    
+    private short winner; //0 for draw, -1 for player1, 1 for player2
 
 //***************************** CONSTRUCTOR ************************************
+    
     // TO DO
     public Turn(Bridge bridge) {
         this.bridge = bridge;
     }
-    
     
 //***************************** GETTER *****************************************
     /**
@@ -39,8 +46,29 @@ public class Turn implements Cloneable {
     public Object clone() throws CloneNotSupportedException{
         Turn clone = (Turn) super.clone();
         clone.bridge = (Bridge) clone.bridge.clone();
+        
+        //default bets
+        clone.player1bet = 0;
+        clone.player2bet = 0;
+        
+        //default end and turn victory
+        clone.ended = false;
+        clone.winner = 0;
+        
         return clone;
     }
+
+    /**
+     * @return 0 for draw, -1 for player1, 1 for player2
+     */
+    public short getWinner() {
+        if (this.ended) {
+            System.out.println("Warning: checking winner in unended turn");
+        }
+        return winner;
+    }
+    
+//******************************************************************************
     
     /**
      * Play turn 
@@ -76,6 +104,20 @@ public class Turn implements Cloneable {
             Logger.getLogger(Turn.class.getName()).log(Level.SEVERE, null, ex);
             return this;
         }    
+    }
+    
+    /**
+     * set isPlayer1Winner to 0 for draw, -1 for player1, 1 for player2
+     */
+    public void applyBets(){
+        if (this.player1bet < this.player2bet){
+            this.winner = -1;
+        }else if (this.player1bet > this.player2bet){
+            this.winner = 1;
+        }else{
+            this.winner = 0;
+        }
+        this.ended = true;
     }
     
     /**
