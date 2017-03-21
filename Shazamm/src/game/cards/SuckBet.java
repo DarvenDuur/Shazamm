@@ -13,12 +13,20 @@ import game.Round;
  */
 public class SuckBet extends AbstractCard {
 
+    /**
+     * The Mana Reserve increases by the amount of the opponent's bet.
+     * @param round
+     * 
+     * @author Adrien
+     */
     @Override
     public void apply(Round round) {
+        //Application for player 1
         if(isBelongPlayer1()){
             round.getLastTurn().getBridge().getPlayerState1().setMana(
                 round.getLastTurn().getBridge().getPlayerState2().getBet());
         }
+        //Application for player 2
         else{
             round.getLastTurn().getBridge().getPlayerState2().setMana(
                 round.getLastTurn().getBridge().getPlayerState1().getBet());
