@@ -57,6 +57,8 @@ public class Turn implements Cloneable {
             ArrayList<Integer> player2Cards = Console.askCards(
                     this.bridge.getPlayerState2());
             
+            //filter cards by player ? (with boolean ?)
+            //sort cards
             //apply actions to the turn
             
             
