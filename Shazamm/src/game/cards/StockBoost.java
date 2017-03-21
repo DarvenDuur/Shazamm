@@ -21,13 +21,6 @@ public class StockBoost extends AbstractCard {
      */
     @Override
     public void apply(Round round) {
-        //Application for player 1
-        if(isBelongPlayer1()){
-            round.getLastTurn().getBridge().getPlayerState1().setMana(13);
-        }
-        //Application for player 2
-        else{
-            round.getLastTurn().getBridge().getPlayerState2().setMana(13);
-        }
+        super.getOwnerPLayer(round).setMana(13);
     }
 }
