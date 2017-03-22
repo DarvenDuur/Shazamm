@@ -25,23 +25,32 @@ public class PlayerState implements Cloneable {
     // mana pool
     private int mana;
     
-    // bet
+    // bet (amont of mana)
     private int bet;
     
     // regroups deck, discarded cards and hand
     private CardManager cardManager;    
 
     /**
-     * init a playerState and create a cardManager automatically
+     * CONSTRUCTOR:
+     *      initialize CardManager
+     *      set position to -3 if player is player 1, 3 otherwise
+     *      set mana to the max
      * @param player
-     * @param belongPlayer1 
+     *      player to create this state from
+     * @param isPlayer1 
+     *      true if player is player 1
      */
-    public PlayerState(Player player, boolean belongPlayer1) {
+    public PlayerState(Player player, boolean isPlayer1) {
         this.player = player;
-        this.cardManager = new CardManager(belongPlayer1);
+        this.cardManager = new CardManager(isPlayer1);
+        
+        //mana and bet
         this.mana = Config.MAX_MANA;
         this.bet = 0;
-        this.position = (this.player.getColor()) ? 3 : -3;
+        
+        //initalize position
+        this.position = (isPlayer1) ? -3 : 3;
     }
  
     /**
