@@ -19,24 +19,6 @@ public class Bridge implements Cloneable {
      */
     private int firewallLocation;    
 
-//**************************** MUTISM ******************************************
-    
-    private boolean mute;
-
-    /**
-     * @return the mute
-     */
-    public boolean isMute() {
-        return mute;
-    }
-    
-    /**
-     * mute to false
-     */
-    public void setMute() {
-        this.mute = true;
-    }
-
 //**************************** CONSTRUCTOR *************************************
     
     public Bridge(PlayerState player1, PlayerState player2) {
@@ -48,7 +30,6 @@ public class Bridge implements Cloneable {
         this.playerState2     = player2;
         this.SIZE             = size;
         this.firewallLocation = firewallLocation;
-        this.mute             = false;
     }
 
 //******************************************************************************

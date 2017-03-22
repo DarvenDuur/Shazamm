@@ -6,6 +6,7 @@
 package game.cards;
 
 import game.Bridge;
+import game.Round;
 
 /**
  *
@@ -18,9 +19,7 @@ public class Mutism extends AbstractCard {
     }
     
     @Override
-    public void apply(Bridge bridge, boolean firstPlayer){
-        if (super.generalApply(bridge, firstPlayer)){
-            bridge.setMute();
-        }
+    public void apply(Round round){
+        round.getLastTurn().setMute();
     }
 }

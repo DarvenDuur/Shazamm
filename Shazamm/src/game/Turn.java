@@ -29,6 +29,9 @@ public class Turn implements Cloneable {
     // TO DO
     public Turn(Bridge bridge) {
         this.bridge = bridge;
+        this.mute = false;
+        this.ended = false;
+        this.winner = 0;
     }
     
 //***************************** GETTER *****************************************
@@ -79,6 +82,24 @@ public class Turn implements Cloneable {
         this.ended = true;
     }
     
+//**************************** MUTISM ******************************************
+    
+    private boolean mute;
+
+    /**
+     * @return the mute
+     */
+    public boolean isMute() {
+        return mute;
+    }
+    
+    /**
+     * mute to false
+     */
+    public void setMute() {
+        this.mute = true;
+    }
+
 //******************************************************************************
     
     @Override

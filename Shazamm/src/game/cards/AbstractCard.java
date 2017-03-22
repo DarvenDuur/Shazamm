@@ -33,10 +33,8 @@ public abstract class AbstractCard implements Cloneable, Comparable<AbstractCard
     
     /**
      * specific action, must call generalApply
-     * @param bridge
-     *      bridge to which action will be applied
-     * @param firstPlayer 
-     *      true if the first player apply the action
+     * @param round
+     *      round to which apply the card
      */
     public abstract void apply(Round round);
     
@@ -53,7 +51,7 @@ public abstract class AbstractCard implements Cloneable, Comparable<AbstractCard
      */
     protected boolean generalApply(Round round){
         
-        if (round.getLastTurn().getBridge().isMute()){
+        if (round.getLastTurn().isMute()){
             return false;
         }
         return true;
