@@ -14,7 +14,8 @@ import game.gui.Console;
  * @author darven
  */
 public class PlayerState implements Cloneable {
-    private final Player player;    // TO DO
+    // player informations
+    private final Player player;
 
     /*
      * 0 for the middle of the bridge, < 0 for the left side of the bridge,
@@ -31,6 +32,8 @@ public class PlayerState implements Cloneable {
     // regroups deck, discarded cards and hand
     private CardManager cardManager;    
 
+//***************************** CONSTRUCTOR ************************************
+    
     /**
      * CONSTRUCTOR:
      *      initialize CardManager
@@ -52,9 +55,64 @@ public class PlayerState implements Cloneable {
         //initalize position
         this.position = (isPlayer1) ? -3 : 3;
     }
- 
+    
+//***************************** GETTERS ****************************************
+
     /**
-     * call the method verifyBet while the input is an error and set the bet
+     * @return the cardManager
+     */
+    public CardManager getCardManager() {
+        return cardManager;
+    }
+
+    /**
+     * @return the player
+     */
+    public Player getPlayer() {
+        return player;
+    }
+
+    /**
+     * @return the position
+     */
+    public int getPosition() {
+        return position;
+    }
+
+    /**
+     * @return the bet
+     */
+    public int getBet() {
+        return bet;
+    }
+
+    /**
+     * @return the mana
+     */
+    public int getMana() {
+        return mana;
+    }
+    
+//***************************** SETTERS ****************************************
+
+    /**
+     * @param position the position to set
+     */
+    public void setPosition(int position) {
+        this.position = position;
+    }
+
+    /**
+     * @param bet the bet to set
+     */
+    public void setBet(int bet) {
+        this.bet = bet;
+    }
+ 
+//***************************** OTHER ******************************************
+    
+    /**
+     * get input for the bet and check if input is valid
      */
     public void bet() {
         boolean betDone = false;
@@ -84,12 +142,18 @@ public class PlayerState implements Cloneable {
         return clone;
     }
 
-    public void addMana(int manaAmount) {
-        this.mana += manaAmount;
+    /**
+     * add mana to the mana pool
+     * @param amount 
+     *      mana to add
+     */
+    public void addMana(int amount) {
+        this.mana += amount;
     }
     
     /**
-     * @param manaAmount
+     * check valitdity of inputed bet
+     * @param manaAmont value of the bet to check
      * @return true if the bet is possible
      */
     private boolean verifyBet(int manaAmount) {
@@ -101,56 +165,4 @@ public class PlayerState implements Cloneable {
 
         return true;
     }
-
-    /**
-     * @return the cardManager
-     */
-    public CardManager getCardManager() {
-        return cardManager;
-    }
-
-    /**
-     * @return the player
-     */
-    public Player getPlayer() {
-        return player;
-    }
-
-    /**
-     * @return the position
-     */
-    public int getPosition() {
-        return position;
-    }
-
-    /**
-     * @param position the position to set
-     */
-    public void setPosition(int position) {
-        this.position = position;
-    }
-
-    /**
-     * @return the bet
-     */
-    public int getBet() {
-        return bet;
-    }
-
-    /**
-     * @return the mana
-     */
-    public int getMana() {
-        return mana;
-    }
-
-    /**
-     * @param bet the bet to set
-     */
-    public void setBet(int bet) {
-        this.bet = bet;
-    }
 }
-
-
-//~ Formatted by Jindent --- http://www.jindent.com
