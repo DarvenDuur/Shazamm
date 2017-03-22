@@ -53,8 +53,18 @@ public class Bridge implements Cloneable {
      *      negative for the left side, positive for the right side
      */
     public void moveFirewallLocation(int amount) {
-        this.firewallLocation += amount;
-
+        this.setFirewallLocation(this.firewallLocation + amount);
+    }
+    
+    /**
+     * set the position of the firewall
+     * @param location
+     *      new firewall location
+     *      negative for the left side, positive for the right side
+     */
+    public void setFirewallLocation(int location){
+        this.firewallLocation = location;
+        
         // if firewall is too far on the left, move it back to aceptable limit
         if (this.firewallLocation < -this.SIZE) {
             this.firewallLocation = -this.SIZE;
@@ -123,7 +133,5 @@ public class Bridge implements Cloneable {
     
 //***************************** OTHER ******************************************
 
-    public void addFirewallLocation(int add){
-        this.firewallLocation += add;
-    }
+    
 }

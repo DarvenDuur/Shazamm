@@ -112,7 +112,7 @@ public class Round {
      * return the last playstate 1
      * @return 
      */
-    public PlayerState getLastPlayerStateOne(){
+    public PlayerState getLastPlayerState1(){
         return this.getLastBridge().getPlayerState1();
     }
     
@@ -120,7 +120,7 @@ public class Round {
      * return the last playstate 2
      * @return 
      */
-    public PlayerState getLastPlayerStateTwo(){
+    public PlayerState getLastPlayerState2(){
         return this.getLastBridge().getPlayerState1();
     }
 
