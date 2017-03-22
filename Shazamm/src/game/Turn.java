@@ -38,18 +38,6 @@ public class Turn implements Cloneable {
     public Bridge getBridge() {
         return bridge;
     }
-    
-    @Override
-    public Object clone() throws CloneNotSupportedException{
-        Turn clone = (Turn) super.clone();
-        clone.bridge = (Bridge) clone.bridge.clone();
-        
-        //default end and turn victory
-        clone.ended = false;
-        clone.winner = 0;
-        
-        return clone;
-    }
 
     /**
      * @return 0 for draw, -1 for player1, 1 for player2
@@ -82,7 +70,28 @@ public class Turn implements Cloneable {
         return firewallKill || manaRounout;
     }
     
+//***************************** SETTER *****************************************
+    
+    /**
+     * set ended to true
+     */
+    public void end(){
+        this.ended = true;
+    }
+    
 //******************************************************************************
+    
+    @Override
+    public Object clone() throws CloneNotSupportedException{
+        Turn clone = (Turn) super.clone();
+        clone.bridge = (Bridge) clone.bridge.clone();
+        
+        //default end and turn victory
+        clone.ended = false;
+        clone.winner = 0;
+        
+        return clone;
+    }
     
     /**
      * Play turn 
@@ -165,5 +174,61 @@ public class Turn implements Cloneable {
             player1.getCardManager().drawCard();
             player2.getCardManager().drawCard();
         }
+    }
+    
+    public Turn getNextRoundStarter(){
+        //break if turn not ended
+        if (!this.ended){
+            System.out.println("Warning: checking winner in unended turn");
+            return null;
+        }
+        
+        //recover bridge
+        Bridge bridge = this.getBridge();
+        
+        //init playerState
+        PlayerState playerState1 = new PlayerState(bridge.getPlayer1(), true);
+        PlayerState playerState2 = new PlayerState(bridge.getPlayer2(), false);
+        
+        //get previous location of firewall
+        int firewallLocation = bridge.getFirewallLocation();
+        
+        /*
+         * if any player lost, the firewall takes its position and the players
+         * are replaced 3 tiles from the firewall
+         */
+        if (this.winner != 0){
+            //set firewal to loser's position
+            if (this.winner < 0){
+                firewallLocation = bridge.getPlayerState2().getPosition();
+            }else{
+                firewallLocation = bridge.getPlayerState1().getPosition();
+            }
+            
+            //set players 3 tiles away
+            playerState1.setPosition(firewallLocation - 3);
+            playerState2.setPosition(firewallLocation + 3);
+            
+        //if tie, copy the positions of the firewall
+        }else{
+            //copy player 1 and 2 positions
+            playerState1.setPosition(bridge.getPlayerState1().getPosition());
+            playerState2.setPosition(bridge.getPlayerState2().getPosition());
+        }
+        
+        
+        //init the new turn's bridge
+        Bridge nextBridge = new Bridge(playerState1, playerState2, 
+                bridge.getSize()-1, 
+                firewallLocation);
+        
+        Turn initTurn = new Turn(nextBridge);
+        
+        //apply end of round actions
+        initTurn.endOfRoundActions();
+        initTurn.end();
+        
+        //return turn
+        return initTurn;
     }
 }

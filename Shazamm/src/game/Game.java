@@ -89,9 +89,12 @@ public class Game {
         if the last round added to rounds is not ended, will use it;
         otherwize use the data of the last round to create a new one*/
         if (rounds.isEmpty()){
-            round = new Round(this.player1, this.player2);
+            round = new Round(this.player1, this.player2, 
+                Config.BRIDGE_MAX_SIZE, 0);
+            
         }else if (rounds.getFirst().isEnded()){
             round = rounds.getFirst();
+            
         }else{
             round = new Round(this.rounds.getLast());
         }

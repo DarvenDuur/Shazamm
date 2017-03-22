@@ -13,8 +13,8 @@ import java.util.LinkedList;
  */
 public class Round {
     
-    private final LinkedList<Turn> turns; /*last turn of the list is the last turn 
-    played*/
+    private final LinkedList<Turn> turns; /* last turn of the list is the last 
+    turn played*/
 
     private boolean ended;
     
@@ -33,34 +33,20 @@ public class Round {
         //init empty list
         this.turns=new LinkedList<>();
         this.ended=false;
+        
         //init playerState
         PlayerState playerState1 = new PlayerState(player1, true);
         PlayerState playerState2 = new PlayerState(player2, false);
         
         //init the new turn 
         Bridge bridge =new Bridge(playerState1, playerState2, size, firewallLocation);
-        Turn initTurn=new Turn(bridge);
-        this.turns.add(initTurn);
-    }
-    /**
-     * Create a new round from players, best option for first round
-     * @param player1
-     * @param player2 
-     */
-    public Round(Player player1, Player player2) {
-        //init empty list
-        this.turns=new LinkedList<>();
-        this.ended=false;
-        
-        //init playerState
-        PlayerState playerState1 = new PlayerState(player1, true);
-        PlayerState playerState2 = new PlayerState(player2, false);
-        
-        //init the new turn 
-        Bridge bridge = new Bridge(playerState1, playerState2);
         Turn initTurn = new Turn(bridge);
+        
+        initTurn.end();
+        
         this.turns.add(initTurn);
     }
+    
     /**
      * Create a new round from another round, as the round following it
      *      call endOfRoundActions()
@@ -71,19 +57,9 @@ public class Round {
         this.turns=new LinkedList<>();
         this.ended=false;
         
-        //recover previous lest turn
-        Bridge lastBridge = round.getLastTurn().getBridge();
+        //recover initial turn from previous last turn
+        Turn initTurn = round.getLastTurn().getNextRoundStarter();
         
-        //init playerState
-        PlayerState playerState1 = new PlayerState(lastBridge.getPlayer1(), true);
-        PlayerState playerState2 = new PlayerState(lastBridge.getPlayer2(), false);
-        
-        //init the new turn 
-        Bridge bridge = new Bridge(playerState1, playerState2, 
-                lastBridge.getSize()-1, 
-                lastBridge.getFirewallLocation());
-        Turn initTurn = new Turn(bridge);
-        initTurn.endOfRoundActions();
         this.turns.add(initTurn);
     }   
     
@@ -147,6 +123,13 @@ public class Round {
     public PlayerState getLastPlayerStateTwo(){
         return this.getLastBridge().getPlayerState1();
     }
+
+    /**
+     * @return the winner
+     */
+    public short getWinner() {
+        return winner;
+    }
     
     /**
      * @return the ended
@@ -172,13 +155,6 @@ public class Round {
      */
     public void addTurn(Turn turn){
         this.turns.addLast(turn);
-    }
-
-    /**
-     * @return the winner
-     */
-    public short getWinner() {
-        return winner;
     }
 
     /**
