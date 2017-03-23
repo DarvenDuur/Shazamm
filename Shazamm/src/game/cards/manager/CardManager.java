@@ -9,10 +9,10 @@ import game.cards.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import static game.Config.HAND_REFILL_SIZE;
-import static game.Config.SUFFLE_STEPS;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Random;
+import static game.Config.SHUFFLE_STEPS;
 
 /**
  *
@@ -51,10 +51,10 @@ public class CardManager {
 //***************************** DECK SHUFFLE ***********************************
     
     /**
-     * suffle deck by swaping random cards SUFFLE_STEPS times
+     * suffle deck by swaping random cards SHUFFLE_STEPS times
      */
     private void shuffleDeck(){
-        for (int i=0; i < SUFFLE_STEPS; i++) {
+        for (int i=0; i < SHUFFLE_STEPS; i++) {
             this.swapDeckCards();
         }
     }
