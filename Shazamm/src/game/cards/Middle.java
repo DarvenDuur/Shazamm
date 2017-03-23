@@ -14,7 +14,10 @@ import game.Round;
  */
 public class Middle extends AbstractCard {
     
-    
+    public Middle(boolean belongPlayer1) {
+        this.id = CardsEnum.Middle.getId();
+        this.belongPlayer1=belongPlayer1;
+    }
     
     @Override
     public void apply(Round round){

@@ -15,6 +15,11 @@ import game.Round;
 public class WhoWinLose extends AbstractCard {
     
     
+    public WhoWinLose(boolean belongPlayer1) {
+        this.id = CardsEnum.WhoWinLose.getId();
+        this.belongPlayer1=belongPlayer1;
+    }
+    
     /**
      * @see AbstractCard.apply()
      * @param round 

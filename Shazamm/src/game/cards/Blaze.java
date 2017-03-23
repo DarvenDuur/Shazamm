@@ -13,6 +13,12 @@ import game.Round;
  */
 public class Blaze extends AbstractCard {
     
+    
+    public Blaze(boolean belongPlayer1) {
+        this.id = CardsEnum.Blaze.getId();
+        this.belongPlayer1=belongPlayer1;
+    }
+    
     /**
      * The fire wall moves two spaces instead of one. Only if he had to move.
      * @param round

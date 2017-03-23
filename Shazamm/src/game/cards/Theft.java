@@ -14,7 +14,10 @@ import game.Round;
  */
 public class Theft extends AbstractCard {
     
-    
+    public Theft(boolean belongPlayer1) {
+        this.id = CardsEnum.Theft.getId();
+        this.belongPlayer1=belongPlayer1;
+    }
    
 
     @Override

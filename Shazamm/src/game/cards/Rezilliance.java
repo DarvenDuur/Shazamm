@@ -14,6 +14,13 @@ import game.Round;
  */
 public class Rezilliance extends AbstractCard {
  
+    
+    
+    public Rezilliance(boolean belongPlayer1) {
+        this.id = CardsEnum.Rezilliance.getId();
+        this.belongPlayer1=belongPlayer1;
+    }
+    
     /**
      * If the wall of fire were to advance towards the player, it does not move.
      * @param round
