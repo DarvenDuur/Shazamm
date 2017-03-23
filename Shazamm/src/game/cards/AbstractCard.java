@@ -176,5 +176,4 @@ public abstract class AbstractCard implements Cloneable, Comparable<AbstractCard
         
         return card;
         }
-    }
 }
