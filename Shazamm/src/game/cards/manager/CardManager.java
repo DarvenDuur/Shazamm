@@ -78,20 +78,9 @@ public class CardManager {
      * initialize deck with a single exemplary of each card
      */
     private void initDeck() {
-        this.deck.add(new AttackBoost(this.belongPlayer1));
-        this.deck.add(new Blaze(this.belongPlayer1));
-        this.deck.add(new Clone(this.belongPlayer1));
-        this.deck.add(new DoubleDose(this.belongPlayer1));
-        this.deck.add(new EndOfRound(this.belongPlayer1));
-        this.deck.add(new Middle(this.belongPlayer1));
-        this.deck.add(new Mutism(this.belongPlayer1));
-        this.deck.add(new Recycling(this.belongPlayer1));
-        this.deck.add(new Rezilliance(this.belongPlayer1));
-        this.deck.add(new Scrooge(this.belongPlayer1));
-        this.deck.add(new StockBoost(this.belongPlayer1));
-        this.deck.add(new SuckBet(this.belongPlayer1));
-        this.deck.add(new Theft(this.belongPlayer1));
-        this.deck.add(new WhoWinLose(this.belongPlayer1));
+        for (int i = 14; i > 0; i--){
+            this.deck.add(AbstractCard.create(i, this.belongPlayer1));
+        }
     }
     
     /**

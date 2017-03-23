@@ -113,7 +113,7 @@ public abstract class AbstractCard implements Cloneable, Comparable<AbstractCard
         return round.getLastPlayerState1();
     }
     
-    public AbstractCard create(int id, boolean belongPlayer1){
+    public static AbstractCard create(int id, boolean belongPlayer1){
         AbstractCard card;
         
         switch (id){
