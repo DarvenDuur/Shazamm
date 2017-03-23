@@ -14,13 +14,27 @@ import game.Round;
  */
 public class Clone extends AbstractCard {
     
-     public Clone(boolean belongPlayer1) {
+    private AbstractCard clone;
+    
+    public Clone(boolean belongPlayer1) {
         this.id = CardsEnum.Clone.getId();
         this.belongPlayer1=belongPlayer1;
+        this.clone = null;
     }
    
     @Override
     protected void apply(Round round) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.clone.setStolen(!this.isStolen());
+        clone.apply(round);
+        this.clone = null;
+    }
+    
+    /**
+     * set cloned card
+     * @param clone 
+     *      cloned card
+     */
+    public void setClone(AbstractCard clone){
+        this.clone = clone;
     }
 }
