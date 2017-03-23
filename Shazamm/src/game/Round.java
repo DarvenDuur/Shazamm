@@ -144,7 +144,7 @@ public class Round {
      * set ended to false: end the round, necessary to avoid doing extra turns 
      *      or replaying the whole round
      */
-    protected void end(){
+    public void end(){
         this.ended=true;
     }
     

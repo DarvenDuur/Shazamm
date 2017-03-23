@@ -15,9 +15,13 @@ import game.Round;
 public class EndOfRound extends AbstractCard {
     
     
-    
+    /**
+     * end round and reset players' position 3 tiles away from firewall
+     * @param round 
+     */
     @Override
     public void apply(Round round){
-        
+        round.getLastBridge().replacePlayers();
+        round.end();
     }
 }

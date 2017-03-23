@@ -133,5 +133,12 @@ public class Bridge implements Cloneable {
     
 //***************************** OTHER ******************************************
 
-    
+    /**
+     * set players 3 tiles away from firewall
+     */
+    public void replacePlayers(){
+        //set players 3 tiles away
+        this.playerState1.setPosition(this.firewallLocation - 3);
+        this.playerState2.setPosition(this.firewallLocation + 3);
+    }
 }

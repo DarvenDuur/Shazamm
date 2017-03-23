@@ -214,10 +214,7 @@ public class Turn implements Cloneable {
         //get previous location of firewall
         int firewallLocation = bridge.getFirewallLocation();
         
-        /*
-         * if any player lost, the firewall takes its position and the players
-         * are replaced 3 tiles from the firewall
-         */
+        //if any player lost, the firewall takes its position 
         if (this.winner != 0){
             //set firewal to loser's position
             if (this.winner < 0){
@@ -226,11 +223,7 @@ public class Turn implements Cloneable {
                 firewallLocation = bridge.getPlayerState1().getPosition();
             }
             
-            //set players 3 tiles away
-            playerState1.setPosition(firewallLocation - 3);
-            playerState2.setPosition(firewallLocation + 3);
-            
-        //if tie, copy the positions of the firewall
+        //if tie, copy the positions of the firewall and the players
         }else{
             //copy player 1 and 2 positions
             playerState1.setPosition(bridge.getPlayerState1().getPosition());
@@ -245,11 +238,16 @@ public class Turn implements Cloneable {
         
         Turn initTurn = new Turn(nextBridge);
         
+        //if any player lost, the players are replaced 3 tiles from the firewall
+        if(this.winner != 0){
+            nextBridge.replacePlayers();
+        }
+        
         //apply end of round actions
         initTurn.endOfRoundActions();
         initTurn.end();
         
         //return turn
         return initTurn;
-    }
+    } 
 }
