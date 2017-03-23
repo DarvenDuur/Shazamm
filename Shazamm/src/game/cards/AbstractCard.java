@@ -17,7 +17,7 @@ public abstract class AbstractCard implements Cloneable, Comparable<AbstractCard
     
     protected boolean belongPlayer1; //true if card belong to player 1
     
-    private boolean stolen; //true if card is used by the posessor's adversary
+    private boolean stolen = false; //true if card is used by the posessor's adversary
 
 //******************************************************************************    
     

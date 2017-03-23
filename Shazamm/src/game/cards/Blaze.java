@@ -27,17 +27,6 @@ public class Blaze extends AbstractCard {
      */
     @Override
     protected void apply(Round round) {
-        //Second last fire wall location
-        int secondLast = round.getSecondLastBridge().getFirewallLocation();
-        
-        //Last fire wall location
-        int last = round.getLastBridge().getFirewallLocation();
-        
-        if(secondLast < last){
-            round.getLastBridge().moveFirewallLocation(1);
-        }
-        else if(secondLast > last){
-            round.getLastBridge().moveFirewallLocation(-1);
-        }
+        round.getLastBridge().setBlaze();
     }
 }
