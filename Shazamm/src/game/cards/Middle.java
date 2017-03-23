@@ -20,7 +20,7 @@ public class Middle extends AbstractCard {
     }
     
     @Override
-    public void apply(Round round){
+    protected void apply(Round round){
         int player1Location = round.getLastPlayerState1().getPosition();
         int player2Location = round.getLastPlayerState2().getPosition();
         

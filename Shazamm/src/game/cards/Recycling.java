@@ -26,7 +26,7 @@ public class Recycling extends AbstractCard {
      * @param round 
      */
     @Override
-    public void apply(Round round){
+    protected void apply(Round round){
         PlayerState ownerPlayer=super.getOwnerPLayer(round);
         if(Console.getConfirmation("do you want to up to 5 you mana")){
             ownerPlayer.setBet(ownerPlayer.getPowerAttack()+5);

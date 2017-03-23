@@ -24,7 +24,7 @@ public class Mutism extends AbstractCard {
     }
     
     @Override
-    public void apply(Round round){
+    protected void apply(Round round){
         round.getLastTurn().setMute();
     }
 }

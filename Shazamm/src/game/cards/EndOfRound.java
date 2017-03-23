@@ -26,7 +26,7 @@ public class EndOfRound extends AbstractCard {
      * @param round 
      */
     @Override
-    public void apply(Round round){
+    protected void apply(Round round){
         round.getLastBridge().replacePlayers();
         round.end();
     }

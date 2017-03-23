@@ -20,10 +20,11 @@ public class AttackBoost extends AbstractCard {
         this.belongPlayer1=belongPlayer1;
     }
     @Override
+    
     /**
      * add 7 points of mana to the attack
      */
-    public void apply(Round round){
+    protected void apply(Round round){
         PlayerState player =super.getOwnerPLayer(round);
         player.setPowerAttack(player.getPowerAttack()+7);
     }

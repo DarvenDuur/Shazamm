@@ -20,7 +20,7 @@ public class Clone extends AbstractCard {
     }
    
     @Override
-    public void apply(Round round) {
+    protected void apply(Round round) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

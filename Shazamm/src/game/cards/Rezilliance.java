@@ -28,7 +28,7 @@ public class Rezilliance extends AbstractCard {
      * @author Adrien
      */
     @Override
-    public void apply(Round round) {
+    protected void apply(Round round) {
         
         short winner =round.getLastTurn().getWinner();
         

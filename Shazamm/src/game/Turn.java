@@ -148,7 +148,7 @@ public class Turn implements Cloneable {
                     
             //apply cards' action to the turn
             for (AbstractCard card : cards){
-                card.apply(round);
+                card.generalApply(round);
             }
             
             //apply bet
