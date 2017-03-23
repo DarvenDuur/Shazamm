@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import static game.Config.HAND_REFILL_SIZE;
 import static game.Config.SUFFLE_STEPS;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Random;
 
 /**
@@ -131,6 +133,29 @@ public class CardManager {
             return true;
         }else{
             return false;
+        }
+    }
+    
+    /**
+     * discard inputed card if found in deck
+     * @param card 
+     *      card to discard
+     */
+    public void discardCard(AbstractCard card){
+        int cardIndex = Collections.binarySearch(this.deck, card);
+        if(cardIndex >= 0){
+            this.discardCard(cardIndex);
+        }
+    }
+    
+    /**
+     * discard all inputed cards if found in the deck
+     * @param cards 
+     *      cards to discard
+     */
+    public void discardAll(ArrayList<AbstractCard> cards){
+        for (AbstractCard card : cards){
+            this.discardCard(card);
         }
     }
     
