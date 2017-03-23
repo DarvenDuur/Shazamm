@@ -6,6 +6,7 @@
 package game.cards;
 
 import game.Bridge;
+import game.Round;
 
 /**
  *
@@ -16,7 +17,7 @@ public class EndOfRound extends AbstractCard {
     
     
     @Override
-    public void apply(Bridge bridge){
+    public void apply(Round round){
         
     }
 }

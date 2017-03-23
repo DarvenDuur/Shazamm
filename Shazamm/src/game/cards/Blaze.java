@@ -28,10 +28,10 @@ public class Blaze extends AbstractCard {
         int last = round.getLastBridge().getFirewallLocation();
         
         if(secondLast < last){
-            round.getLastBridge().addFirewallLocation(1);
+            round.getLastBridge().moveFirewallLocation(1);
         }
         else if(secondLast > last){
-            round.getLastBridge().addFirewallLocation(-1);
+            round.getLastBridge().moveFirewallLocation(-1);
         }
     }
 }
