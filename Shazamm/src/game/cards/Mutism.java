@@ -14,8 +14,13 @@ import game.Round;
  */
 public class Mutism extends AbstractCard {
 
-    public Mutism() {
+    /**
+     * Constructor for Mutism
+     * @param belongPlayer1 
+     */
+    public Mutism(boolean belongPlayer1) {
         this.id = CardsEnum.Mutism.getId();
+        this.belongPlayer1=belongPlayer1;
     }
     
     @Override

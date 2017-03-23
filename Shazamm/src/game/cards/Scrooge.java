@@ -14,6 +14,12 @@ import game.Round;
  */
 public class Scrooge extends AbstractCard {
 
+    
+    public Scrooge(boolean belongPlayer1) {
+        this.id = CardsEnum.Scrooge.getId();
+        this.belongPlayer1=belongPlayer1;
+    }
+    
     /**
      * If this turn is lost, the stake is not removed from my Mana reserve.
      * @param round

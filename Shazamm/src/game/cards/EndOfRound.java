@@ -15,6 +15,12 @@ import game.Round;
 public class EndOfRound extends AbstractCard {
     
     
+    public EndOfRound(boolean belongPlayer1) {
+        this.id = CardsEnum.EndOfRound.getId();
+        this.belongPlayer1=belongPlayer1;
+    }
+    
+    
     /**
      * end round and reset players' position 3 tiles away from firewall
      * @param round 

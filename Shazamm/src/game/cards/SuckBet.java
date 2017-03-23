@@ -13,6 +13,12 @@ import game.Round;
  */
 public class SuckBet extends AbstractCard {
 
+    
+    public SuckBet(boolean belongPlayer1) {
+        this.id = CardsEnum.SuckBet.getId();
+        this.belongPlayer1=belongPlayer1;
+    }
+    
     /**
      * The Mana Reserve increases by the amount of the opponent's bet.
      * @param round

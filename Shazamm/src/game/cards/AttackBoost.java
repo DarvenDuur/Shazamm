@@ -14,8 +14,11 @@ import game.Round;
  * @author darven
  */
 public class AttackBoost extends AbstractCard {
-    
-    
+   
+    public AttackBoost(boolean belongPlayer1) {
+        this.id = CardsEnum.AttackBoost.getId();
+        this.belongPlayer1=belongPlayer1;
+    }
     @Override
     /**
      * add 7 points of mana to the attack

@@ -13,6 +13,11 @@ import game.Round;
  */
 public class StockBoost extends AbstractCard {
 
+    public StockBoost(boolean belongPlayer1) {
+        this.id = CardsEnum.StockBoost.getId();
+        this.belongPlayer1=belongPlayer1;
+    }
+    
     /**
      * Mana reserve increases by 13 points. After I paid what I owe.
      * @param round

@@ -6,23 +6,21 @@
 package game.cards;
 
 import game.Bridge;
+import game.Round;
 
 /**
  *
  * @author darven
  */
 public class Clone extends AbstractCard {
- 
     
-    
+     public Clone(boolean belongPlayer1) {
+        this.id = CardsEnum.Clone.getId();
+        this.belongPlayer1=belongPlayer1;
+    }
+   
     @Override
-    public void apply(Bridge bridge, boolean firstPlayer){
-        if (super.generalApply(bridge, firstPlayer)){
-            if (firstPlayer){
-                throw new UnsupportedOperationException("Clone does not work yet");
-            }else{
-                throw new UnsupportedOperationException("Clone does not work yet");
-            }
-        }
+    public void apply(Round round) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

@@ -16,6 +16,12 @@ import game.Round;
 public class DoubleDose extends AbstractCard {
     
     
+    
+    public DoubleDose(boolean belongPlayer1) {
+        this.id = CardsEnum.DoubleDose.getId();
+        this.belongPlayer1=belongPlayer1;
+    }
+    
     /**
      * double the bet
      */
