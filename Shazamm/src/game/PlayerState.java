@@ -29,6 +29,9 @@ public class PlayerState implements Cloneable {
     // bet (amont of mana)
     private int bet;
     
+    //the power of the attack
+    private int powerAttack;
+    
     // regroups deck, discarded cards and hand
     private CardManager cardManager;    
 
@@ -126,8 +129,10 @@ public class PlayerState implements Cloneable {
         }
         
         this.setBet(manaAmount); 
+        this.setPowerAttack(manaAmount);
     }
 
+    
     /**
      * @see Object.clone()
      * @return a clone of the playerState
@@ -164,5 +169,19 @@ public class PlayerState implements Cloneable {
         }
 
         return true;
+    }
+
+    /**
+     * @return the powerAttack
+     */
+    public int getPowerAttack() {
+        return powerAttack;
+    }
+
+    /**
+     * @param powerAttack the powerAttack to set
+     */
+    public void setPowerAttack(int powerAttack) {
+        this.powerAttack = powerAttack;
     }
 }

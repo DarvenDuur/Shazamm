@@ -26,8 +26,8 @@ public class Recycling extends AbstractCard {
     public void apply(Round round){
         PlayerState ownerPlayer=super.getOwnerPLayer(round);
         if(Console.getConfirmation("do you want to up to 5 you mana")){
-            ownerPlayer.setBet(ownerPlayer.getBet()+5);
+            ownerPlayer.setBet(ownerPlayer.getPowerAttack()+5);
         }
-        ownerPlayer.setBet(ownerPlayer.getBet()-5);    
+        ownerPlayer.setBet(ownerPlayer.getPowerAttack()-5);    
     }
 }
