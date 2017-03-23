@@ -5,6 +5,7 @@
  */
 package game.cards;
 
+import game.PlayerState;
 import game.Round;
 
 /**
@@ -21,15 +22,16 @@ public class Rezilliance extends AbstractCard {
      */
     @Override
     public void apply(Round round) {
-        //Application for player 1
-        if(isBelongPlayer1() && round.getSecondLastTurn().getWinner() == -1){
-            round.getLastTurn().getBridge().getPlayerState1().addMana(
-                round.getLastTurn().getBridge().getPlayerState1().getBet());
+        
+        short winner =round.getLastTurn().getWinner();
+        
+        //case where the player 1 use this card and the card is effective
+        if((isBelongPlayer1() &&  winner==1)){
+            round.getLastBridge().setRezilliancePlayer1(true);
         }
-        //Application for player 2
-        else if(!isBelongPlayer1() && round.getSecondLastTurn().getWinner() == 1){
-            round.getLastTurn().getBridge().getPlayerState2().addMana(
-                round.getLastTurn().getBridge().getPlayerState2().getBet());
+        //case where the player 2 use this card and the card is effective
+        else if(!isBelongPlayer1() && winner==-1){
+            round.getLastBridge().setRezilliancePlayer2(true);
         }
     }
 }

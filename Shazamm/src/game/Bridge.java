@@ -59,7 +59,10 @@ public class Bridge implements Cloneable {
      */
     public void moveFirewallLocation(int amount) {
         //invert amount if victory and loss are inverted
-        amount = this.invertWinLose ? -amount : amount;
+        amount *= this.invertWinLose ? -1 : 1;
+        if(this.rezilliancePlayer1||this.rezilliancePlayer2){
+            amount=0;
+        }
         
         //move firewall by amount
         this.setFirewallLocation(this.firewallLocation + amount);
@@ -151,6 +154,27 @@ public class Bridge implements Cloneable {
         this.invertWinLose = true;
     }
     
+//***************************** REZILLIANCE ************************************
+    private boolean rezilliancePlayer1;
+    private boolean rezilliancePlayer2;
+
+     /**
+     * @param rezilliancePlayer1 the rezilliancePlayer1 to set
+     */
+    public void setRezilliancePlayer1(boolean rezilliancePlayer1) {
+        this.rezilliancePlayer1 = rezilliancePlayer1;
+    }
+
+    /**
+     * @param rezilliancePlayer2 the rezilliancePlayer2 to set
+     */
+    public void setRezilliancePlayer2(boolean rezilliancePlayer2) {
+        this.rezilliancePlayer2 = rezilliancePlayer2;
+    }
+
+    
+    
+    
 //***************************** OTHER ******************************************
 
     /**
@@ -161,4 +185,7 @@ public class Bridge implements Cloneable {
         this.playerState1.setPosition(this.firewallLocation - 3);
         this.playerState2.setPosition(this.firewallLocation + 3);
     }
+
+   
+   
 }
