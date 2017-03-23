@@ -26,10 +26,12 @@ public class Bridge implements Cloneable {
     }    
     
     public Bridge(PlayerState player1, PlayerState player2, int size, int firewallLocation) {
-        this.playerState1          = player1;
-        this.playerState2     = player2;
-        this.SIZE             = size;
+        this.playerState1 = player1;
+        this.playerState2 = player2;
+        this.SIZE = size;
         this.firewallLocation = firewallLocation;
+        
+        this.invertWinLose = true;
     }
 
 //******************************************************************************
@@ -37,6 +39,8 @@ public class Bridge implements Cloneable {
     @Override
     public Object clone() throws CloneNotSupportedException {
         Bridge clone = (Bridge) super.clone();
+        
+        this.invertWinLose = true;
 
         clone.playerState1 = (PlayerState) clone.playerState1.clone();
         clone.playerState2 = (PlayerState) clone.playerState2.clone();
@@ -48,11 +52,16 @@ public class Bridge implements Cloneable {
 
     /**
      * move the firewall by specified amount
+     *      subject to win/lose inversion
      * @param amount
      *      amount of slots to move the firewall by
      *      negative for the left side, positive for the right side
      */
     public void moveFirewallLocation(int amount) {
+        //invert amount if victory and loss are inverted
+        amount = this.invertWinLose ? -amount : amount;
+        
+        //move firewall by amount
         this.setFirewallLocation(this.firewallLocation + amount);
     }
     
@@ -129,6 +138,17 @@ public class Bridge implements Cloneable {
      */
     public int getSize() {
         return this.SIZE;
+    }
+    
+//***************************** WHO WIN LOSE ***********************************
+    
+    private boolean invertWinLose;
+
+    /**
+     * set invertWinLose to true
+     */
+    public void setInvertWinLose() {
+        this.invertWinLose = true;
     }
     
 //***************************** OTHER ******************************************

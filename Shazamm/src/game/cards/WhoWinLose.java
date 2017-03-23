@@ -6,6 +6,7 @@
 package game.cards;
 
 import game.Bridge;
+import game.Round;
 
 /**
  *
@@ -14,9 +15,12 @@ import game.Bridge;
 public class WhoWinLose extends AbstractCard {
     
     
-    
+    /**
+     * @see AbstractCard.apply()
+     * @param round 
+     */
     @Override
-    public void apply(Bridge bridge){
-        
+    public void apply(Round round){
+        round.getLastBridge().setInvertWinLose();
     }
 }
