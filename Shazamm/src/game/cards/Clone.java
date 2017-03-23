@@ -24,9 +24,11 @@ public class Clone extends AbstractCard {
    
     @Override
     protected void apply(Round round) {
-        this.clone.setStolen(!this.isStolen());
-        clone.apply(round);
-        this.clone = null;
+        if (this.clone != null){
+            this.clone.setStolen(!this.isStolen());
+            clone.apply(round);
+            this.clone = null;
+        }
     }
     
     /**

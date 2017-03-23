@@ -167,8 +167,8 @@ public class Turn implements Cloneable {
             player2.getBet();
             
             //collect actions input
-            ArrayList<AbstractCard> player1Cards = Console.askCards(player1);
-            ArrayList<AbstractCard> player2Cards = Console.askCards(player2);
+            ArrayList<AbstractCard> player1Cards = Console.askCards(round, true);
+            ArrayList<AbstractCard> player2Cards = Console.askCards(round, false);
             
             //discard cards played by each player
             player1.getCardManager().discardAll(player1Cards);

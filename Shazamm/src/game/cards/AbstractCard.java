@@ -126,10 +126,10 @@ public abstract class AbstractCard implements Cloneable, Comparable<AbstractCard
     }
     
     public static AbstractCard create(int id, boolean belongPlayer1){
-        AbstractCard card;
+        AbstractCard card = null;
         
         switch (id){
-            default:
+            case 1:
                 card = new Mutism(belongPlayer1);
                 break;
                 
