@@ -5,6 +5,7 @@
  */
 package game.cards;
 
+import game.PlayerState;
 import game.Round;
 
 /**
@@ -21,6 +22,7 @@ public class Scrooge extends AbstractCard {
      */
     @Override
     public void apply(Round round) {
-        super.getOwnerPLayer(round).addMana(super.getOwnerPLayer(round).getBet());
+        PlayerState player=super.getOwnerPLayer(round);
+        player.addMana(super.getOwnerPLayer(round).getBet());
     }
 }

@@ -6,6 +6,7 @@
 package game.cards;
 
 import game.Bridge;
+import game.PlayerState;
 import game.Round;
 
 /**
@@ -20,6 +21,7 @@ public class AttackBoost extends AbstractCard {
      * add 7 points of mana to the attack
      */
     public void apply(Round round){
-        super.getOwnerPLayer(round).setBet(13);
+        PlayerState player =super.getOwnerPLayer(round);
+        player.setPowerAttack(player.getPowerAttack()+7);
     }
 }

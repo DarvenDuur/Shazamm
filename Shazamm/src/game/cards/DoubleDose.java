@@ -21,7 +21,8 @@ public class DoubleDose extends AbstractCard {
      */
     @Override
     public void apply(Round round){
-        PlayerState ownerPlayer=super.getOwnerPLayer(round);
-        ownerPlayer.setBet(ownerPlayer.getBet()*2);
+        
+        PlayerState player =super.getOwnerPLayer(round);
+        player.setPowerAttack(player.getPowerAttack()*2);
     }
 }
