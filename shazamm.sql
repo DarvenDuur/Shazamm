@@ -2,10 +2,10 @@
 -- version 4.5.4.1deb2ubuntu2
 -- http://www.phpmyadmin.net
 --
--- Client :  localhost
--- Généré le :  Jeu 23 Mars 2017 à 15:57
--- Version du serveur :  5.7.17-0ubuntu0.16.04.1
--- Version de PHP :  7.0.15-0ubuntu0.16.04.4
+-- Host: localhost
+-- Generation Time: Mar 23, 2017 at 04:09 PM
+-- Server version: 5.7.17-0ubuntu0.16.04.1
+-- PHP Version: 7.0.15-0ubuntu0.16.04.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,13 +17,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données :  `shazamm`
+-- Database: `shazamm`
 --
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `Card`
+-- Table structure for table `Card`
 --
 
 CREATE TABLE `Card` (
@@ -33,7 +33,7 @@ CREATE TABLE `Card` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Contenu de la table `Card`
+-- Dumping data for table `Card`
 --
 
 INSERT INTO `Card` (`ID_CARD`, `NAME`, `DESCRIPTION`) VALUES
@@ -55,7 +55,7 @@ INSERT INTO `Card` (`ID_CARD`, `NAME`, `DESCRIPTION`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `Config`
+-- Table structure for table `Config`
 --
 
 CREATE TABLE `Config` (
@@ -69,7 +69,7 @@ CREATE TABLE `Config` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Contenu de la table `Config`
+-- Dumping data for table `Config`
 --
 
 INSERT INTO `Config` (`BRIDGE_MAX_SIZE`, `MAX_MANA`, `SHUFFLE_STEPS`, `HAND_REFILL_SIZE`, `END_OF_ROUND_DRAW`, `FIRST_ROUND_DRAW`, `ID_CONFIG`) VALUES
@@ -78,7 +78,7 @@ INSERT INTO `Config` (`BRIDGE_MAX_SIZE`, `MAX_MANA`, `SHUFFLE_STEPS`, `HAND_REFI
 -- --------------------------------------------------------
 
 --
--- Structure de la table `Player`
+-- Table structure for table `Player`
 --
 
 CREATE TABLE `Player` (
@@ -89,41 +89,41 @@ CREATE TABLE `Player` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Index pour les tables exportées
+-- Indexes for dumped tables
 --
 
 --
--- Index pour la table `Card`
+-- Indexes for table `Card`
 --
 ALTER TABLE `Card`
   ADD PRIMARY KEY (`ID_CARD`),
   ADD UNIQUE KEY `ID_CARD` (`ID_CARD`);
 
 --
--- Index pour la table `Config`
+-- Indexes for table `Config`
 --
 ALTER TABLE `Config`
   ADD PRIMARY KEY (`ID_CONFIG`),
   ADD UNIQUE KEY `ID_CONFIG` (`ID_CONFIG`);
 
 --
--- Index pour la table `Player`
+-- Indexes for table `Player`
 --
 ALTER TABLE `Player`
   ADD PRIMARY KEY (`USERNAME`),
   ADD UNIQUE KEY `USERNAME` (`USERNAME`);
 
 --
--- AUTO_INCREMENT pour les tables exportées
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT pour la table `Card`
+-- AUTO_INCREMENT for table `Card`
 --
 ALTER TABLE `Card`
   MODIFY `ID_CARD` tinyint(4) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 --
--- AUTO_INCREMENT pour la table `Config`
+-- AUTO_INCREMENT for table `Config`
 --
 ALTER TABLE `Config`
   MODIFY `ID_CONFIG` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
