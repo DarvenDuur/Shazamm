@@ -15,7 +15,7 @@ public abstract class AbstractCard implements Cloneable, Comparable<AbstractCard
     
     protected int id; //from 1 to 14
     
-    private boolean belongPlayer1; //true if card belong to player 1
+    protected boolean belongPlayer1; //true if card belong to player 1
 
 //******************************************************************************    
     
@@ -111,5 +111,70 @@ public abstract class AbstractCard implements Cloneable, Comparable<AbstractCard
            return round.getLastPlayerState2();
         }
         return round.getLastPlayerState1();
+    }
+    
+    public AbstractCard create(int id, boolean belongPlayer1){
+        AbstractCard card;
+        
+        switch (id){
+            default:
+                card = new Mutism(belongPlayer1);
+                break;
+                
+            case 2:
+                card = new Clone(belongPlayer1);
+                break;
+                
+            case 3:
+                card = new Theft(belongPlayer1);
+                break;
+                
+            case 4:
+                card = new EndOfRound(belongPlayer1);
+                break;
+                
+            case 5:
+                card = new Middle(belongPlayer1);
+                break;
+                
+            case 6:
+                card = new Recycling(belongPlayer1);
+                break;
+            
+            case 7:
+                card = new AttackBoost(belongPlayer1);
+                break;
+                
+            case 8:
+                card = new DoubleDose(belongPlayer1);
+                break;
+                
+            case 9:
+                card = new WhoWinLose(belongPlayer1);
+                break;
+                
+            case 10:
+                card = new Blaze(belongPlayer1);
+                break;
+                
+            case 11:
+                card = new Rezilliance(belongPlayer1);
+                break;
+                
+            case 12:
+                card = new Scrooge(belongPlayer1);
+                break;
+            
+            case 13:
+                card = new StockBoost(belongPlayer1);
+                break;
+            
+            case 14:
+                card = new SuckBet(belongPlayer1);
+                break;
+        }
+        
+        return card;
+        }
     }
 }
