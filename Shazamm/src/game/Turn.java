@@ -99,6 +99,39 @@ public class Turn implements Cloneable {
     public void setMute() {
         this.mute = true;
     }
+    
+//**************************** THEFT *******************************************
+    
+    //true if indiqued player thieves other player's card
+    private boolean player1Theft, player2Theft;
+
+    /**
+     * @return the player1Theft
+     */
+    public boolean isPlayer1Theft() {
+        return player1Theft;
+    }
+
+    /**
+     * @param player1Theft the player1Theft to set
+     */
+    public void setPlayer1Theft(boolean player1Theft) {
+        this.player1Theft = player1Theft;
+    }
+
+    /**
+     * @return the player2Theft
+     */
+    public boolean isPlayer2Theft() {
+        return player2Theft;
+    }
+
+    /**
+     * @param player2Theft the player2Theft to set
+     */
+    public void setPlayer2Theft(boolean player2Theft) {
+        this.player2Theft = player2Theft;
+    }
 
 //******************************************************************************
     

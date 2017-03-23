@@ -33,11 +33,11 @@ public class Rezilliance extends AbstractCard {
         short winner =round.getLastTurn().getWinner();
         
         //case where the player 1 use this card and the card is effective
-        if((isBelongPlayer1() &&  winner==1)){
+        if((isUsedPlayer1() &&  winner==1)){
             round.getLastBridge().setRezilliancePlayer1(true);
         }
         //case where the player 2 use this card and the card is effective
-        else if(!isBelongPlayer1() && winner==-1){
+        else if(!isUsedPlayer1() && winner==-1){
             round.getLastBridge().setRezilliancePlayer2(true);
         }
     }

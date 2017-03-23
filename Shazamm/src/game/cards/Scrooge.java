@@ -28,7 +28,7 @@ public class Scrooge extends AbstractCard {
      */
     @Override
     protected void apply(Round round) {
-        PlayerState player=super.getOwnerPLayer(round);
-        player.addMana(super.getOwnerPLayer(round).getBet());
+        PlayerState player=super.getUserPLayer(round);
+        player.addMana(super.getUserPLayer(round).getBet());
     }
 }

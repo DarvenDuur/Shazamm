@@ -16,6 +16,8 @@ public abstract class AbstractCard implements Cloneable, Comparable<AbstractCard
     protected int id; //from 1 to 14
     
     protected boolean belongPlayer1; //true if card belong to player 1
+    
+    private boolean stolen; //true if card is used by the posessor's adversary
 
 //******************************************************************************    
     
@@ -42,8 +44,19 @@ public abstract class AbstractCard implements Cloneable, Comparable<AbstractCard
      * warps each action call, 
      */
     public void generalApply(Round round){
-        if (round.getLastTurn().isMute()){
+        if (!round.getLastTurn().isMute()){
+            //true if this card was stolen
+            boolean cardTheft = (round.getLastTurn().isPlayer2Theft() && 
+                    this.belongPlayer1) || (round.getLastTurn().isPlayer1Theft()
+                    && !this.belongPlayer1);
+            
+            //invert posessor
+            this.setStolen(cardTheft);
+            
             this.apply(round);
+            
+            //revert posessor
+            this.setStolen(false);
         }
     }
     
@@ -78,6 +91,15 @@ public abstract class AbstractCard implements Cloneable, Comparable<AbstractCard
     }
 
     /**
+     * @return 
+     *      true if stolen and belonging to player 2, 
+     *      or not stolen and belonging to player 1
+     */
+    public boolean isUsedPlayer1() {
+        return (belongPlayer1 && !stolen) || (!belongPlayer1 && stolen);
+    }
+    
+    /**
      * @return the belongPlayer1
      */
     public boolean isBelongPlayer1() {
@@ -89,15 +111,15 @@ public abstract class AbstractCard implements Cloneable, Comparable<AbstractCard
      * @param round
      * @return
      */
-    protected PlayerState getOwnerPLayer(Round round){
-        if(this.isBelongPlayer1()){
+    protected PlayerState getUserPLayer(Round round){
+        if(this.isUsedPlayer1()){
            return round.getLastPlayerState1();
         }
         return round.getLastPlayerState2();
     }
     
-    protected PlayerState getNotOwnerPlayer(Round round){
-        if(this.isBelongPlayer1()){
+    protected PlayerState getNotUserPlayer(Round round){
+        if(this.isUsedPlayer1()){
            return round.getLastPlayerState2();
         }
         return round.getLastPlayerState1();
@@ -166,4 +188,18 @@ public abstract class AbstractCard implements Cloneable, Comparable<AbstractCard
         
         return card;
         }
+
+    /**
+     * @return the stolen
+     */
+    public boolean isStolen() {
+        return stolen;
+    }
+
+    /**
+     * @param stolen the stolen to set
+     */
+    public void setStolen(boolean stolen) {
+        this.stolen = stolen;
+    }
 }

@@ -25,7 +25,7 @@ public class AttackBoost extends AbstractCard {
      * add 7 points of mana to the attack
      */
     protected void apply(Round round){
-        PlayerState player =super.getOwnerPLayer(round);
+        PlayerState player =super.getUserPLayer(round);
         player.setPowerAttack(player.getPowerAttack()+7);
     }
 }

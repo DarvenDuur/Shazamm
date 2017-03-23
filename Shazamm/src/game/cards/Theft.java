@@ -22,6 +22,10 @@ public class Theft extends AbstractCard {
 
     @Override
     protected void apply(Round round) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (this.isUsedPlayer1()){
+            round.getLastTurn().isPlayer1Theft();
+        }else{
+            round.getLastTurn().isPlayer2Theft();
+        }
     }
 }

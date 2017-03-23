@@ -31,7 +31,7 @@ public class Middle extends AbstractCard {
         if ((player1Location + player2Location) % 2 != 0){
             
             //if played by player 1
-            if (this.isBelongPlayer1()){
+            if (this.isUsedPlayer1()){
                 newLocation = (player1Location + player2Location + 1) / 2;
                 
             //if played by player 2

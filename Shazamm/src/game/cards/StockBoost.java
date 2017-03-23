@@ -26,6 +26,6 @@ public class StockBoost extends AbstractCard {
      */
     @Override
     protected void apply(Round round) {
-        super.getOwnerPLayer(round).addMana(13);
+        super.getUserPLayer(round).addMana(13);
     }
 }
