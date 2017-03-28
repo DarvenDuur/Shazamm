@@ -159,8 +159,8 @@ public class Turn implements Cloneable {
             Turn resultTurn = (Turn) this.clone();
             
             //get current player states
-            PlayerState player1 = this.bridge.getPlayerState1();
-            PlayerState player2 = this.bridge.getPlayerState2();
+            PlayerState player1 = resultTurn.getBridge().getPlayerState1();
+            PlayerState player2 = resultTurn.getBridge().getPlayerState2();
             
             //bet
             player1.bet();
@@ -227,7 +227,7 @@ public class Turn implements Cloneable {
     /**
      * apply end of turn actions:
      *      - each player draws cards (number set in Config.END_OF_ROUND_DRAW)
-     *      - end turn
+     *      -
      */
     public void endOfTurnActions(){
         PlayerState player1, player2;
