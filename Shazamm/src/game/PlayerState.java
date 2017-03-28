@@ -166,7 +166,11 @@ public class PlayerState implements Cloneable {
      */
     private boolean verifyBet(int manaAmount) {
         if (manaAmount > this.getMana()) {
-            System.out.println("Bet over available mana");
+            System.out.println("Bet over available mana.");
+
+            return false;
+        }else if (manaAmount < 1){
+            System.out.println("Bet lower than minimal bet.");
 
             return false;
         }
