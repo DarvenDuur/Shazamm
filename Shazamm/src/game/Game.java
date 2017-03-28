@@ -15,7 +15,7 @@ import game.gui.Console;
  */
 public class Game {
     private final LinkedList<Round> rounds;    // represent a game
-    Player player1, player2;
+    private final Player PLAYER1, PLAYER2;
 
 //***************************** CONSTRUCTOR ************************************
 
@@ -43,15 +43,15 @@ public class Game {
 
         // create 2 players
         if(greenPlayer){
-            this.player1 = new Player(namePlayer1, greenPlayer);
-            this.player2 = new Player(namePlayer2, !greenPlayer);
+            this.PLAYER1 = new Player(namePlayer1, greenPlayer);
+            this.PLAYER2 = new Player(namePlayer2, !greenPlayer);
         }
         else{
-            this.player1 = new Player(namePlayer2, !greenPlayer);
-            this.player2 = new Player(namePlayer1, greenPlayer);
+            this.PLAYER1 = new Player(namePlayer2, !greenPlayer);
+            this.PLAYER2 = new Player(namePlayer1, greenPlayer);
         }
         // create the first round of the game
-        Round firstRound = new Round(this.player1, this.player2, 
+        Round firstRound = new Round(this.PLAYER1, this.PLAYER2, 
                 Config.BRIDGE_MAX_SIZE, 0);
 
         // add the first round to list of rounds
@@ -90,7 +90,7 @@ public class Game {
         if the last round added to rounds is not ended, will use it;
         otherwize use the data of the last round to create a new one*/
         if (rounds.isEmpty()){
-            round = new Round(this.player1, this.player2, 
+            round = new Round(this.PLAYER1, this.PLAYER2, 
                 Config.BRIDGE_MAX_SIZE, 0);
             
         }else if (rounds.getFirst().isEnded()){
@@ -112,8 +112,8 @@ public class Game {
     /**
      * get the winer of the game
      * @return 
-     *      0 for draw, positive for player1, negative for player2
-     *      the bigger the value, the wider the difference in victories
+     *      0 for draw, positive for PLAYER1, negative for PLAYER2
+      the bigger the value, the wider the difference in victories
      */
     public short winner() {
         short winner = 0;
