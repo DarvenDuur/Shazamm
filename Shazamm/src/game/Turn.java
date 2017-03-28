@@ -43,11 +43,11 @@ public class Turn implements Cloneable {
     }
 
     /**
-     * @return 0 for draw, -1 for player1, 1 for player2
+     * @return 0 for draw, -1 for player1, 1 for player2, -2 for unended turn
      */
     public short getWinner() {
-        if (this.ended) {
-            System.out.println("Warning: checking winner in unended turn");
+        if (!this.ended) {
+            return -2;
         }
         return winner;
     }
@@ -190,6 +190,9 @@ public class Turn implements Cloneable {
             this.endOfTurnActions();
             this.end();
             
+            //print the winner
+            Console.printWinner(this);
+            
             return resultTurn;
             
         } catch (CloneNotSupportedException ex) {
@@ -259,9 +262,8 @@ public class Turn implements Cloneable {
     
     public Turn getNextRoundStarter(){
         //break if turn not ended
-        if (!this.ended){
-            System.out.println("Warning: checking winner in unended turn");
-            //return null;
+        if (this.getWinner() == -2){
+            return null;
         }
         
         //recover bridge
