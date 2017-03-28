@@ -22,7 +22,7 @@ public class Shazamm extends javax.swing.JFrame {
      */
     public Shazamm() {
         initComponents();
-        JPanel1 = new Board();
+        JPanel1 = new Board(0, 250);
         this.add(JPanel1);
     }
 
@@ -34,8 +34,7 @@ public class Shazamm extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Shazamm");
         setBackground(new java.awt.Color(102, 102, 102));
-        setMaximumSize(new java.awt.Dimension(800, 600));
-        setMinimumSize(new java.awt.Dimension(800, 600));
+        setSize(new java.awt.Dimension(800, 600));
         setResizable(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -50,7 +49,7 @@ public class Shazamm extends javax.swing.JFrame {
         );
 
         pack();
-    }// </editor-fold>                        
+    }// </editor-fold>
 
     /**
      * @param args the command line arguments
