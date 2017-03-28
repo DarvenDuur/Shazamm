@@ -103,11 +103,16 @@ public class Round {
     }
     
     /**
-     * Return the last bridge
+     * Return the second last bridge
      * @return 
      */
     public Bridge getSecondLastBridge(){
-        return this.getSecondLastTurn().getBridge();
+        Turn secondLastTurn = this.getSecondLastTurn();
+        if (secondLastTurn == null){
+            return null;
+        }else{
+            return this.getSecondLastTurn().getBridge();
+        }
     }
     
     /**
@@ -177,7 +182,7 @@ public class Round {
             
             //play turn
             Turn resultTurn = turn.play(this);
-                        
+            
             //add resulting turn to the turns
             this.turns.add(resultTurn);
             

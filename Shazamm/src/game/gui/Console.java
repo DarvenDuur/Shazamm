@@ -127,6 +127,11 @@ public class Console {
         Integer acceptedInput = new Integer(0);
         Bridge bridge = round.getSecondLastBridge();
         
+        if (bridge == null){
+            System.out.println("No cards clonable.");
+            return null;
+        }
+        
         ArrayList<AbstractCard> cards = !player1 ?
                 bridge.getPlayerState1().getCardManager().getHand() :
                 bridge.getPlayerState2().getCardManager().getHand();

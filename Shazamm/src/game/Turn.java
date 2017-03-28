@@ -188,6 +188,7 @@ public class Turn implements Cloneable {
             this.applyBets();
             
             this.endOfTurnActions();
+            this.end();
             
             return resultTurn;
             
@@ -223,6 +224,7 @@ public class Turn implements Cloneable {
     /**
      * apply end of turn actions:
      *      - each player draws cards (number set in Config.END_OF_ROUND_DRAW)
+     *      - end turn
      */
     public void endOfTurnActions(){
         PlayerState player1, player2;
@@ -259,7 +261,7 @@ public class Turn implements Cloneable {
         //break if turn not ended
         if (!this.ended){
             System.out.println("Warning: checking winner in unended turn");
-            return null;
+            //return null;
         }
         
         //recover bridge
