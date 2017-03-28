@@ -4,6 +4,7 @@
  */
 package game.bdd;
 
+import game.Config;
 import game.Player;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -119,7 +120,8 @@ public class ConnexionBDD {
     }
    
     /**
-     * 
+     * TO DO
+     * @deprecated 
      * @param name
      * @param win 
      */
@@ -137,6 +139,8 @@ public class ConnexionBDD {
             }
         }
         
+    
+    }
     
     
     public void getCard(){

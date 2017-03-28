@@ -26,4 +26,24 @@ public class Config {
     
     public static final int FIRST_ROUND_DRAW = 5; /* number of cards 
     each player draw at the first round */
+    
+    /**
+     * @deprecated 
+     * @param aInt
+     * @param aInt0
+     * @param aInt1
+     * @param aInt2
+     * @param aInt3
+     * @param aInt4 
+     */
+    public Config(int aInt, int aInt0, int aInt1, int aInt2, int aInt3, int aInt4) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    /**
+     * @deprecated 
+     */
+    public Config() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
