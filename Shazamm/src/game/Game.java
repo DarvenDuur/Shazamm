@@ -8,6 +8,7 @@ package game;
 
 import java.util.LinkedList;
 import java.util.Random;
+import game.gui.Console;
 
 /**
  *
@@ -30,9 +31,9 @@ public class Game {
         // attribute values
         Random  random       = new Random();
         boolean greenPlayer = random.nextBoolean();
-        String  namePlayer1  = Test.printAndReception("Player 1, what"
+        String  namePlayer1 = Console.getInput("Player 1, what"
                 + " is your username?");
-        String  namePlayer2  = Test.printAndReception("Player 2, what"
+        String  namePlayer2 = Console.getInput("Player 2, what"
                 + " is your username?");
 
         // uniqueness of name

@@ -5,6 +5,7 @@
  */
 package game;
 
+import game.gui.Console;
 import java.util.Scanner;
 
 /**
@@ -15,12 +16,10 @@ public class Test {
     private final static Scanner SCANNER=new Scanner(System.in);
     
     public static String printAndReception(String string) {
-        System.out.println(string);
-        return SCANNER.next();
+        return Console.getInput(string);
     }
     public static int printAndIntReception(String string) {
-        System.out.println(string);
-        return SCANNER.nextInt();
+        return Console.getIntInput(string);
     }
     
 }

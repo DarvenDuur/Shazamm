@@ -5,12 +5,10 @@
  */
 package game.gui;
 
-import game.PlayerState;
 import game.Round;
 import game.cards.AbstractCard;
 import static game.cards.CardsEnum.CARDS;
 import game.cards.Clone;
-import game.cards.Mutism;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -21,6 +19,9 @@ import java.util.regex.Pattern;
  * @author darven
  */
 public class Console {
+    private final static Scanner SCANNER = new Scanner(System.in);
+    
+    
     
     /**
      * Get input choice from user (with confirmation)
@@ -33,7 +34,7 @@ public class Console {
      *      Cards chosen by the user
      */
     public static ArrayList<AbstractCard> askCards(Round round, boolean player1){
-        Scanner sc = new Scanner(System.in);
+        
         ArrayList<Integer> acceptedInput = new ArrayList<>();
         
         ArrayList<AbstractCard> cards = player1 ?
@@ -47,19 +48,15 @@ public class Console {
         
         do {
             //print all cards, and get all available IDs
-            ArrayList<Integer> handIDs = new ArrayList<>();
-            System.out.println("You can chose the folowing cards: ");
-            for (AbstractCard card : cards){
-                handIDs.add(card.getId());
-                System.out.println(String.format("%s. %s",
-                        card.getId(), card.getName()));
-            }
+            ArrayList<Integer> handIDs = getIDs(cards);
+            printCards(handIDs, "You can chose the folowing cards: ", 
+                    "No cards can be played (shouldn't appear)");
 
             //get input
             System.out.println("Enter the ID(s) of the card(s) you want to play."
                     + " You can enter any number of IDs, separated by spaces, "
                     + "letters ... :");
-            String input = sc.nextLine();
+            String input = SCANNER.nextLine();
 
             //filter all integers
             ArrayList<Integer> splitInput = parseAllInt(input);
@@ -75,7 +72,7 @@ public class Console {
                 }
             }
 
-            //show warnings
+            //show refused input
             if (refusedInput.isEmpty()){
                 System.out.println("No refused input");
             }else{
@@ -85,6 +82,7 @@ public class Console {
                 }
             }
             
+            //show accepted input and corresponding cards
             printCards(acceptedInput, "Those cards will be chosen:",
                     "No card will be chosen");
             
@@ -117,7 +115,6 @@ public class Console {
      *      Card chosen by the user
      */
     public static AbstractCard askClone(Round round, boolean player1){
-        Scanner sc = new Scanner(System.in);
         Integer acceptedInput = new Integer(0);
         
         ArrayList<AbstractCard> cards = !player1 ?
@@ -131,24 +128,20 @@ public class Console {
         
         do {
             //print all cards, and get all available IDs
-            ArrayList<Integer> handIDs = new ArrayList<>();
-            System.out.println("You can chose the folowing cards: ");
-            for (AbstractCard card : cards){
-                handIDs.add(card.getId());
-                System.out.println(String.format("%s. %s",
-                        card.getId(), card.getName()));
-            }
+            ArrayList<Integer> handIDs = getIDs(cards);
+            printCards(handIDs, "You can chose the folowing cards: ", 
+                    "No cards can be played (shouldn't appear)");
 
             //get input
             System.out.println("Enter the ID of the card you want to clone."
                     + " You can enter any number of IDs, separated by spaces, "
                     + "letters ... (only the first valid one will be considered):");
-            String input = sc.nextLine();
+            String input = SCANNER.nextLine();
 
             //filter all integers
             ArrayList<Integer> splitInput = parseAllInt(input);
-
-            //filter input
+            
+            //filter input according to available cards
             for (Integer integer : splitInput){
                 if (handIDs.contains(integer)){
                     acceptedInput = integer;
@@ -219,6 +212,15 @@ public class Console {
         return Integer.parseInt(input);
     }
 
+    /**
+     * print all cards
+     * @param cards
+     *      cards to print
+     * @param text
+     *      text to print if input is not empty
+     * @param emptyText 
+     *      text to print if input is empty
+     */
     private static void printCards(ArrayList<Integer> cards, String text,
             String emptyText) {
         //show accepted inputs
@@ -227,11 +229,33 @@ public class Console {
         }else{
             System.out.println(text);
             for (Integer integer : cards){
-                System.out.println(CARDS[integer - 1].getName());
+                System.out.println(integer.toString() + ". " + CARDS[integer - 1].getName());
             }
         }
     }
+    
+    /**
+     * get all inputed cards' ID
+     * @param cards
+     *      cards from wich to get the ID
+     * @return 
+     *      list of ID
+     */
+    private static ArrayList<Integer> getIDs(ArrayList<AbstractCard> cards){
+        ArrayList<Integer> IDs = new ArrayList<>();
+        for (AbstractCard card : cards){
+            IDs.add(card.getId());
+        }
+        return IDs;
+    }
 
+    /**
+     * parse all integers from inputed string
+     * @param input
+     *      string to filter
+     * @return 
+     *      list of Integers
+     */
     private static ArrayList<Integer> parseAllInt(String input) {
         //filter input
         Pattern reg = Pattern.compile("\\d+");
@@ -245,4 +269,27 @@ public class Console {
         return splitInput;
     }
 
+    /**
+     * get next inputed line
+     * @param string
+     *      text to print before getting the input
+     * @return 
+     *      inputed line
+     */
+    public static String getInput(String string) {
+        System.out.println(string);
+        return SCANNER.nextLine();
+    }
+
+    /**
+     * get first integer of next inputed line
+     * @param string
+     *      text to print before getting the input
+     * @return 
+     *      inputed Integer
+     */
+    public static Integer getIntInput(String string) {
+        System.out.println(string);
+        return parseAllInt(SCANNER.nextLine()).get(0);
+    }
 }
