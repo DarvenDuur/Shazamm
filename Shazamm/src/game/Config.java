@@ -14,7 +14,7 @@ public class Config {
     public static final int BRIDGE_MAX_SIZE = 19 / 2; /* half the maximum total 
     size of the bridge, 0 : only the central portion remains */
     
-    public static final int MAX_MANA=30; /*init mana value */
+    public static final int MAX_MANA = 50; /*init mana value */
     
     public static final int SHUFFLE_STEPS = 100; /* number of time two cards are
     swapped when CardShuffleList.shuffle() is used */

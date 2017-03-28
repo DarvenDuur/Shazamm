@@ -55,7 +55,6 @@ public class CardManager implements Cloneable {
     private void shuffleDeck(){
         for (int i=0; i < SHUFFLE_STEPS; i++) {
             this.swapDeckCards();
-            System.out.println(i);
         }
     }
     

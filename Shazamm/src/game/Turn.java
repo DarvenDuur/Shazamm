@@ -162,9 +162,9 @@ public class Turn implements Cloneable {
             PlayerState player1 = this.bridge.getPlayerState1();
             PlayerState player2 = this.bridge.getPlayerState2();
             
-            //get bet
-            player1.getBet();
-            player2.getBet();
+            //bet
+            player1.bet();
+            player2.bet();
             
             //collect actions input
             ArrayList<AbstractCard> player1Cards = Console.askCards(round, true);
@@ -186,6 +186,9 @@ public class Turn implements Cloneable {
             
             //apply bet
             this.applyBets();
+            
+            player1.getCardManager().refillHand();
+            player2.getCardManager().refillHand();
             
             return resultTurn;
             
@@ -222,13 +225,29 @@ public class Turn implements Cloneable {
      * apply end of turn actions:
      *      - each player draws cards (number set in Config.END_OF_ROUND_DRAW)
      */
-    public void endOfRoundActions(){
+    public void endOfTurnActions(){
         PlayerState player1, player2;
         player1 = this.bridge.getPlayerState1();
         player2 = this.bridge.getPlayerState2();
         
         //draw set number of cards
         for (int i = 0; i < Config.END_OF_ROUND_DRAW; i++){
+            player1.getCardManager().drawCard();
+            player2.getCardManager().drawCard();
+        }
+    }
+    
+    /**
+     * apply start of round actions:
+     *      - each player draws cards (number set in Config.FIRST_ROUND_DRAW)
+     */
+    public void startOfRoundActions(){
+        PlayerState player1, player2;
+        player1 = this.bridge.getPlayerState1();
+        player2 = this.bridge.getPlayerState2();
+        
+        //draw set number of cards
+        for (int i = 0; i < Config.FIRST_ROUND_DRAW; i++){
             player1.getCardManager().drawCard();
             player2.getCardManager().drawCard();
         }
@@ -281,7 +300,7 @@ public class Turn implements Cloneable {
         }
         
         //apply end of round actions
-        initTurn.endOfRoundActions();
+        initTurn.startOfRoundActions();
         initTurn.end();
         
         //return turn

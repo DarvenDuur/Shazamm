@@ -118,12 +118,13 @@ public class PlayerState implements Cloneable {
      * get input for the bet and check if input is valid
      */
     public void bet() {
-        boolean betDone = false;
-        int manaAmount = 0;
+        int manaAmount = Console.getIntInput(this.player.getName() + 
+                ", please enter a bet (" + this.mana + " available):");
+        boolean betDone = this.verifyBet(manaAmount);
         
         //while input is invalid, ask for a valid bet
         while (!betDone) {
-            manaAmount = Console.askBet();
+            manaAmount = Console.getIntInput("Input invalid ("+this.mana+"). Please enter a valid bet:");
             
             betDone = this.verifyBet(manaAmount);
         }
@@ -163,7 +164,7 @@ public class PlayerState implements Cloneable {
      */
     private boolean verifyBet(int manaAmount) {
         if (manaAmount > this.getMana()) {
-            System.out.println("error");
+            System.out.println("Bet over available mana");
 
             return false;
         }

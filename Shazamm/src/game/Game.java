@@ -95,7 +95,7 @@ public class Game {
             round = new Round(this.PLAYER1, this.PLAYER2, 
                 Config.BRIDGE_MAX_SIZE, 0);
             
-        }else if (rounds.getFirst().isEnded()){
+        }else if (!rounds.getFirst().isEnded()){
             round = rounds.getFirst();
             
         }else{

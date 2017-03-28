@@ -38,12 +38,14 @@ public class Console {
      *      Cards chosen by the user
      */
     public static ArrayList<AbstractCard> askCards(Round round, boolean player1){
-        
         ArrayList<Integer> acceptedInput = new ArrayList<>();
         
         ArrayList<AbstractCard> cards = player1 ?
                 round.getLastPlayerState1().getCardManager().getHand() :
                 round.getLastPlayerState2().getCardManager().getHand();
+        
+        
+        System.out.println(cards.get(0).isBelongPlayer1());
         
         //safety mesure for unvalid parameters
         if (cards == null || cards.isEmpty()){
@@ -189,31 +191,6 @@ public class Console {
             answer = sc.nextLine().toLowerCase();
         }
         return answer.equals("y");
-    }
-    
-    /**
-     * 
-     * @return 
-     */
-    public static int askBet(){
-        Scanner sc = new Scanner(System.in);
-        
-        String input = "";
-        
-        while (input.isEmpty()){
-            //get input
-            System.out.println("Enter a bet:");
-            input = sc.nextLine();
-            
-            //filter input
-            Pattern reg = Pattern.compile("\\d+");
-            Matcher matcher = reg.matcher(input);
-            
-            input = matcher.group();
-        }
-        
-        //return first found number
-        return Integer.parseInt(input);
     }
 
     /**

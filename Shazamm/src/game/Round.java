@@ -49,7 +49,7 @@ public class Round {
     
     /**
      * Create a new round from another round, as the round following it
-     *      call endOfRoundActions()
+      call endOfTurnActions()
      * @param round
      */
     public Round(Round round) {
