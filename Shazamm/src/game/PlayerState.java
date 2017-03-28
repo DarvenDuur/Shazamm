@@ -124,7 +124,8 @@ public class PlayerState implements Cloneable {
         
         //while input is invalid, ask for a valid bet
         while (!betDone) {
-            manaAmount = Console.getIntInput("Input invalid ("+this.mana+"). Please enter a valid bet:");
+            manaAmount = Console.getIntInput("Input invalid ("+this.mana+
+                    "). Please enter a valid bet:");
             
             betDone = this.verifyBet(manaAmount);
         }

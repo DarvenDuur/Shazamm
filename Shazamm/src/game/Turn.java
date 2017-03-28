@@ -187,8 +187,7 @@ public class Turn implements Cloneable {
             //apply bet
             this.applyBets();
             
-            player1.getCardManager().refillHand();
-            player2.getCardManager().refillHand();
+            this.endOfTurnActions();
             
             return resultTurn;
             
@@ -251,6 +250,9 @@ public class Turn implements Cloneable {
             player1.getCardManager().drawCard();
             player2.getCardManager().drawCard();
         }
+        
+        player1.getCardManager().refillHand();
+        player2.getCardManager().refillHand();
     }
     
     public Turn getNextRoundStarter(){

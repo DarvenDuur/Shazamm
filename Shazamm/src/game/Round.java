@@ -42,6 +42,7 @@ public class Round {
         Bridge bridge =new Bridge(playerState1, playerState2, size, firewallLocation);
         Turn initTurn = new Turn(bridge);
         
+        initTurn.startOfRoundActions();
         initTurn.end();
         
         this.turns.add(initTurn);
@@ -60,6 +61,7 @@ public class Round {
         //recover initial turn from previous last turn
         Turn initTurn = round.getLastTurn().getNextRoundStarter();
         
+        initTurn.startOfRoundActions();
         this.turns.add(initTurn);
     }   
     

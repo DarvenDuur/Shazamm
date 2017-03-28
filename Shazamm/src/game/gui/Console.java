@@ -23,8 +23,9 @@ import java.util.regex.Pattern;
  */
 public class Console {
     private final static Scanner SCANNER = new Scanner(System.in);
-    private final static DateFormat dateFormat=new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-    private final static Date DATE =new Date();    
+    private final static DateFormat DATE_FORMAT =
+            new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+    private final static Date DATE = new Date();    
     
     
     /**
@@ -41,11 +42,11 @@ public class Console {
         ArrayList<Integer> acceptedInput = new ArrayList<>();
         
         ArrayList<AbstractCard> cards = player1 ?
-                round.getLastPlayerState1().getCardManager().getHand() :
+                round.getLastPlayerState1().getCardManager().getHand():
                 round.getLastPlayerState2().getCardManager().getHand();
         
         
-        System.out.println(cards.get(0).isBelongPlayer1());
+        System.out.println((cards == null) + " " + cards.isEmpty());
         
         //safety mesure for unvalid parameters
         if (cards == null || cards.isEmpty()){
@@ -271,7 +272,11 @@ public class Console {
      */
     public static Integer getIntInput(String string) {
         System.out.println(string);
-        return parseAllInt(SCANNER.nextLine()).get(0);
+        ArrayList<Integer> input = new ArrayList<>();
+        while(input.isEmpty()){
+            input = parseAllInt(SCANNER.nextLine());
+        }
+        return input.get(0);
     }
     
     /**
@@ -279,7 +284,7 @@ public class Console {
      * @return the currentDate 
      */
     public static String getCurrentDate(){
-           return dateFormat.format(DATE);
+           return DATE_FORMAT.format(DATE);
 
     }
 
