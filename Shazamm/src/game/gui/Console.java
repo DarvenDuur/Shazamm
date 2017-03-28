@@ -8,6 +8,7 @@ package game.gui;
 import game.Bridge;
 import game.PlayerState;
 import game.Round;
+import game.Turn;
 import game.cards.AbstractCard;
 import static game.cards.CardsEnum.CARDS;
 import game.cards.Clone;
@@ -58,7 +59,7 @@ public class Console {
             //print all cards, and get all available IDs
             ArrayList<Integer> handIDs = getIDs(cards);
             printCards(handIDs, player.getPlayer().getName() + 
-                    ", you can choose the folowing cards: ", 
+                    ", you can choose the following cards: ", 
                     player.getPlayer().getName() + "No cards can be played (shouldn't appear)"); //CHANGE*******************************************************
 
             //get input
@@ -145,7 +146,7 @@ public class Console {
         do {
             //print all cards, and get all available IDs
             ArrayList<Integer> handIDs = getIDs(cards);
-            printCards(handIDs, "You can chose the folowing cards: ", 
+            printCards(handIDs, "You can chose the following cards: ", 
                     "No cards can be played (shouldn't appear)");
 
             //get input
@@ -297,5 +298,47 @@ public class Console {
 
     }
 
+    /**
+     * print the winner of the turn
+     * @param turn
+     *      turn to analyze
+     */
+    public static void printWinner(Turn turn) {
+        switch (turn.getWinner()){
+            case -1:
+                System.out.println(turn.getBridge().getPlayer1().getName() +
+                        " won the turn.");
+                break;
+                
+            case 1:
+                System.out.println(turn.getBridge().getPlayer2().getName() +
+                        " won the turn.");
+                break;
+                
+            default:
+                System.out.println("No winner in this turn");
+        }
+    }
 
+    /**
+     * print the winner of the turn
+     * @param turn
+     *      turn to analyze
+     */
+    public static void printWinner(Round round) {
+        switch (round.getWinner()){
+            case -1:
+                System.out.println(round.getLastBridge().getPlayer1().getName()
+                        + " won the round.");
+                break;
+                
+            case 1:
+                System.out.println(round.getLastBridge().getPlayer2().getName()
+                        + " won the round.");
+                break;
+                
+            default:
+                System.out.println("No winner in this round");
+        }
+    }
 }

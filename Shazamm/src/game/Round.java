@@ -5,6 +5,7 @@
  */
 package game;
 
+import game.gui.Console;
 import java.util.LinkedList;
 
 /**
@@ -191,7 +192,7 @@ public class Round {
                 this.end();
             }
         }
-        
+        Console.printWinner(this);
         /*true if, in the last turn of the round, at least one of the
         players is out of the bridge (game ending condition)*/
         return this.getLastTurn().getBridge().hasOutOfBridge();
