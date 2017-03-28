@@ -6,7 +6,7 @@
  */
 package game;
 
-import game.cards.manager.CardManager;
+import game.cards.CardManager;
 import game.gui.Console;
 
 /**

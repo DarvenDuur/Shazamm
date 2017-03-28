@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package game.cards.manager;
+package game.cards;
 
 import game.cards.*;
 import java.util.ArrayList;
