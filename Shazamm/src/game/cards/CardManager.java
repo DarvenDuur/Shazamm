@@ -5,11 +5,9 @@
  */
 package game.cards;
 
-import game.cards.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import static game.Config.HAND_REFILL_SIZE;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Random;
 import static game.Config.SHUFFLE_STEPS;
@@ -57,6 +55,7 @@ public class CardManager implements Cloneable {
     private void shuffleDeck(){
         for (int i=0; i < SHUFFLE_STEPS; i++) {
             this.swapDeckCards();
+            System.out.println(i);
         }
     }
     
@@ -72,7 +71,7 @@ public class CardManager implements Cloneable {
         //swap the cards at the two indexes
         AbstractCard tempCard = this.deck.get(firstIndex);
         this.deck.set(firstIndex, this.deck.get(secondIndex));
-        this.deck.set(firstIndex, tempCard);
+        this.deck.set(secondIndex, tempCard);
     }    
 
 //***************************** CARD MANIPULATION ******************************
