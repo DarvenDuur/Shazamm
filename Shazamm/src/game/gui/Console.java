@@ -6,6 +6,7 @@
 package game.gui;
 
 import game.Bridge;
+import game.PlayerState;
 import game.Round;
 import game.cards.AbstractCard;
 import static game.cards.CardsEnum.CARDS;
@@ -42,9 +43,11 @@ public class Console {
     public static ArrayList<AbstractCard> askCards(Round round, boolean player1){
         ArrayList<Integer> acceptedInput = new ArrayList<>();
         
-        ArrayList<AbstractCard> cards = player1 ?
-                round.getLastPlayerState1().getCardManager().getHand():
-                round.getLastPlayerState2().getCardManager().getHand();
+        PlayerState player = player1 ?
+                round.getLastPlayerState1():
+                round.getLastPlayerState2();
+        
+        ArrayList<AbstractCard> cards = player.getCardManager().getHand();
         
         //safety mesure for unvalid parameters
         if (cards == null || cards.isEmpty()){
@@ -54,8 +57,9 @@ public class Console {
         do {
             //print all cards, and get all available IDs
             ArrayList<Integer> handIDs = getIDs(cards);
-            printCards(handIDs, "You can choose the folowing cards: ", 
-                    "No cards can be played (shouldn't appear)");
+            printCards(handIDs, player.getPlayer().getName() + 
+                    ", you can choose the folowing cards: ", 
+                    player.getPlayer().getName() + "No cards can be played (shouldn't appear)"); //CHANGE*******************************************************
 
             //get input
             System.out.println("Enter the ID(s) of the card(s) you want to play."

@@ -31,7 +31,7 @@ public class Bridge implements Cloneable {
         this.SIZE = size;
         this.firewallLocation = firewallLocation;
         
-        this.invertWinLose = true;
+        this.invertWinLose = false;
         this.blaze = false;
     }
 

@@ -123,7 +123,7 @@ public class Round {
      * @return 
      */
     public PlayerState getLastPlayerState2(){
-        return this.getLastBridge().getPlayerState1();
+        return this.getLastBridge().getPlayerState2();
     }
 
     /**
