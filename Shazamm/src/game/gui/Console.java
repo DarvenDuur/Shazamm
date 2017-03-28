@@ -9,7 +9,10 @@ import game.Round;
 import game.cards.AbstractCard;
 import static game.cards.CardsEnum.CARDS;
 import game.cards.Clone;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -20,7 +23,8 @@ import java.util.regex.Pattern;
  */
 public class Console {
     private final static Scanner SCANNER = new Scanner(System.in);
-    
+    private final static DateFormat dateFormat=new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+    private final static Date DATE =new Date();    
     
     
     /**
@@ -292,4 +296,15 @@ public class Console {
         System.out.println(string);
         return parseAllInt(SCANNER.nextLine()).get(0);
     }
+    
+    /**
+     * return the date and the time current in french format.
+     * @return the currentDate 
+     */
+    public static String getCurrentDate(){
+           return dateFormat.format(DATE);
+
+    }
+
+
 }
