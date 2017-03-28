@@ -117,23 +117,7 @@ public class CardManager implements Cloneable {
         }
     }
     
-    /**
-     * discard card at index
-     * @param index
-     *      index of the card to discard, use modulo if out of hand's range
-     * @return false if no card can be discarded (hand empty)
-     */
-    public boolean discardCard(int index){
-        if (!this.hand.isEmpty()){
-            index = index % this.hand.size();
-            AbstractCard card = this.hand.get(index);
-            this.hand.remove(index);
-            this.discard.add(card);
-            return true;
-        }else{
-            return false;
-        }
-    }
+   
     
     /**
      * discard inputed card if found in deck
@@ -141,9 +125,9 @@ public class CardManager implements Cloneable {
      *      card to discard
      */
     public void discardCard(AbstractCard card){
-        int cardIndex = Collections.binarySearch(this.deck, card);
-        if(cardIndex >= 0){
-            this.discardCard(cardIndex);
+        if(this.hand.remove(card)){
+            System.out.println("done");
+            this.getDiscard().add(card);
         }
     }
     
@@ -155,6 +139,7 @@ public class CardManager implements Cloneable {
     public void discardAll(ArrayList<AbstractCard> cards){
         for (AbstractCard card : cards){
             this.discardCard(card);
+            System.out.println(card.getName());
         }
     }
     
@@ -163,8 +148,8 @@ public class CardManager implements Cloneable {
      *      deck
      */
     public void discardToDeck(){
-        this.deck.addAll(this.discard);
-        this.discard.clear();
+        this.deck.addAll(this.getDiscard());
+        this.getDiscard().clear();
         this.shuffleDeck();
     }
     
@@ -179,7 +164,7 @@ public class CardManager implements Cloneable {
     public Object clone() throws CloneNotSupportedException{
         CardManager clone = (CardManager) super.clone();
         clone.deck = (LinkedList<AbstractCard>) clone.deck.clone();
-        clone.discard = (LinkedList<AbstractCard>) clone.discard.clone();
+        clone.discard = (LinkedList<AbstractCard>) clone.getDiscard().clone();
         clone.hand = (ArrayList<AbstractCard>) clone.hand.clone();
         return clone;
     }
@@ -191,7 +176,7 @@ public class CardManager implements Cloneable {
      *      clone of hand
      */
     public ArrayList<AbstractCard> getHand(){
-        return (ArrayList<AbstractCard>) this.hand.clone();
+        return this.hand;
     }
 
     /**
@@ -199,5 +184,12 @@ public class CardManager implements Cloneable {
      */
     public boolean isBelongPlayer1() {
         return belongPlayer1;
+    }
+
+    /**
+     * @return the discard
+     */
+    public LinkedList<AbstractCard> getDiscard() {
+        return discard;
     }
 }

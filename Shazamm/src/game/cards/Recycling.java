@@ -28,7 +28,8 @@ public class Recycling extends AbstractCard {
     @Override
     protected void apply(Round round){
         PlayerState ownerPlayer=super.getUserPLayer(round);
-        if(Console.getConfirmation("do you want to up to 5 you mana")){
+        if(Console.getConfirmation("Do you want to add yourself 5 attack power "
+                + "(if you refuse, you will lose 5 attack power)?")){
             ownerPlayer.setBet(ownerPlayer.getPowerAttack()+5);
         }
         ownerPlayer.setBet(ownerPlayer.getPowerAttack()-5);    

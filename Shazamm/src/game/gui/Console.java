@@ -15,7 +15,9 @@ import game.cards.Clone;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -133,9 +135,9 @@ public class Console {
             return null;
         }
         
-        ArrayList<AbstractCard> cards = !player1 ?
-                bridge.getPlayerState1().getCardManager().getHand() :
-                bridge.getPlayerState2().getCardManager().getHand();
+        LinkedList<AbstractCard> cards = !player1 ?
+                bridge.getPlayerState1().getCardManager().getDiscard():
+                bridge.getPlayerState2().getCardManager().getDiscard();
         
         //safety mesure for unvalid parameters
         if (cards == null || cards.isEmpty()){
@@ -146,7 +148,7 @@ public class Console {
         do {
             //print all cards, and get all available IDs
             ArrayList<Integer> handIDs = getIDs(cards);
-            printCards(handIDs, "You can chose the following cards: ", 
+            printCards(handIDs, "You can clone the following cards: ", 
                     "No cards can be played (shouldn't appear)");
 
             //get input
@@ -179,7 +181,7 @@ public class Console {
         AbstractCard output = AbstractCard.create(acceptedInput, !player1);
         
         //if card is a Clone, get cloned card
-        if (output != null || output instanceof Clone){
+        if (output != null && output instanceof Clone){
             ((Clone) output).setClone(askClone(round, !player1));
         }
         
@@ -233,7 +235,7 @@ public class Console {
      * @return 
      *      list of ID
      */
-    private static ArrayList<Integer> getIDs(ArrayList<AbstractCard> cards){
+    private static ArrayList<Integer> getIDs(Collection<AbstractCard> cards){
         ArrayList<Integer> IDs = new ArrayList<>();
         for (AbstractCard card : cards){
             IDs.add(card.getId());

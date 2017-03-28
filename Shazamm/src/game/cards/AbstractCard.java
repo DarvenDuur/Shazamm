@@ -202,4 +202,25 @@ public abstract class AbstractCard implements Cloneable, Comparable<AbstractCard
     public void setStolen(boolean stolen) {
         this.stolen = stolen;
     }
+    
+    /**
+     * @see Object.equals(Object o)
+     * @param o
+     * @return 
+     */
+    @Override
+    public boolean equals(Object o){
+        if(o instanceof AbstractCard){
+            return o.hashCode()==this.hashCode();
+        }
+        return false; 
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 59 * hash + this.id;
+        hash = 59 * hash + (this.belongPlayer1 ? 1 : 0);
+        return hash;
+    }
 }

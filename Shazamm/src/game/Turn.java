@@ -185,13 +185,13 @@ public class Turn implements Cloneable {
             }
             
             //apply bet
-            this.applyBets();
+            resultTurn.applyBets();
             
-            this.endOfTurnActions();
-            this.end();
+            resultTurn.endOfTurnActions();
+            resultTurn.end();
             
             //print the winner
-            Console.printWinner(this);
+            Console.printWinner(resultTurn);
             
             return resultTurn;
             
@@ -227,7 +227,6 @@ public class Turn implements Cloneable {
     /**
      * apply end of turn actions:
      *      - each player draws cards (number set in Config.END_OF_ROUND_DRAW)
-     *      -
      */
     public void endOfTurnActions(){
         PlayerState player1, player2;
@@ -305,8 +304,7 @@ public class Turn implements Cloneable {
             nextBridge.replacePlayers();
         }
         
-        //apply end of round actions
-        initTurn.startOfRoundActions();
+        //end turn
         initTurn.end();
         
         //return turn
