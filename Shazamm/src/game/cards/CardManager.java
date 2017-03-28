@@ -18,7 +18,7 @@ import static game.Config.SHUFFLE_STEPS;
  *
  * @author darven
  */
-public class CardManager {
+public class CardManager implements Cloneable {
     
     private LinkedList<AbstractCard> deck; //deck, cards available to draw to hand
     
@@ -46,6 +46,7 @@ public class CardManager {
         
         //discard and hand initialisation
         this.discard = new LinkedList<>();
+        this.hand = new ArrayList<>();
     }
     
 //***************************** DECK SHUFFLE ***********************************

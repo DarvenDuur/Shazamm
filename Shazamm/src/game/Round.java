@@ -163,7 +163,7 @@ public class Round {
      *      true if the game has ended (if a player is in the lava)
      */
     public boolean play() {
-        if (!this.turns.isEmpty()){
+        if (this.turns.isEmpty()){
             throw new IndexOutOfBoundsException("No initial turn defined !");
         }
         

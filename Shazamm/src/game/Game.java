@@ -39,6 +39,8 @@ public class Game {
         // uniqueness of name
         while (namePlayer1.equals(namePlayer2)) {
             System.out.println("please try a new username");
+            namePlayer2 = Console.getInput("Player 2, what"
+                + " is your username?");
         }
 
         // create 2 players
