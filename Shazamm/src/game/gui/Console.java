@@ -5,6 +5,7 @@
  */
 package game.gui;
 
+import game.Bridge;
 import game.Round;
 import game.cards.AbstractCard;
 import static game.cards.CardsEnum.CARDS;
@@ -45,9 +46,6 @@ public class Console {
                 round.getLastPlayerState1().getCardManager().getHand():
                 round.getLastPlayerState2().getCardManager().getHand();
         
-        
-        System.out.println((cards == null) + " " + cards.isEmpty());
-        
         //safety mesure for unvalid parameters
         if (cards == null || cards.isEmpty()){
             return new ArrayList<>();
@@ -56,7 +54,7 @@ public class Console {
         do {
             //print all cards, and get all available IDs
             ArrayList<Integer> handIDs = getIDs(cards);
-            printCards(handIDs, "You can chose the folowing cards: ", 
+            printCards(handIDs, "You can choose the folowing cards: ", 
                     "No cards can be played (shouldn't appear)");
 
             //get input
@@ -123,13 +121,15 @@ public class Console {
      */
     public static AbstractCard askClone(Round round, boolean player1){
         Integer acceptedInput = new Integer(0);
+        Bridge bridge = round.getSecondLastBridge();
         
         ArrayList<AbstractCard> cards = !player1 ?
-                round.getLastPlayerState1().getCardManager().getHand() :
-                round.getLastPlayerState2().getCardManager().getHand();
+                bridge.getPlayerState1().getCardManager().getHand() :
+                bridge.getPlayerState2().getCardManager().getHand();
         
         //safety mesure for unvalid parameters
         if (cards == null || cards.isEmpty()){
+            System.out.println("No cards clonable.");
             return null;
         }
         
