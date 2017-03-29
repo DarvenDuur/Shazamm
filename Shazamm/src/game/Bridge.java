@@ -214,6 +214,11 @@ public class Bridge implements Cloneable {
         int positionPlayer1=this.playerState1.getPosition();
         int positionPlayer2=this.playerState2.getPosition();
         
+        //add destroyed parts
+        for (int i=0;i<Config.BRIDGE_MAX_SIZE - this.SIZE;i++) {
+            str+='.';
+        }
+        
         //add all bridge sections
         for (int i=-this.SIZE;i<this.SIZE+1;i++) {
             //player 1
@@ -235,6 +240,12 @@ public class Bridge implements Cloneable {
                 str+="-";
             }
         }
+        
+        //add destroyed parts
+        for (int i=0;i<Config.BRIDGE_MAX_SIZE - this.SIZE;i++) {
+            str+='.';
+        }
+        
         return str;
     }
 
