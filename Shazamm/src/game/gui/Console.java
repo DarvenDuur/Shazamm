@@ -17,6 +17,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -43,19 +44,19 @@ public class Console {
      * @return 
      *      Cards chosen by the user
      */
-    public static ArrayList<AbstractCard> askCards(Round round, boolean player1){
-        ArrayList<Integer> acceptedInput = new ArrayList<>();
+    public static HashSet<AbstractCard> askCards(Round round, boolean player1){
+        HashSet<Integer> acceptedInput = new HashSet<>();
         
         //get player
         PlayerState player = player1 ?
                 round.getLastPlayerState1():
                 round.getLastPlayerState2();
         
-        ArrayList<AbstractCard> cards = player.getCardManager().getHand();
+        HashSet<AbstractCard> cards = player.getCardManager().getHand();
         
         //safety mesure for unvalid parameters
         if (cards == null || cards.isEmpty()){
-            return new ArrayList<>();
+            return new HashSet<>();
         }
         
         do {
@@ -64,7 +65,7 @@ public class Console {
                 println("");
             }
             //print all cards, and get all available IDs
-            ArrayList<Integer> handIDs = getIDs(cards);
+            HashSet<Integer> handIDs = getIDs(cards);
             printCards(handIDs, player.getPlayer().getName() + 
                     ", you can choose the following cards: ", 
                     "No cards can be played (shouldn't appear)");
@@ -76,11 +77,11 @@ public class Console {
             String input = SCANNER.nextLine();
 
             //filter all integers
-            ArrayList<Integer> splitInput = parseAllInt(input);
+            LinkedList<Integer> splitInput = parseAllInt(input);
 
             //filter input
             //IDs not contained in the cards
-            ArrayList<Integer> refusedInput = new ArrayList<>();
+            HashSet<Integer> refusedInput = new HashSet<>();
             for (Integer integer : splitInput){
                 if (!handIDs.contains(integer)){
                     refusedInput.add(integer);
@@ -106,7 +107,7 @@ public class Console {
         }while(!getConfirmation("Do you whant to chose those cards ?"));
         
         //get card from integer
-        ArrayList<AbstractCard> output = new ArrayList<>();
+        HashSet<AbstractCard> output = new HashSet<>();
         for (AbstractCard card : cards){
             if (acceptedInput.contains(card.getId())){
                 output.add(card);
@@ -136,7 +137,7 @@ public class Console {
         Bridge bridge = round.getLastBridge();
         
         //get last discarded cards of ennemy player
-        LinkedList<AbstractCard> cards = !player1 ?
+        HashSet<AbstractCard> cards = !player1 ?
                 bridge.getPlayerState1().getCardManager().getLastDiscard():
                 bridge.getPlayerState2().getCardManager().getLastDiscard();
         
@@ -150,7 +151,7 @@ public class Console {
             
             acceptedInput = new Integer(0);
             //print all cards, and get all available IDs
-            ArrayList<Integer> handIDs = getIDs(cards);
+            HashSet<Integer> handIDs = getIDs(cards);
             printCards(handIDs, "You can clone the following cards: ", 
                     "No cards can be played (shouldn't appear)");
 
@@ -161,7 +162,7 @@ public class Console {
             String input = SCANNER.nextLine();
 
             //filter all integers
-            ArrayList<Integer> splitInput = parseAllInt(input);
+            LinkedList<Integer> splitInput = parseAllInt(input);
             
             //filter input according to available cards
             for (Integer integer : splitInput){
@@ -218,7 +219,7 @@ public class Console {
      * @param emptyText 
      *      text to print if input is empty
      */
-    private static void printCards(ArrayList<Integer> cards, String text,
+    private static void printCards(HashSet<Integer> cards, String text,
             String emptyText) {
         //show accepted inputs
         if (cards.isEmpty()){
@@ -236,10 +237,10 @@ public class Console {
      * @param cards
      *      cards from wich to get the ID
      * @return 
-     *      list of ID
+     *      set of ID
      */
-    private static ArrayList<Integer> getIDs(Collection<AbstractCard> cards){
-        ArrayList<Integer> IDs = new ArrayList<>();
+    private static HashSet<Integer> getIDs(Collection<AbstractCard> cards){
+        HashSet<Integer> IDs = new HashSet<>();
         for (AbstractCard card : cards){
             IDs.add(card.getId());
         }
@@ -251,15 +252,15 @@ public class Console {
      * @param input
      *      string to filter
      * @return 
-     *      list of Integers
+     *      set of Integers
      */
-    private static ArrayList<Integer> parseAllInt(String input) {
+    private static LinkedList<Integer> parseAllInt(String input) {
         //filter input
         Pattern reg = Pattern.compile("\\d+");
         Matcher matcher = reg.matcher(input);
 
         //add separate inputed integers
-        ArrayList<Integer> splitInput = new ArrayList<>();
+        LinkedList<Integer> splitInput = new LinkedList<>();
         while (matcher.find()){
             splitInput.add(Integer.parseInt(matcher.group()));
         }
@@ -286,10 +287,9 @@ public class Console {
      *      inputed Integer
      */
     public static Integer getIntInput(String string) {
-        println(string);
-        ArrayList<Integer> input = new ArrayList<>();
+        LinkedList<Integer> input = new LinkedList<>();
         while(input.isEmpty()){
-            input = parseAllInt(SCANNER.nextLine());
+            input = parseAllInt(getInput(string));
         }
         return input.get(0);
     }

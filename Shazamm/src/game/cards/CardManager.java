@@ -11,6 +11,7 @@ import static game.Config.HAND_REFILL_SIZE;
 import java.util.Collections;
 import java.util.Random;
 import static game.Config.SHUFFLE_STEPS;
+import java.util.HashSet;
 
 /**
  *
@@ -21,13 +22,13 @@ public class CardManager implements Cloneable {
     private LinkedList<AbstractCard> deck;
     
     //cards discarded from hand
-    private LinkedList<AbstractCard> discard;
+    private HashSet<AbstractCard> discard;
     
     //player's hand
-    private ArrayList<AbstractCard> hand; 
+    private HashSet<AbstractCard> hand; 
     
     //cards discarded last time discardAll was called
-    private LinkedList<AbstractCard> lastDiscard;
+    private HashSet<AbstractCard> lastDiscard;
     
     //true if this belongs to player 1
     private boolean belongPlayer1; 
@@ -49,9 +50,9 @@ public class CardManager implements Cloneable {
         this.shuffleDeck();
         
         //discard and hand initialisation
-        this.lastDiscard = new LinkedList<>();
-        this.discard = new LinkedList<>();
-        this.hand = new ArrayList<>();
+        this.lastDiscard = new HashSet<>();
+        this.discard = new HashSet<>();
+        this.hand = new HashSet<>();
     }
     
 //***************************** DECK SHUFFLE ***********************************
@@ -142,7 +143,7 @@ public class CardManager implements Cloneable {
      * @param cards 
      *      cards to discard
      */
-    public void discardAll(ArrayList<AbstractCard> cards){
+    public void discardAll(HashSet<AbstractCard> cards){
         this.lastDiscard.clear();
         for (AbstractCard card : cards){
             this.discardCard(card);
@@ -165,7 +166,7 @@ public class CardManager implements Cloneable {
      * @return 
      *      clone of hand
      */
-    public ArrayList<AbstractCard> getHand(){
+    public HashSet<AbstractCard> getHand(){
         return this.hand;
     }
 
@@ -179,14 +180,14 @@ public class CardManager implements Cloneable {
     /**
      * @return the discard
      */
-    private LinkedList<AbstractCard> getDiscard() {
+    private HashSet<AbstractCard> getDiscard() {
         return discard;
     }
 
     /**
      * @return the lastDiscard
      */
-    public LinkedList<AbstractCard> getLastDiscard() {
+    public HashSet<AbstractCard> getLastDiscard() {
         return this.lastDiscard;
     }
     
@@ -203,8 +204,8 @@ public class CardManager implements Cloneable {
     public Object clone() throws CloneNotSupportedException{
         CardManager clone = (CardManager) super.clone();
         clone.deck = (LinkedList<AbstractCard>) clone.deck.clone();
-        clone.discard = (LinkedList<AbstractCard>) clone.getDiscard().clone();
-        clone.hand = (ArrayList<AbstractCard>) clone.hand.clone();
+        clone.discard = (HashSet<AbstractCard>) clone.getDiscard().clone();
+        clone.hand = (HashSet<AbstractCard>) clone.hand.clone();
         return clone;
     }
     

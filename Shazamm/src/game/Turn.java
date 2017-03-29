@@ -9,6 +9,7 @@ import game.cards.AbstractCard;
 import game.gui.Console;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -171,15 +172,16 @@ public class Turn implements Cloneable {
             player2.bet();
             
             //collect actions input
-            ArrayList<AbstractCard> player1Cards = Console.askCards(round, true);
-            ArrayList<AbstractCard> player2Cards = Console.askCards(round, false);
+            HashSet<AbstractCard> player1Cards = Console.askCards(round, true);
+            HashSet<AbstractCard> player2Cards = Console.askCards(round, false);
             
             //discard cards played by each player
             player1.getCardManager().discardAll(player1Cards);
             player2.getCardManager().discardAll(player2Cards);
             
             //merge and sort card lists
-            ArrayList<AbstractCard> cards = player1Cards;
+            ArrayList<AbstractCard> cards = new ArrayList<>();
+            cards.addAll(player1Cards);
             cards.addAll(player2Cards);
             Collections.sort(cards);
                     
