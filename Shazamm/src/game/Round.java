@@ -7,6 +7,8 @@ package game;
 
 import game.gui.Console;
 import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -179,10 +181,13 @@ public class Round {
             turn = this.getLastTurn();
             
             //play turn
-            Turn resultTurn = turn.play(this);
+            turn.play(this);
             
-            //add resulting turn to the turns
-            this.turns.add(resultTurn);
+            try {
+                this.turns.add((Turn) turn.clone());
+            } catch (CloneNotSupportedException ex) {
+                Logger.getLogger(Round.class.getName()).log(Level.SEVERE, null, ex);
+            }
             
             //check if the turn fills round end condition
             if (this.getLastTurn().isRoundEnd()){
