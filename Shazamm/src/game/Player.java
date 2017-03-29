@@ -36,4 +36,16 @@ public class Player {
         return NAME;
     }
     
+    @Override
+    public String toString(){
+        String str="";
+        if(this.GREEN){
+            str+="green ";
+        }
+        else{
+            str+="red ";
+        }
+        return str+=this.NAME;
+    }
+    
 }

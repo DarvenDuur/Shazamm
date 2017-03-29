@@ -8,6 +8,7 @@ package game;
 
 import game.cards.CardManager;
 import game.gui.Console;
+import java.util.Locale;
 
 /**
  *
@@ -190,5 +191,15 @@ public class PlayerState implements Cloneable {
      */
     public void setPowerAttack(int powerAttack) {
         this.powerAttack = powerAttack;
+    }
+    
+    public String toString(){
+       String str="";
+       str+=this.bet+" ";
+       str+=this.mana+" ";
+       str+=this.player+" ";
+       str+=this.powerAttack+" ";
+       str+=this.cardManager;
+       return str;
     }
 }

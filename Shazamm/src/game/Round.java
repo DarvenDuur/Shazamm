@@ -197,4 +197,14 @@ public class Round {
         players is out of the bridge (game ending condition)*/
         return this.getLastTurn().getBridge().hasOutOfBridge();
     }
+    @Override
+    public String toString(){
+        String str="";
+        for (Turn turn : turns) {
+            str+=turn.toString();
+            str+="\n";
+                    
+        }
+        return str;
+    }
 }

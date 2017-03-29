@@ -200,6 +200,30 @@ public class Bridge implements Cloneable {
         this.playerState1.setPosition(this.firewallLocation - 3);
         this.playerState2.setPosition(this.firewallLocation + 3);
     }
+    
+    @Override
+    public String toString(){
+        String str="";
+        int locationPlayer1=this.playerState1.getPosition();
+        int locationPlayer2=this.playerState2.getPosition();
+        for(int i=-this.SIZE;i<this.SIZE+1;i++){
+           if(locationPlayer1==i){
+               str+=playerState1.getPlayer().getName();
+           }
+           else if(locationPlayer2==i){
+               str+=playerState2.getPlayer().getName();    
+            }
+           else{
+               if(i==this.firewallLocation){
+                   str+="|";
+               }
+               else{
+                   str+="-";
+               }
+           }
+        }
+        return str;
+    }
 
    
    

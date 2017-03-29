@@ -32,6 +32,7 @@ public class Turn implements Cloneable {
         this.mute = false;
         this.ended = false;
         this.winner = 0;
+        
     }
     
 //***************************** GETTER *****************************************
@@ -189,7 +190,7 @@ public class Turn implements Cloneable {
             
             resultTurn.endOfTurnActions();
             resultTurn.end();
-            
+            System.out.println(this.bridge.toString());
             //print the winner
             Console.printWinner(resultTurn);
             
@@ -310,4 +311,13 @@ public class Turn implements Cloneable {
         //return turn
         return initTurn;
     } 
+    
+    @Override
+    public String toString(){
+      String str="";
+      str+=this.bridge+"\n";
+      str+=this.winner+"\n";
+      str+=this.mute;
+      return str;
+    }
 }
