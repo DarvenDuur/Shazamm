@@ -17,14 +17,20 @@ import static game.Config.SHUFFLE_STEPS;
  * @author darven
  */
 public class CardManager implements Cloneable {
+    //deck, cards available to draw to hand
+    private LinkedList<AbstractCard> deck;
     
-    private LinkedList<AbstractCard> deck; //deck, cards available to draw to hand
+    //cards discarded from hand
+    private LinkedList<AbstractCard> discard;
     
-    private LinkedList<AbstractCard> discard;//cards discarded from hand
+    //player's hand
+    private ArrayList<AbstractCard> hand; 
     
-    private ArrayList<AbstractCard> hand; //player's hand
+    //cards discarded last time discardAll was called
+    private LinkedList<AbstractCard> lastDiscard;
     
-    private boolean belongPlayer1; //true if this belongs to player 1
+    //true if this belongs to player 1
+    private boolean belongPlayer1; 
 
 //***************************** CONSTRUCTOR ************************************    
     
@@ -43,6 +49,7 @@ public class CardManager implements Cloneable {
         this.shuffleDeck();
         
         //discard and hand initialisation
+        this.lastDiscard = null;
         this.discard = new LinkedList<>();
         this.hand = new ArrayList<>();
     }
@@ -117,26 +124,27 @@ public class CardManager implements Cloneable {
         }
     }
     
-   
-    
     /**
      * discard inputed card if found in deck
      * @param card 
      *      card to discard
      */
-    public void discardCard(AbstractCard card){
+    private void discardCard(AbstractCard card){
         if(this.hand.remove(card)){
             System.out.println("done");
-            this.getDiscard().add(card);
+            this.discard.add(card);
+            this.lastDiscard.add(card);
         }
     }
     
     /**
-     * discard all inputed cards if found in the deck
+     * discard all inputed cards if found in the deck, and set them as last 
+     *      discarded array of cards
      * @param cards 
      *      cards to discard
      */
     public void discardAll(ArrayList<AbstractCard> cards){
+        this.lastDiscard = new LinkedList<>();
         for (AbstractCard card : cards){
             this.discardCard(card);
             System.out.println(card.getName());
@@ -151,22 +159,6 @@ public class CardManager implements Cloneable {
         this.deck.addAll(this.getDiscard());
         this.getDiscard().clear();
         this.shuffleDeck();
-    }
-    
-    /**
-     * clone cardManager:
-     *      clone hand, deck and discard to avoid synchronisation
-     * @return
-     *      cloned object
-     * @throws CloneNotSupportedException 
-     */
-    @Override
-    public Object clone() throws CloneNotSupportedException{
-        CardManager clone = (CardManager) super.clone();
-        clone.deck = (LinkedList<AbstractCard>) clone.deck.clone();
-        clone.discard = (LinkedList<AbstractCard>) clone.getDiscard().clone();
-        clone.hand = (ArrayList<AbstractCard>) clone.hand.clone();
-        return clone;
     }
 
 //***************************** GETTER *****************************************
@@ -189,11 +181,35 @@ public class CardManager implements Cloneable {
     /**
      * @return the discard
      */
-    public LinkedList<AbstractCard> getDiscard() {
+    private LinkedList<AbstractCard> getDiscard() {
         return discard;
+    }
+
+    /**
+     * @return the lastDiscard
+     */
+    public LinkedList<AbstractCard> getLastDiscard() {
+        return this.lastDiscard;
     }
     
 //******************************************************************************
+    
+    /**
+     * clone cardManager:
+     *      clone hand, deck and discard to avoid synchronisation
+     * @return
+     *      cloned object
+     * @throws CloneNotSupportedException 
+     */
+    @Override
+    public Object clone() throws CloneNotSupportedException{
+        CardManager clone = (CardManager) super.clone();
+        clone.deck = (LinkedList<AbstractCard>) clone.deck.clone();
+        clone.discard = (LinkedList<AbstractCard>) clone.getDiscard().clone();
+        clone.hand = (ArrayList<AbstractCard>) clone.hand.clone();
+        return clone;
+    }
+    
     @Override
     public String toString(){
         //print hand content

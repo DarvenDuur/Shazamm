@@ -104,19 +104,6 @@ public class Round {
     }
     
     /**
-     * Return the second last bridge
-     * @return 
-     */
-    public Bridge getSecondLastBridge(){
-        Turn secondLastTurn = this.getSecondLastTurn();
-        if (secondLastTurn == null){
-            return null;
-        }else{
-            return this.getSecondLastTurn().getBridge();
-        }
-    }
-    
-    /**
      * return the last playstate 1
      * @return 
      */

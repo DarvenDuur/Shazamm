@@ -46,6 +46,7 @@ public class Console {
     public static ArrayList<AbstractCard> askCards(Round round, boolean player1){
         ArrayList<Integer> acceptedInput = new ArrayList<>();
         
+        //get player
         PlayerState player = player1 ?
                 round.getLastPlayerState1():
                 round.getLastPlayerState2();
@@ -62,7 +63,7 @@ public class Console {
             ArrayList<Integer> handIDs = getIDs(cards);
             printCards(handIDs, player.getPlayer().getName() + 
                     ", you can choose the following cards: ", 
-                    player.getPlayer().getName() + "No cards can be played (shouldn't appear)"); //CHANGE*******************************************************
+                    "No cards can be played (shouldn't appear)");
 
             //get input
             System.out.println("Enter the ID(s) of the card(s) you want to play."
@@ -128,16 +129,12 @@ public class Console {
      */
     public static AbstractCard askClone(Round round, boolean player1){
         Integer acceptedInput = new Integer(0);
-        Bridge bridge = round.getSecondLastBridge();
+        Bridge bridge = round.getLastBridge();
         
-        if (bridge == null){
-            System.out.println("No cards clonable.");
-            return null;
-        }
-        
+        //get last discarded cards of ennemy player
         LinkedList<AbstractCard> cards = !player1 ?
-                bridge.getPlayerState1().getCardManager().getDiscard():
-                bridge.getPlayerState2().getCardManager().getDiscard();
+                bridge.getPlayerState1().getCardManager().getLastDiscard():
+                bridge.getPlayerState2().getCardManager().getLastDiscard();
         
         //safety mesure for unvalid parameters
         if (cards == null || cards.isEmpty()){
