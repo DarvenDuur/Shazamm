@@ -23,9 +23,9 @@ public class Theft extends AbstractCard {
     @Override
     protected void apply(Round round) {
         if (this.isUsedPlayer1()){
-            round.getLastTurn().isPlayer1Theft();
+            round.getLastTurn().setPlayer1Theft(true);
         }else{
-            round.getLastTurn().isPlayer2Theft();
+            round.getLastTurn().setPlayer2Theft(true);
         }
     }
 }
