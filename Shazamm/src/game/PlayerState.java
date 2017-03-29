@@ -147,6 +147,7 @@ public class PlayerState implements Cloneable {
             betDone = this.verifyBet(manaAmount);
         }
         
+        this.bet = manaAmount;
         this.setPowerAttack(manaAmount); 
         this.addMana(- manaAmount);
     }
