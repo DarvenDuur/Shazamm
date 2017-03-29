@@ -119,6 +119,15 @@ public class PlayerState implements Cloneable {
     public void setPowerAttack(int powerAttack) {
         this.powerAttack = powerAttack;
     }
+
+    /**
+     * add mana to the mana pool
+     * @param amount 
+     *      mana to add
+     */
+    public void addMana(int amount) {
+        this.mana += amount;
+    }
  
 //***************************** OTHER ******************************************
     
@@ -140,10 +149,8 @@ public class PlayerState implements Cloneable {
         
         this.setPowerAttack(manaAmount); 
         this.addMana(- manaAmount);
-        this.setPowerAttack(manaAmount);
     }
 
-    
     /**
      * @see Object.clone()
      * @return a clone of the playerState
@@ -156,15 +163,6 @@ public class PlayerState implements Cloneable {
         clone.cardManager = (CardManager) clone.cardManager.clone();
 
         return clone;
-    }
-
-    /**
-     * add mana to the mana pool
-     * @param amount 
-     *      mana to add
-     */
-    public void addMana(int amount) {
-        this.mana += amount;
     }
     
     /**

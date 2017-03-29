@@ -151,60 +151,49 @@ public class Turn implements Cloneable {
     
     /**
      * Play turn 
-     * get action input and apply it to the turn
-     * @return 
-     *      turn resulting of actions played
+     * get action input and apply it to this turn
+     * @param round
+     *      parent round, needed to apply actions
      */
-    public Turn play(Round round){
-        try {
-            //generate next turn
-            Turn resultTurn = (Turn) this.clone();
+    public void play(Round round){
+        //print bridge state
+        System.out.println(this.getBridge().toString());
             
-            //print bridge state
-            System.out.println(resultTurn.getBridge().toString());
+        //get current player states
+        PlayerState player1 = this.getBridge().getPlayerState1();
+        PlayerState player2 = this.getBridge().getPlayerState2();
             
-            //get current player states
-            PlayerState player1 = resultTurn.getBridge().getPlayerState1();
-            PlayerState player2 = resultTurn.getBridge().getPlayerState2();
+        //bet
+        player1.bet();
+        player2.bet();
             
-            //bet
-            player1.bet();
-            player2.bet();
+        //collect actions input
+        HashSet<AbstractCard> player1Cards = Console.askCards(round, true);
+        HashSet<AbstractCard> player2Cards = Console.askCards(round, false);
             
-            //collect actions input
-            HashSet<AbstractCard> player1Cards = Console.askCards(round, true);
-            HashSet<AbstractCard> player2Cards = Console.askCards(round, false);
+        //discard cards played by each player
+        player1.getCardManager().discardAll(player1Cards);
+        player2.getCardManager().discardAll(player2Cards);
             
-            //discard cards played by each player
-            player1.getCardManager().discardAll(player1Cards);
-            player2.getCardManager().discardAll(player2Cards);
+        //merge and sort card lists
+        ArrayList<AbstractCard> cards = new ArrayList<>();
+        cards.addAll(player1Cards);
+        cards.addAll(player2Cards);
+        Collections.sort(cards);
+               
+        //apply cards' action to the turn
+        for (AbstractCard card : cards){
+            card.generalApply(round);
+        }
+        
+        //apply bet
+        this.applyBets();
             
-            //merge and sort card lists
-            ArrayList<AbstractCard> cards = new ArrayList<>();
-            cards.addAll(player1Cards);
-            cards.addAll(player2Cards);
-            Collections.sort(cards);
-                    
-            //apply cards' action to the turn
-            for (AbstractCard card : cards){
-                card.generalApply(round);
-            }
-            
-            //apply bet
-            resultTurn.applyBets();
-            
-            resultTurn.endOfTurnActions();
-            resultTurn.end();
-            System.out.println(this.bridge.toString());
-            //print the winner
-            Console.printWinner(resultTurn);
-            
-            return resultTurn;
-            
-        } catch (CloneNotSupportedException ex) {
-            Logger.getLogger(Turn.class.getName()).log(Level.SEVERE, null, ex);
-            return this;
-        }    
+        this.endOfTurnActions();
+        this.end();
+        System.out.println(this.bridge.toString());
+        //print the winner
+        Console.printWinner(this);
     }
     
     /**

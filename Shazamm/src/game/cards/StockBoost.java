@@ -6,6 +6,7 @@
 package game.cards;
 
 import game.Round;
+import game.gui.Console;
 
 /**
  *
