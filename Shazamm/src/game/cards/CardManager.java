@@ -192,4 +192,19 @@ public class CardManager implements Cloneable {
     public LinkedList<AbstractCard> getDiscard() {
         return discard;
     }
+    
+//******************************************************************************
+    @Override
+    public String toString(){
+        String str ="hand"+"\n";
+        for (AbstractCard abstractCard : hand) {
+           str+=abstractCard.getName()+"\n";
+        }
+        str+="discard"+"\n";
+        for (AbstractCard abstractCard : discard) {
+            str+=abstractCard.getName()+"\n";
+        }
+            
+        return str;
+    }
 }
