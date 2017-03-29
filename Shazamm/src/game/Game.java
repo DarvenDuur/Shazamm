@@ -114,14 +114,10 @@ public class Game {
     /**
      * get the winer of the game
      * @return 
-     *      0 for draw, positive for PLAYER1, negative for PLAYER2
-      the bigger the value, the wider the difference in victories
+     *      0 for draw, -1 for player1, 1 for player2
+     *      -2 for no player out of the bridge
      */
     public short winner() {
-        short winner = 0;
-        for (Round round : rounds){
-            winner += round.getWinner();
-        }
-        return winner;
+        return this.getRounds().getLast().getWinner();
     }
 }

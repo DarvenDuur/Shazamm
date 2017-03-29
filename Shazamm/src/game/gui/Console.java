@@ -10,6 +10,7 @@ import game.PlayerState;
 import game.Round;
 import game.Turn;
 import game.cards.AbstractCard;
+import game.cards.CardsEnum;
 import static game.cards.CardsEnum.CARDS;
 import game.cards.Clone;
 import java.text.DateFormat;
@@ -62,7 +63,7 @@ public class Console {
         do {
             acceptedInput.clear();
             if (round.getLastTurn().isMute()){
-                println("");
+                println("Warning, " + CardsEnum.Mutism.getName() + " is active.");
             }
             //print all cards, and get all available IDs
             HashSet<Integer> handIDs = getIDs(cards);
@@ -347,6 +348,10 @@ public class Console {
         }
     }
     
+    /**
+     * warps System.out.println
+     * @param line 
+     */
     public static void println(String line){
         System.out.println(line);
     }

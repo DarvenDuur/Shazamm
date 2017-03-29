@@ -99,13 +99,27 @@ public class Bridge implements Cloneable {
     /**
      * check if a player has fallen out of the bridge
      * @return
-     *      true if at least one of the player is out of the bridge
+     *      0 for draw, -1 for player1, 1 for player2
+     *      -2 for no player out of the bridge
      */
-    public boolean hasOutOfBridge() {
-        return ((this.playerState1.getPosition() < -this.getSize())
-                || (this.playerState1.getPosition() > this.getSize())
-                || (this.playerState2.getPosition() < -this.getSize())
-                || (this.playerState2.getPosition() > this.getSize()));
+    public short hasOutOfBridge() {
+        //both out
+        if ((this.playerState1.getPosition() < -this.getSize())
+                && (this.playerState2.getPosition() > this.getSize())){
+            return 0;
+            
+        //player 1 out
+        }else if ((this.playerState1.getPosition() < -this.getSize())) {
+            return -1;
+            
+        //player 2 out
+        }else if ((this.playerState2.getPosition() > this.getSize())) {
+            return 1;
+            
+        //no player out
+        }else{
+            return -2;
+        }
     }
     
     /**

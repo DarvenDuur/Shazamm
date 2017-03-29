@@ -136,11 +136,21 @@ public class Round {
 //******************************************************************************
     
     /**
+     * set winner value using Bridge.hasOutOfBridge()
+     *      0 for draw, -1 for player1, 1 for player2
+     *      -2 for no player out of the bridge
+     */
+    private void setWinner(){
+        this.winner = this.getLastTurn().getBridge().hasOutOfBridge();
+    }
+    
+    /**
      * set ended to false: end the round, necessary to avoid doing extra turns 
      *      or replaying the whole round
      */
     public void end(){
         this.ended=true;
+        this.setWinner();
     }
     
     
@@ -180,10 +190,12 @@ public class Round {
             }
         }
         Console.printWinner(this);
+        
         /*true if, in the last turn of the round, at least one of the
         players is out of the bridge (game ending condition)*/
-        return this.getLastTurn().getBridge().hasOutOfBridge();
+        return this.getWinner() != -2;
     }
+    
     @Override
     public String toString(){
         String str="";
