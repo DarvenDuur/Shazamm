@@ -95,8 +95,8 @@ public class Game {
             round = new Round(this.PLAYER1, this.PLAYER2, 
                 Config.BRIDGE_MAX_SIZE, 0);
             
-        }else if (!rounds.getFirst().isEnded()){
-            round = rounds.getFirst();
+        }else if (!rounds.getLast().isEnded()){
+            round = rounds.getLast();
             
         }else{
             round = new Round(this.rounds.getLast());
@@ -104,7 +104,7 @@ public class Game {
         
         /*when the round is finished, add to list of rounds
         (could be after executing the round)*/
-        rounds.add(round);
+        rounds.addLast(round);
         
         /*execute the round, and returns true if the raoun fills the game ending
         condition*/

@@ -183,15 +183,19 @@ public class Round {
             //play turn
             turn.play(this);
             
-            try {
-                this.turns.add((Turn) turn.clone());
-            } catch (CloneNotSupportedException ex) {
-                Logger.getLogger(Round.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            
             
             //check if the turn fills round end condition
             if (this.getLastTurn().isRoundEnd()){
                 this.end();
+            }else{
+                
+                //if round isn't ended, prepare the next turn
+                try {
+                    this.turns.add((Turn) turn.clone());
+                } catch (CloneNotSupportedException ex) {
+                    Logger.getLogger(Round.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
         Console.printWinner(this);

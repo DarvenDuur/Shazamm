@@ -223,7 +223,7 @@ public class Turn implements Cloneable {
         this.bridge.moveFirewallLocation(-this.winner);
         
         //end Turn
-        this.ended = true;
+        this.end();
     }
     
     /**
