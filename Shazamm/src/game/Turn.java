@@ -217,6 +217,8 @@ public class Turn implements Cloneable {
             this.winner = 0;
         }
         
+        this.winner *= this.bridge.getInvertWinLose() ? -1 : 1;
+        
         //move firewall toward loser
         this.bridge.moveFirewallLocation(-this.winner);
         

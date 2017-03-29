@@ -117,7 +117,7 @@ public class PlayerState implements Cloneable {
      * @param powerAttack the powerAttack to set
      */
     public void setPowerAttack(int powerAttack) {
-        this.powerAttack = powerAttack;
+        this.powerAttack = powerAttack > 0 ? powerAttack : 0;
     }
 
     /**

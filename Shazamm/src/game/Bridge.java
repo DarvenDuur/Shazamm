@@ -175,6 +175,13 @@ public class Bridge implements Cloneable {
         this.invertWinLose = true;
     }
     
+    /**
+     * @return invertWinLose
+     */
+    public boolean getInvertWinLose() {
+        return this.invertWinLose;
+    }
+    
 //***************************** REZILLIANCE ************************************
     private boolean rezilliancePlayer1;
     private boolean rezilliancePlayer2;
