@@ -96,6 +96,13 @@ public class PlayerState implements Cloneable {
     public int getMana() {
         return mana;
     }
+
+    /**
+     * @return the powerAttack
+     */
+    public int getPowerAttack() {
+        return powerAttack;
+    }
     
 //***************************** SETTERS ****************************************
 
@@ -107,10 +114,10 @@ public class PlayerState implements Cloneable {
     }
 
     /**
-     * @param bet the bet to set
+     * @param powerAttack the powerAttack to set
      */
-    public void setBet(int bet) {
-        this.bet = bet;
+    public void setPowerAttack(int powerAttack) {
+        this.powerAttack = powerAttack;
     }
  
 //***************************** OTHER ******************************************
@@ -131,7 +138,7 @@ public class PlayerState implements Cloneable {
             betDone = this.verifyBet(manaAmount);
         }
         
-        this.setBet(manaAmount); 
+        this.setPowerAttack(manaAmount); 
         this.addMana(- manaAmount);
         this.setPowerAttack(manaAmount);
     }
@@ -177,20 +184,6 @@ public class PlayerState implements Cloneable {
         }
 
         return true;
-    }
-
-    /**
-     * @return the powerAttack
-     */
-    public int getPowerAttack() {
-        return powerAttack;
-    }
-
-    /**
-     * @param powerAttack the powerAttack to set
-     */
-    public void setPowerAttack(int powerAttack) {
-        this.powerAttack = powerAttack;
     }
     
     public String toString(){

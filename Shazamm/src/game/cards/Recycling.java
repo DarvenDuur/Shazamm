@@ -30,8 +30,8 @@ public class Recycling extends AbstractCard {
         PlayerState ownerPlayer=super.getUserPLayer(round);
         if(Console.getConfirmation("Do you want to add yourself 5 attack power "
                 + "(if you refuse, you will lose 5 attack power)?")){
-            ownerPlayer.setBet(ownerPlayer.getPowerAttack()+5);
+            ownerPlayer.setPowerAttack(ownerPlayer.getPowerAttack()+5);
         }
-        ownerPlayer.setBet(ownerPlayer.getPowerAttack()-5);    
+        ownerPlayer.setPowerAttack(ownerPlayer.getPowerAttack()-5);    
     }
 }

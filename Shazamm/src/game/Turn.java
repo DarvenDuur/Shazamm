@@ -210,19 +210,24 @@ public class Turn implements Cloneable {
      */
     public void applyBets(){
         //get bets
-        int player1bet = this.bridge.getPlayerState1().getBet();
-        int player2bet = this.bridge.getPlayerState2().getBet();
+        int player1power = this.bridge.getPlayerState1().getPowerAttack();
+        int player2power = this.bridge.getPlayerState2().getPowerAttack();
         
         //compare bets to determine winner
-        if (player1bet < player2bet){
+        //player 2 won,
+        if (player1power < player2power){
             this.winner = 1;
             
-        }else if (player1bet > player2bet){
+        //player 1 won
+        }else if (player1power > player2power){
             this.winner = -1;
             
         }else{
             this.winner = 0;
         }
+        
+        //move firewall toward loser
+        this.bridge.moveFirewallLocation(-this.winner);
         
         //end Turn
         this.ended = true;
