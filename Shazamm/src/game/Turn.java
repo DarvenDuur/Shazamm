@@ -189,7 +189,7 @@ public class Turn implements Cloneable {
         //apply bet
         this.applyBets();
             
-        this.endOfTurnActions();
+        this.endOfTurnDraw();
         this.end();
         System.out.println(this.bridge.toString());
         //print the winner
@@ -200,24 +200,7 @@ public class Turn implements Cloneable {
      * set isPlayer1Winner to 0 for draw, -1 for player1, 1 for player2
      */
     public void applyBets(){
-        //get bets
-        int player1power = this.bridge.getPlayerState1().getPowerAttack();
-        int player2power = this.bridge.getPlayerState2().getPowerAttack();
-        
-        //compare bets to determine winner
-        //player 2 won,
-        if (player1power < player2power){
-            this.winner = 1;
-            
-        //player 1 won
-        }else if (player1power > player2power){
-            this.winner = -1;
-            
-        }else{
-            this.winner = 0;
-        }
-        
-        this.winner *= this.bridge.getInvertWinLose() ? -1 : 1;
+        this.setWinner();
         
         //move firewall toward loser
         this.bridge.moveFirewallLocation(-this.winner);
@@ -230,7 +213,7 @@ public class Turn implements Cloneable {
      * apply end of turn actions:
      *      - each player draws cards (number set in Config.END_OF_ROUND_DRAW)
      */
-    public void endOfTurnActions(){
+    public void endOfTurnDraw(){
         PlayerState player1, player2;
         player1 = this.bridge.getPlayerState1();
         player2 = this.bridge.getPlayerState2();
@@ -240,6 +223,9 @@ public class Turn implements Cloneable {
             player1.getCardManager().drawCard();
             player2.getCardManager().drawCard();
         }
+        
+        player1.getCardManager().refillHand();
+        player2.getCardManager().refillHand();
     }
     
     /**
@@ -256,9 +242,6 @@ public class Turn implements Cloneable {
             player1.getCardManager().drawCard();
             player2.getCardManager().drawCard();
         }
-        
-        player1.getCardManager().refillHand();
-        player2.getCardManager().refillHand();
     }
     
     public Turn getNextRoundStarter(){
@@ -312,6 +295,27 @@ public class Turn implements Cloneable {
         //return turn
         return initTurn;
     } 
+    
+    private void setWinner(){
+        //get bets
+        int player1power = this.bridge.getPlayerState1().getPowerAttack();
+        int player2power = this.bridge.getPlayerState2().getPowerAttack();
+        
+        //compare bets to determine winner
+        //player 2 won,
+        if (player1power < player2power){
+            this.winner = 1;
+            
+        //player 1 won
+        }else if (player1power > player2power){
+            this.winner = -1;
+            
+        }else{
+            this.winner = 0;
+        }
+        
+        this.winner *= this.bridge.getInvertWinLose() ? -1 : 1;
+    }
     
     @Override
     public String toString(){

@@ -201,12 +201,12 @@ public class Console {
      *      user's answer
      */
     public static boolean getConfirmation(String question) {
-        Scanner sc = new Scanner(System.in);
         String answer = "";
         
         while (!answer.equals("y") && !answer.equals("n")){
             println(question + "[Y/n]:");
-            answer = sc.nextLine().toLowerCase();
+            answer = SCANNER.nextLine().toLowerCase();
+            answer +=answer.isEmpty() ? "y" : "";
         }
         return answer.equals("y");
     }

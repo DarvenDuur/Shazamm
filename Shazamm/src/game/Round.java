@@ -53,7 +53,7 @@ public class Round {
     
     /**
      * Create a new round from another round, as the round following it
-      call endOfTurnActions()
+      call endOfTurnDraw()
      * @param round
      */
     public Round(Round round) {
@@ -183,22 +183,20 @@ public class Round {
             //play turn
             turn.play(this);
             
-            
-            
             //check if the turn fills round end condition
-            if (this.getLastTurn().isRoundEnd()){
+            if (turn.isRoundEnd()){
                 this.end();
             }else{
                 
                 //if round isn't ended, prepare the next turn
                 try {
                     this.turns.add((Turn) turn.clone());
+                    Console.println("New Turn");
                 } catch (CloneNotSupportedException ex) {
                     Logger.getLogger(Round.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
-        Console.printWinner(this);
         
         /*true if, in the last turn of the round, at least one of the
         players is out of the bridge (game ending condition)*/
