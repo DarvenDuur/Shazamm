@@ -59,6 +59,7 @@ public class Console {
         }
         
         do {
+            acceptedInput.clear();
             if (round.getLastTurn().isMute()){
                 println("");
             }
@@ -146,6 +147,8 @@ public class Console {
         }
         
         do {
+            
+            acceptedInput = new Integer(0);
             //print all cards, and get all available IDs
             ArrayList<Integer> handIDs = getIDs(cards);
             printCards(handIDs, "You can clone the following cards: ", 
