@@ -35,7 +35,7 @@ public class Config {
     
     public static final String BET_STRING="a parié.";
     
-    public static final String GAME_WINNER="Le gagnant du tour est ";
+    public static final String GAME_WINNER="gagnée par ";
     
     public static final String MANA_SPENT="Perte de mana";
     

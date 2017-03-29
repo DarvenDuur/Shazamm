@@ -14,7 +14,7 @@ import game.cards.AbstractCard;
 import java.util.HashSet;
 
 /**
- *
+ * @deprecated 
  * @author mg
  */
 public class LogBetOverview {

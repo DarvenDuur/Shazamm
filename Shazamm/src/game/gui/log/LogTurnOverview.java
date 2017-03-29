@@ -10,10 +10,13 @@ import game.PlayerState;
 import game.Turn;
 
 /**
- *
+ * @deprecated 
  * @author mg
  */
 public class LogTurnOverview extends LogBetOverview {
+    
+    
+    
     
     private Turn TurnAfter;
     
@@ -57,7 +60,26 @@ public class LogTurnOverview extends LogBetOverview {
        return "pb";
     }
     
+    public int getManaBeforePlayer1(){
+        return (super.BRIDGE.getPlayerState1().getMana());
+    }
+    public int getManaBeforePlayer2(){
+        return super.BRIDGE.getPlayerState2().getMana();
+    }
+    public int getManaAfterPlayer1(){
+        return this.TurnAfter.getBridge().getPlayerState1().getMana();
+    }
     
+    public int getManaAfterPlayer2(){
+        return this.TurnAfter.getBridge().getPlayerState2().getMana();
+    }
+    
+    public int getPowerBoostPlayer1(){
+        return super.BRIDGE.getPlayerState1().getPowerAttack();
+    }
+    public int getPowerBoostPlayer2(){
+        return super.BRIDGE.getPlayerState1().getPowerAttack();
+    }
     
     @Override
     public String toString(){
