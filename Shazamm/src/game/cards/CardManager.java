@@ -196,15 +196,23 @@ public class CardManager implements Cloneable {
 //******************************************************************************
     @Override
     public String toString(){
-        String str ="hand"+"\n";
+        //print hand content
+        String str = "Hand:\n";
         for (AbstractCard abstractCard : hand) {
            str+=abstractCard.getName()+"\n";
         }
-        str+="discard"+"\n";
+        
+        //print discard content
+        str += "Discard:\n";
         for (AbstractCard abstractCard : discard) {
             str+=abstractCard.getName()+"\n";
         }
-            
+        
+        //print deck content
+        str += "Deck:\n";
+        for (AbstractCard abstractCard : deck) {
+            str+=abstractCard.getName()+"\n";
+        }
         return str;
     }
 }
