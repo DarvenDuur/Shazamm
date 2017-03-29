@@ -131,7 +131,6 @@ public class CardManager implements Cloneable {
      */
     private void discardCard(AbstractCard card){
         if(this.hand.remove(card)){
-            System.out.println("done");
             this.discard.add(card);
             this.lastDiscard.add(card);
         }
@@ -147,7 +146,6 @@ public class CardManager implements Cloneable {
         this.lastDiscard = new LinkedList<>();
         for (AbstractCard card : cards){
             this.discardCard(card);
-            System.out.println(card.getName());
         }
     }
     

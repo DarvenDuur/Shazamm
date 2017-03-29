@@ -159,6 +159,9 @@ public class Turn implements Cloneable {
             //generate next turn
             Turn resultTurn = (Turn) this.clone();
             
+            //print bridge state
+            System.out.println(resultTurn.getBridge().toString());
+            
             //get current player states
             PlayerState player1 = resultTurn.getBridge().getPlayerState1();
             PlayerState player2 = resultTurn.getBridge().getPlayerState2();
