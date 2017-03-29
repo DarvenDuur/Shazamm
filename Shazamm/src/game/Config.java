@@ -26,6 +26,37 @@ public class Config {
     
     public static final int FIRST_ROUND_DRAW = 5; /* number of cards 
     each player draw at the first round */
+
+//******************************************************************************
+    
+    public static final String BET="Mise";
+   
+    public static final String BET_OVERVIEW_STRING="BILAN DES MISES";
+    
+    public static final String BET_STRING="a parié.";
+    
+    public static final String GAME_WINNER="Le gagnant du tour est ";
+    
+    public static final String MANA_SPENT="Perte de mana";
+    
+    public static final String MANA_STOCK_LEFT="Réserve après";
+    
+    public static final String POWER_ATTACK="Force d'attaque";
+    
+    public static final String ROUND_STRING="MANCHE N° ";
+    
+    public static final String SPELLS="Sorts";
+    
+    public static final String TURN_STRING="TOUR N° ";
+    
+    public static final String TURN_WINNER="Le gagnant du tour est ";
+    
+    public static final String USERNAME="Pseudo";
+    
+    
+    
+    
+    
     
     /**
      * @deprecated 
