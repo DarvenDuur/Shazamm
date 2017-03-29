@@ -49,7 +49,7 @@ public class CardManager implements Cloneable {
         this.shuffleDeck();
         
         //discard and hand initialisation
-        this.lastDiscard = null;
+        this.lastDiscard = new LinkedList<>();
         this.discard = new LinkedList<>();
         this.hand = new ArrayList<>();
     }
@@ -143,7 +143,7 @@ public class CardManager implements Cloneable {
      *      cards to discard
      */
     public void discardAll(ArrayList<AbstractCard> cards){
-        this.lastDiscard = new LinkedList<>();
+        this.lastDiscard.clear();
         for (AbstractCard card : cards){
             this.discardCard(card);
         }

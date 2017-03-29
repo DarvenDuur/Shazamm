@@ -59,6 +59,9 @@ public class Console {
         }
         
         do {
+            if (round.getLastTurn().isMute()){
+                println("");
+            }
             //print all cards, and get all available IDs
             ArrayList<Integer> handIDs = getIDs(cards);
             printCards(handIDs, player.getPlayer().getName() + 
@@ -66,7 +69,7 @@ public class Console {
                     "No cards can be played (shouldn't appear)");
 
             //get input
-            System.out.println("Enter the ID(s) of the card(s) you want to play."
+            println("Enter the ID(s) of the card(s) you want to play."
                     + " You can enter any number of IDs, separated by spaces, "
                     + "letters ... :");
             String input = SCANNER.nextLine();
@@ -87,11 +90,11 @@ public class Console {
 
             //show refused input
             if (refusedInput.isEmpty()){
-                System.out.println("No refused input");
+                println("No refused input");
             }else{
-                System.out.println("Refused inputs:");
+                println("Refused inputs:");
                 for (Integer integer : refusedInput){
-                    System.out.println(integer);
+                    println(integer);
                 }
             }
             
@@ -138,7 +141,7 @@ public class Console {
         
         //safety mesure for unvalid parameters
         if (cards == null || cards.isEmpty()){
-            System.out.println("No cards clonable.");
+            println("No cards clonable.");
             return null;
         }
         
@@ -149,7 +152,7 @@ public class Console {
                     "No cards can be played (shouldn't appear)");
 
             //get input
-            System.out.println("Enter the ID of the card you want to clone."
+            println("Enter the ID of the card you want to clone."
                     + " You can enter any number of IDs, separated by spaces, "
                     + "letters ... (only the first valid one will be considered):");
             String input = SCANNER.nextLine();
@@ -166,10 +169,10 @@ public class Console {
             }
             
             if (acceptedInput.intValue()>0){
-                System.out.println("This card will be chosen:");
-                System.out.println(CARDS[acceptedInput - 1].getName());
+                println("This card will be chosen:");
+                println(CARDS[acceptedInput - 1].getName());
             }else{
-                System.out.println("No card will be chosen");
+                println("No card will be chosen");
             }
             
         }while(!getConfirmation("Do you whant to chose this card ?"));
@@ -197,7 +200,7 @@ public class Console {
         String answer = "";
         
         while (!answer.equals("y") && !answer.equals("n")){
-            System.out.println(question + "[Y/n]:");
+            println(question + "[Y/n]:");
             answer = sc.nextLine().toLowerCase();
         }
         return answer.equals("y");
@@ -216,11 +219,11 @@ public class Console {
             String emptyText) {
         //show accepted inputs
         if (cards.isEmpty()){
-            System.out.println(emptyText);
+            println(emptyText);
         }else{
-            System.out.println(text);
+            println(text);
             for (Integer integer : cards){
-                System.out.println(integer.toString() + ". " + CARDS[integer - 1].getName());
+                println(integer.toString() + ". " + CARDS[integer - 1].getName());
             }
         }
     }
@@ -268,7 +271,7 @@ public class Console {
      *      inputed line
      */
     public static String getInput(String string) {
-        System.out.println(string);
+        println(string);
         return SCANNER.nextLine();
     }
 
@@ -280,7 +283,7 @@ public class Console {
      *      inputed Integer
      */
     public static Integer getIntInput(String string) {
-        System.out.println(string);
+        println(string);
         ArrayList<Integer> input = new ArrayList<>();
         while(input.isEmpty()){
             input = parseAllInt(SCANNER.nextLine());
@@ -305,12 +308,12 @@ public class Console {
     public static void printWinner(Turn turn) {
         switch (turn.getWinner()){
             case -1:
-                System.out.println(turn.getBridge().getPlayer1().getName() +
+                println(turn.getBridge().getPlayer1().getName() +
                         " won the turn.");
                 break;
                 
             case 1:
-                System.out.println(turn.getBridge().getPlayer2().getName() +
+                println(turn.getBridge().getPlayer2().getName() +
                         " won the turn.");
                 break;
                 
@@ -327,17 +330,25 @@ public class Console {
     public static void printWinner(Round round) {
         switch (round.getWinner()){
             case -1:
-                System.out.println(round.getLastBridge().getPlayer1().getName()
+                println(round.getLastBridge().getPlayer1().getName()
                         + " won the round.");
                 break;
                 
             case 1:
-                System.out.println(round.getLastBridge().getPlayer2().getName()
+                println(round.getLastBridge().getPlayer2().getName()
                         + " won the round.");
                 break;
                 
             default:
-                System.out.println("No winner in this round");
+                println("No winner in this round");
         }
+    }
+    
+    public static void println(String line){
+        System.out.println(line);
+    }
+    
+    public static void println(Object o){
+        System.out.println(o);
     }
 }
