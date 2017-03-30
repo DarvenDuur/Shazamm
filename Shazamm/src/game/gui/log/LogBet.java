@@ -15,7 +15,6 @@ import game.Player;
 public class LogBet extends Log {
     
     private final Player PLAYER;
-    
 
     public LogBet(Player player) {
         this.PLAYER = player;
@@ -28,7 +27,6 @@ public class LogBet extends Log {
         return PLAYER;
     }
     
-   
     @Override
     public String toString(){
         return super.toString()+this.PLAYER+" "+Config.BET_STRING;

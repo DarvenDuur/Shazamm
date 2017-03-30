@@ -12,12 +12,15 @@ import game.Config;
  * @author mg
  */
 public class LogTitle extends Log {
-    private static int roundIndex = 0;
-    private static int turnIndex = 0;
+    private static int roundIndex = 1;
+    private static int turnIndex = 1;
 
+    private final int TRUN;
+    private final int ROUND;
+    
     public LogTitle() {
-        turnIndex++;
-        
+        this.TRUN = turnIndex++;
+        this.ROUND = roundIndex;
     }
     
     public static void endRound(){
@@ -27,8 +30,8 @@ public class LogTitle extends Log {
     
     @Override
     public String toString(){
-        return Config.ROUND_STRING + roundIndex +" " +
-                Config.TURN_STRING + turnIndex;
+        return Config.ROUND_STRING + this.ROUND + " " +
+                Config.TURN_STRING + this.TRUN;
     }
     
 }
