@@ -211,7 +211,7 @@ public class Turn implements Cloneable {
     
     /**
      * apply end of turn actions:
-     *      - each player draws cards (number set in Config.END_OF_ROUND_DRAW)
+      - each player draws cards (number set in Config.END_OF_TURN_DRAW)
      */
     public void endOfTurnDraw(){
         PlayerState player1, player2;
@@ -219,7 +219,7 @@ public class Turn implements Cloneable {
         player2 = this.bridge.getPlayerState2();
         
         //draw set number of cards
-        for (int i = 0; i < Config.END_OF_ROUND_DRAW; i++){
+        for (int i = 0; i < Config.END_OF_TURN_DRAW; i++){
             player1.getCardManager().drawCard();
             player2.getCardManager().drawCard();
         }
@@ -230,7 +230,7 @@ public class Turn implements Cloneable {
     
     /**
      * apply start of round actions:
-     *      - each player draws cards (number set in Config.FIRST_ROUND_DRAW)
+      - each player draws cards (number set in Config.FIRST_TURN_DRAW)
      */
     public void startOfRoundActions(){
         PlayerState player1, player2;
@@ -238,7 +238,7 @@ public class Turn implements Cloneable {
         player2 = this.bridge.getPlayerState2();
         
         //draw set number of cards
-        for (int i = 0; i < Config.FIRST_ROUND_DRAW; i++){
+        for (int i = 0; i < Config.FIRST_TURN_DRAW; i++){
             player1.getCardManager().drawCard();
             player2.getCardManager().drawCard();
         }

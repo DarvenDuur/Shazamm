@@ -17,14 +17,14 @@ public class Config {
     public static final int MAX_MANA = 50; /*init mana value */
     
     public static final int SHUFFLE_STEPS = 100; /* number of time two cards are
-    swapped when CardShuffleList.shuffle() is used */
+    swapped when shuffleDeck() is used */
     
     public static final int HAND_REFILL_SIZE = 5; /* max size of the hand */
     
-    public static final int END_OF_ROUND_DRAW = 3; /* number of cards 
+    public static final int END_OF_TURN_DRAW = 3; /* number of cards 
     each player draw at the end of each round */
     
-    public static final int FIRST_ROUND_DRAW = 5; /* number of cards 
+    public static final int FIRST_TURN_DRAW = 5; /* number of cards 
     each player draw at the first round */
 
 //******************************************************************************

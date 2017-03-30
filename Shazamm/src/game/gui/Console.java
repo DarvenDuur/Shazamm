@@ -206,7 +206,7 @@ public class Console {
         while (!answer.equals("y") && !answer.equals("n")){
             println(question + "[Y/n]:");
             answer = SCANNER.nextLine().toLowerCase();
-            answer +=answer.isEmpty() ? "y" : "";
+            answer +=answer.trim().isEmpty()? "y" : "";
         }
         return answer.equals("y");
     }
