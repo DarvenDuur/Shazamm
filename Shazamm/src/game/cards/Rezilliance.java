@@ -7,6 +7,7 @@ package game.cards;
 
 import game.PlayerState;
 import game.Round;
+import game.gui.Console;
 
 /**
  *
@@ -33,11 +34,11 @@ public class Rezilliance extends AbstractCard {
         short winner =round.getLastTurn().getWinner();
         
         //case where the player 1 use this card and the card is effective
-        if((isUsedPlayer1() &&  winner==1)){
+        if(this.isUsedPlayer1()){
             round.getLastBridge().setRezilliancePlayer1(true);
-        }
+        
         //case where the player 2 use this card and the card is effective
-        else if(!isUsedPlayer1() && winner==-1){
+        }else{
             round.getLastBridge().setRezilliancePlayer2(true);
         }
     }

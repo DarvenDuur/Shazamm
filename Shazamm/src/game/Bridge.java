@@ -5,6 +5,8 @@
  */
 package game;
 
+import game.gui.Console;
+
 /**
  *
  * @author darven
@@ -43,6 +45,8 @@ public class Bridge implements Cloneable {
         
         this.invertWinLose = false;
         this.blaze = false;
+        this.rezilliancePlayer1 = false;
+        this.rezilliancePlayer2 = false;
 
         clone.playerState1 = (PlayerState) clone.playerState1.clone();
         clone.playerState2 = (PlayerState) clone.playerState2.clone();
@@ -64,7 +68,7 @@ public class Bridge implements Cloneable {
         amount *= this.invertWinLose ? -1 : 1;
         
         //block firewall if a player with resilliance is menaced
-        if((this.rezilliancePlayer1 && amount > 0)||
+        if((this.rezilliancePlayer1 && amount < 0)||
                 (this.rezilliancePlayer2 && amount > 0)){
             amount = 0;
         }

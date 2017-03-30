@@ -8,6 +8,7 @@ package game.cards;
 import game.Bridge;
 import game.PlayerState;
 import game.Round;
+import game.gui.Console;
 
 /**
  *
