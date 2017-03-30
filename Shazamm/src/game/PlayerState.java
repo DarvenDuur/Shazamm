@@ -137,8 +137,11 @@ public class PlayerState implements Cloneable {
      * get input for the bet and check if input is valid
      */
     public void bet() {
-        int manaAmount = Console.getIntInput(this.player.getName() + 
-                ", please enter a bet (" + this.mana + " available):");
+        Console.println(this.player.getName() + 
+                ", here is the content of your hand:");
+        Console.printCards(this.getCardManager().getHand());
+        int manaAmount = Console.getIntInput(
+                "Please enter a bet (" + this.mana + " available):");
         boolean betDone = this.verifyBet(manaAmount);
         
         //while input is invalid, ask for a valid bet
