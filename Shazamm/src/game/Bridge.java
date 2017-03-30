@@ -5,81 +5,70 @@
  */
 package game;
 
-/**
- *
- * @author darven
- */
 public class Bridge implements Cloneable {
+
     //current player's state
-    private PlayerState playerState1;
-    private PlayerState playerState2;
-    
+    private PlayerState playerState1, playerState2;
+
     // half the total size of the bridge, 0 : only the central portion remains
-    private final int SIZE; 
-    
+    private final int SIZE;
+
     /* 0 for the middle of the bridge, < 0 for the left side of the bridge,
      * > 0 for the right side of the bridge */
-    private int firewallLocation;    
-    
-    
+    private int firewallLocation;
+
     //if true, invert firewall movement
     private boolean invertWinLose;
-    
-    //if true, block firewall movement in player's dirrection
-    private boolean rezilliancePlayer1;
-    private boolean rezilliancePlayer2;
-    
+
+    //if true, block firewall movement in player's direction
+    private boolean rezilliancePlayer1, rezilliancePlayer2;
+
     //if true, double firewall movement
     private boolean blaze;
 
 //**************************** CONSTRUCTOR *************************************
-    
     /**
      * Call constructor with default vales
-     * @param playerState1 
-     *      state of the player 1
-     * @param playerState2 
-     *      state of the player 2
+     *
+     * @param playerState1 state of the player 1
+     * @param playerState2 state of the player 2
      */
     public Bridge(PlayerState playerState1, PlayerState playerState2) {
         this(playerState1, playerState2, Config.BRIDGE_MAX_SIZE, 0);
-    }    
-    
+    }
+
     /**
      * Call constructor with default vales
-     * @param playerState1 
-     *      state of the player 1
-     * @param playerState2 
-     *      state of the player 2
-     * @param size
-     *      half the total size of the brige - 1 
-     *      (excluding the central tile, necessarly existing) 
+     *
+     * @param playerState1 state of the player 1
+     * @param playerState2 state of the player 2
+     * @param size half the total size of the brige - 1 (excluding the central
+     * tile, necessarly existing)
      * @param firewallLocation
      */
-    public Bridge(PlayerState playerState1, PlayerState playerState2, 
+    public Bridge(PlayerState playerState1, PlayerState playerState2,
             int size, int firewallLocation) {
         //initialize fields with parameters
         this.playerState1 = playerState1;
         this.playerState2 = playerState2;
         this.SIZE = size;
         this.firewallLocation = firewallLocation;
-        
+
         //initialize boolean used when applying
         this.invertWinLose = false;
         this.blaze = false;
     }
 
 //**************************** CLONE *******************************************
-    
     /**
      * @see Object.clone()
      * @return clone of the bridge (card effects reset)
-     * @throws CloneNotSupportedException 
+     * @throws CloneNotSupportedException
      */
     @Override
     public Object clone() throws CloneNotSupportedException {
         Bridge clone = (Bridge) super.clone();
-        
+
         this.invertWinLose = false;
         this.blaze = false;
         this.rezilliancePlayer1 = false;
@@ -92,39 +81,37 @@ public class Bridge implements Cloneable {
     }
 
 //**************************** SETTER ******************************************
-
     /**
-     * move the firewall by specified amount
-     *      subject to win/lose inversion
-     * @param amount
-     *      amount of slots to move the firewall by
-     *      negative for the left side, positive for the right side
+     * move the firewall by specified amount subject to win/lose inversion
+     *
+     * @param amount amount of slots to move the firewall by negative for the
+     * left side, positive for the right side
      */
     public void moveFirewallLocation(int amount) {
         //invert amount if victory and loss are inverted
         amount *= this.invertWinLose ? -1 : 1;
-        
+
         //block firewall if a player with resilliance is menaced
-        if((this.rezilliancePlayer1 && amount < 0)||
-                (this.rezilliancePlayer2 && amount > 0)){
+        if ((this.rezilliancePlayer1 && amount < 0)
+                || (this.rezilliancePlayer2 && amount > 0)) {
             amount = 0;
         }
-        
+
         amount *= this.blaze ? 2 : 1;
-        
+
         //move firewall by amount
         this.setFirewallLocation(this.firewallLocation + amount);
     }
-    
+
     /**
      * set the position of the firewall
-     * @param location
-     *      new firewall location
-     *      negative for the left side, positive for the right side
+     *
+     * @param location new firewall location negative for the left side,
+     * positive for the right side
      */
-    public void setFirewallLocation(int location){
+    public void setFirewallLocation(int location) {
         this.firewallLocation = location;
-        
+
         // if firewall is too far on the left, move it back to aceptable limit
         if (this.firewallLocation < -this.SIZE) {
             this.firewallLocation = -this.SIZE;
@@ -142,7 +129,7 @@ public class Bridge implements Cloneable {
         this.invertWinLose = true;
     }
 
-     /**
+    /**
      * @param rezilliancePlayer1 the rezilliancePlayer1 to set
      */
     public void setRezilliancePlayer1(boolean rezilliancePlayer1) {
@@ -164,40 +151,39 @@ public class Bridge implements Cloneable {
     }
 
 //**************************** GETTER ******************************************
-
     /**
      * check if a player has fallen out of the bridge
-     * @return
-     *      0 for draw, -1 for player1, 1 for player2
-     *      -2 for no player out of the bridge
+     *
+     * @return 0 for draw, -1 for player1, 1 for player2 -2 for no player out of
+     * the bridge
      */
     public short hasOutOfBridge() {
         //both out
         if ((this.playerState1.getPosition() < -this.getSize())
-                && (this.playerState2.getPosition() > this.getSize())){
+                && (this.playerState2.getPosition() > this.getSize())) {
             return 0;
-            
-        //player 1 out
-        }else if ((this.playerState1.getPosition() < -this.getSize())) {
+
+            //player 1 out
+        } else if ((this.playerState1.getPosition() < -this.getSize())) {
             return -1;
-            
-        //player 2 out
-        }else if ((this.playerState2.getPosition() > this.getSize())) {
+
+            //player 2 out
+        } else if ((this.playerState2.getPosition() > this.getSize())) {
             return 1;
-            
-        //no player out
-        }else{
+
+            //no player out
+        } else {
             return -2;
         }
     }
-    
+
     /**
      * @return the location of the firewall
      */
     public int getFirewallLocation() {
         return this.firewallLocation;
     }
-    
+
     /**
      * @return the player 1
      */
@@ -232,70 +218,66 @@ public class Bridge implements Cloneable {
     public int getSize() {
         return this.SIZE;
     }
-    
+
     /**
      * @return invertWinLose
      */
     public boolean getInvertWinLose() {
         return this.invertWinLose;
     }
-    
-//***************************** OTHER ******************************************
 
+//***************************** OTHER ******************************************
     /**
      * set players 3 tiles away from firewall
      */
-    public void replacePlayers(){
+    public void replacePlayers() {
         //set players 3 tiles away
         this.playerState1.setPosition(this.firewallLocation - 3);
         this.playerState2.setPosition(this.firewallLocation + 3);
     }
-    
+
     /**
      * @see Object.toString()
-     * @return
-     *      String representing the bridge
+     * @return String representing the bridge
      */
     @Override
-    public String toString(){
-        String str="";
-        
+    public String toString() {
+        String str = "";
+
         //get player positions
-        int positionPlayer1=this.playerState1.getPosition();
-        int positionPlayer2=this.playerState2.getPosition();
-        
+        int positionPlayer1 = this.playerState1.getPosition();
+        int positionPlayer2 = this.playerState2.getPosition();
+
         //add destroyed parts
-        for (int i=0;i<Config.BRIDGE_MAX_SIZE - this.SIZE;i++) {
-            str+='.';
+        for (int i = 0; i < Config.BRIDGE_MAX_SIZE - this.SIZE; i++) {
+            str += '.';
         }
-        
+
         //add all bridge sections
-        for (int i=-this.SIZE;i<this.SIZE+1;i++) {
+        for (int i = -this.SIZE; i < this.SIZE + 1; i++) {
             //player 1
-            if (positionPlayer1==i) {
-               str+='1';
-               //str+=playerState1.getPlayer().getName();
-               
+            if (positionPlayer1 == i) {
+                str += '1';
+
             //player 2
-            } else if (positionPlayer2==i) {
-               str+='2';
-               //str+=playerState2.getPlayer().getName();    
-            
+            } else if (positionPlayer2 == i) {
+                str += '2';   
+
             //firewall
-            } else if(i==this.firewallLocation){
-                    str+="|";
-                    
+            } else if (i == this.firewallLocation) {
+                str += "|";
+
             //empty tiles
             } else {
-                str+="-";
+                str += "-";
             }
         }
-        
+
         //add destroyed parts
-        for (int i=0;i<Config.BRIDGE_MAX_SIZE - this.SIZE;i++) {
-            str+='.';
+        for (int i = 0; i < Config.BRIDGE_MAX_SIZE - this.SIZE; i++) {
+            str += '.';
         }
-        
+
         return str;
     }
 }
