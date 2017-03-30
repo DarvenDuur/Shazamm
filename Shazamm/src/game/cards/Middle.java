@@ -24,24 +24,7 @@ public class Middle extends AbstractCard {
         int player1Location = round.getLastPlayerState1().getPosition();
         int player2Location = round.getLastPlayerState2().getPosition();
         
-        int newLocation;
-        /* if players are separated by a pair number of tiles, round position
-        in favor of the player using this card */
-        //if player1Location + player2Location unpair
-        if ((player1Location + player2Location) % 2 != 0){
-            
-            //if played by player 1
-            if (this.isUsedPlayer1()){
-                newLocation = (player1Location + player2Location + 1) / 2;
-                
-            //if played by player 2
-            }else{
-                newLocation = (player1Location + player2Location - 1) / 2;
-            }
-        }else{
-            newLocation = (player1Location + player2Location) / 2;
-        }
-        
-        round.getLastBridge().setFirewallLocation(newLocation);
+        round.getLastBridge().setFirewallLocation(
+                (player1Location + player2Location) / 2);
     }
 }
