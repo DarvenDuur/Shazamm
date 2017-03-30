@@ -1,9 +1,14 @@
 package game.gui;
 
+
+/**
+ *
+ * @author Reiji
+ */
 public class test extends javax.swing.JPanel {
-	
+
     /**
-     * Creates new panel of test
+     * Creates new form Statistics
      */
     public test() {
         initComponents();
@@ -12,9 +17,10 @@ public class test extends javax.swing.JPanel {
 
     private void initComponents() {
 
-        setBackground(new java.awt.Color(189,90,10));
-        setPreferredSize(new java.awt.Dimension(500, 200));
+        this.setBackground(new java.awt.Color(33, 41, 48));
+        this.setPreferredSize(new java.awt.Dimension(300, 300));
         
-        this.setBorder(javax.swing.BorderFactory.createLoweredBevelBorder());
+        this.setBorder(javax.swing.BorderFactory.createRaisedBevelBorder());
     }
+
 }

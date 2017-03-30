@@ -17,8 +17,10 @@ public class Statistics extends javax.swing.JPanel {
 
     private void initComponents() {
 
-        setBackground(new java.awt.Color(250, 0, 0));
-        setPreferredSize(new java.awt.Dimension(300, 400));
+        this.setBackground(new java.awt.Color(33, 41, 48));
+        this.setPreferredSize(new java.awt.Dimension(300, 400));
+        
+        this.setBorder(javax.swing.BorderFactory.createRaisedBevelBorder());
     }
 
 }

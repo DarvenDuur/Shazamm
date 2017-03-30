@@ -16,7 +16,7 @@ import javax.swing.JPanel;
 public class Shazamm extends javax.swing.JFrame {
 
     // Variables declaration
-    private JPanel board, statistics;
+    private JPanel board, statistics, main;
     private FlowLayout layout = new FlowLayout();
     // End of variables declaration
     
@@ -27,30 +27,33 @@ public class Shazamm extends javax.swing.JFrame {
     public Shazamm() {
         initComponents();
         initContents();
+        
+        this.add(main);
     }
 
     
     private void initContents(){
-    	
-    	this.setLayout(layout); 
+
+    	main.setLayout(layout); 
     	
     	this.statistics = new Statistics();
         this.board = new Board(0, 250);
 
-    	this.add(statistics);
-    	this.add(board);
-
-    	this.add(new test());
-    	this.add(new test());
-
+    	main.add(statistics);
+    	main.add(board);
+    	main.add(new test());
+    	main.add(new Card());
     }
 
     private void initComponents() {
         this.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         this.setTitle("Shazamm");
-        this.setBackground(new java.awt.Color(0, 0, 0));
         this.setSize(new java.awt.Dimension(1024, 800));
         this.setResizable(false);
+        
+        this.main = new JPanel();
+        this.main.setBackground(new java.awt.Color(65, 75, 86));
+        this.main.setPreferredSize(new java.awt.Dimension(1024, 800));
     }
     
 
@@ -58,7 +61,7 @@ public class Shazamm extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
