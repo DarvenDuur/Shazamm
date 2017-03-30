@@ -5,7 +5,6 @@
  */
 package game.gui.log;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
@@ -16,6 +15,9 @@ public class LogSystem {
     private static final LinkedList<LinkedList<Log>> LOGS = new LinkedList<>();
     
     public static void addLog(Log log){
+        if (getLogs().isEmpty()){
+            getLogs().add(new LinkedList<>());
+        }
         getLogs().getFirst().addFirst(log);
     }
     
