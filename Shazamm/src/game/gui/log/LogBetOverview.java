@@ -8,8 +8,6 @@ package game.gui.log;
 import game.Bridge;
 import game.Config;
 import game.Player;
-import game.PlayerState;
-import game.Turn;
 import game.cards.AbstractCard;
 import java.util.HashSet;
 

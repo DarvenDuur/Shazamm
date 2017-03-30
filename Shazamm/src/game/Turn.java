@@ -7,11 +7,13 @@ package game;
 
 import game.cards.AbstractCard;
 import game.gui.Console;
+import game.gui.log.LogBetOverview;
+import game.gui.log.LogTurnOverview;
+import game.gui.log.LogSystem;
+import game.gui.log.LogTitle;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -156,8 +158,11 @@ public class Turn implements Cloneable {
      *      parent round, needed to apply actions
      */
     public void play(Round round){
-        //print bridge state
-        System.out.println(this.getBridge().toString());
+        //add turn presentation log
+        LogSystem.addLog(new LogTitle());
+        
+        //print bridge initial state
+        Console.println(this.getBridge().toString());
             
         //get current player states
         PlayerState player1 = this.getBridge().getPlayerState1();
@@ -181,6 +186,9 @@ public class Turn implements Cloneable {
         cards.addAll(player2Cards);
         Collections.sort(cards);
                
+        //create turn summary log
+        LogTurnOverview turnLog = new LogTurnOverview(this.getBridge());
+        
         //apply cards' action to the turn
         for (AbstractCard card : cards){
             card.generalApply(round);
@@ -191,7 +199,16 @@ public class Turn implements Cloneable {
             
         this.endOfTurnDraw();
         this.end();
-        System.out.println(this.bridge.toString());
+        
+        //add bet summary log
+        LogSystem.addLog(new LogBetOverview(this.getBridge()));
+        //update turn summary log
+        turnLog.setFinalTurn(this);
+        LogSystem.addLog(turnLog);
+        
+        //print final sate of the bridge
+        Console.println(this.getBridge().toString());
+        
         //print the winner
         Console.printWinner(this);
     }

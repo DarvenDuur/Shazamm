@@ -12,7 +12,7 @@ import java.util.LinkedList;
  *
  * @author darven
  */
-public class Logger {
+public class LogSystem {
     private static final LinkedList<LinkedList<Log>> LOGS = new LinkedList<>();
     
     public static void addLog(Log log){

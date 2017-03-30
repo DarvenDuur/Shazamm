@@ -8,6 +8,8 @@ package game;
 
 import game.cards.CardManager;
 import game.gui.Console;
+import game.gui.log.LogBet;
+import game.gui.log.LogSystem;
 import java.util.Locale;
 
 /**
@@ -150,6 +152,8 @@ public class PlayerState implements Cloneable {
         this.bet = manaAmount;
         this.setPowerAttack(manaAmount); 
         this.addMana(- manaAmount);
+        
+        LogSystem.addLog(new LogBet(this.player));
     }
 
     /**

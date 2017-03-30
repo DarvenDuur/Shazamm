@@ -6,6 +6,7 @@
 package game;
 
 import game.gui.Console;
+import game.gui.log.LogSystem;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -153,6 +154,7 @@ public class Round {
     public void end(){
         this.ended=true;
         this.setWinner();
+        LogSystem.endRound();
     }
     
     
