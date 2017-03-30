@@ -5,40 +5,77 @@
  */
 package game;
 
-import game.gui.Console;
-
 /**
  *
  * @author darven
  */
 public class Bridge implements Cloneable {
+    //current player's state
     private PlayerState playerState1;
     private PlayerState playerState2;
+    
     // half the total size of the bridge, 0 : only the central portion remains
     private final int SIZE; 
+    
     /* 0 for the middle of the bridge, < 0 for the left side of the bridge,
-     * > 0 for the right side of the bridge
-     */
+     * > 0 for the right side of the bridge */
     private int firewallLocation;    
+    
+    
+    //if true, invert firewall movement
+    private boolean invertWinLose;
+    
+    //if true, block firewall movement in player's dirrection
+    private boolean rezilliancePlayer1;
+    private boolean rezilliancePlayer2;
+    
+    //if true, double firewall movement
+    private boolean blaze;
 
 //**************************** CONSTRUCTOR *************************************
     
-    public Bridge(PlayerState player1, PlayerState player2) {
-        this(player1, player2, Config.BRIDGE_MAX_SIZE, 0);
+    /**
+     * Call constructor with default vales
+     * @param playerState1 
+     *      state of the player 1
+     * @param playerState2 
+     *      state of the player 2
+     */
+    public Bridge(PlayerState playerState1, PlayerState playerState2) {
+        this(playerState1, playerState2, Config.BRIDGE_MAX_SIZE, 0);
     }    
     
-    public Bridge(PlayerState player1, PlayerState player2, int size, int firewallLocation) {
-        this.playerState1 = player1;
-        this.playerState2 = player2;
+    /**
+     * Call constructor with default vales
+     * @param playerState1 
+     *      state of the player 1
+     * @param playerState2 
+     *      state of the player 2
+     * @param size
+     *      half the total size of the brige - 1 
+     *      (excluding the central tile, necessarly existing) 
+     * @param firewallLocation
+     */
+    public Bridge(PlayerState playerState1, PlayerState playerState2, 
+            int size, int firewallLocation) {
+        //initialize fields with parameters
+        this.playerState1 = playerState1;
+        this.playerState2 = playerState2;
         this.SIZE = size;
         this.firewallLocation = firewallLocation;
         
+        //initialize boolean used when applying
         this.invertWinLose = false;
         this.blaze = false;
     }
 
-//******************************************************************************
+//**************************** CLONE *******************************************
     
+    /**
+     * @see Object.clone()
+     * @return clone of the bridge (card effects reset)
+     * @throws CloneNotSupportedException 
+     */
     @Override
     public Object clone() throws CloneNotSupportedException {
         Bridge clone = (Bridge) super.clone();
@@ -98,6 +135,34 @@ public class Bridge implements Cloneable {
         }
     }
 
+    /**
+     * set invertWinLose to true
+     */
+    public void setInvertWinLose() {
+        this.invertWinLose = true;
+    }
+
+     /**
+     * @param rezilliancePlayer1 the rezilliancePlayer1 to set
+     */
+    public void setRezilliancePlayer1(boolean rezilliancePlayer1) {
+        this.rezilliancePlayer1 = rezilliancePlayer1;
+    }
+
+    /**
+     * @param rezilliancePlayer2 the rezilliancePlayer2 to set
+     */
+    public void setRezilliancePlayer2(boolean rezilliancePlayer2) {
+        this.rezilliancePlayer2 = rezilliancePlayer2;
+    }
+
+    /**
+     * set blaze to true
+     */
+    public void setBlaze() {
+        this.blaze = true;
+    }
+
 //**************************** GETTER ******************************************
 
     /**
@@ -127,56 +192,45 @@ public class Bridge implements Cloneable {
     }
     
     /**
-     * @return the firewallLocation
+     * @return the location of the firewall
      */
     public int getFirewallLocation() {
         return this.firewallLocation;
     }
     
     /**
-     * @return the playerState1
+     * @return the player 1
      */
     public Player getPlayer1() {
         return this.playerState1.getPlayer();
     }
 
     /**
-     * @return the playerState2
+     * @return the player 2
      */
     public Player getPlayer2() {
         return this.playerState2.getPlayer();
     }
 
     /**
-     * @return the current PlayerState for playerState1
+     * @return the current PlayerState for player 1
      */
     public PlayerState getPlayerState1() {
         return this.playerState1;
     }
 
     /**
-     * @return the current PlayerState for playerState2
+     * @return the current PlayerState for player 2
      */
     public PlayerState getPlayerState2() {
         return this.playerState2;
     }
 
     /**
-     * @return the SIZE
+     * @return the size of the bridge
      */
     public int getSize() {
         return this.SIZE;
-    }
-    
-//***************************** WHO WIN LOSE ***********************************
-    
-    private boolean invertWinLose;
-
-    /**
-     * set invertWinLose to true
-     */
-    public void setInvertWinLose() {
-        this.invertWinLose = true;
     }
     
     /**
@@ -184,35 +238,6 @@ public class Bridge implements Cloneable {
      */
     public boolean getInvertWinLose() {
         return this.invertWinLose;
-    }
-    
-//***************************** REZILLIANCE ************************************
-    private boolean rezilliancePlayer1;
-    private boolean rezilliancePlayer2;
-
-     /**
-     * @param rezilliancePlayer1 the rezilliancePlayer1 to set
-     */
-    public void setRezilliancePlayer1(boolean rezilliancePlayer1) {
-        this.rezilliancePlayer1 = rezilliancePlayer1;
-    }
-
-    /**
-     * @param rezilliancePlayer2 the rezilliancePlayer2 to set
-     */
-    public void setRezilliancePlayer2(boolean rezilliancePlayer2) {
-        this.rezilliancePlayer2 = rezilliancePlayer2;
-    }
-
-//***************************** WHO WIN LOSE ***********************************
-    
-    private boolean blaze;
-
-    /**
-     * set invertWinLose to true
-     */
-    public void setBlaze() {
-        this.blaze = true;
     }
     
 //***************************** OTHER ******************************************
@@ -273,7 +298,4 @@ public class Bridge implements Cloneable {
         
         return str;
     }
-
-   
-   
 }

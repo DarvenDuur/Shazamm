@@ -6,6 +6,7 @@
  */
 package game;
 
+import game.cards.AbstractCard;
 import game.cards.CardManager;
 import game.gui.Console;
 import game.gui.log.LogBet;
@@ -137,9 +138,12 @@ public class PlayerState implements Cloneable {
      * get input for the bet and check if input is valid
      */
     public void bet() {
-        Console.println(this.player.getName() + 
+        Console.println(this.player.getName() +
                 ", here is the content of your hand:");
-        Console.printCards(this.getCardManager().getHand());
+        for (AbstractCard card : this.getCardManager().getHand()){
+            Console.println(card.getName());
+        }
+        
         int manaAmount = Console.getIntInput(
                 "Please enter a bet (" + this.mana + " available):");
         boolean betDone = this.verifyBet(manaAmount);
@@ -192,6 +196,7 @@ public class PlayerState implements Cloneable {
         return true;
     }
     
+    @Override
     public String toString(){
        String str="";
        str+=this.bet+" ";
