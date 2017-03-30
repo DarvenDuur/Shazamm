@@ -47,7 +47,7 @@ public class Config {
     
     public static final String ROUND_STRING="MANCHE N° ";
     
-    public static final String SPELLS="Sorts:";
+    public static final String SPELLS="Sorts: ";
     
     public static final String TURN_STRING="TOUR N° ";
     
