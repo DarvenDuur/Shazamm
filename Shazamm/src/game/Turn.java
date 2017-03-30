@@ -153,11 +153,13 @@ public class Turn implements Cloneable {
     
     /**
      * Play turn 
-     * get action input and apply it to this turn
+     *      get action and bet input and apply it to this turn
+     *      clear console between each player
      * @param round
      *      parent round, needed to apply actions
      */
     public void play(Round round){
+        Console.clear();
         //add turn presentation log
         LogSystem.addLog(new LogTitle());
         
@@ -170,11 +172,15 @@ public class Turn implements Cloneable {
             
         //bet
         player1.bet();
+        Console.clear();
         player2.bet();
+        Console.clear();
             
         //collect actions input
         HashSet<AbstractCard> player1Cards = Console.askCards(round, true);
+        Console.clear();
         HashSet<AbstractCard> player2Cards = Console.askCards(round, false);
+        Console.clear();
             
         //discard cards played by each player
         player1.getCardManager().discardAll(player1Cards);
@@ -206,11 +212,9 @@ public class Turn implements Cloneable {
         turnLog.setFinalTurn(this);
         LogSystem.addLog(turnLog);
         
-        //print final sate of the bridge
-        Console.println(this.getBridge().toString());
-        
-        //print the winner
-        Console.printWinner(this);
+        //print 5 last logs (turn title, 2 bets, bet summary, turn summary)
+        Console.clear();
+        Console.println(LogSystem.getLastLogs(5));
     }
     
     /**
