@@ -8,7 +8,7 @@ import javax.swing.ImageIcon;
 
 public class Card extends javax.swing.JPanel {
 	
-	private final String path = "..\\Graphique\\img\\";
+	private final String path = "../Graphique/img/cartes/";
 	
     private ArrayList<Image> Cards;
 	
@@ -26,7 +26,7 @@ public class Card extends javax.swing.JPanel {
         this.Cards = new ArrayList<>();
         
         for(int i = 1; i < 6; i++){
-        	Cards.add(new ImageIcon(path + "\\cartes\\0" + i + "v.jpg").getImage());
+        	Cards.add(new ImageIcon(path + "0" + i + "v.jpg").getImage());
         }
     }
     
