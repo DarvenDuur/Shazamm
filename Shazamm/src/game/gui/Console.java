@@ -139,6 +139,14 @@ public class Console {
             }
     }
     
+    /**
+     * 
+     * @param cards
+     * @param integers
+     * @param round
+     * @param player1
+     * @return the selected cards 
+     */
     private static HashSet<AbstractCard> getCardFromInteger(
             HashSet<AbstractCard> cards, HashSet<Integer> integers, Round round,
             boolean player1){
@@ -157,6 +165,7 @@ public class Console {
         return output;
     }
     
+    
 //******************************************************************************
     
     /**
@@ -170,7 +179,7 @@ public class Console {
      *      Card chosen by the user
      */
     public static AbstractCard askClone(Round round, boolean player1){
-        Integer acceptedInput = new Integer(0);
+     
         Bridge bridge = round.getLastBridge();
         
         //get last discarded cards of ennemy player
@@ -184,8 +193,8 @@ public class Console {
             return null;
         }
         
+        Integer acceptedInput;
         do {
-            
             acceptedInput = new Integer(0);
             //print all cards, and get all available IDs
             HashSet<Integer> handIDs = getIDs(cards);
@@ -193,10 +202,10 @@ public class Console {
                     "No cards can be played (shouldn't appear)");
 
             //get input
-            println("Enter the ID of the card you want to clone."
+            String input = getInput("Enter the ID of the card you want to clone."
                     + " You can enter any number of IDs, separated by spaces, "
-                    + "letters ... (only the first valid one will be considered):");
-            String input = SCANNER.nextLine();
+                    + "letters ... (only the first valid one will "
+                    + "be considered):");
 
             //filter all integers
             LinkedList<Integer> splitInput = parseAllInt(input);
@@ -209,12 +218,7 @@ public class Console {
                 }
             }
             
-            if (acceptedInput.intValue()>0){
-                println("This card will be chosen:");
-                println(CARDS[acceptedInput - 1].getName());
-            }else{
-                println("No card will be chosen");
-            }
+            printCard(acceptedInput);
             
         }while(!getConfirmation("Do you whant to chose this card ?"));
         
@@ -225,10 +229,14 @@ public class Console {
         if (output != null && output instanceof Clone){
             ((Clone) output).setClone(askClone(round, !player1));
         }
-        
         return output;
     }
     
+    private static void printCard(Integer acceptedInput){
+       HashSet<Integer> set=new HashSet<>();
+       set.add(acceptedInput);
+       printCards(set, "This card will be chosen:","");
+    }
     /**
      * allow to ask a Yes/No question
      * @param question
@@ -246,7 +254,7 @@ public class Console {
         }
         return answer.equals("y");
     }
-
+    
     /**
      * print all cards
      * @param cards
@@ -402,6 +410,8 @@ public class Console {
         System.out.println(o);
     }
     public static void clear(){
-        
+        for(int i=0; i<50; i++){
+            println("");
+        }
     }
 }
