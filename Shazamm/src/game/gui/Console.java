@@ -29,11 +29,15 @@ import java.util.regex.Pattern;
  * @author darven
  */
 public class Console {
+    // TO DO
     private final static Scanner SCANNER = new Scanner(System.in);
-    private final static DateFormat DATE_FORMAT =
-            new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+    // TO DO
+    private final static DateFormat DATE_FORMAT =new SimpleDateFormat(
+            "dd/MM/yyyy HH:mm:ss");
+    // TO DO
     private final static Date DATE = new Date();    
     
+//******************************************************************************
     
     /**
      * Get input choice from user (with confirmation)
@@ -46,15 +50,11 @@ public class Console {
      *      Cards chosen by the user
      */
     public static HashSet<AbstractCard> askCards(Round round, boolean player1){
+        
+        PlayerState player =getPlayerState(round ,player1);
         HashSet<Integer> acceptedInput = new HashSet<>();
         
-        //get player
-        PlayerState player = player1 ?
-                round.getLastPlayerState1():
-                round.getLastPlayerState2();
-        
         HashSet<AbstractCard> cards = player.getCardManager().getHand();
-        
         //safety mesure for unvalid parameters
         if (cards == null || cards.isEmpty()){
             return new HashSet<>();
@@ -62,6 +62,7 @@ public class Console {
         
         do {
             acceptedInput.clear();
+            
             if (round.getLastTurn().isMute()){
                 println("Warning, " + CardsEnum.Mutism.getName() + " is active.");
             }
@@ -71,28 +72,64 @@ public class Console {
                     ", you can choose the following cards: ", 
                     "No cards can be played (shouldn't appear)");
 
-            //get input
-            println("Enter the ID(s) of the card(s) you want to play."
+            String input = getInput("Enter the ID(s) of the card(s) you want to play."
                     + " You can enter any number of IDs, separated by spaces, "
                     + "letters ... :");
-            String input = SCANNER.nextLine();
 
             //filter all integers
             LinkedList<Integer> splitInput = parseAllInt(input);
-
-            //filter input
-            //IDs not contained in the cards
+            //filter input IDs not contained in the cards
             HashSet<Integer> refusedInput = new HashSet<>();
-            for (Integer integer : splitInput){
+            
+            refuse(splitInput, acceptedInput, refusedInput, handIDs);
+            
+            printRefuse(refusedInput);
+            //show accepted input and corresponding cards
+            printCards(acceptedInput, "Those cards will be chosen:",
+                    "No card will be chosen");
+            
+        }while(!getConfirmation("Do you whant to chose those cards ?"));
+        
+        return getCardFromInteger(cards, acceptedInput, round, player1);
+    }
+    /**
+     * 
+     * @param round
+     * @param player1
+     * @return the player State of player1 if player1=true 
+     */
+    private static PlayerState getPlayerState(Round round, boolean player1){
+        if(player1){
+            return round.getLastPlayerState1();
+        }  
+        return round.getLastPlayerState2();
+    }
+   
+    /**
+     * 
+     * @param splitInput
+     * @param acceptedInput
+     * @param refusedInput
+     * @param handIDs 
+     */
+    private static void refuse(LinkedList<Integer> splitInput,
+            HashSet<Integer> acceptedInput, HashSet<Integer> refusedInput,
+            HashSet<Integer> handIDs){
+        
+         for (Integer integer : splitInput){
                 if (!handIDs.contains(integer)){
                     refusedInput.add(integer);
                 }else{
                     acceptedInput.add(integer);
                 }
             }
-
-            //show refused input
-            if (refusedInput.isEmpty()){
+    }
+   
+    /**
+     * show refused input
+     */
+    private static void printRefuse(HashSet<Integer> refusedInput){
+        if (refusedInput.isEmpty()){
                 println("No refused input");
             }else{
                 println("Refused inputs:");
@@ -100,17 +137,15 @@ public class Console {
                     println(integer);
                 }
             }
-            
-            //show accepted input and corresponding cards
-            printCards(acceptedInput, "Those cards will be chosen:",
-                    "No card will be chosen");
-            
-        }while(!getConfirmation("Do you whant to chose those cards ?"));
+    }
+    
+    private static HashSet<AbstractCard> getCardFromInteger(
+            HashSet<AbstractCard> cards, HashSet<Integer> integers, Round round,
+            boolean player1){
         
-        //get card from integer
         HashSet<AbstractCard> output = new HashSet<>();
         for (AbstractCard card : cards){
-            if (acceptedInput.contains(card.getId())){
+            if (integers.contains(card.getId())){
                 output.add(card);
                 
                 //if card is a Clone, get cloned card
@@ -119,9 +154,10 @@ public class Console {
                 }
             }
         }
-        
         return output;
     }
+    
+//******************************************************************************
     
     /**
      * Get input choice from user (with confirmation)
@@ -220,7 +256,7 @@ public class Console {
      * @param emptyText 
      *      text to print if input is empty
      */
-    private static void printCards(HashSet<Integer> cards, String text,
+    public static void printCards(HashSet<Integer> cards, String text,
             String emptyText) {
         //show accepted inputs
         if (cards.isEmpty()){
@@ -289,6 +325,7 @@ public class Console {
      */
     public static Integer getIntInput(String string) {
         LinkedList<Integer> input = new LinkedList<>();
+        
         while(input.isEmpty()){
             input = parseAllInt(getInput(string));
         }
@@ -301,9 +338,9 @@ public class Console {
      */
     public static String getCurrentDate(){
            return DATE_FORMAT.format(DATE);
-
     }
 
+    
     /**
      * print the winner of the turn
      * @param turn
@@ -348,6 +385,7 @@ public class Console {
         }
     }
     
+    
     /**
      * warps System.out.println
      * @param line 
@@ -356,7 +394,14 @@ public class Console {
         System.out.println(line);
     }
     
+    /**
+     * 
+     * @param o 
+     */
     public static void println(Object o){
         System.out.println(o);
+    }
+    public static void clear(){
+        
     }
 }
