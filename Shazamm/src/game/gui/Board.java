@@ -14,8 +14,6 @@ import javax.swing.ImageIcon;
 public class Board extends javax.swing.JPanel {
 
     // Variables declaration
-    private final String PATH_IMG = "../Graphique/img/";
-    private final String PATH_BRIDGE = "../Graphique/img/pont/";
     private Image title;
     private ArrayList<Image> Bridge;
     private int posX, posY;
@@ -33,14 +31,15 @@ public class Board extends javax.swing.JPanel {
         this.posX = x;
         this.posY = y;
         
-        this.title = new ImageIcon(PATH_IMG + "logo_shazamm.gif").getImage();
+        this.title = new ImageIcon(GuiConfig.PATH_IMG + "logo_shazamm.gif").getImage();
+        System.out.println(GuiConfig.PATH_IMG + "logo_shazamm.gif");
         this.Bridge = new ArrayList<>();
         
         for(int i = 1; i < 20; i++){
         	if(i < 10){
-            	Bridge.add(new ImageIcon(PATH_BRIDGE + "pont_0" + i + ".gif").getImage());
+            	Bridge.add(new ImageIcon(GuiConfig.PATH_IMG + "pont/pont_0" + i + ".gif").getImage());
         	}else{
-            	Bridge.add(new ImageIcon(PATH_BRIDGE + "pont_" + i + ".gif").getImage());
+            	Bridge.add(new ImageIcon(GuiConfig.PATH_IMG + "pont/pont_" + i + ".gif").getImage());
         	}
         }
     }

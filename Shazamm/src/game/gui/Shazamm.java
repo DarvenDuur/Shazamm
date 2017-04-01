@@ -7,6 +7,7 @@ package game.gui;
 
 import java.awt.FlowLayout;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 
 /**
@@ -16,11 +17,11 @@ import javax.swing.JPanel;
 public class Shazamm extends javax.swing.JFrame {
 
     // Variables declaration
-    private JPanel board, statistics, main;
+    private JPanel board, statistics, cards, main;
     private FlowLayout layout = new FlowLayout();
     // End of variables declaration
-    
-	
+
+
     /**
      * Creates new form Shazamm
      */
@@ -38,11 +39,12 @@ public class Shazamm extends javax.swing.JFrame {
     	
     	this.statistics = new Statistics();
         this.board = new Board(0, 250);
+        this.cards = new Card();
 
     	main.add(statistics);
     	main.add(board);
     	main.add(new test());
-    	main.add(new Card());
+    	main.add(new JScrollPane(cards));
     }
 
     private void initComponents() {
