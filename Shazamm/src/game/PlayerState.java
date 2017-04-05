@@ -54,7 +54,7 @@ public class PlayerState implements Cloneable {
         this.position = (isPlayer1) ? -3 : 3;
     }
 
-//***************************** GETTERS ****************************************
+//***************************** GETTER *****************************************
     /**
      * @return 
      *      the card manager
@@ -103,7 +103,7 @@ public class PlayerState implements Cloneable {
         return attackPower;
     }
 
-//***************************** SETTERS ****************************************
+//***************************** SETTER *****************************************
     /**
      * @param position 
      *      the new position of the player

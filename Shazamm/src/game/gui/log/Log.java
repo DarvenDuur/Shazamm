@@ -1,39 +1,42 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package game.gui.log;
 
 import game.gui.Console;
-import java.awt.Color;
 
 /**
- *
- * @author mg
+ * Basic log containing its creation date
  */
-public class Log {
-    
+public abstract class Log {
+    // Creation date, used when printing
     private final String DATE;
     
+//***************************** CONSTRUCTOR ************************************
     /**
-     * init the date at the current date;
+     * Initialize the date at the current date;
      */
     public Log() {
         this.DATE = Console.getCurrentDate();
     }
 
+//***************************** GETTER *****************************************
     /**
-     * @return the DATE
+     * @return 
+     *      creation date
      */
     public String getDate() {
         return this.DATE;
     }
     
-    public String toString(){
-        return this.DATE+"\t";
+//***************************** OTHER ******************************************
+    /**
+     * For console printing
+     * @see 
+     *      Object.toString()
+     * @return 
+     *      String containing formated creation date
+     */
+    @Override
+    public String toString() {
+        return this.DATE + "\t";
     }
-   
-   
-    
+
 }

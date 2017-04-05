@@ -51,6 +51,8 @@ public class Config {
     public static final String TURN_STRING = "TOUR N° ";
 
     public static final String TURN_WINNER = "Le gagnant du tour est ";
+    
+    public static final String DRAW = "Egalité";
 
 //**************************** CONSTRUCOR AND LOADING [WIP] ********************
     /**

@@ -12,8 +12,15 @@ import java.util.LinkedList;
  * @author darven
  */
 public class LogSystem {
+    /* all log, list of log lists by round, containing logs for said round
+     * first is latest */
     private static final LinkedList<LinkedList<Log>> LOGS = new LinkedList<>();
     
+//***************************** SETTER *****************************************
+    /**
+     * @param log 
+     *      log to add to logs, at latest round logs
+     */
     public static void addLog(Log log){
         if (getLogs().isEmpty()){
             getLogs().add(new LinkedList<>());
@@ -21,22 +28,30 @@ public class LogSystem {
         getLogs().getFirst().addFirst(log);
     }
     
+    /**
+     * Close the log list for current round, 
+     *      and start a new one for the new round.
+     *      Calls LogTitle.endRound()
+     */
     public static void endRound(){
         getLogs().addFirst(new LinkedList<>());
+        LogTitle.endRound();
     }
 
+//***************************** GETTER ***************************************** 
     /**
-     * @return the LOGS, first is latest
+     * @return 
+     *      all the logs, first is latest
      */
     public static LinkedList<LinkedList<Log>> getLogs() {
         return LOGS;
     }
     
-    
     /**
      * @param number
      *      number of logs to get
-     * @return the last 'number' logs, first is latest
+     * @return 
+     *      the last 'number' logs, first is latest
      */
     public static LinkedList<Log> getLastLogs(int number) {
         LinkedList<Log> logs = new LinkedList<>();

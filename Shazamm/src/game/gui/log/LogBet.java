@@ -1,35 +1,44 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package game.gui.log;
 
 import game.Config;
 import game.Player;
 
 /**
- *
- * @author mg
+ * Log for when a player bet
  */
 public class LogBet extends Log {
-    
+    // player whose bet is logged
     private final Player PLAYER;
-
+    
+//***************************** CONSTRUCTOR ************************************
+    /**
+     * @param player
+     *      player whose bet is logged
+     */
     public LogBet(Player player) {
         this.PLAYER = player;
     }
 
+//***************************** GETTER *****************************************
     /**
-     * @return the PLAYER
+     * @return 
+     *      the player whose bet is logged
      */
     public Player getPlayer() {
         return PLAYER;
     }
-    
+
+//***************************** OTHER ******************************************
+    /**
+     * For console printing
+     * @see 
+     *      Object.toString()
+     * @return 
+     *      String representing this log
+     */
     @Override
-    public String toString(){
-        return super.toString()+this.PLAYER+" "+Config.BET_STRING;
+    public String toString() {
+        return super.toString() + this.PLAYER + " " + Config.BET_STRING;
     }
-    
+
 }
