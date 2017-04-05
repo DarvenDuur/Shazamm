@@ -15,10 +15,9 @@ public class Game {
     private final Player PLAYER1, PLAYER2;
 
 //***************************** CONSTRUCTOR ************************************
-
     /**
-     * Constructor: initialize the player data by calling inputs,
-     *      and initialize the first round
+     * Initialize the player data by calling inputs,
+     *      and initialize the first round.
      */
     public Game() {
 
@@ -58,7 +57,6 @@ public class Game {
     }
 
 //***************************** GETTER *****************************************
-
     /**
      * @return the rounds
      */
@@ -66,8 +64,7 @@ public class Game {
         return rounds;
     }
 
-//******************************************************************************
-
+//***************************** OTHER ******************************************
     /**
      * loop rounds until game end condition is met (a player is in the lava)
      */

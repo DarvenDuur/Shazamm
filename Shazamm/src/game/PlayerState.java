@@ -1,9 +1,3 @@
-
-/*
-* To change this license header, choose License Headers in Project Properties.
-* To change this template file, choose Tools | Templates
-* and open the template in the editor.
- */
 package game;
 
 import game.cards.AbstractCard;
@@ -11,7 +5,6 @@ import game.cards.CardManager;
 import game.gui.Console;
 import game.gui.log.LogBet;
 import game.gui.log.LogSystem;
-import java.util.Locale;
 
 /**
  *

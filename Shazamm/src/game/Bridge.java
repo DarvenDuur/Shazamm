@@ -40,7 +40,6 @@ public class Bridge implements Cloneable {
     }
 
     /**
-     * Call constructor with default vales
      * @param playerState1 
      *      state of the player 1
      * @param playerState2 

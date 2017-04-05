@@ -1,41 +1,52 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package game;
 
 /**
- *
- * @author darven
+ * Player informations
  */
 public class Player {
+    // if true, will be displayed as green mage (will probably be removed)
+    private final boolean GREEN;
     
-    private final boolean GREEN;// TO DO
+    // name of the player
+    private final String NAME;
     
-    private final String NAME;// TO DO
-    
-    
+//***************************** CONSTRUCTOR ************************************
+    /**
+     * @param name
+     *      name of the player
+     * @param green 
+     *      true if has to be displayed as green mage
+     */
     public Player(String name,boolean green) {
         this.GREEN = green;
         this.NAME = name;
     }
 
-
+//***************************** GETTER *****************************************
     /**
-     * @return the COLOR
+     * @return 
+     *      true if has to be displayed as green mage
      */
     public boolean getColor() {
         return GREEN;
     }
 
     /**
-     * @return the NAME
+     * @return 
+     *      the name of the player
      */
     public String getName() {
         return NAME;
     }
-    
+
+//***************************** OTHER ******************************************
+    /**
+     * For console printing
+     * @see 
+     *      Object.toString()
+     * @return 
+     *      String representing the player
+     */
     @Override
     public String toString(){
         String str="";
