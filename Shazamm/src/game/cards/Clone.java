@@ -3,7 +3,7 @@ package game.cards;
 import game.Round;
 
 /**
- * Card 2: Cole
+ * Card 2: Clone
  */
 public class Clone extends AbstractCard {
     // cloned card

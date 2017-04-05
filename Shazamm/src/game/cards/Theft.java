@@ -1,25 +1,32 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package game.cards;
 
-import game.Bridge;
 import game.Round;
 
 /**
- *
- * @author darven
+ * Card 3: Theft
  */
 public class Theft extends AbstractCard {
     
+//**************************** CONSTRUCTOR *************************************
+    /**
+     * Set the card with ID 3
+     * @see AbstractCard
+     * @param belongPlayer1 
+     *      if true, will be considered as belonging to player 1, 
+     *      otherwise to player 2
+     */
     public Theft(boolean belongPlayer1) {
-        this.ID = CardsEnum.Theft.getId();
-        this.BELONG_PLAYER_1=belongPlayer1;
+        super(belongPlayer1, 3);
     }
    
-
+//**************************** OTHER *******************************************
+    /**
+     * Enable theft for user player, putting all cards used by the ennemy under 
+     *      user's control
+     * @see AbstractCard
+     * @param round 
+     *      round to which apply the card
+     */
     @Override
     protected void apply(Round round) {
         if (this.isUsedPlayer1()){
