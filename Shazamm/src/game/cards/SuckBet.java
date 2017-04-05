@@ -1,30 +1,30 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package game.cards;
 
 import game.Round;
-import game.gui.Console;
 
 /**
- *
- * @author darven
+ * Card 14: SuckBet
  */
 public class SuckBet extends AbstractCard {
 
-    
+//**************************** CONSTRUCTOR *************************************
+    /**
+     * Set the card with ID 14
+     * @see AbstractCard
+     * @param belongPlayer1 
+     *      if true, will be considered as belonging to player 1, 
+     *      otherwise to player 2
+     */
     public SuckBet(boolean belongPlayer1) {
-        this.ID = CardsEnum.SuckBet.getId();
-        this.BELONG_PLAYER_1=belongPlayer1;
+        super(belongPlayer1, 14);
     }
     
+//**************************** OTHER *******************************************
     /**
-     * The Mana Reserve increases by the amount of the opponent's bet.
-     * @param round
-     * 
-     * @author Adrien
+     * The mana pool increases by the amount of the opponent's bet.
+     * @see AbstractCard
+     * @param round 
+     *      round to which apply the card
      */
     @Override
     protected void apply(Round round) {   

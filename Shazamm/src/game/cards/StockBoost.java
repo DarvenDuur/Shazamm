@@ -1,29 +1,30 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package game.cards;
 
 import game.Round;
-import game.gui.Console;
 
 /**
- *
- * @author darven
+ * Card 13: StockBoost
  */
 public class StockBoost extends AbstractCard {
 
+//**************************** CONSTRUCTOR *************************************
+    /**
+     * Set the card with ID 13
+     * @see AbstractCard
+     * @param belongPlayer1 
+     *      if true, will be considered as belonging to player 1, 
+     *      otherwise to player 2
+     */
     public StockBoost(boolean belongPlayer1) {
-        this.ID = CardsEnum.StockBoost.getId();
-        this.BELONG_PLAYER_1=belongPlayer1;
+        super(belongPlayer1, 13);
     }
     
+//**************************** OTHER *******************************************
     /**
-     * Mana reserve increases by 13 points. After I paid what I owe.
-     * @param round
-     * 
-     * @author Adrien
+     * Mana pool increases by 13 points.
+     * @see AbstractCard
+     * @param round 
+     *      round to which apply the card
      */
     @Override
     protected void apply(Round round) {
