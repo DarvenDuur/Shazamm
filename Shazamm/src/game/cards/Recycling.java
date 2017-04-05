@@ -12,7 +12,7 @@ public class Recycling extends AbstractCard {
     
 //**************************** CONSTRUCTOR *************************************
     /**
-     * Set the card with ID 5
+     * Set the card with ID 6
      * @see AbstractCard
      * @param belongPlayer1 
      *      if true, will be considered as belonging to player 1, 

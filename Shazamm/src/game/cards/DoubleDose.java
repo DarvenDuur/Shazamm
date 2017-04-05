@@ -1,35 +1,35 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package game.cards;
 
-import game.Bridge;
 import game.PlayerState;
 import game.Round;
-import game.gui.Console;
 
 /**
- *
- * @author darven
+ * Card 8: DoubleDose
  */
 public class DoubleDose extends AbstractCard {
     
-    
-    
-    public DoubleDose(boolean belongPlayer1) {
-        this.ID = CardsEnum.DoubleDose.getId();
-        this.BELONG_PLAYER_1=belongPlayer1;
-    }
-    
+//**************************** CONSTRUCTOR *************************************
     /**
-     * double the bet
+     * Set the card with ID 8
+     * @see AbstractCard
+     * @param belongPlayer1 
+     *      if true, will be considered as belonging to player 1, 
+     *      otherwise to player 2
      */
+    public DoubleDose(boolean belongPlayer1) {
+        super(belongPlayer1, 8);
+    }
+   
+//**************************** OTHER *******************************************
+    /**
+     * Double the user's attack power
+     * @see AbstractCard
+     * @param round 
+     *      round to which apply the card
+     */ 
     @Override
     protected void apply(Round round){
-        
-        PlayerState player =super.getUserPLayer(round);
-        player.setAttackPower(player.getAttackPower()*2);
+        PlayerState player = super.getUserPLayer(round);
+        player.setAttackPower(player.getAttackPower() * 2);
     }
 }
