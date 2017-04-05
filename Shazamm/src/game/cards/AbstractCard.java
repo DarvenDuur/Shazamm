@@ -87,7 +87,7 @@ public abstract class AbstractCard implements Comparable<AbstractCard> {
                 break;
 
             case 11:
-                card = new Rezilliance(belongPlayer1);
+                card = new Resiliance(belongPlayer1);
                 break;
 
             case 12:

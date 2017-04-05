@@ -7,7 +7,7 @@ import game.Round;
  */
 public class Blaze extends AbstractCard {
     
- //**************************** CONSTRUCTOR *************************************
+//**************************** CONSTRUCTOR *************************************
     /**
      * Set the card with ID 10
      * @see AbstractCard
