@@ -56,7 +56,7 @@ public class PlayerState implements Cloneable {
         this.cardManager = new CardManager(isPlayer1);
         
         //mana and bet
-        this.mana = Config.MAX_MANA;
+        this.mana = Config.START_MANA;
         this.bet = 0;
         
         //initalize position
