@@ -26,6 +26,6 @@ public class AttackBoost extends AbstractCard {
      */
     protected void apply(Round round){
         PlayerState player =super.getUserPLayer(round);
-        player.setPowerAttack(player.getPowerAttack()+7);
+        player.setAttackPower(player.getAttackPower()+7);
     }
 }

@@ -46,8 +46,8 @@ public class LogTurnOverview extends Log{
      * @param TurnAfter the TurnAfter to set
      */
     public void setFinalTurn(Turn turn) {
-       this.Player1Attack = turn.getBridge().getPlayerState1().getPowerAttack();
-       this.Player2Attack = turn.getBridge().getPlayerState2().getPowerAttack();
+       this.Player1Attack = turn.getBridge().getPlayerState1().getAttackPower();
+       this.Player2Attack = turn.getBridge().getPlayerState2().getAttackPower();
        
        this.Player1ManaEnd = turn.getBridge().getPlayerState1().getMana();
        this.Player2ManaEnd = turn.getBridge().getPlayerState2().getMana();

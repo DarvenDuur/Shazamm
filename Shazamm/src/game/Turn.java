@@ -344,8 +344,8 @@ public class Turn implements Cloneable {
      */
     private void setWinner() {
         //get bets
-        int player1power = this.bridge.getPlayerState1().getPowerAttack();
-        int player2power = this.bridge.getPlayerState2().getPowerAttack();
+        int player1power = this.bridge.getPlayerState1().getAttackPower();
+        int player2power = this.bridge.getPlayerState2().getAttackPower();
 
         //compare bets to determine winner
         //player 2 won,

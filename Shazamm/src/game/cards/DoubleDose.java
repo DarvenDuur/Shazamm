@@ -30,6 +30,6 @@ public class DoubleDose extends AbstractCard {
     protected void apply(Round round){
         
         PlayerState player =super.getUserPLayer(round);
-        player.setPowerAttack(player.getPowerAttack()*2);
+        player.setAttackPower(player.getAttackPower()*2);
     }
 }
