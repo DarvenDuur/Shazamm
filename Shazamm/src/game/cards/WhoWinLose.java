@@ -1,28 +1,30 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package game.cards;
 
-import game.Bridge;
 import game.Round;
 
 /**
- *
- * @author darven
+ * Card 9: WhoWinLose
  */
 public class WhoWinLose extends AbstractCard {
     
-    
-    public WhoWinLose(boolean belongPlayer1) {
-        this.ID = CardsEnum.WhoWinLose.getId();
-        this.BELONG_PLAYER_1=belongPlayer1;
-    }
-    
+//**************************** CONSTRUCTOR *************************************
     /**
-     * @see AbstractCard.apply()
+     * Set the card with ID 9
+     * @see AbstractCard
+     * @param belongPlayer1 
+     *      if true, will be considered as belonging to player 1, 
+     *      otherwise to player 2
+     */
+    public WhoWinLose(boolean belongPlayer1) {
+        super(belongPlayer1, 9);
+    }
+   
+//**************************** OTHER *******************************************
+    /**
+     * Inverf firewall movement
+     * @see AbstractCard
      * @param round 
+     *      round to which apply the card
      */
     @Override
     protected void apply(Round round){
