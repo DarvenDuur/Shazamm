@@ -19,8 +19,8 @@ public class DoubleDose extends AbstractCard {
     
     
     public DoubleDose(boolean belongPlayer1) {
-        this.id = CardsEnum.DoubleDose.getId();
-        this.belongPlayer1=belongPlayer1;
+        this.ID = CardsEnum.DoubleDose.getId();
+        this.BELONG_PLAYER_1=belongPlayer1;
     }
     
     /**

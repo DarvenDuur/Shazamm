@@ -15,8 +15,8 @@ public class Blaze extends AbstractCard {
     
     
     public Blaze(boolean belongPlayer1) {
-        this.id = CardsEnum.Blaze.getId();
-        this.belongPlayer1=belongPlayer1;
+        this.ID = CardsEnum.Blaze.getId();
+        this.BELONG_PLAYER_1=belongPlayer1;
     }
     
     /**

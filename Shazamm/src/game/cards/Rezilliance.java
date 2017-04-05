@@ -18,8 +18,8 @@ public class Rezilliance extends AbstractCard {
     
     
     public Rezilliance(boolean belongPlayer1) {
-        this.id = CardsEnum.Rezilliance.getId();
-        this.belongPlayer1=belongPlayer1;
+        this.ID = CardsEnum.Rezilliance.getId();
+        this.BELONG_PLAYER_1=belongPlayer1;
     }
     
     /**

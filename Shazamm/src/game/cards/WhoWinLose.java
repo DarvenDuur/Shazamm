@@ -16,8 +16,8 @@ public class WhoWinLose extends AbstractCard {
     
     
     public WhoWinLose(boolean belongPlayer1) {
-        this.id = CardsEnum.WhoWinLose.getId();
-        this.belongPlayer1=belongPlayer1;
+        this.ID = CardsEnum.WhoWinLose.getId();
+        this.BELONG_PLAYER_1=belongPlayer1;
     }
     
     /**

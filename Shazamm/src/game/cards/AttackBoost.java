@@ -14,16 +14,24 @@ import game.Round;
  * @author darven
  */
 public class AttackBoost extends AbstractCard {
-   
-    public AttackBoost(boolean belongPlayer1) {
-        this.id = CardsEnum.AttackBoost.getId();
-        this.belongPlayer1=belongPlayer1;
-    }
-    @Override
     
+//**************************** CONSTRUCTOR *************************************
+    /**
+     * Set the card with ID 7
+     * @see AbstractCard
+     * @param belongPlayer1 
+     *      if true, will be considered as belonging to player 1, 
+     *      otherwise to player 2
+     */
+    public AttackBoost(boolean belongPlayer1) {
+        super(belongPlayer1, 7);
+    }
+    
+//**************************** OTHER *******************************************
     /**
      * add 7 points of mana to the attack
      */
+    @Override
     protected void apply(Round round){
         PlayerState player =super.getUserPLayer(round);
         player.setAttackPower(player.getAttackPower()+7);

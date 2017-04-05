@@ -16,8 +16,8 @@ public class Scrooge extends AbstractCard {
 
     
     public Scrooge(boolean belongPlayer1) {
-        this.id = CardsEnum.Scrooge.getId();
-        this.belongPlayer1=belongPlayer1;
+        this.ID = CardsEnum.Scrooge.getId();
+        this.BELONG_PLAYER_1=belongPlayer1;
     }
     
     /**

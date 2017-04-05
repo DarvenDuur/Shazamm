@@ -16,8 +16,8 @@ public class SuckBet extends AbstractCard {
 
     
     public SuckBet(boolean belongPlayer1) {
-        this.id = CardsEnum.SuckBet.getId();
-        this.belongPlayer1=belongPlayer1;
+        this.ID = CardsEnum.SuckBet.getId();
+        this.BELONG_PLAYER_1=belongPlayer1;
     }
     
     /**

@@ -16,8 +16,8 @@ public class EndOfRound extends AbstractCard {
     
     
     public EndOfRound(boolean belongPlayer1) {
-        this.id = CardsEnum.EndOfRound.getId();
-        this.belongPlayer1=belongPlayer1;
+        this.ID = CardsEnum.EndOfRound.getId();
+        this.BELONG_PLAYER_1=belongPlayer1;
     }
     
     

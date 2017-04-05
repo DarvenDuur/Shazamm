@@ -19,8 +19,8 @@ public class Mutism extends AbstractCard {
      * @param belongPlayer1 
      */
     public Mutism(boolean belongPlayer1) {
-        this.id = CardsEnum.Mutism.getId();
-        this.belongPlayer1=belongPlayer1;
+        this.ID = CardsEnum.Mutism.getId();
+        this.BELONG_PLAYER_1=belongPlayer1;
     }
     
     @Override

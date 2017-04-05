@@ -16,8 +16,8 @@ import game.gui.Console;
 public class Recycling extends AbstractCard {
     
     public Recycling(boolean belongPlayer1) {
-        this.id = CardsEnum.Recycling.getId();
-        this.belongPlayer1=belongPlayer1;
+        this.ID = CardsEnum.Recycling.getId();
+        this.BELONG_PLAYER_1=belongPlayer1;
     }
     
     
