@@ -24,6 +24,7 @@ public class ConnexionBDD {
     //current conection to the database
     private Connection con = null; 
 
+//***************************** CONSTRUCTOR ************************************ 
     /**
      * @param dbn
      *      name of the database
@@ -38,6 +39,7 @@ public class ConnexionBDD {
         this.password = p;
     }
 
+//***************************** OTHER ******************************************
     /**
      * open the mysql connexion
      */
@@ -180,7 +182,6 @@ public class ConnexionBDD {
             System.out.println("ex");
         }
     }
-    
     
     /**
      * Try to execute an update query to database

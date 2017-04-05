@@ -112,17 +112,11 @@ public abstract class AbstractCard implements Cloneable, Comparable<AbstractCard
      * @return
      */
     protected PlayerState getUserPLayer(Round round){
-        if(this.isUsedPlayer1()){
-           return round.getLastPlayerState1();
-        }
-        return round.getLastPlayerState2();
+        return round.getLastPlayerState(this.isUsedPlayer1());
     }
     
     protected PlayerState getNotUserPlayer(Round round){
-        if(this.isUsedPlayer1()){
-           return round.getLastPlayerState2();
-        }
-        return round.getLastPlayerState1();
+        return round.getLastPlayerState(!this.isUsedPlayer1());
     }
     
     public static AbstractCard create(int id, boolean belongPlayer1){
