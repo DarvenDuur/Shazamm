@@ -26,7 +26,7 @@ public class Config {
     public static final int FIRST_TURN_DRAW = 5;
 
 //**************************** TEXT USED FOR LOG PRINTING **********************
-    /* for eaach of folowing parameters, please refer to Log.toString and 
+    /* For eaach of folowing parameters, please refer to Log.toString and 
      * overwriting methodes */
     public static final String ATTACK_POWER = "Force d'attaque:";
 

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package game;
 
 import game.cards.AbstractCard;
@@ -16,38 +11,52 @@ import java.util.Collections;
 import java.util.HashSet;
 
 /**
- *
- * @author darven
+ * Turn of the game, managing interractions with the bridge
  */
 public class Turn implements Cloneable {
     
-    protected Bridge bridge;// TO DO
-    
+    // Bridge of this turn
+    protected Bridge bridge; 
+
+    // Curent state of the turn, if false, can not proceed to next turn
     private boolean ended;
+
+    // Winner of the turn, 0 for draw, -1 for player1, 1 for player2
+    private short winner;
     
-    private short winner; //0 for draw, -1 for player1, 1 for player2
+    // Effect of mutism, if true no spell can be applied
+    private boolean mute;
+    
+    /* true if indiqued player thieves other player's cards, 
+     * appropriating the effects to himself.
+     * If both are true, players "exchange" their cards. */
+    private boolean player1Theft, player2Theft;
+
 
 //***************************** CONSTRUCTOR ************************************
-    
-    // TO DO
+    /**
+     * @param bridge 
+     *      Bridge used by this turn (not cloned)
+     */
     public Turn(Bridge bridge) {
         this.bridge = bridge;
         this.mute = false;
         this.ended = false;
         this.winner = 0;
-        
     }
-    
+
 //***************************** GETTER *****************************************
     /**
-     * @return the bridge
+     * @return 
+     *      the bridge
      */
     public Bridge getBridge() {
         return bridge;
     }
 
     /**
-     * @return 0 for draw, -1 for player1, 1 for player2, -2 for unended turn
+     * @return 
+     *      0 for draw, -1 for player1, 1 for player2, -2 for unended turn
      */
     public short getWinner() {
         if (!this.ended) {
@@ -55,295 +64,316 @@ public class Turn implements Cloneable {
         }
         return winner;
     }
-    
+
     /**
-     * check if this turn fills end of round condition
-     * @return
-     *      true if this fills round end conditions
+     * Check if this turn fills end of round condition.
+     *      End of round condition: at least a player is in or in the wrong side
+     *      of the firewall, or at least a player has run out of mana.
+     * @return 
+     *      true if this turn fills round end conditions
      */
-    public boolean isRoundEnd(){
+    public boolean isRoundEnd() {
+        //get firewall and players positions
         int firewall = this.bridge.getFirewallLocation();
         int player1Position = this.bridge.getPlayerState1().getPosition();
         int player2Position = this.bridge.getPlayerState2().getPosition();
-        
-        boolean firewallKill = (firewall <= player1Position) ||
-                (firewall >= player2Position);
-        
+
+        //at least one of the playersis in or in the wrong side of the firewall
+        boolean firewallKill = (firewall <= player1Position)
+                || (firewall >= player2Position);
+
+        //get players mana
         int player1Mana = this.bridge.getPlayerState1().getMana();
         int player2Mana = this.bridge.getPlayerState2().getMana();
-        
+
+        //at least one of the players has run out of mana
         boolean manaRounout = player1Mana <= 0 || player2Mana <= 0;
-        
+
         return firewallKill || manaRounout;
     }
     
-//***************************** SETTER *****************************************
-    
     /**
-     * set ended to true
-     */
-    public void end(){
-        this.ended = true;
-    }
-    
-//**************************** MUTISM ******************************************
-    
-    private boolean mute;
-
-    /**
-     * @return the mute
+     * @return 
+     *      mute, if true no spell can be applied
      */
     public boolean isMute() {
         return mute;
     }
     
     /**
-     * mute to false
-     */
-    public void setMute() {
-        this.mute = true;
-    }
-    
-//**************************** THEFT *******************************************
-    
-    //true if indiqued player thieves other player's card
-    private boolean player1Theft, player2Theft;
-
-    /**
-     * @return the player1Theft
+     * @return 
+     *      true if player 1 thieves player 2's cards
      */
     public boolean isPlayer1Theft() {
         return player1Theft;
     }
 
     /**
-     * @param player1Theft the player1Theft to set
-     */
-    public void setPlayer1Theft(boolean player1Theft) {
-        this.player1Theft = player1Theft;
-    }
-
-    /**
-     * @return the player2Theft
+     * @return 
+     *      true if player 2 thieves player 1's cards
      */
     public boolean isPlayer2Theft() {
         return player2Theft;
     }
 
+//***************************** SETTER *****************************************
     /**
-     * @param player2Theft the player2Theft to set
+     * Set ended to true, allowing proceeding to next turn
      */
-    public void setPlayer2Theft(boolean player2Theft) {
-        this.player2Theft = player2Theft;
+    public void end() {
+        this.ended = true;
     }
 
-//******************************************************************************
+    /**
+     * Set mute to true, so no spell can be applied anymore
+     */
+    public void setMute() {
+        this.mute = true;
+    }
     
+    /**
+     * Set player1Theft to true, 
+     *      giving the effects of cards used by player 2 to player 1.
+     */
+    public void setPlayer1Theft() {
+        this.player1Theft = true;
+    }
+
+    /**
+     * Set player2Theft to true, 
+     *      giving the effects of cards used by player 1 to player 2.
+     */
+    public void setPlayer2Theft() {
+        this.player2Theft = true;
+    }
+
+//**************************** CLONE *******************************************
+    /**
+     * @see 
+     *      Object.clone()
+     * @return 
+     *      clone of the turn, with card effects reset
+     * @throws CloneNotSupportedException
+     */
     @Override
-    public Object clone() throws CloneNotSupportedException{
+    public Object clone() throws CloneNotSupportedException {
         Turn clone = (Turn) super.clone();
         clone.bridge = (Bridge) clone.bridge.clone();
-        
+
         //default end and turn victory
         clone.ended = false;
         clone.winner = 0;
-        
+
         return clone;
     }
-    
+
+//***************************** OTHER ******************************************
     /**
-     * Play turn 
-     *      get action and bet input and apply it to this turn
-     *      clear console between each player
-     * @param round
-     *      parent round, needed to apply actions
+     * Play turn get action and bet input and apply it to this turn.
+     *      Clear console between each player.
+     * @param round 
+     *      Parent round, needed to apply actions globally
      */
-    public void play(Round round){
+    public void play(Round round) {
         Console.clear();
         //add turn presentation log
         LogSystem.addLog(new LogTitle());
-        
+
         //print bridge initial state
         Console.println(this.getBridge().toString());
-            
+
         //get current player states
         PlayerState player1 = this.getBridge().getPlayerState1();
         PlayerState player2 = this.getBridge().getPlayerState2();
-            
+
         //bet
         player1.bet();
         Console.clear();
         player2.bet();
         Console.clear();
-            
+
         //collect actions input
         HashSet<AbstractCard> player1Cards = Console.askCards(round, true);
         Console.clear();
         HashSet<AbstractCard> player2Cards = Console.askCards(round, false);
         Console.clear();
-            
+
         //discard cards played by each player
         player1.getCardManager().discardAll(player1Cards);
         player2.getCardManager().discardAll(player2Cards);
-            
+
         //merge and sort card lists
         ArrayList<AbstractCard> cards = new ArrayList<>();
         cards.addAll(player1Cards);
         cards.addAll(player2Cards);
         Collections.sort(cards);
-               
+
         //create turn summary log
         LogTurnOverview turnLog = new LogTurnOverview(this.getBridge());
-        
+
         //apply cards' action to the turn
-        for (AbstractCard card : cards){
+        for (AbstractCard card : cards) {
             card.generalApply(round);
         }
-        
+
         //apply bet
         this.applyBets();
-            
+
         this.endOfTurnDraw();
         this.end();
-        
+
         //add bet summary log
         LogSystem.addLog(new LogBetOverview(this.getBridge()));
         //update turn summary log
         turnLog.setFinalTurn(this);
         LogSystem.addLog(turnLog);
-        
+
         //print 5 last logs (turn title, 2 bets, bet summary, turn summary)
         Console.clear();
         Console.println(LogSystem.getLastLogs(5));
     }
-    
+
     /**
-     * set isPlayer1Winner to 0 for draw, -1 for player1, 1 for player2
+     * Set isPlayer1Winner to 0 for draw, -1 for player1, 1 for player2
      */
-    public void applyBets(){
+    private void applyBets() {
         this.setWinner();
-        
+
         //move firewall toward loser
         this.bridge.moveFirewallLocation(-this.winner);
-        
+
         //end Turn
         this.end();
     }
-    
+
     /**
-     * apply end of turn actions:
-      - each player draws cards (number set in Config.END_OF_TURN_DRAW)
+     * Apply end of turn actions: each player draws cards (see Config).
+     *      If number of cards inferior to minimum hand size (see Config),
+     *      draw cards until hand has the minimum accepted size.
      */
-    public void endOfTurnDraw(){
+    private void endOfTurnDraw() {
         PlayerState player1, player2;
         player1 = this.bridge.getPlayerState1();
         player2 = this.bridge.getPlayerState2();
-        
+
         //draw set number of cards
-        for (int i = 0; i < Config.END_OF_TURN_DRAW; i++){
+        for (int i = 0; i < Config.END_OF_TURN_DRAW; i++) {
             player1.getCardManager().drawCard();
             player2.getCardManager().drawCard();
         }
-        
+
+        //refill hand to minimal accepted size
         player1.getCardManager().refillHand();
         player2.getCardManager().refillHand();
     }
-    
+
     /**
-     * apply start of round actions:
-      - each player draws cards (number set in Config.FIRST_TURN_DRAW)
+     * Apply start of round actions: each player draws cards (see Config).
      */
-    public void startOfRoundActions(){
+    public void startOfRoundActions() {
         PlayerState player1, player2;
         player1 = this.bridge.getPlayerState1();
         player2 = this.bridge.getPlayerState2();
-        
+
         //draw set number of cards
-        for (int i = 0; i < Config.FIRST_TURN_DRAW; i++){
+        for (int i = 0; i < Config.FIRST_TURN_DRAW; i++) {
             player1.getCardManager().drawCard();
             player2.getCardManager().drawCard();
         }
     }
-    
-    public Turn getNextRoundStarter(){
+
+    /**
+     * Create a new turn baseed on this turn's final state, 
+     *      to start an new round.
+     * @return
+     *      new turn, ready to play
+     */
+    public Turn getNextRoundStarter() {
         //break if turn not ended
-        if (this.getWinner() == -2){
+        if (this.getWinner() == -2) {
             return null;
         }
-        
+
         //recover bridge
         Bridge bridge = this.getBridge();
-        
+
         //init playerState
         PlayerState playerState1 = new PlayerState(bridge.getPlayer1(), true);
         PlayerState playerState2 = new PlayerState(bridge.getPlayer2(), false);
-        
+
         //get previous location of firewall
         int firewallLocation = bridge.getFirewallLocation();
-        
+
         //if any player lost, the firewall takes its position 
-        if (this.winner != 0){
+        if (this.winner != 0) {
             //set firewal to loser's position
-            if (this.winner < 0){
+            if (this.winner < 0) {
                 firewallLocation = bridge.getPlayerState2().getPosition();
-            }else{
+            } else {
                 firewallLocation = bridge.getPlayerState1().getPosition();
             }
-            
-        //if tie, copy the positions of the firewall and the players
-        }else{
+
+            //if tie, copy the positions of the firewall and the players
+        } else {
             //copy player 1 and 2 positions
             playerState1.setPosition(bridge.getPlayerState1().getPosition());
             playerState2.setPosition(bridge.getPlayerState2().getPosition());
         }
-        
-        
+
         //init the new turn's bridge
-        Bridge nextBridge = new Bridge(playerState1, playerState2, 
-                bridge.getSize()-1, 
+        Bridge nextBridge = new Bridge(playerState1, playerState2,
+                bridge.getSize() - 1,
                 firewallLocation);
-        
+
         Turn initTurn = new Turn(nextBridge);
-        
+
         //if any player lost, the players are replaced 3 tiles from the firewall
-        if(this.winner != 0){
+        if (this.winner != 0) {
             nextBridge.replacePlayers();
         }
-        
+
         //end turn
         initTurn.end();
-        
+
         //return turn
         return initTurn;
-    } 
-    
-    private void setWinner(){
+    }
+
+    /**
+     * Calculate turn's winner, basesd on attack power
+     */
+    private void setWinner() {
         //get bets
         int player1power = this.bridge.getPlayerState1().getPowerAttack();
         int player2power = this.bridge.getPlayerState2().getPowerAttack();
-        
+
         //compare bets to determine winner
         //player 2 won,
-        if (player1power < player2power){
+        if (player1power < player2power) {
             this.winner = 1;
-            
-        //player 1 won
-        }else if (player1power > player2power){
+
+            //player 1 won
+        } else if (player1power > player2power) {
             this.winner = -1;
-            
-        }else{
+
+        } else {
             this.winner = 0;
         }
-        
-        this.winner *= this.bridge.getInvertWinLose() ? -1 : 1;
     }
-    
+
+    /**
+     * For console printing
+     * @see 
+     *      Object.toString()
+     * @return 
+     *      String representing the turn
+     */
     @Override
-    public String toString(){
-      String str="";
-      str+=this.bridge+"\n";
-      str+=this.winner+"\n";
-      str+=this.mute;
-      return str;
+    public String toString() {
+        String str = "";
+        str += this.bridge + "\n";
+        str += this.winner + "\n";
+        str += this.mute;
+        return str;
     }
 }

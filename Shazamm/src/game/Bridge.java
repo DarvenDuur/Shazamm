@@ -254,6 +254,7 @@ public class Bridge implements Cloneable {
     }
 
     /**
+     * For console printing
      * @see 
      *      Object.toString()
      * @return 
