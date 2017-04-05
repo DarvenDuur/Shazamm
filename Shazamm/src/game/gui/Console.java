@@ -1,6 +1,7 @@
 package game.gui;
 
 import game.Bridge;
+import game.Config;
 import game.PlayerState;
 import game.Round;
 import game.Turn;
@@ -8,8 +9,6 @@ import game.cards.AbstractCard;
 import game.cards.CardsEnum;
 import static game.cards.CardsEnum.CARDS;
 import game.cards.Clone;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
@@ -24,10 +23,6 @@ import java.util.regex.Pattern;
 public class Console {
     // Scanner for all user inputs
     private final static Scanner SCANNER = new Scanner(System.in);
-
-    // Date format for printing
-    private final static DateFormat DATE_FORMAT = new SimpleDateFormat(
-            "dd/MM/yyyy HH:mm:ss");
 
 //***************************** PRINT ONLY *************************************
     /**
@@ -85,7 +80,8 @@ public class Console {
      *      integers to print ass refused
      */
     private static void printRefused(HashSet<Integer> refusedInput) {
-        printCards(refusedInput, "No refused input", "Refused inputs:");
+        printCards(refusedInput, Config.REFUSED_INPUT[0], 
+                Config.REFUSED_INPUT[1]);
     }
 
     /**
@@ -96,7 +92,7 @@ public class Console {
     private static void printChosenCard(Integer acceptedInput) {
         HashSet<Integer> set = new HashSet<>();
         set.add(acceptedInput);
-        printCards(set, "This card will be chosen:", "");
+        printCards(set, Config.CHOSEN_CARD[0],  Config.CHOSEN_CARD[1]);
     }
 
     /**
@@ -197,17 +193,14 @@ public class Console {
             acceptedInput.clear();
 
             if (round.getLastTurn().isMute()) {
-                println("Warning, " + CardsEnum.Mutism.getName() + " is active.");
+                println(String.format(Config.MUTISM_WARNING, CardsEnum.Mutism.getName()));
             }
             //print all cards, and get all available IDs
             HashSet<Integer> handIDs = getIDs(cards);
-            printCards(handIDs, player.getPlayer().getName()
-                    + ", you can choose the following cards: ",
-                    "No cards can be played (shouldn't appear)");
+            printCards(handIDs, String.format(Config.AVAILABLE_CARDS[0], 
+                    player.getPlayer().getName()), Config.AVAILABLE_CARDS[1]);
 
-            String input = getInput("Enter the ID(s) of the card(s) you want to play."
-                    + " You can enter any number of IDs, separated by spaces, "
-                    + "letters ... :");
+            String input = getInput(Config.CARDS_INPUT);
 
             //filter all integers
             LinkedList<Integer> splitInput = parseAllInt(input);
@@ -218,10 +211,10 @@ public class Console {
 
             printRefused(refusedInput);
             //show accepted input and corresponding cards
-            printCards(acceptedInput, "Those cards will be chosen:",
-                    "No card will be chosen");
+            printCards(acceptedInput, Config.CHOSEN_CARDS[0],
+                    Config.CHOSEN_CARDS[1]);
 
-        } while (!getConfirmation("Do you whant to chose those cards ?"));
+        } while (!getConfirmation(Config.CARDS_CONFFIRM));
 
         return getCardFromInteger(cards, acceptedInput, round, player1);
     }
@@ -247,7 +240,7 @@ public class Console {
 
         //safety mesure for unvalid parameters
         if (cards == null || cards.isEmpty()) {
-            println("No cards clonable.");
+            println(Config.AVAILABLE_CLONES[1]);
             return null;
         }
 
@@ -256,14 +249,11 @@ public class Console {
             acceptedInput = new Integer(0);
             //print all cards, and get all available IDs
             HashSet<Integer> handIDs = getIDs(cards);
-            printCards(handIDs, "You can clone the following cards: ",
-                    "No cards can be played (shouldn't appear)");
+            printCards(handIDs, Config.AVAILABLE_CLONES[0],
+                    Config.AVAILABLE_CLONES[1]);
 
             //get input
-            String input = getInput("Enter the ID of the card you want to clone."
-                    + " You can enter any number of IDs, separated by spaces, "
-                    + "letters ... (only the first valid one will "
-                    + "be considered):");
+            String input = getInput(Config.CLONE_INPUT);
 
             //filter all integers
             LinkedList<Integer> splitInput = parseAllInt(input);
@@ -278,7 +268,7 @@ public class Console {
 
             printChosenCard(acceptedInput);
 
-        } while (!getConfirmation("Do you whant to chose this card ?"));
+        } while (!getConfirmation(Config.CLONE_CONFFIRM));
 
         //get card from integer
         AbstractCard output = AbstractCard.create(acceptedInput, !player1);
@@ -301,12 +291,15 @@ public class Console {
     public static boolean getConfirmation(String question) {
         String answer = "";
 
-        while (!answer.equals("y") && !answer.equals("n")) {
-            println(question + "[Y/n]:");
-            answer = SCANNER.nextLine().toLowerCase();
-            answer += answer.trim().isEmpty() ? "y" : "";
+        while (!answer.equalsIgnoreCase(Config.Y_N_CHAR[0])
+                && !answer.equalsIgnoreCase(Config.Y_N_CHAR[1])) {
+            println(question + "[" + Config.Y_N_CHAR[0].toUpperCase() + "/" 
+                    + Config.Y_N_CHAR[1].toLowerCase() + "]:");
+            answer = SCANNER.nextLine();
+            answer += answer.trim().isEmpty() && Config.Y_N_DIRECT_ACCEPT ?
+                    Config.Y_N_CHAR[0] : "";
         }
-        return answer.equals("y");
+        return answer.equalsIgnoreCase(Config.Y_N_CHAR[0]);
     }
 
 //***************************** OTHER ******************************************
@@ -409,6 +402,6 @@ public class Console {
      *      the current date
      */
     public static String getCurrentDate() {
-        return DATE_FORMAT.format(new Date());
+        return Config.DATE_FORMAT.format(new Date());
     }
 }

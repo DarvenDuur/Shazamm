@@ -1,5 +1,8 @@
 package game;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 /**
  * Contain all constant values that will be used by the program.
  * In later versions, will be loded from a file.
@@ -53,6 +56,62 @@ public class Config {
     public static final String TURN_WINNER = "Le gagnant du tour est ";
     
     public static final String DRAW = "Egalité";
+    
+//**************************** TEXT USED FOR CONSOLE ***************************
+    // see askCards()
+    public static final String MUTISM_WARNING = "Warning, %s is active.";
+    
+    // see askCards()
+    public static final String CARDS_INPUT = 
+            "Enter the ID(s) of the card(s) you want to play. "
+            + "You can enter any number of IDs, separated by spaces, "
+            + "letters ... :";
+    
+    // see askClone()
+    public static final String CLONE_INPUT = 
+            "Enter the ID of the card you want to clone. "
+            + "You can enter any number of IDs, separated by spaces, "
+            + "letters ... (only the first valid one will be considered):";
+    
+    // see askCards()
+    public static final String CARDS_CONFFIRM = 
+            "Do you whant to use those cards ?";
+    
+    // see askClone()
+    public static final String CLONE_CONFFIRM = 
+            "Do you whant to clone this card ?";
+    
+    // see printRefused()
+    public static final String[] REFUSED_INPUT = 
+            {"Refused inputs:", "No refused input"};
+    
+    // see askCards()
+    public static final String[] AVAILABLE_CARDS = 
+            {"%s, you can choose the following cards: ", 
+                "No cards can be played (shouldn't appear)"};
+    
+    // see askCards()
+    public static final String[] AVAILABLE_CLONES = 
+            {"You can clone the following cards: ", 
+                "No cards can be cloned"};
+    
+    // see askCards()
+    public static final String[] CHOSEN_CARDS = 
+            {"Those cards will be chosen:", "No card will be chosen"};
+    
+    // see printChosenCard()
+    public static final String[] CHOSEN_CARD = 
+            {"This card will be chosen:", "No card will be chosen"};
+    
+    // Date format for printing
+    public static final DateFormat DATE_FORMAT = 
+            new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+    
+    // see getConfirmation()
+    public static final String[] Y_N_CHAR = {"y","n"};
+    
+    // see getConfirmation(), if true, can press enter dirrectly to accept
+    public static final boolean Y_N_DIRECT_ACCEPT = true;
 
 //**************************** CONSTRUCOR AND LOADING [WIP] ********************
     /**
