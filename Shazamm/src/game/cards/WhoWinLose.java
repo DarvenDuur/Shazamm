@@ -21,7 +21,7 @@ public class WhoWinLose extends AbstractCard {
    
 //**************************** OTHER *******************************************
     /**
-     * Inverf firewall movement
+     * Invert firewall movement
      * @see AbstractCard
      * @param round 
      *      round to which apply the card

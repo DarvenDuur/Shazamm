@@ -1,29 +1,30 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package game.cards;
 
 import game.Round;
 
 /**
- *
- * @author darven
+ * Card 10: Blaze
  */
 public class Blaze extends AbstractCard {
     
-    
-    public Blaze(boolean belongPlayer1) {
-        this.ID = CardsEnum.Blaze.getId();
-        this.BELONG_PLAYER_1=belongPlayer1;
-    }
-    
+ //**************************** CONSTRUCTOR *************************************
     /**
-     * The fire wall moves two spaces instead of one. Only if he had to move.
-     * @param round
-     * 
-     * @author Adrien
+     * Set the card with ID 10
+     * @see AbstractCard
+     * @param belongPlayer1 
+     *      if true, will be considered as belonging to player 1, 
+     *      otherwise to player 2
+     */
+    public Blaze(boolean belongPlayer1) {
+        super(belongPlayer1, 10);
+    }
+   
+//**************************** OTHER *******************************************
+    /**
+     * Double firewall movement, no effect if it does not move
+     * @see AbstractCard
+     * @param round 
+     *      round to which apply the card
      */
     @Override
     protected void apply(Round round) {
