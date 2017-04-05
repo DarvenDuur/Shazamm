@@ -1,40 +1,44 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package game.bdd;
 
 import game.Config;
-import game.Player;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
- *
- * 
- * 
+ * System managing connection to a Shazamm database (localhost)
+ * @deprecated [WIP]
  */
 public class ConnexionBDD {
-
-    private final String dbname; 
+    //database's name
+    private final String dbname;
+    
+    //database user's username
     private final String username;
+    
+    //database user's password
     private final String password;
-    private Connection con = null;
+    
+    //current conection to the database
+    private Connection con = null; 
 
+    /**
+     * @param dbn
+     *      name of the database
+     * @param u
+     *      username
+     * @param p 
+     *      password
+     */
     public ConnexionBDD(String dbn, String u, String p) {
         this.dbname = dbn;
         this.username = u;
         this.password = p;
     }
 
-    /*
+    /**
      * open the mysql connexion
      */
     public void openConnexion() {
@@ -55,7 +59,7 @@ public class ConnexionBDD {
         }
     }
 
-    /*
+    /**
      * close the mysql connexion
      */
     public void closeConnexion() {
@@ -68,23 +72,28 @@ public class ConnexionBDD {
     }
     
     /**
-     * init the default config
+     * Get default config from database
      * @return 
+     *      Config object
      */
     public Config initConfig(){
         return this.initConfig("default");
     }
     
     /**
-     * init config of the mod
+     * Get config from database
      * @param mod
+     *      config type
      * @return 
+     *      Config object
+     * @deprecated 
      */
     public Config initConfig(String mod){
         String query = "SELECT * FROM Config WHERE ID_CONFIG=";
         query = query + "\"" + mod + "\";";
         ResultSet rs = getTuples(query);
 
+        //Extraction of values from database to Config object
         try {
             return new Config(rs.getInt("BRIDGE_SIZE"),
                     rs.getInt("MAX_MANA"),
@@ -99,8 +108,9 @@ public class ConnexionBDD {
     }
     
     /**
-     * add a player in the db
-     * @param name 
+     * add a player in the database
+     * @param name
+     *      Name of the player to add
      */
     public void addPlayer(String name){
         this.updateTuples("INSERT INTO `Player`(`USERNAME`,"
@@ -115,15 +125,24 @@ public class ConnexionBDD {
                     + "0);");
     }
     
+    /**
+     * get a player from the database
+     * @param name
+     *      Name of the player to get
+     * @return 
+     *      ResultSet containing player data
+     */
     public ResultSet getPlayer(String name){
         return getTuples("SELECT * FROM Player WHERE USERNAME='"+name +"';");
     }
    
     /**
-     * TO DO
-     * @deprecated 
+     * update player scores in the database
+     * @deprecated [TO DO]
      * @param name
+     *      name of the player to update
      * @param win 
+     *      ???
      */
     public void updatePlayer(String name,short win){
         ResultSet rs=getPlayer(name);
@@ -142,7 +161,11 @@ public class ConnexionBDD {
     
     }
     
-    
+    /**
+     * Get all card informations from database.
+     *      Curently only printing them.
+     * @deprecated [WIP]
+     */
     public void getCard(){
         String query="SELECT * FROM Card;";
         ResultSet rs=getTuples(query);
@@ -160,10 +183,11 @@ public class ConnexionBDD {
     
     
     /**
-     * add tuples in the db
+     * Try to execute an update query to database
      * @param query 
+     *      query to execute
      * @return  
-     *          true if the method a tuple without error
+     *      true if the querry returns a tuple without error
      */
     private boolean updateTuples(String query){
         try{
@@ -183,9 +207,11 @@ public class ConnexionBDD {
     }
     
     /**
-     * take a query in parameter and return the resultSet
+     * Try to execute a get query to database
      * @param query
+     *      query to execute
      * @return 
+     *      ResultSet returned by the query
      */
     private ResultSet getTuples(String query){
         try{
