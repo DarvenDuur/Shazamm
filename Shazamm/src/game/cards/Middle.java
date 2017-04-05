@@ -1,24 +1,31 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package game.cards;
 
-import game.Bridge;
 import game.Round;
 
 /**
- *
- * @author darven
+ * Card 5: Middle
  */
 public class Middle extends AbstractCard {
     
+//**************************** CONSTRUCTOR *************************************
+    /**
+     * Set the card with ID 5
+     * @see AbstractCard
+     * @param belongPlayer1 
+     *      if true, will be considered as belonging to player 1, 
+     *      otherwise to player 2
+     */
     public Middle(boolean belongPlayer1) {
-        this.ID = CardsEnum.Middle.getId();
-        this.BELONG_PLAYER_1=belongPlayer1;
+        super(belongPlayer1, 5);
     }
     
+//**************************** OTHER *******************************************
+    /**
+     * Replace firewall at equal distance of the two players
+     * @see AbstractCard
+     * @param round 
+     *      round to which apply the card
+     */
     @Override
     protected void apply(Round round){
         int player1Location = round.getLastPlayerState1().getPosition();
