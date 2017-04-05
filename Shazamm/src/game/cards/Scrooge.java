@@ -1,37 +1,40 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package game.cards;
 
 import game.PlayerState;
 import game.Round;
 
 /**
- *
- * @author darven
+ * Card 12: Scrooge
  */
 public class Scrooge extends AbstractCard {
 
-    
+//**************************** CONSTRUCTOR *************************************
+    /**
+     * Set the card with ID 12
+     * @see AbstractCard
+     * @param belongPlayer1 
+     *      if true, will be considered as belonging to player 1, 
+     *      otherwise to player 2
+     */
     public Scrooge(boolean belongPlayer1) {
-        this.ID = CardsEnum.Scrooge.getId();
-        this.BELONG_PLAYER_1=belongPlayer1;
+        super(belongPlayer1, 12);
     }
     
+//**************************** OTHER *******************************************
     /**
-     * If this turn is lost, the stake is not removed from my Mana reserve.
-     * @param round
-     * 
-     * @author Adrien
+     * If this turn is lost, the bet is not removed from my Mana reserve.
+     * @see AbstractCard
+     * @param round 
+     *      round to which apply the card
      */
     @Override
     protected void apply(Round round) {
         if ((this.isUsedPlayer1() && round.getLastTurn().getWinner() == -1) || 
                 (!this.isUsedPlayer1() && round.getLastTurn().getWinner() == 1)){
             
-            PlayerState player=super.getUserPLayer(round);
+            PlayerState player = super.getUserPLayer(round);
+            
+            // add value of the bet to mana pool
             player.addMana(super.getUserPLayer(round).getBet());
         }
     }
