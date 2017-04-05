@@ -1,22 +1,22 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package game.cards;
 
-import game.Bridge;
 import game.Round;
 
 /**
- *
- * @author darven
+ * Card 2: Cole
  */
 public class Clone extends AbstractCard {
     // cloned card
     private AbstractCard clone;
         
 //**************************** CONSTRUCTOR *************************************
+    /**
+     * Set the card with ID 2, and initialize clone
+     * @see AbstractCard
+     * @param belongPlayer1 
+     *      if true, will be considered as belonging to player 1, 
+     *      otherwise to player 2
+     */
     public Clone(boolean belongPlayer1) {
         super(belongPlayer1, 2);
         this.clone = null;
@@ -47,7 +47,7 @@ public class Clone extends AbstractCard {
 
 //**************************** OTHER *******************************************
     /**
-     * Specific action, must called from generalApply()
+     * Invert ownership of cloned card, then apply its effect
      * @see AbstractCard
      * @param round 
      *      round to which apply the card
