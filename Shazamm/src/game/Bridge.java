@@ -1,13 +1,8 @@
-/*
-* To change this license header, choose License Headers in Project Properties.
-* To change this template file, choose Tools | Templates
-* and open the template in the editor.
- */
 package game;
 
 /**
- * Bidge, with gestion of size, size reduction, and firewall movement
- * Cards modifying firewall movement modify Bridge
+ * Bridge, with gestion of size, size reduction, and firewall movement.
+ * Cards modifying firewall movement modify Bridge.
  */
 public class Bridge implements Cloneable {
 
@@ -33,9 +28,12 @@ public class Bridge implements Cloneable {
 //**************************** CONSTRUCTOR *************************************
     /**
      * Call constructor with default vales
-     *
-     * @param playerState1 state of the player 1
-     * @param playerState2 state of the player 2
+     * @see 
+     *      Bridge(PlayerState, PlayerState, int, int)
+     * @param playerState1 
+     *      state of the player 1
+     * @param playerState2 
+     *      state of the player 2
      */
     public Bridge(PlayerState playerState1, PlayerState playerState2) {
         this(playerState1, playerState2, Config.BRIDGE_MAX_SIZE, 0);
@@ -43,12 +41,15 @@ public class Bridge implements Cloneable {
 
     /**
      * Call constructor with default vales
-     *
-     * @param playerState1 state of the player 1
-     * @param playerState2 state of the player 2
-     * @param size half the total size of the brige - 1 (excluding the central
-     * tile, necessarly existing)
+     * @param playerState1 
+     *      state of the player 1
+     * @param playerState2 
+     *      state of the player 2
+     * @param size 
+     *      half the total size of the brige - 1 
+     *      (excluding the central tile, necessarly existing)
      * @param firewallLocation
+     *      position of the firewall
      */
     public Bridge(PlayerState playerState1, PlayerState playerState2,
             int size, int firewallLocation) {
@@ -65,8 +66,10 @@ public class Bridge implements Cloneable {
 
 //**************************** CLONE *******************************************
     /**
-     * @see Object.clone()
-     * @return clone of the bridge (card effects reset)
+     * @see 
+     *      Object.clone()
+     * @return 
+     *      clone of the bridge, with card effects reset
      * @throws CloneNotSupportedException
      */
     @Override
@@ -86,10 +89,10 @@ public class Bridge implements Cloneable {
 
 //**************************** SETTER ******************************************
     /**
-     * move the firewall by specified amount subject to win/lose inversion
-     *
-     * @param amount amount of slots to move the firewall by negative for the
-     * left side, positive for the right side
+     * Move the firewall by specified amount (subject to win/lose inversion)
+     * @param amount 
+     *      Amount of slots to move the firewall by.
+     *      Negative for the left side, positive for the right side.
      */
     public void moveFirewallLocation(int amount) {
         //invert amount if victory and loss are inverted
@@ -108,10 +111,10 @@ public class Bridge implements Cloneable {
     }
 
     /**
-     * set the position of the firewall
-     *
-     * @param location new firewall location negative for the left side,
-     * positive for the right side
+     * Set the position of the firewall to a specific value
+     * @param location 
+     *      New firewall location. 
+     *      Negative for the left side, positive for the right side.
      */
     public void setFirewallLocation(int location) {
         this.firewallLocation = location;
@@ -127,28 +130,30 @@ public class Bridge implements Cloneable {
     }
 
     /**
-     * set invertWinLose to true
+     * Set invertWinLose to true. (invert movement of firewall)
      */
     public void setInvertWinLose() {
         this.invertWinLose = true;
     }
 
     /**
-     * @param rezilliancePlayer1 the rezilliancePlayer1 to set
+     * @param rezilliancePlayer1
+     *      new rezilliancePlayer1 value
      */
     public void setRezilliancePlayer1(boolean rezilliancePlayer1) {
         this.rezilliancePlayer1 = rezilliancePlayer1;
     }
 
     /**
-     * @param rezilliancePlayer2 the rezilliancePlayer2 to set
+     * @param rezilliancePlayer2 
+     *      new rezilliancePlayer2 value
      */
     public void setRezilliancePlayer2(boolean rezilliancePlayer2) {
         this.rezilliancePlayer2 = rezilliancePlayer2;
     }
 
     /**
-     * set blaze to true
+     * Set blaze to true. (Enable blaze effect)
      */
     public void setBlaze() {
         this.blaze = true;
@@ -156,10 +161,10 @@ public class Bridge implements Cloneable {
 
 //**************************** GETTER ******************************************
     /**
-     * check if a player has fallen out of the bridge
-     *
-     * @return 0 for draw, -1 for player1, 1 for player2 -2 for no player out of
-     * the bridge
+     * Check if a player has fallen out of the bridge
+     * @return 
+     *      0 for draw, -1 for player1, 1 for player2.
+     *      -2 for no player out of the bridge
      */
     public short hasOutOfBridge() {
         //both out
@@ -182,49 +187,57 @@ public class Bridge implements Cloneable {
     }
 
     /**
-     * @return the location of the firewall
+     * @return 
+     *      the location of the firewall
      */
     public int getFirewallLocation() {
         return this.firewallLocation;
     }
 
     /**
-     * @return the player 1
+     * @return 
+     *      the player 1
      */
     public Player getPlayer1() {
         return this.playerState1.getPlayer();
     }
 
     /**
-     * @return the player 2
+     * @return 
+     *      the player 2
      */
     public Player getPlayer2() {
         return this.playerState2.getPlayer();
     }
 
     /**
-     * @return the current PlayerState for player 1
+     * @return 
+     *      the current PlayerState for player 1
      */
     public PlayerState getPlayerState1() {
         return this.playerState1;
     }
 
     /**
-     * @return the current PlayerState for player 2
+     * @return 
+     *      the current PlayerState for player 2
      */
     public PlayerState getPlayerState2() {
         return this.playerState2;
     }
 
     /**
-     * @return the size of the bridge
+     * @return 
+     *      the size of the bridge (half the total size of the bridge,
+     *      0 if only the central portion remains)
      */
     public int getSize() {
         return this.SIZE;
     }
 
     /**
-     * @return invertWinLose
+     * @return 
+     *      invertWinLose
      */
     public boolean getInvertWinLose() {
         return this.invertWinLose;
@@ -232,7 +245,7 @@ public class Bridge implements Cloneable {
 
 //***************************** OTHER ******************************************
     /**
-     * set players 3 tiles away from firewall
+     * Move players 3 tiles away from firewall
      */
     public void replacePlayers() {
         //set players 3 tiles away
@@ -241,8 +254,10 @@ public class Bridge implements Cloneable {
     }
 
     /**
-     * @see Object.toString()
-     * @return String representing the bridge
+     * @see 
+     *      Object.toString()
+     * @return 
+     *      String representing the bridge
      */
     @Override
     public String toString() {

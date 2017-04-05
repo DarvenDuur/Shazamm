@@ -1,9 +1,3 @@
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package game;
 
 import java.util.LinkedList;
@@ -11,17 +5,20 @@ import java.util.Random;
 import game.gui.Console;
 
 /**
- *
+ * Main Shazamm game system, manages rounds and global victory
  */
 public class Game {
-    private final LinkedList<Round> rounds;    // represent a game
+    // all rounds of the game
+    private final LinkedList<Round> rounds;
+    
+    //Player objects containing the data of the two players
     private final Player PLAYER1, PLAYER2;
 
 //***************************** CONSTRUCTOR ************************************
 
     /**
-     * Constructor
-     *      initialize the player data by calling inputs
+     * Constructor: initialize the player data by calling inputs,
+     *      and initialize the first round
      */
     public Game() {
 
@@ -53,14 +50,14 @@ public class Game {
             this.PLAYER2 = new Player(namePlayer1, greenPlayer);
         }
         // create the first round of the game
-        Round firstRound = new Round(this.PLAYER1, this.PLAYER2, 
+        Round firstRound = new Round(this.PLAYER1, this.PLAYER2,
                 Config.BRIDGE_MAX_SIZE, 0);
 
         // add the first round to list of rounds
         this.rounds.add(firstRound);
     }
 
-//***************************** GETTER *****************************************    
+//***************************** GETTER *****************************************
 
     /**
      * @return the rounds
@@ -79,7 +76,7 @@ public class Game {
             //play rounds while the ending conditions are not met
         }
     }
-    
+
     /**
      * makes the players play a round
      * @return
@@ -87,33 +84,33 @@ public class Game {
      */
     public boolean playRound() {
         Round round;
-        
+
         /*create a round from scratch if no round is available (just a safety);
         if the last round added to rounds is not ended, will use it;
         otherwize use the data of the last round to create a new one*/
         if (rounds.isEmpty()){
-            round = new Round(this.PLAYER1, this.PLAYER2, 
+            round = new Round(this.PLAYER1, this.PLAYER2,
                 Config.BRIDGE_MAX_SIZE, 0);
-            
+
         }else if (!rounds.getLast().isEnded()){
             round = rounds.getLast();
-            
+
         }else{
             round = new Round(this.rounds.getLast());
         }
-        
+
         /*when the round is finished, add to list of rounds
         (could be after executing the round)*/
         rounds.addLast(round);
-        
+
         /*execute the round, and returns true if the raoun fills the game ending
         condition*/
         return round.play();
     }
-    
+
     /**
      * get the winer of the game
-     * @return 
+     * @return
      *      0 for draw, -1 for player1, 1 for player2
      *      -2 for no player out of the bridge
      */

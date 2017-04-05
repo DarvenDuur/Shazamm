@@ -1,13 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package game;
 
 /**
- * Contain all constant values, that will be used by the program In later
- * versions, will be loded from a file
+ * Contain all constant values that will be used by the program.
+ * In later versions, will be loded from a file.
  */
 public class Config {
 
