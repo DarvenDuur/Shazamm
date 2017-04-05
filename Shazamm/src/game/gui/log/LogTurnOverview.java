@@ -1,18 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package game.gui.log;
 
 import game.Bridge;
 import game.Config;
 import game.Player;
-import game.PlayerState;
 import game.Turn;
 
 /**
- * @author mg
+ * Log summarysing a turn
  */
 public class LogTurnOverview extends Log {
     // players whose turn is logged
