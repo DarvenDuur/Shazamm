@@ -74,12 +74,17 @@ public class Config {
             + "letters ... (only the first valid one will be considered):";
     
     // see askCards()
-    public static final String CARDS_CONFFIRM = 
+    public static final String CARDS_CONFIRM = 
             "Do you whant to use those cards ?";
     
     // see askClone()
-    public static final String CLONE_CONFFIRM = 
+    public static final String CLONE_CONFIRM = 
             "Do you whant to clone this card ?";
+    
+    // see Recycling.apply()
+    public static final String RECYCLE_CONFIRM = 
+            "%s, do you want to add yourself 5 attack power "
+            + "(if you refuse, you will lose 5 attack power)?";
     
     // see printRefused()
     public static final String[] REFUSED_INPUT = 

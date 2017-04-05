@@ -1,36 +1,39 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package game.cards;
 
+import game.Config;
 import game.PlayerState;
 import game.Round;
 import game.gui.Console;
 
 /**
- *
- * @author darven
+ * Card 6: Recycling
  */
 public class Recycling extends AbstractCard {
     
+//**************************** CONSTRUCTOR *************************************
+    /**
+     * Set the card with ID 5
+     * @see AbstractCard
+     * @param belongPlayer1 
+     *      if true, will be considered as belonging to player 1, 
+     *      otherwise to player 2
+     */
     public Recycling(boolean belongPlayer1) {
-        this.ID = CardsEnum.Recycling.getId();
-        this.BELONG_PLAYER_1=belongPlayer1;
+        super(belongPlayer1, 6);
     }
     
-    
+//**************************** OTHER *******************************************
     /**
-     * ask to the player if he want to increment by five else decrements by five 
+     * Ask to the player if he want to increment attack power by five,
+     *      if he refuses decrements it by five.
+     * @see AbstractCard
      * @param round 
+     *      round to which apply the card
      */
     @Override
     protected void apply(Round round){
         PlayerState ownerPlayer=super.getUserPLayer(round);
-        if(Console.getConfirmation(ownerPlayer.getPlayer().getName() + 
-                ", do you want to add yourself 5 attack power " +
-                "(if you refuse, you will lose 5 attack power)?")){
+        if(Console.getConfirmation(String.format(Config.RECYCLE_CONFIRM, ownerPlayer.getPlayer().getName()))){
             ownerPlayer.setAttackPower(ownerPlayer.getAttackPower() + 5);
         }
         ownerPlayer.setAttackPower(ownerPlayer.getAttackPower() - 5);    

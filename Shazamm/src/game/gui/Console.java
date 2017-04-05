@@ -214,7 +214,7 @@ public class Console {
             printCards(acceptedInput, Config.CHOSEN_CARDS[0],
                     Config.CHOSEN_CARDS[1]);
 
-        } while (!getConfirmation(Config.CARDS_CONFFIRM));
+        } while (!getConfirmation(Config.CARDS_CONFIRM));
 
         return getCardFromInteger(cards, acceptedInput, round, player1);
     }
@@ -268,7 +268,7 @@ public class Console {
 
             printChosenCard(acceptedInput);
 
-        } while (!getConfirmation(Config.CLONE_CONFFIRM));
+        } while (!getConfirmation(Config.CLONE_CONFIRM));
 
         //get card from integer
         AbstractCard output = AbstractCard.create(acceptedInput, !player1);
