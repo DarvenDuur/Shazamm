@@ -31,6 +31,33 @@ public class Console {
 
 //***************************** PRINT ONLY *************************************
     /**
+     * wraps System.out.println
+     * @param line
+     *      line to print
+     */
+    public static void println(String line) {
+        System.out.println(line);
+    }
+
+    /**
+     * wraps System.out.println
+     * @param o
+     *      object to print
+     */
+    public static void println(Object o) {
+        System.out.println(o);
+    }
+
+    /**
+     * prints a number (see Config) of empty line to simulate a console clearing
+     */
+    public static void clear() {
+        for (int i = 0; i < 50; i++) {
+            println("");
+        }
+    }
+    
+    /**
      * print all cards and a specific message according to the number of cards
      * @param cards 
      *      cards to print
@@ -71,6 +98,50 @@ public class Console {
         set.add(acceptedInput);
         printCards(set, "This card will be chosen:", "");
     }
+
+    /**
+     * print the winner of the turn
+     * @param turn
+     *      turn to analyze
+     */
+    public static void printWinner(Turn turn) {
+        switch (turn.getWinner()) {
+            case -1:
+                println(turn.getBridge().getPlayer1().getName()
+                        + " won the turn.");
+                break;
+
+            case 1:
+                println(turn.getBridge().getPlayer2().getName()
+                        + " won the turn.");
+                break;
+
+            default:
+                System.out.println("No winner in this turn");
+        }
+    }
+
+    /**
+     * print the winner of the round
+     * @param round
+     *      round to analyze
+     */
+    public static void printWinner(Round round) {
+        switch (round.getWinner()) {
+            case -1:
+                println(round.getLastBridge().getPlayer1().getName()
+                        + " won the round.");
+                break;
+
+            case 1:
+                println(round.getLastBridge().getPlayer2().getName()
+                        + " won the round.");
+                break;
+
+            default:
+                println("No winner in this round");
+        }
+    }
     
 //***************************** PRINT AND INPUT ********************************
     /**
@@ -83,6 +154,22 @@ public class Console {
     public static String getInput(String string) {
         println(string);
         return SCANNER.nextLine();
+    }
+
+    /**
+     * Get first integer of next inputed line
+     * @param string 
+     *      text to print before getting the input
+     * @return 
+     *      inputed Integer
+     */
+    public static Integer getIntInput(String string) {
+        LinkedList<Integer> input = new LinkedList<>();
+
+        while (input.isEmpty()) {
+            input = parseAllInt(getInput(string));
+        }
+        return input.get(0);
     }
     
     /**
@@ -316,96 +403,12 @@ public class Console {
         return splitInput;
     }
 
-    
-
     /**
-     * get first integer of next inputed line
-     *
-     * @param string text to print before getting the input
-     * @return inputed Integer
-     */
-    public static Integer getIntInput(String string) {
-        LinkedList<Integer> input = new LinkedList<>();
-
-        while (input.isEmpty()) {
-            input = parseAllInt(getInput(string));
-        }
-        return input.get(0);
-    }
-
-    /**
-     * return the date and the time current in french format.
-     *
-     * @return the currentDate
+     * return the current date and time in format spacified in DATE_FORMAT.
+     * @return 
+     *      the current date
      */
     public static String getCurrentDate() {
         return DATE_FORMAT.format(new Date());
-    }
-
-    /**
-     * print the winner of the turn
-     *
-     * @param turn turn to analyze
-     */
-    public static void printWinner(Turn turn) {
-        switch (turn.getWinner()) {
-            case -1:
-                println(turn.getBridge().getPlayer1().getName()
-                        + " won the turn.");
-                break;
-
-            case 1:
-                println(turn.getBridge().getPlayer2().getName()
-                        + " won the turn.");
-                break;
-
-            default:
-                System.out.println("No winner in this turn");
-        }
-    }
-
-    /**
-     * print the winner of the turn
-     *
-     * @param turn turn to analyze
-     */
-    public static void printWinner(Round round) {
-        switch (round.getWinner()) {
-            case -1:
-                println(round.getLastBridge().getPlayer1().getName()
-                        + " won the round.");
-                break;
-
-            case 1:
-                println(round.getLastBridge().getPlayer2().getName()
-                        + " won the round.");
-                break;
-
-            default:
-                println("No winner in this round");
-        }
-    }
-
-    /**
-     * warps System.out.println
-     *
-     * @param line
-     */
-    public static void println(String line) {
-        System.out.println(line);
-    }
-
-    /**
-     *
-     * @param o
-     */
-    public static void println(Object o) {
-        System.out.println(o);
-    }
-
-    public static void clear() {
-        for (int i = 0; i < 50; i++) {
-            println("");
-        }
     }
 }

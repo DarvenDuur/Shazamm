@@ -41,7 +41,7 @@ public abstract class AbstractCard implements Cloneable, Comparable<AbstractCard
     protected abstract void apply(Round round);
     
     /**
-     * warps each action call, 
+     * wraps each action call, 
      */
     public void generalApply(Round round){
         if (!round.getLastTurn().isMute()){
