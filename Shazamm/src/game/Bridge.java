@@ -5,6 +5,10 @@
  */
 package game;
 
+/**
+ * Bidge, with gestion of size, size reduction, and firewall movement
+ * Cards modifying firewall movement modify Bridge
+ */
 public class Bridge implements Cloneable {
 
     //current player's state
