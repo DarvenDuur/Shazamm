@@ -32,10 +32,17 @@ public class Recycling extends AbstractCard {
      */
     @Override
     protected void apply(Round round){
-        PlayerState ownerPlayer=super.getUserPLayer(round);
-        if(Console.getConfirmation(String.format(Config.RECYCLE_CONFIRM, ownerPlayer.getPlayer().getName()))){
-            ownerPlayer.setAttackPower(ownerPlayer.getAttackPower() + 5);
+        PlayerState ownerPlayer = super.getUserPLayer(round);
+        int availableMana = ownerPlayer.getMana();
+        if(availableMana >= 5 && Console.getConfirmation(String.format(
+                Config.RECYCLE_CONFIRM, ownerPlayer.getPlayer().getName()))){
+            ownerPlayer.setBet(ownerPlayer.getBet() + 5);
+            ownerPlayer.addMana(-5);
         }
-        ownerPlayer.setAttackPower(ownerPlayer.getAttackPower() - 5);    
+        ownerPlayer.setBet(availableMana - 5);
+        ownerPlayer.addMana(5);
+        
+        //update attack power
+        ownerPlayer.setAttackPower(ownerPlayer.getBet());  
     }
 }

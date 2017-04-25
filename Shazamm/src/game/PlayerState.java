@@ -120,6 +120,14 @@ public class PlayerState implements Cloneable {
     public void setAttackPower(int powerAttack) {
         this.attackPower = powerAttack > 0 ? powerAttack : 0;
     }
+    
+    /**
+     * @param bet
+     *      the new bet of the player
+     */
+    public void setBet(int bet) {
+        this.bet = bet;
+    }
 
     /**
      * Add mana to the mana pool of the player
@@ -170,7 +178,7 @@ public class PlayerState implements Cloneable {
             betDone = this.verifyBet(manaAmount);
         }
 
-        this.bet = manaAmount;
+        this.setBet(manaAmount);
         this.setAttackPower(manaAmount);
         this.addMana(-manaAmount);
 
