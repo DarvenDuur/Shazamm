@@ -6,6 +6,7 @@
 package game.ai;
 
 import game.ai.fact.Fact;
+import java.util.Arrays;
 import java.util.HashSet;
 
 /**
@@ -13,19 +14,30 @@ import java.util.HashSet;
  * @author darven
  */
 public enum KnowledgeBase {
-    test(),
+    Z2(new Fact[]{new Fact("Z2")},
+            new Fact[]{new Fact()},
+            "Z2",
+            (short) 0),
     sdqdqs();
     
+    //necessary facts to activate knowledge
+    final FactBase POSTULATE;
     
+    //facts created by knowledge
+    final FactBase CONCLUSION;
     
-    private HashSet<Fact> postulate;
-    private HashSet<Fact> conclusion;
-    private String name;
-    private short weight;
+    //nkowledge name
+    final String NAME;
     
-    private KnowledgeBase(HashSet<Fact> postulate, HashSet<Fact> conclusion,
+    //weight used when dealing with conflicts
+    final short WEIGHT;
+    
+    private KnowledgeBase(Fact[] postulate, Fact[] conclusion,
             String name, short weight){
-        //blabla
+        this.POSTULATE = (FactBase) new HashSet<Fact>(Arrays.asList(postulate));
+        this.CONCLUSION = (FactBase) new HashSet<Fact>(Arrays.asList(conclusion));
+        this.NAME = name;
+        this.WEIGHT = weight;
     }
 
     /**
@@ -35,62 +47,6 @@ public enum KnowledgeBase {
      */
     public boolean isApplicable(FactBase factBase){
         return true;
-    }
-
-    /**
-     * @return the postulate
-     */
-    public HashSet<Fact> getPostulate() {
-        return postulate;
-    }
-
-    /**
-     * @param postulate the postulate to set
-     */
-    public void setPostulate(HashSet<Fact> postulate) {
-        this.postulate = postulate;
-    }
-
-    /**
-     * @return the conclusion
-     */
-    public HashSet<Fact> getConclusion() {
-        return conclusion;
-    }
-
-    /**
-     * @param conclusion the conclusion to set
-     */
-    public void setConclusion(HashSet<Fact> conclusion) {
-        this.conclusion = conclusion;
-    }
-
-    /**
-     * @return the name
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * @param name the name to set
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
-     * @return the weight
-     */
-    public short getWeight() {
-        return weight;
-    }
-
-    /**
-     * @param weight the weight to set
-     */
-    public void setWeight(short weight) {
-        this.weight = weight;
     }
     
 }

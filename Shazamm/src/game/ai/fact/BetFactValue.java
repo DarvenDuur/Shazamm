@@ -12,6 +12,10 @@ package game.ai.fact;
 public class BetFactValue extends Fact {
     private int value;
 
+    public BetFactValue() {
+        super();
+    }
+
     /**
      * @return the value
      */
