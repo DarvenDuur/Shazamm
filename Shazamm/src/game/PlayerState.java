@@ -5,6 +5,7 @@ import game.cards.CardManager;
 import game.gui.Console;
 import game.gui.log.LogBet;
 import game.gui.log.LogSystem;
+import java.util.HashSet;
 
 /**
  *
@@ -213,5 +214,17 @@ public class PlayerState implements Cloneable {
         str += this.attackPower + " ";
         str += this.cardManager;
         return str;
+    }
+
+    /**
+     * Get input cards from user (with confirmation)
+     * @param turn 
+     *      turn concerned by query 
+     *      (used to access precedent turns and adversary's cards)
+     * @return 
+     *      Cards chosen by the user
+     */
+    public HashSet<AbstractCard> askCards(Turn turn) {
+        return Console.askCards(turn, this.cardManager.isBelongPlayer1());
     }
 }

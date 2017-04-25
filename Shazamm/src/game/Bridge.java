@@ -192,37 +192,33 @@ public class Bridge implements Cloneable {
     public int getFirewallLocation() {
         return this.firewallLocation;
     }
-
+    
     /**
+     * @param player1
+     *      if true will return player 1, otherwise return player 2
      * @return 
      *      the player 1
      */
-    public Player getPlayer1() {
-        return this.playerState1.getPlayer();
+    public Player getPlayer(boolean player1) {
+        if (player1) {
+            return this.playerState1.getPlayer();
+        } else {
+            return this.playerState2.getPlayer();
+        }
     }
 
     /**
+     * @param player1
+     *      if true will return player 1 state, otherwise return player 2 state
      * @return 
-     *      the player 2
+     *      the current PlayerState for player
      */
-    public Player getPlayer2() {
-        return this.playerState2.getPlayer();
-    }
-
-    /**
-     * @return 
-     *      the current PlayerState for player 1
-     */
-    public PlayerState getPlayerState1() {
-        return this.playerState1;
-    }
-
-    /**
-     * @return 
-     *      the current PlayerState for player 2
-     */
-    public PlayerState getPlayerState2() {
-        return this.playerState2;
+    public PlayerState getPlayerState(boolean player1) {
+        if (player1) {
+            return this.playerState1;
+        } else {
+            return this.playerState2;
+        }
     }
 
     /**

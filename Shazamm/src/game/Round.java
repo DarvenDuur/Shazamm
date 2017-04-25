@@ -113,33 +113,13 @@ public class Round {
     }
 
     /**
-     * @return
-     *      last turn's player 1 state
-     */
-    public PlayerState getLastPlayerState1() {
-        return this.getLastBridge().getPlayerState1();
-    }
-
-    /**
-     * @return
-     *      last turn's player 2 state
-     */
-    public PlayerState getLastPlayerState2() {
-        return this.getLastBridge().getPlayerState2();
-    }
-    
-    /**
      * @param player1
      *      if true will return player 1 state, otherwise return player 2 state
      * @return 
      *      last turn's player state, depending on parameter
      */
     public PlayerState getLastPlayerState(boolean player1){
-        if (player1) {
-            return this.getLastPlayerState1();
-        } else {
-            return this.getLastPlayerState2();
-        }
+        return this.getLastPlayerState(player1);
     }
 
     /**

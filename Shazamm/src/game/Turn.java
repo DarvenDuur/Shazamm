@@ -64,6 +64,16 @@ public class Turn implements Cloneable {
         }
         return winner;
     }
+    
+    /**
+     * @param player1
+     *      if true will return player 1 state, otherwise return player 2 state
+     * @return 
+     *      the PlayerState for the player
+     */
+    public PlayerState getPlayerState(boolean player1) {
+        return this.getPlayerState(player1);
+    }
 
     /**
      * Check if this turn fills end of round condition.
@@ -75,16 +85,16 @@ public class Turn implements Cloneable {
     public boolean isRoundEnd() {
         //get firewall and players positions
         int firewall = this.bridge.getFirewallLocation();
-        int player1Position = this.bridge.getPlayerState1().getPosition();
-        int player2Position = this.bridge.getPlayerState2().getPosition();
+        int player1Position = this.bridge.getPlayerState(true).getPosition();
+        int player2Position = this.bridge.getPlayerState(false).getPosition();
 
         //at least one of the playersis in or in the wrong side of the firewall
         boolean firewallKill = (firewall <= player1Position)
                 || (firewall >= player2Position);
 
         //get players mana
-        int player1Mana = this.bridge.getPlayerState1().getMana();
-        int player2Mana = this.bridge.getPlayerState2().getMana();
+        int player1Mana = this.bridge.getPlayerState(true).getMana();
+        int player2Mana = this.bridge.getPlayerState(false).getMana();
 
         //at least one of the players has run out of mana
         boolean manaRounout = player1Mana <= 0 || player2Mana <= 0;
@@ -183,9 +193,11 @@ public class Turn implements Cloneable {
         Console.println(this.getBridge().toString());
 
         //get current player states
-        PlayerState player1 = this.getBridge().getPlayerState1();
-        PlayerState player2 = this.getBridge().getPlayerState2();
+        PlayerState player1 = this.getPlayerState(true);
+        PlayerState player2 = this.getPlayerState(false);
 
+        //where we whait for both players to finish their choice in GUI
+        
         //bet
         player1.bet();
         Console.clear();
@@ -193,9 +205,9 @@ public class Turn implements Cloneable {
         Console.clear();
 
         //collect actions input
-        HashSet<AbstractCard> player1Cards = Console.askCards(round, true);
+        HashSet<AbstractCard> player1Cards = player1.askCards(this);
         Console.clear();
-        HashSet<AbstractCard> player2Cards = Console.askCards(round, false);
+        HashSet<AbstractCard> player2Cards = player2.askCards(this);
         Console.clear();
 
         //discard cards played by each player
@@ -253,8 +265,8 @@ public class Turn implements Cloneable {
      */
     private void endOfTurnDraw() {
         PlayerState player1, player2;
-        player1 = this.bridge.getPlayerState1();
-        player2 = this.bridge.getPlayerState2();
+        player1 = this.bridge.getPlayerState(true);
+        player2 = this.bridge.getPlayerState(false);
 
         //draw set number of cards
         for (int i = 0; i < Config.END_OF_TURN_DRAW; i++) {
@@ -272,8 +284,8 @@ public class Turn implements Cloneable {
      */
     public void startOfRoundActions() {
         PlayerState player1, player2;
-        player1 = this.bridge.getPlayerState1();
-        player2 = this.bridge.getPlayerState2();
+        player1 = this.bridge.getPlayerState(true);
+        player2 = this.bridge.getPlayerState(false);
 
         //draw set number of cards
         for (int i = 0; i < Config.FIRST_TURN_DRAW; i++) {
@@ -298,8 +310,8 @@ public class Turn implements Cloneable {
         Bridge bridge = this.getBridge();
 
         //init playerState
-        PlayerState playerState1 = new PlayerState(bridge.getPlayer1(), true);
-        PlayerState playerState2 = new PlayerState(bridge.getPlayer2(), false);
+        PlayerState playerState1 = new PlayerState(bridge.getPlayer(true), true);
+        PlayerState playerState2 = new PlayerState(bridge.getPlayer(false), false);
 
         //get previous location of firewall
         int firewallLocation = bridge.getFirewallLocation();
@@ -308,16 +320,16 @@ public class Turn implements Cloneable {
         if (this.winner != 0) {
             //set firewal to loser's position
             if (this.winner < 0) {
-                firewallLocation = bridge.getPlayerState2().getPosition();
+                firewallLocation = bridge.getPlayerState(false).getPosition();
             } else {
-                firewallLocation = bridge.getPlayerState1().getPosition();
+                firewallLocation = bridge.getPlayerState(true).getPosition();
             }
 
             //if tie, copy the positions of the firewall and the players
         } else {
             //copy player 1 and 2 positions
-            playerState1.setPosition(bridge.getPlayerState1().getPosition());
-            playerState2.setPosition(bridge.getPlayerState2().getPosition());
+            playerState1.setPosition(bridge.getPlayerState(true).getPosition());
+            playerState2.setPosition(bridge.getPlayerState(false).getPosition());
         }
 
         //init the new turn's bridge
@@ -344,8 +356,8 @@ public class Turn implements Cloneable {
      */
     private void setWinner() {
         //get bets
-        int player1power = this.bridge.getPlayerState1().getAttackPower();
-        int player2power = this.bridge.getPlayerState2().getAttackPower();
+        int player1power = this.bridge.getPlayerState(true).getAttackPower();
+        int player2power = this.bridge.getPlayerState(false).getAttackPower();
 
         //compare bets to determine winner
         //player 2 won,

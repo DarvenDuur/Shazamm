@@ -28,8 +28,8 @@ public class Middle extends AbstractCard {
      */
     @Override
     protected void apply(Round round){
-        int player1Location = round.getLastPlayerState1().getPosition();
-        int player2Location = round.getLastPlayerState2().getPosition();
+        int player1Location = round.getLastPlayerState(true).getPosition();
+        int player2Location = round.getLastPlayerState(false).getPosition();
         
         round.getLastBridge().setFirewallLocation(
                 (player1Location + player2Location) / 2);

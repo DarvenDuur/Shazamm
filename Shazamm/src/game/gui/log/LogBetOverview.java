@@ -28,16 +28,16 @@ public class LogBetOverview extends Log {
     public LogBetOverview(Bridge bridge) {
         super();
 
-        this.PLAYER_1 = bridge.getPlayer1();
-        this.PLAYER_2 = bridge.getPlayer2();
+        this.PLAYER_1 = bridge.getPlayer(true);
+        this.PLAYER_2 = bridge.getPlayer(false);
 
-        this.PLAYER_1_BET = bridge.getPlayerState1().getBet();
-        this.PLAYER_2_BET = bridge.getPlayerState2().getBet();
+        this.PLAYER_1_BET = bridge.getPlayerState(true).getBet();
+        this.PLAYER_2_BET = bridge.getPlayerState(false).getBet();
 
         this.PLAYER_1_CARDS = (HashSet<AbstractCard>) 
-                bridge.getPlayerState1().getCardManager().getLastDiscard().clone();
+                bridge.getPlayerState(true).getCardManager().getLastDiscard().clone();
         this.PLAYER_2_CARDS = (HashSet<AbstractCard>) 
-                bridge.getPlayerState2().getCardManager().getLastDiscard().clone();
+                bridge.getPlayerState(false).getCardManager().getLastDiscard().clone();
     }
 
 //***************************** GETTER *****************************************  

@@ -31,14 +31,14 @@ public class LogTurnOverview extends Log {
     public LogTurnOverview(Bridge bridge) {
         super();
 
-        this.PLAYER_1 = bridge.getPlayer1();
-        this.PLAYER_2 = bridge.getPlayer2();
+        this.PLAYER_1 = bridge.getPlayer(true);
+        this.PLAYER_2 = bridge.getPlayer(false);
 
-        this.PLAYER_1_BET = bridge.getPlayerState1().getBet();
-        this.PLAYER_2_BET = bridge.getPlayerState2().getBet();
+        this.PLAYER_1_BET = bridge.getPlayerState(true).getBet();
+        this.PLAYER_2_BET = bridge.getPlayerState(false).getBet();
 
-        this.PLAYER_1_MANA_START = bridge.getPlayerState1().getMana();
-        this.PLAYER_2_MANA_START = bridge.getPlayerState2().getMana();
+        this.PLAYER_1_MANA_START = bridge.getPlayerState(true).getMana();
+        this.PLAYER_2_MANA_START = bridge.getPlayerState(false).getMana();
 
         this.Player1Attack = 0;
         this.Player2Attack = 0;
@@ -55,11 +55,11 @@ public class LogTurnOverview extends Log {
      *      turn after update (bet and actions effects)
      */
     public void setFinalTurn(Turn turn) {
-        this.Player1Attack = turn.getBridge().getPlayerState1().getAttackPower();
-        this.Player2Attack = turn.getBridge().getPlayerState2().getAttackPower();
+        this.Player1Attack = turn.getPlayerState(true).getAttackPower();
+        this.Player2Attack = turn.getPlayerState(false).getAttackPower();
 
-        this.Player1ManaEnd = turn.getBridge().getPlayerState1().getMana();
-        this.Player2ManaEnd = turn.getBridge().getPlayerState2().getMana();
+        this.Player1ManaEnd = turn.getPlayerState(true).getMana();
+        this.Player2ManaEnd = turn.getPlayerState(false).getMana();
 
         this.winner = turn.getWinner();
     }

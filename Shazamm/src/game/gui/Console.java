@@ -103,12 +103,12 @@ public class Console {
     public static void printWinner(Turn turn) {
         switch (turn.getWinner()) {
             case -1:
-                println(turn.getBridge().getPlayer1().getName()
+                println(turn.getBridge().getPlayer(true).getName()
                         + " won the turn.");
                 break;
 
             case 1:
-                println(turn.getBridge().getPlayer2().getName()
+                println(turn.getBridge().getPlayer(false).getName()
                         + " won the turn.");
                 break;
 
@@ -125,12 +125,12 @@ public class Console {
     public static void printWinner(Round round) {
         switch (round.getWinner()) {
             case -1:
-                println(round.getLastBridge().getPlayer1().getName()
+                println(round.getLastBridge().getPlayer(true).getName()
                         + " won the round.");
                 break;
 
             case 1:
-                println(round.getLastBridge().getPlayer2().getName()
+                println(round.getLastBridge().getPlayer(false).getName()
                         + " won the round.");
                 break;
 
@@ -170,17 +170,17 @@ public class Console {
     
     /**
      * Get input cards from user (with confirmation)
-     * @param round 
-     *      round concerned by query 
+     * @param turn 
+     *      turn concerned by query 
      *      (used to access precedent turns and adversary's cards)
      * @param player1
      *      true if player 1 is the one asked
      * @return 
      *      Cards chosen by the user
      */
-    public static HashSet<AbstractCard> askCards(Round round, boolean player1) {
+    public static HashSet<AbstractCard> askCards(Turn turn, boolean player1) {
 
-        PlayerState player = round.getLastPlayerState(player1);
+        PlayerState player = turn.getPlayerState(player1);
         HashSet<Integer> acceptedInput = new HashSet<>();
 
         HashSet<AbstractCard> cards = player.getCardManager().getHand();
@@ -192,7 +192,7 @@ public class Console {
         do {
             acceptedInput.clear();
 
-            if (round.getLastTurn().isMute()) {
+            if (turn.isMute()) {
                 println(String.format(Config.MUTISM_WARNING, CardsEnum.Mutism.getName()));
             }
             //print all cards, and get all available IDs
@@ -216,27 +216,26 @@ public class Console {
 
         } while (!getConfirmation(Config.CARDS_CONFIRM));
 
-        return getCardFromInteger(cards, acceptedInput, round, player1);
+        return getCardFromInteger(cards, acceptedInput, turn, player1);
     }
     
     /**
      * Get input clone from user (with confirmation)
-     * @param round 
-     *      round concerned by query 
+     * @param turn 
+     *      turn concerned by query 
      *      (used to access precedent turns and adversary's cards)
      * @param player1 
      *      true if player 1 is the one asked
      * @return 
      *      Card chosen by the user
      */
-    public static AbstractCard askClone(Round round, boolean player1) {
+    public static AbstractCard askClone(Turn turn, boolean player1) {
 
-        Bridge bridge = round.getLastBridge();
+        Bridge bridge = turn.getBridge();
 
         //get last discarded cards of ennemy player
-        HashSet<AbstractCard> cards = !player1
-                ? bridge.getPlayerState1().getCardManager().getLastDiscard()
-                : bridge.getPlayerState2().getCardManager().getLastDiscard();
+        HashSet<AbstractCard> cards = bridge.getPlayerState(!player1)
+                .getCardManager().getLastDiscard();
 
         //safety mesure for unvalid parameters
         if (cards == null || cards.isEmpty()) {
@@ -275,7 +274,7 @@ public class Console {
 
         //if card is a Clone, get cloned card
         if (output != null && output instanceof Clone) {
-            ((Clone) output).setClone(askClone(round, !player1));
+            ((Clone) output).setClone(askClone(turn, !player1));
         }
         return output;
     }
@@ -335,8 +334,8 @@ public class Console {
      *      cards available
      * @param integers
      *      integers to transform to cards
-     * @param round
-     *      round concerned by query 
+     * @param turn
+     *      turn concerned by query 
      *      (used to access precedent turns and adversary's cards)
      * @param player1
      *      cards' user
@@ -344,7 +343,7 @@ public class Console {
      *      user's cards corresponding to integers
      */
     private static HashSet<AbstractCard> getCardFromInteger(
-            HashSet<AbstractCard> cards, HashSet<Integer> integers, Round round,
+            HashSet<AbstractCard> cards, HashSet<Integer> integers, Turn turn,
             boolean player1) {
 
         HashSet<AbstractCard> output = new HashSet<>();
@@ -354,7 +353,7 @@ public class Console {
 
                 //if card is a Clone card, get cloned card
                 if (card instanceof Clone) {
-                    ((Clone) card).setClone(askClone(round, player1));
+                    ((Clone) card).setClone(askClone(turn, player1));
                 }
             }
         }
