@@ -15,10 +15,11 @@ public class CardFact extends Fact {
     private final int CARD_ID;
     
     /* 
-     * a: for available
-     * u: for use
-     * s: for past self
-     * e: for past ennemy
+     * a: available, card available in hand
+     * n: non-available, card not available in hand
+     * u: use, card to use during the turn
+     * s: past self, card played during last turn by self
+     * e: past ennemy, card played during last turn by ennemy
      */
     private final char TYPE;
 
