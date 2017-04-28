@@ -5,10 +5,8 @@
  */
 package game.cards;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import static game.Config.HAND_REFILL_SIZE;
-import java.util.Collections;
 import java.util.Random;
 import static game.Config.SHUFFLE_STEPS;
 import java.util.HashSet;
@@ -31,7 +29,7 @@ public class CardManager implements Cloneable {
     private HashSet<AbstractCard> lastDiscard;
     
     //true if this belongs to player 1
-    private boolean belongPlayer1; 
+    private final boolean BELONG_PLAYER_1; 
 
 //***************************** CONSTRUCTOR ************************************    
     
@@ -42,7 +40,7 @@ public class CardManager implements Cloneable {
      *      true if this belongs to player 1 (used when applying card's effects)
      */
     public CardManager(boolean belongPlayer1) {
-        this.belongPlayer1 = belongPlayer1;
+        this.BELONG_PLAYER_1 = belongPlayer1;
         
         //deck initialisation
         this.deck = new LinkedList<>();
@@ -87,8 +85,8 @@ public class CardManager implements Cloneable {
      * initialize deck with a single exemplary of each card
      */
     private void initDeck() {
-        for (int i = 14; i > 0; i--){
-            this.deck.add(AbstractCard.create(i, this.belongPlayer1));
+        for (CardsEnum card : CardsEnum.values()){
+            this.deck.add(AbstractCard.create(card.getId(), this.BELONG_PLAYER_1));
         }
     }
     
@@ -171,10 +169,10 @@ public class CardManager implements Cloneable {
     }
 
     /**
-     * @return the belongPlayer1
+     * @return the BELONG_PLAYER_1
      */
     public boolean isBelongPlayer1() {
-        return belongPlayer1;
+        return BELONG_PLAYER_1;
     }
 
     /**
