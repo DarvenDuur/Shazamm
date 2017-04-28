@@ -1,85 +1,124 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package game.ai;
 
-import game.ai.fact.Fact;
 import java.util.Arrays;
 import java.util.HashSet;
 
 /**
- *
- * @author darven
+ * To itreate over enum, use "for(KnowledgeBase k : KnowledgeBase.values())"
  */
 public enum KnowledgeBase {
-    Z2(new Fact[]{Fact.Z2}, new Fact[]{Fact.BET_2},
-            "Z2", 0),
-    nonZ2(new Fact[]{}, new Fact[]{},
-            "nonZ2", 0),
-    mutisme1(new Fact[]{}, new Fact[]{},
-            "mutisme1", 0),
-    mutisme2(new Fact[]{}, new Fact[]{},
+    Z2(Fact.Z2, Fact.BET_2, "Z2", 0),
+    
+    nonZ2(Fact.Z2_NOT, Fact.BET_RELATIVE, "nonZ2", 0),
+    
+    mutisme1(new Fact[]{new CardFact(1,'a'), Fact.MANA_BIG_A}, 
+            new CardFact(1,'u'), "mutisme1", 0),
+    
+    mutisme2(new Fact[]{new CardFact(1,'a'), Fact.WALL_E_1}, 
+            new Fact[]{new CardFact(1,'u'), Fact.BET_BIG},
             "mutisme2", 0),
-    mutisme3(new Fact[]{}, new Fact[]{},
-            "mutisme3", 0),
-    larcin1(new Fact[]{}, new Fact[]{},
+    
+    mutisme3(new Fact[]{new CardFact(1,'a'), Fact.MANA_SMALL_A, Fact.BEGIN}, 
+            new CardFact(1,'u'), "mutisme3", 0),
+    
+    larcin1(new Fact[]{new CardFact(3,'a'), new CardFact(10,'a'), Fact.WALL_E_2},
+            new Fact[]{new CardFact(3,'u'), new CardFact(10,'u')},
             "larcin1", 0),
-    larcin2(new Fact[]{}, new Fact[]{},
-            "larcin2", 0),
-    FDM(new Fact[]{}, new Fact[]{},
-            "FDM", 0),
-    milieu(new Fact[]{}, new Fact[]{},
-            "milieu", 0),
-    recy1(new Fact[]{}, new Fact[]{},
+    
+    larcin2(new Fact[]{new CardFact(3,'a'), Fact.WALL_E_1}, 
+            new CardFact(3,'u'), "larcin2", 0),
+    
+    FDM(new Fact[]{new CardFact(4,'a'), Fact.WALL_E_1},
+            new CardFact(4,'u'), "FDM", 0),
+    
+    milieu(new Fact[]{new CardFact(5,'a'), Fact.WALL_S_1},
+            new CardFact(5,'u'), "milieu", 0),
+    
+    recy1(new CardFact(6, 'a'), new Fact[]{new CardFact(6, 'u'), Fact.BET_6},
             "recy1", 0),
-    recy2(new Fact[]{}, new Fact[]{},
-            "recy2", 0),
-    boostDouble(new Fact[]{}, new Fact[]{},
+    
+    recy2(new Fact[]{new CardFact(6, 'u'), new CardFact(9, 'e')}, 
+            Fact.BET_ENLARGE, "recy2", 0),
+    
+    boostDouble(new Fact[]{new CardFact(7,'a'), new CardFact(8,'a')}, 
+            new Fact[]{new CardFact(7,'u'), new CardFact(8,'u'), Fact.BET_SMALL},
             "boostDouble", 0),
-    boost(new Fact[]{}, new Fact[]{},
+    
+    boost(new Fact[]{new CardFact(7,'a'), Fact.BEGIN_NOT, Fact.MANA_SMALL_R}, 
+            new Fact[]{new CardFact(7,'u'), Fact.BET_1},
             "boost", 0),
-    qpg(new Fact[]{}, new Fact[]{},
+    
+    qpg(new Fact[]{new CardFact(9,'a'), Fact.MANA_SMALL_R}, Fact.BET_SMALL,
             "qpg", 0),
-    qpgAfter1(new Fact[]{}, new Fact[]{},
-            "qpgAfter1", 0),
-    qpgAfter2(new Fact[]{}, new Fact[]{},
-            "qpgAfter2", 0),
-    qpgAfter3(new Fact[]{}, new Fact[]{},
-            "qpgAfter3", 0),
-    qpgAfter4(new Fact[]{}, new Fact[]{},
-            "qpgAfter4", 0),
-    qpgAfter5(new Fact[]{}, new Fact[]{},
-            "qpgAfter5", 0),
-    qpgAfter6(new Fact[]{}, new Fact[]{},
-            "qpgAfter6", 0),
-    brasier1(new Fact[]{}, new Fact[]{},
+    
+    qpgAfter1(new Fact[]{new CardFact(9,'s'), new CardFact(1,'a')}, 
+            new CardFact(1,'u'), "qpgAfter1", 0),
+    
+    qpgAfter2(new Fact[]{new CardFact(9,'s'), new CardFact(3,'a')}, 
+            new CardFact(3,'u'), "qpgAfter2", 0),
+    
+    qpgAfter3(new Fact[]{new CardFact(9,'s'), new CardFact(6,'a')},  
+            new CardFact(6,'u'), "qpgAfter3", 0),
+    
+    qpgAfter4(new Fact[]{new CardFact(9,'s'), new CardFact(11,'a')},  
+            new CardFact(11,'u'), "qpgAfter4", 0),
+    
+    qpgAfter5(new Fact[]{new CardFact(9,'s'), new CardFact(10,'a')}, 
+            new CardFact(10,'u'), "qpgAfter5", 0),
+    
+    qpgAfter6(new Fact[]{new CardFact(9,'s'), new CardFact(1,'n'), 
+        new CardFact(3,'n'), new CardFact(6,'n'), new CardFact(10,'n'), 
+        new CardFact(11,'n')},
+            Fact.BET_1, "qpgAfter6", 0),
+    
+    brasier1(new Fact[]{new CardFact(3,'a'), new CardFact(10,'a'), Fact.WALL_E_2},
+            new Fact[]{new CardFact(10,'u'), new CardFact(3,'u')},
             "brasier1", 0),
-    brasier2(new Fact[]{}, new Fact[]{},
+    
+    brasier2(new Fact[]{new CardFact(3,'n'), new CardFact(10,'a'), Fact.WALL_E_2},
+            new Fact[]{new CardFact(10,'u'), Fact.BET_ENLARGE},
             "brasier2", 0),
-    res1(new Fact[]{}, new Fact[]{},
+    
+    res1(new Fact[]{new CardFact(10,'a'), new CardFact(11,'a')},
+            new Fact[]{new CardFact(10,'u'), new CardFact(11,'u')},
             "res1", 0),
-    res2(new Fact[]{}, new Fact[]{},
+    
+    res2(new Fact[]{new CardFact(11,'a'), Fact.WALL_S_1},
+            new Fact[]{new CardFact(11,'u'), Fact.BET_SMALL},
             "res2", 0),
-    harpagon(new Fact[]{}, new Fact[]{},
-            "harpagon", 0),
-    boostR1(new Fact[]{}, new Fact[]{},
-            "boostR1", 0),
-    boostR2(new Fact[]{}, new Fact[]{},
-            "boostR2", 0),
-    boostRAfter1(new Fact[]{}, new Fact[]{},
-            "boostRAfter1", 0),
-    boostRAfter2(new Fact[]{}, new Fact[]{},
-            "boostRAfter2", 0),
-    aspi1(new Fact[]{}, new Fact[]{},
-            "aspi1", 0),
-    aspi2(new Fact[]{}, new Fact[]{},
-            "aspi2", 0),
-    aspiAfter1(new Fact[]{}, new Fact[]{},
-            "aspiAfter1", 0),
-    aspiAfter2(new Fact[]{}, new Fact[]{},
-            "aspiAfter2", 0);
+    
+    harpagon(new Fact[]{new CardFact(12,'a'), Fact.Z2, Fact.MANA_SMALL_D},
+            new CardFact(12,'u'), "harpagon", 0),
+    
+    boostR1(new Fact[]{new CardFact(13,'a'), new CardFact(1,'a'), Fact.WALL_E_1},
+            new CardFact(13,'u'), "boostR1", 0),
+    
+    boostR2(new Fact[]{new CardFact(13,'a'), new CardFact(1,'a'), Fact.WALL_S_1},
+            new CardFact(13,'u'), "boostR2", 0),
+    
+    boostR3(new Fact[]{new CardFact(13,'a'), new CardFact(4,'a'), Fact.WALL_E_1},
+            new CardFact(13,'u'), "boostR3", 0),
+    
+    boostR4(new Fact[]{new CardFact(13,'a'), new CardFact(4,'a'), Fact.WALL_S_1},
+            new CardFact(13,'u'), "boostR4", 0),
+    
+    boostRAfter1(new Fact[]{new CardFact(13,'s'), new CardFact(1,'a')}, 
+            new CardFact(1,'u'), "boostRAfter1", 0),
+    
+    boostRAfter2(new Fact[]{new CardFact(13,'s'), new CardFact(4,'a')},
+            new CardFact(4,'u'), "boostRAfter2", 0),
+    
+    aspi1(new Fact[]{new CardFact(14,'a'), new CardFact(1,'a')}, 
+            new CardFact(14,'u'), "aspi1", 0),
+    
+    aspi2(new Fact[]{new CardFact(14,'a'), new CardFact(4,'a')}, 
+            new CardFact(14,'u'), "aspi2", 0),
+    
+    aspiAfter1(new Fact[]{new CardFact(14,'s')}, 
+            new CardFact(1,'u'), "aspiAfter1", 0),
+    
+    aspiAfter2(new Fact[]{new CardFact(14,'s')}, 
+            new CardFact(4,'u'), "aspiAfter2", 0);
     
     
     
@@ -96,6 +135,28 @@ public enum KnowledgeBase {
     final int WEIGHT;
     
     private KnowledgeBase(Fact[] postulate, Fact[] conclusion,
+            String name, int weight){
+        this.POSTULATE = (FactBase) new HashSet<Fact>(Arrays.asList(postulate));
+        this.CONCLUSION = (FactBase) new HashSet<Fact>(Arrays.asList(conclusion));
+        this.NAME = name;
+        this.WEIGHT = weight;
+    }
+    
+    private KnowledgeBase(Fact postulate, Fact conclusion,
+            String name, int weight){
+        this.POSTULATE = (FactBase) new HashSet<Fact>(Arrays.asList(postulate));
+        this.CONCLUSION = (FactBase) new HashSet<Fact>(Arrays.asList(conclusion));
+        this.NAME = name;
+        this.WEIGHT = weight;
+    }
+    private KnowledgeBase(Fact[] postulate, Fact conclusion,
+            String name, int weight){
+        this.POSTULATE = (FactBase) new HashSet<Fact>(Arrays.asList(postulate));
+        this.CONCLUSION = (FactBase) new HashSet<Fact>(Arrays.asList(conclusion));
+        this.NAME = name;
+        this.WEIGHT = weight;
+    }
+    private KnowledgeBase(Fact postulate, Fact[] conclusion,
             String name, int weight){
         this.POSTULATE = (FactBase) new HashSet<Fact>(Arrays.asList(postulate));
         this.CONCLUSION = (FactBase) new HashSet<Fact>(Arrays.asList(conclusion));

@@ -1,16 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package game.ai.fact;
+package game.ai;
 
 import game.cards.CardsEnum;
 
-/**
- *
- * @author darven
- */
 public class CardFact extends Fact {
     private final int CARD_ID;
     
