@@ -14,7 +14,7 @@ public class CardFact extends Fact {
     private final char TYPE;
 
     public CardFact(int cardID, char type) {
-        super(CardsEnum.CARDS[cardID + 1].getName());
+        super(CardsEnum.CARDS[cardID - 1].getName());
         this.CARD_ID = cardID;
         this.TYPE = type;
     }
