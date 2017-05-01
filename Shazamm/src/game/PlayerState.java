@@ -158,6 +158,14 @@ public class PlayerState implements Cloneable {
     }
     
 //***************************** CARDS ******************************************
+    /**
+     * Get input cards from player
+     * @param turn 
+     *      turn concerned by query 
+     *      (used to access cards played in precedent turn and adversary's cards)
+     * @return 
+     *      Cards chosen by the player
+     */
     public HashSet<AbstractCard> askCards(Turn turn) {
         if (this.player instanceof BotPlayer) {
             return askCardsAI(turn);
@@ -170,11 +178,11 @@ public class PlayerState implements Cloneable {
      * Get cards to play and bet from interference engine
      * @param turn 
      *      turn concerned by query 
-     *      (used to access precedent turns and adversary's cards)
+     *      (used to access cards played in precedent turn and adversary's cards)
      * @return 
      *      Cards chosen by AI
      */
-    public HashSet<AbstractCard> askCardsAI(Turn turn) {
+    private HashSet<AbstractCard> askCardsAI(Turn turn) {
         AIAction action = InferenceEngine.run(turn);
         setBet(action.getBet());
         return action.getCards();
@@ -184,25 +192,22 @@ public class PlayerState implements Cloneable {
      * Get input cards from user (with confirmation)
      * @param turn 
      *      turn concerned by query 
-     *      (used to access precedent turns and adversary's cards)
+     *      (used to access cards played in precedent turn and adversary's cards)
      * @return 
      *      Cards chosen by the user
      */
-    public HashSet<AbstractCard> askCardsHuman(Turn turn) {
+    private HashSet<AbstractCard> askCardsHuman(Turn turn) {
         return Console.askCards(turn, this.cardManager.isBelongPlayer1());
     }
     
 //***************************** BET ********************************************
+    /**
+     * Define bet value
+     */
     public void bet() {
-        if (this.player instanceof BotPlayer) {
-            betAI();
-        } else {
+        if (!(this.player instanceof BotPlayer)) {
             betHuman();
         }
-    }
-    
-    private void betAI() {
-        
     }
 
     /**
