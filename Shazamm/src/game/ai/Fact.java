@@ -21,9 +21,7 @@ public class Fact implements Comparable<Fact>{
             MANA_SMALL_R = new Fact("manaSmallR"),
             
             Z2 = new Fact("Z2"),
-            Z2_NOT = new Fact("Z2Not"),
-            BEGIN = new Fact("begin"),
-            BEGIN_NOT = new Fact("beginNot");
+            BEGIN = new Fact("begin");
 
     private String name;
 

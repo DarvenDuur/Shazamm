@@ -7,7 +7,6 @@ public class CardFact extends Fact {
     
     /* 
      * a: available, card available in hand
-     * n: non-available, card not available in hand
      * u: use, card to use during the turn
      * s: past self, card played during last turn by self
      * e: past ennemy, card played during last turn by ennemy
