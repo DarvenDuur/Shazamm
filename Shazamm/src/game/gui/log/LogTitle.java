@@ -50,5 +50,9 @@ public class LogTitle extends Log {
         return Config.ROUND_STRING + this.ROUND + " "
                 + Config.TURN_STRING + this.TRUN;
     }
+    
+    public static int getTurnNumber(){
+        return turnIndex;
+    }
 
 }
