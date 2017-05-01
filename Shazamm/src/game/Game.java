@@ -25,29 +25,40 @@ public class Game {
         this.rounds = new LinkedList<>();
 
         // attribute values
-        Random  random       = new Random();
+        Random  random      = new Random();
         boolean greenPlayer = random.nextBoolean();
-        String  namePlayer1 = Console.getInput("Player 1, what"
-                + " is your username?");
-        String  namePlayer2 = Console.getInput("Player 2, what"
-                + " is your username?");
+            
+        // get mode (AI or PvP)
+        if (/* PvP */true){
+            String  namePlayer1 = Console.getInput("Player 1, what"
+                    + " is your username?");
+            String  namePlayer2 = Console.getInput("Player 2, what"
+                    + " is your username?");
 
-        // uniqueness of name
-        while (namePlayer1.equals(namePlayer2)) {
-            System.out.println("please try a new username");
-            namePlayer2 = Console.getInput("Player 2, what"
-                + " is your username?");
-        }
+            // uniqueness of name
+            while (namePlayer1.equals(namePlayer2)) {
+                System.out.println("please try a new username");
+                namePlayer2 = Console.getInput("Player 2, what"
+                    + " is your username?");
+            }
 
-        // create 2 players
-        if(greenPlayer){
-            this.PLAYER1 = new Player(namePlayer1, greenPlayer);
-            this.PLAYER2 = new Player(namePlayer2, !greenPlayer);
+            // create 2 players
+            if(greenPlayer){
+                this.PLAYER1 = new Player(namePlayer1, greenPlayer);
+                this.PLAYER2 = new Player(namePlayer2, !greenPlayer);
+            } else {
+                this.PLAYER1 = new Player(namePlayer2, !greenPlayer);
+                this.PLAYER2 = new Player(namePlayer1, greenPlayer);
+            }
+            
+        } else {
+            String  namePlayer = Console.getInput("Player 1, what"
+                + " is your username?");
+            this.PLAYER1 = new Player(namePlayer, greenPlayer);
+            this.PLAYER2 = new BotPlayer(!greenPlayer);
         }
-        else{
-            this.PLAYER1 = new Player(namePlayer2, !greenPlayer);
-            this.PLAYER2 = new Player(namePlayer1, greenPlayer);
-        }
+        
+            
         // create the first round of the game
         Round firstRound = new Round(this.PLAYER1, this.PLAYER2,
                 Config.BRIDGE_MAX_SIZE, 0);

@@ -21,7 +21,7 @@ public class FactBase extends HashSet<Fact> {
     private final int LOW_MANA=0;
     private final float PROFIT_RATIO=0;
     private final int Low_DIFFERENCE=0;
-    private boolean clone=false;
+    private short clone=0;
     
 //******************************************************************************    
     public void launch(Turn turn){
@@ -146,7 +146,7 @@ public class FactBase extends HashSet<Fact> {
     private void availableCards(HashSet<AbstractCard> botCards){
         for (AbstractCard botCard : botCards) {
             if(botCard instanceof Clone){
-                this.clone=true;
+                this.clone=1;
             }
             else{
                 this.add(new CardFact(botCard.getId(),'a'));
@@ -178,9 +178,17 @@ public class FactBase extends HashSet<Fact> {
             this.add(new CardFact(14,'s'));
         }
     }
+    
     private void lastPlayedCardsEnnemy(HashSet<AbstractCard> playerPlayedCards){
         if(contains(9, playerPlayedCards)){
             this.add(new CardFact(9,'e'));
         }
     }
+
+//***************************** CLONE ******************************************
+   
+
+
+
+
 }
