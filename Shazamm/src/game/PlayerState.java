@@ -1,5 +1,7 @@
 package game;
 
+import game.ai.AIAction;
+import game.ai.InferenceEngine;
 import game.cards.AbstractCard;
 import game.cards.CardManager;
 import game.gui.Console;
@@ -154,12 +156,59 @@ public class PlayerState implements Cloneable {
 
         return clone;
     }
+    
+//***************************** CARDS ******************************************
+    public HashSet<AbstractCard> askCards(Turn turn) {
+        if (this.player instanceof BotPlayer) {
+            return askCardsAI(turn);
+        } else {
+            return askCardsHuman(turn);
+        }
+    }    
 
-//***************************** OTHER ******************************************
+    /**
+     * Get cards to play and bet from interference engine
+     * @param turn 
+     *      turn concerned by query 
+     *      (used to access precedent turns and adversary's cards)
+     * @return 
+     *      Cards chosen by AI
+     */
+    public HashSet<AbstractCard> askCardsAI(Turn turn) {
+        AIAction action = InferenceEngine.run(turn);
+        setBet(action.getBet());
+        return action.getCards();
+    }    
+
+    /**
+     * Get input cards from user (with confirmation)
+     * @param turn 
+     *      turn concerned by query 
+     *      (used to access precedent turns and adversary's cards)
+     * @return 
+     *      Cards chosen by the user
+     */
+    public HashSet<AbstractCard> askCardsHuman(Turn turn) {
+        return Console.askCards(turn, this.cardManager.isBelongPlayer1());
+    }
+    
+//***************************** BET ********************************************
+    public void bet() {
+        if (this.player instanceof BotPlayer) {
+            betAI();
+        } else {
+            betHuman();
+        }
+    }
+    
+    private void betAI() {
+        
+    }
+
     /**
      * Get input for the bet, check if input is valid, and deduce mana cost
      */
-    public void bet() {
+    private void betHuman() {
         Console.println(this.player.getName()
                 + ", here is the content of your hand:");
         for (AbstractCard card : this.getCardManager().getHand()) {
@@ -184,6 +233,9 @@ public class PlayerState implements Cloneable {
 
         LogSystem.addLog(new LogBet(this.player));
     }
+    
+//***************************** OTHER ******************************************
+    
 
     /**
      * Check valitdity of inputed bet
@@ -222,17 +274,5 @@ public class PlayerState implements Cloneable {
         str += this.attackPower + " ";
         str += this.cardManager;
         return str;
-    }
-
-    /**
-     * Get input cards from user (with confirmation)
-     * @param turn 
-     *      turn concerned by query 
-     *      (used to access precedent turns and adversary's cards)
-     * @return 
-     *      Cards chosen by the user
-     */
-    public HashSet<AbstractCard> askCards(Turn turn) {
-        return Console.askCards(turn, this.cardManager.isBelongPlayer1());
     }
 }
