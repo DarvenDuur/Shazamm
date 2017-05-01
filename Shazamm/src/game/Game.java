@@ -1,5 +1,6 @@
 package game;
 
+import game.bdd.ConnexionBDD;
 import java.util.LinkedList;
 import java.util.Random;
 import game.gui.Console;
@@ -32,11 +33,20 @@ public class Game {
         if (/* PvP */true){
             String  namePlayer1 = Console.getInput("Player 1, what"
                     + " is your username?");
+            
+            // forbiding use of AI name
+            while (namePlayer1.equals(Config.AI_NAME)) {
+                System.out.println("please try a new username");
+                namePlayer1 = Console.getInput("Player 1, what"
+                    + " is your username?");
+            }
+            
             String  namePlayer2 = Console.getInput("Player 2, what"
                     + " is your username?");
 
             // uniqueness of name
-            while (namePlayer1.equals(namePlayer2)) {
+            while (namePlayer1.equals(namePlayer2) ||
+                    namePlayer2.equals(Config.AI_NAME)) {
                 System.out.println("please try a new username");
                 namePlayer2 = Console.getInput("Player 2, what"
                     + " is your username?");
@@ -52,8 +62,16 @@ public class Game {
             }
             
         } else {
-            String  namePlayer = Console.getInput("Player 1, what"
+            String  namePlayer = Console.getInput("Player, what"
                 + " is your username?");
+            
+            // forbiding use of AI name
+            while (namePlayer.equals(Config.AI_NAME)) {
+                System.out.println("please try a new username");
+                namePlayer = Console.getInput("Player, what"
+                    + " is your username?");
+            }
+            
             this.PLAYER1 = new Player(namePlayer, greenPlayer);
             this.PLAYER2 = new BotPlayer(!greenPlayer);
         }
@@ -83,6 +101,10 @@ public class Game {
         while(!playRound()){
             //play rounds while the ending conditions are not met
         }
+        ConnexionBDD bdd = new ConnexionBDD(Config.BDD_NAME, 
+                Config.BDD_USERNAME, Config.BDD_PASSWORD);
+        bdd.updatePlayer(PLAYER1.getName(), this.winner());
+        bdd.updatePlayer(PLAYER2.getName(), (short) -this.winner());
     }
 
     /**

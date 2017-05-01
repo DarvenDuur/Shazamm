@@ -8,7 +8,6 @@ import java.text.SimpleDateFormat;
  * In later versions, will be loded from a file.
  */
 public class Config {
-
     /* half the maximum total size of the bridge,
      * 0 : only the central portion remains */
     public static final int BRIDGE_MAX_SIZE = 19 / 2;
@@ -28,6 +27,16 @@ public class Config {
     // number of cards each player draw at the first turn of each round
     public static final int FIRST_TURN_DRAW = 5;
 
+//*************************** BDD **********************************************
+    //TODO
+    public static final String BDD_NAME = "";
+    
+    //TODO
+    public static final String BDD_USERNAME = "root";
+    
+    //TODO
+    public static final String BDD_PASSWORD = "";
+    
 //**************************** TEXT USED FOR LOG PRINTING **********************
     /* For eaach of folowing parameters, please refer to Log.toString and 
      * overwriting methodes */
@@ -120,25 +129,4 @@ public class Config {
     
     // see getConfirmation(), if true, can press enter dirrectly to accept
     public static final boolean Y_N_DIRECT_ACCEPT = true;
-
-//**************************** CONSTRUCOR AND LOADING [WIP] ********************
-    /**
-     * @deprecated 
-     * @param aInt
-     * @param aInt0
-     * @param aInt1
-     * @param aInt2
-     * @param aInt3
-     * @param aInt4
-     */
-    public Config(int aInt, int aInt0, int aInt1, int aInt2, int aInt3, int aInt4) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    /**
-     * @deprecated
-     */
-    public Config() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }
