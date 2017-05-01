@@ -1,10 +1,8 @@
 package game.bdd;
 
-import game.Config;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
@@ -74,42 +72,6 @@ public class ConnexionBDD {
     }
     
     /**
-     * Get default config from database
-     * @return 
-     *      Config object
-     */
-    public Config initConfig(){
-        return this.initConfig("default");
-    }
-    
-    /**
-     * Get config from database
-     * @param mod
-     *      config type
-     * @return 
-     *      Config object
-     * @deprecated 
-     */
-    public Config initConfig(String mod){
-        String query = "SELECT * FROM Config WHERE ID_CONFIG=";
-        query = query + "\"" + mod + "\";";
-        ResultSet rs = getTuples(query);
-
-        //Extraction of values from database to Config object
-        try {
-            return new Config(rs.getInt("BRIDGE_SIZE"),
-                    rs.getInt("MAX_MANA"),
-                    rs.getInt("SHUFFLE_STEPS"),
-                    rs.getInt("HAND_REFILL_SIZE"),
-                    rs.getInt("END_OF_ROUND_DRAW"),
-                    rs.getInt("FIRST_ROUND_DRAW")
-            );
-        } catch (SQLException ex) {
-            return new Config();
-        }
-    }
-    
-    /**
      * add a player in the database
      * @param name
      *      Name of the player to add
@@ -140,47 +102,44 @@ public class ConnexionBDD {
    
     /**
      * update player scores in the database
-     * @deprecated [TO DO]
      * @param name
      *      name of the player to update
      * @param win 
-     *      ???
+     *      -1 for loss, 0 for draw, 1 for victory
      */
     public void updatePlayer(String name,short win){
         ResultSet rs=getPlayer(name);
-        if(rs!=null){
+        
+        int totalOfDraw = 0;
+        int totalOfVictory = 0;
+        int totalOfGame = 0;
+        
+        //if player do not exist, create it
+        if(rs == null){ 
+            addPlayer(name);
+        }else{
             try {
-                int totalOfGame=rs.getInt(2);
-                
-                int totalOfVictory=rs.getInt(3);
-                int totalOfEquality=rs.getInt(4);
-            }
-            catch(Exception e){
-                
-            }
+                totalOfGame=rs.getInt(2);
+                totalOfVictory=rs.getInt(3);
+                totalOfDraw=rs.getInt(4);
+            } catch(Exception e){}
         }
+        totalOfGame++;
+        switch (win){
+            case 1:
+                totalOfVictory++;
+                break;
+                
+            default:
+                totalOfDraw++;
+        }
+        updateTuples("UPDATE `Player`"
+                + "SET `TOTAL_OF_GAME` = " + totalOfGame
+                + ", `TOTAL_OF_VICTORY` = " + totalOfVictory
+                + ", `TOTAL_OF_EQUALITY` = " + totalOfDraw
+                + "WHERE `USERNAME`= \"" + name.toString() + "\";");
         
     
-    }
-    
-    /**
-     * Get all card informations from database.
-     *      Curently only printing them.
-     * @deprecated [WIP]
-     */
-    public void getCard(){
-        String query="SELECT * FROM Card;";
-        ResultSet rs=getTuples(query);
-        try {
-            while(rs.next()){
-                System.out.println(rs.getInt(1));
-                System.out.println(rs.getString(2));
-                System.out.println(rs.getString(3));
-                
-            }
-        } catch (SQLException ex) {
-            System.out.println("ex");
-        }
     }
     
     /**
