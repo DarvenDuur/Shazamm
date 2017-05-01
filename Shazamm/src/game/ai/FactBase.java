@@ -7,6 +7,7 @@ import game.cards.CardManager;
 import game.cards.CardsEnum;
 import game.cards.Clone;
 import game.gui.log.LogTitle;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 
@@ -17,10 +18,10 @@ public class FactBase extends HashSet<Fact> {
     
 
 //***************************** CONSTANTS **************************************    
-    private final int Z_TWO=0;
-    private final int LOW_MANA=0;
-    private final float PROFIT_RATIO=0;
-    private final int Low_DIFFERENCE=0;
+    private final int Z2_LIMIT=0;
+    private final int LOW_MANA_LIMIT=0;
+    private final float BIG_MANA_A_RATIO=0;
+    private final int SMALL_MANA_D_RATIO=0;
     private short clone=0;
     
 //******************************************************************************    
@@ -43,6 +44,10 @@ public class FactBase extends HashSet<Fact> {
         this.availableCards(botCards);
         lastPlayedCardsBot(botPlayedCards);
         
+        lastPlayedCardsEnnemy(playerPlayedCards);
+        
+        ArrayList<FactBase> factBases = this.cloneManager(playerPlayedCards, 
+                botPlayedCards, botCards);
     }
     
     
@@ -103,11 +108,11 @@ public class FactBase extends HashSet<Fact> {
     }
     
     private boolean isManaLow(int botMana){
-        return botMana<=this.LOW_MANA;
+        return botMana<=this.LOW_MANA_LIMIT;
     }
     
     private boolean isZoneTwo(int botMana){
-       return botMana<=this.Z_TWO;
+       return botMana<=this.Z2_LIMIT;
     }
     
     /**
@@ -155,7 +160,7 @@ public class FactBase extends HashSet<Fact> {
         }
     }
     
-    private static boolean contains(int id,HashSet<AbstractCard> botPlayedCards){
+    private static boolean contains(int id, HashSet<AbstractCard> botPlayedCards){
         boolean find=false;
         Iterator it=botPlayedCards.iterator();
         while(!find && it.hasNext()){
@@ -187,8 +192,61 @@ public class FactBase extends HashSet<Fact> {
 
 //***************************** CLONE ******************************************
    
+    private ArrayList<FactBase> cloneManager(
+            HashSet<AbstractCard> playerPlayedCards, 
+            HashSet<AbstractCard> botPlayedCards,
+            HashSet<AbstractCard> botCards) {
+        ArrayList<FactBase> factBases = new ArrayList<>();
+        factBases.add(this);
+        
+        if (this.clone != 0) {
+            this.clone = 0;
+            addEnnemyClonable (factBases, playerPlayedCards, botPlayedCards,
+                    botCards);
+        }
+        
+        return factBases;
+    }
 
-
+    private void addEnnemyClonable(ArrayList<FactBase> factBases, 
+            HashSet<AbstractCard> playerPlayedCards, 
+            HashSet<AbstractCard> botPlayedCards,
+            HashSet<AbstractCard> botCards) {
+        boolean doubleClone = false;
+        for (AbstractCard card : playerPlayedCards){
+            if (card.getId() == 2){
+                doubleClone = true;
+                
+            } else if (contains(card.getId(), botCards)) {
+                FactBase clonedBase = (FactBase) this.clone();
+                clonedBase.clone = (short) card.getId();
+                clonedBase.add(new CardFact(card.getId(), 'a'));
+                factBases.add(clonedBase);
+            }
+        }
+        
+        if (doubleClone){
+            addSelfColnable(factBases, playerPlayedCards, botPlayedCards,
+                    botCards);
+        }
+    }
+    
+    
+    private void addSelfColnable(ArrayList<FactBase> factBases, 
+            HashSet<AbstractCard> playerPlayedCards, 
+            HashSet<AbstractCard> botPlayedCards,
+            HashSet<AbstractCard> botCards) {
+        
+        for (AbstractCard card : botPlayedCards){
+            if (card.getId() != 2 && (contains(card.getId(), botCards) || 
+                    contains(card.getId(), playerPlayedCards))){
+                FactBase clonedBase = (FactBase) this.clone();
+                clonedBase.clone = (short) -card.getId();
+                clonedBase.add(new CardFact(card.getId(), 'a'));
+                factBases.add(clonedBase);
+            }
+        }
+    }
 
 
 }
