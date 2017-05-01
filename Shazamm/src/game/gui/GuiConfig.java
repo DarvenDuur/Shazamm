@@ -6,6 +6,6 @@ package game.gui;
  */
 public class GuiConfig {
     
-    public final static String PATH_IMG = "../Graphique/img/";
+    public final static String PATH_IMG = "Graphique/img/";
 
 }

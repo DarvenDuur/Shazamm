@@ -32,14 +32,13 @@ public class Board extends javax.swing.JPanel {
         this.posY = y;
         
         this.title = new ImageIcon(GuiConfig.PATH_IMG + "logo_shazamm.gif").getImage();
-        System.out.println(GuiConfig.PATH_IMG + "logo_shazamm.gif");
         this.Bridge = new ArrayList<>();
         
         for(int i = 1; i < 20; i++){
         	if(i < 10){
-            	Bridge.add(new ImageIcon(GuiConfig.PATH_IMG + "pont/pont_0" + i + ".gif").getImage());
+            	Bridge.add(new ImageIcon(GuiConfig.PATH_IMG + "/pont/pont_0" + i + ".gif").getImage());
         	}else{
-            	Bridge.add(new ImageIcon(GuiConfig.PATH_IMG + "pont/pont_" + i + ".gif").getImage());
+            	Bridge.add(new ImageIcon(GuiConfig.PATH_IMG + "/pont/pont_" + i + ".gif").getImage());
         	}
         }
     }
