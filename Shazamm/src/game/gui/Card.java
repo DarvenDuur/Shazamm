@@ -58,10 +58,10 @@ public class Card extends javax.swing.JPanel {
         	j.setPreferredSize(new Dimension(220, 300));
         	j.setLayout(new FlowLayout());
         	
-        	Cards.add(new ImageIcon(GuiConfig.PATH_IMG + "/cartes/0" + i + "v.jpg").getImage());
+        	Cards.add(new ImageIcon(GuiConfig.PATH_IMG + "cartes/0" + i + "v.jpg").getImage());
         	chbx.add(new JCheckBox());
 
-        	Image icon = new ImageIcon(GuiConfig.PATH_IMG + "/cartes/0" + i + "v.jpg").getImage().getScaledInstance(200, 250, Image.SCALE_DEFAULT);
+                Image icon = new ImageIcon(GuiConfig.PATH_IMG + "cartes/0" + i + "v.jpg").getImage().getScaledInstance(200, 250, Image.SCALE_DEFAULT);
         	
         	JLabel lab = new JLabel();
         	lab.setIcon(new ImageIcon(icon));
