@@ -19,18 +19,35 @@ public class Game {
     /**
      * Initialize the player data by calling inputs,
      *      and initialize the first round.
+     * @param activateAI
+     *      if true, the second player is controlled by AI
      */
-    public Game() {
+    public Game(boolean activateAI) {
 
         // init list of rounds
         this.rounds = new LinkedList<>();
 
-        // attribute values
+        // attribute color (display only)
         Random  random      = new Random();
         boolean greenPlayer = random.nextBoolean();
             
-        // get mode (AI or PvP)
-        if (/* PvP */true){
+        //Player versus AI
+        if (activateAI){
+            String  namePlayer = Console.getInput("Player, what"
+                    + " is your username?");
+            
+            // forbiding use of AI name
+            while (namePlayer.equals(Config.AI_NAME)) {
+                System.out.println("please try a new username");
+                namePlayer = Console.getInput("Player, what"
+                        + " is your username?");
+            }
+            
+            this.PLAYER1 = new Player(namePlayer, greenPlayer);
+            this.PLAYER2 = new BotPlayer(!greenPlayer);
+            
+        //Player versus player
+        } else {
             String  namePlayer1 = Console.getInput("Player 1, what"
                     + " is your username?");
             
@@ -38,7 +55,7 @@ public class Game {
             while (namePlayer1.equals(Config.AI_NAME)) {
                 System.out.println("please try a new username");
                 namePlayer1 = Console.getInput("Player 1, what"
-                    + " is your username?");
+                        + " is your username?");
             }
             
             String  namePlayer2 = Console.getInput("Player 2, what"
@@ -49,7 +66,7 @@ public class Game {
                     namePlayer2.equals(Config.AI_NAME)) {
                 System.out.println("please try a new username");
                 namePlayer2 = Console.getInput("Player 2, what"
-                    + " is your username?");
+                        + " is your username?");
             }
 
             // create 2 players
@@ -61,19 +78,6 @@ public class Game {
                 this.PLAYER2 = new Player(namePlayer1, greenPlayer);
             }
             
-        } else {
-            String  namePlayer = Console.getInput("Player, what"
-                + " is your username?");
-            
-            // forbiding use of AI name
-            while (namePlayer.equals(Config.AI_NAME)) {
-                System.out.println("please try a new username");
-                namePlayer = Console.getInput("Player, what"
-                    + " is your username?");
-            }
-            
-            this.PLAYER1 = new Player(namePlayer, greenPlayer);
-            this.PLAYER2 = new BotPlayer(!greenPlayer);
         }
         
             
@@ -85,6 +89,13 @@ public class Game {
         this.rounds.add(firstRound);
     }
 
+    /**
+     * Call generic constructor with PvP mode
+     */
+    public Game() {
+        this(false);
+    }
+    
 //***************************** GETTER *****************************************
     /**
      * @return the rounds

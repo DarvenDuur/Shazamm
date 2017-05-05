@@ -6,7 +6,7 @@
 package shazamm;
 
 import game.Game;
-import java.util.ArrayList;
+import game.gui.Console;
 
 /**
  *
@@ -18,8 +18,27 @@ public class Shazamm {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Game game = new Game();
+        /* // TEST
+        boolean graphicalMode = Console.getConfirmation("G-Mode?");
+        if (graphicalMode){graphicMode();}
+        // END TEST */
+        
+        boolean activateAI = Console.getConfirmation(
+                "Do you wish to play against AI?"
+                        + " Otherwise you will play with two players.");
+        Game game = new Game(activateAI);
         game.play();
     }
     
+    /**
+     * TEST USE ONLY
+     */
+    private static void graphicMode(){
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new game.gui.Shazamm().setVisible(true);
+            }
+        });
+    }
 }
