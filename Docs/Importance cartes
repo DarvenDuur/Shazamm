@@ -1,0 +1,19 @@
+mutisme			1	.	.	.
+clone			.	2	.	.
+larcin			.	2	.	.
+fin de manche	1	.	.	.
+milieu			.	.	.	4
+recyclage		.	.	.	4
+boost attaque	.	.	3	.
+double dose		.	.	3	.
+qui perd gagne	1	.	.	.
+brasier			.	2	.	.
+resistance		.		3	.
+harpagon		.			4
+boost reserve	.	2	.	.
+aspiration		.	.	.	4
+
+1: decisif
+2: important
+3: normal
+4: negligeable
