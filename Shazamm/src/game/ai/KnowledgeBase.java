@@ -2,6 +2,7 @@ package game.ai;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Iterator;
 
 /**
  * To ittreate over enum, use "for(KnowledgeBase k : KnowledgeBase.values())"
@@ -194,12 +195,37 @@ public enum KnowledgeBase {
     
 
     /**
-     * @deprecated 
+     * 
      * @param factBase
      * @return 
      */
     public boolean isApplicable(FactBase factBase){
-        return true;
+        boolean isApplicable=true;
+
+        Iterator it=this.POSTULATE.iterator();
+        //Parcours la partie gauche
+        while(it.hasNext() &&isApplicable){
+            if(!factBase.contains((Fact)it.next())){
+               isApplicable=false;
+            }
+        }
+        //parcours des incompatibles si possible;
+        if(isApplicable){
+            it=this.INCOMPATIBLE.iterator();
+            while(it.hasNext() && isApplicable){
+                if(factBase.contains((Fact)it.next())){
+                    isApplicable=false;
+                }
+            }
+        }
+        return isApplicable;
+    }
+    public FactBase apply(FactBase base) {
+        //foreach donc on clone
+        FactBase returnBase=(FactBase)base.clone();
+        //ajout des conclusion à la base de faits.
+        returnBase.addAll(this.CONCLUSION);
+        return returnBase;
     }
     
 }
