@@ -5,6 +5,7 @@ import game.ai.InferenceEngine;
 import game.cards.AbstractCard;
 import game.cards.CardManager;
 import game.gui.Console;
+import game.gui.GuiConfig;
 import game.gui.log.LogBet;
 import game.gui.log.LogSystem;
 import java.util.HashSet;
@@ -167,10 +168,17 @@ public class PlayerState implements Cloneable {
      *      Cards chosen by the player
      */
     public HashSet<AbstractCard> askCards(Turn turn) {
-        if (this.player instanceof BotPlayer) {
+        if (this.player instanceof BotPlayer){
             return askCardsAI(turn);
+            
         } else {
-            return askCardsHuman(turn);
+            //graphical mode
+            if (GuiConfig.guiMode) {
+                throw new UnsupportedOperationException("no gui for ask cards");
+                //return null;
+            } else {
+                return askCardsHuman(turn);
+            }
         }
     }    
 
@@ -205,7 +213,7 @@ public class PlayerState implements Cloneable {
      * Define bet value
      */
     public void bet() {
-        if (!(this.player instanceof BotPlayer)) {
+        if (this.player instanceof BotPlayer) {
             betHuman();
         }
     }
@@ -241,7 +249,6 @@ public class PlayerState implements Cloneable {
     
 //***************************** OTHER ******************************************
     
-
     /**
      * Check valitdity of inputed bet
      * @param manaAmount 

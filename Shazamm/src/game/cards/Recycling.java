@@ -1,9 +1,11 @@
 package game.cards;
 
+import game.BotPlayer;
 import game.Config;
 import game.PlayerState;
 import game.Round;
 import game.gui.Console;
+import game.gui.GuiConfig;
 
 /**
  * Card 6: Recycling
@@ -32,17 +34,36 @@ public class Recycling extends AbstractCard {
      */
     @Override
     protected void apply(Round round){
-        PlayerState ownerPlayer = super.getUserPLayer(round);
-        int availableMana = ownerPlayer.getMana();
-        if(availableMana >= 5 && Console.getConfirmation(String.format(
-                Config.RECYCLE_CONFIRM, ownerPlayer.getPlayer().getName()))){
-            ownerPlayer.setBet(ownerPlayer.getBet() + 5);
-            ownerPlayer.addMana(-5);
+        PlayerState userPlayer = super.getUserPLayer(round);
+        int availableMana = userPlayer.getMana();
+        
+        //get use mode from player
+        boolean confirmation;
+        if (userPlayer.getPlayer() instanceof BotPlayer){
+            throw new UnsupportedOperationException("no AI for confirmation");
+            //confirmation = ;
+            
+        } else {
+            //graphical mode
+            if (GuiConfig.guiMode) {
+                throw new UnsupportedOperationException("no gui for confirmation");
+                //confirmation = ;
+                
+            } else {
+                confirmation = Console.getConfirmation(String.format(
+                        Config.RECYCLE_CONFIRM, 
+                        userPlayer.getPlayer().getName()));
+            }
         }
-        ownerPlayer.setBet(availableMana - 5);
-        ownerPlayer.addMana(5);
+        
+        if(availableMana >= 5 && confirmation){
+            userPlayer.setBet(userPlayer.getBet() + 5);
+            userPlayer.addMana(-5);
+        }
+        userPlayer.setBet(availableMana - 5);
+        userPlayer.addMana(5);
         
         //update attack power
-        ownerPlayer.setAttackPower(ownerPlayer.getBet());  
+        userPlayer.setAttackPower(userPlayer.getBet());  
     }
 }
