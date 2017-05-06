@@ -7,6 +7,7 @@ package shazamm;
 
 import game.Game;
 import game.gui.Console;
+import game.gui.GuiConfig;
 
 /**
  *
@@ -18,27 +19,41 @@ public class Shazamm {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        /* // TEST
-        boolean graphicalMode = Console.getConfirmation("G-Mode?");
-        if (graphicalMode){graphicMode();}
-        // END TEST */
+        //extract mode fr
+        if (args[0].equals("console") || args[0].equals("-c")){
+            //run as console
+            GuiConfig.guiMode = false;
+            
+        } else if (args[0].equals("graphical") || args[0].equals("-g")){
+            //run graphical
+            GuiConfig.guiMode = true;
+            
+        //default mode
+        } else {
+            //graphical question
+            //activateGUI = graphicMode();
+        }
         
-        boolean activateAI = Console.getConfirmation(
-                "Do you wish to play against AI?"
-                        + " Otherwise you will play with two players.");
+        //apply gui choice
+        boolean activateAI = false;
+        if (GuiConfig.guiMode){
+            graphicMode();
+            //ask ai mode
+            //activateAI = false;
+        } else {
+            activateAI = Console.getConfirmation(
+                    "Do you wish to play against AI?"
+                            + " Otherwise you will play with two players.");
+        }
+            
         Game game = new Game(activateAI);
         game.play();
     }
     
     /**
-     * TEST USE ONLY
+     * Launch GUI
      */
     private static void graphicMode(){
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new game.gui.Shazamm().setVisible(true);
-            }
-        });
+        game.gui.Shazamm.main(new String[]{""});
     }
 }
