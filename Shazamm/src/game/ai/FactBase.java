@@ -201,13 +201,13 @@ public class FactBase extends HashSet<Fact> {
             this.add(Fact.WALL_S_1);
         }
         
-        if(strongAdvantage()){
+        if(bigAdvantage(botMana, playerMana)){
             this.add(Fact.MANA_BIG_A);
         }
-        if(littleDifference()){
+        if(smallDifference(botMana, playerMana)){
             this.add(Fact.MANA_SMALL_A);
         }
-        if(lowAdvantage()){
+        if(smallAdvantage(botMana, playerMana)){
             this.add(Fact.MANA_SMALL_D);
         }
         if(isTheFirstTurn()){
@@ -235,28 +235,23 @@ public class FactBase extends HashSet<Fact> {
        return botMana<=this.Z2_LIMIT;
     }
     
-    /**
-     * @deprecated 
-     * @return 
-     */
-    private boolean strongAdvantage(){
-        return true; 
+    private float differenceRatio(int botMana, int playerMana){
+        return ((botMana - playerMana) / ((botMana + playerMana)/2)); 
     }
     
-    /**
-     * @deprecated 
-     * @return 
-     */
-    private boolean lowAdvantage(){
-        return true;
+    private boolean bigAdvantage(int botMana, int playerMana){
+        float differenceRatio = differenceRatio(botMana, playerMana);
+        return differenceRatio > BIG_MANA_A_RATIO; 
     }
     
-    /**
-     * @deprecated
-     * @return 
-     */
-    private boolean littleDifference(){
-        return true;
+    private boolean smallAdvantage(int botMana, int playerMana){
+        float differenceRatio = differenceRatio(botMana, playerMana);
+        return differenceRatio < SMALL_MANA_D_RATIO && differenceRatio > 0;
+    }
+    
+    private boolean smallDifference(int botMana, int playerMana){
+        float differenceRatio = differenceRatio(botMana, playerMana);
+        return (differenceRatio < SMALL_MANA_D_RATIO && differenceRatio > -SMALL_MANA_D_RATIO);
     }
     
     /**
@@ -267,10 +262,6 @@ public class FactBase extends HashSet<Fact> {
         return LogTitle.getTurnNumber()==1;
     }
     
-    /**
-     * @deprecated 
-     * @return 
-     */
     public int evaluate(){
         int score=0;
         for (Fact f : this) {
