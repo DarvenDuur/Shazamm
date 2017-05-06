@@ -80,8 +80,8 @@ public class Console {
      *      integers to print ass refused
      */
     private static void printRefused(HashSet<Integer> refusedInput) {
-        printCards(refusedInput, Config.REFUSED_INPUT[0], 
-                Config.REFUSED_INPUT[1]);
+        printCards(refusedInput, GuiConfig.REFUSED_INPUT[0], 
+                GuiConfig.REFUSED_INPUT[1]);
     }
 
     /**
@@ -92,7 +92,7 @@ public class Console {
     private static void printChosenCard(Integer acceptedInput) {
         HashSet<Integer> set = new HashSet<>();
         set.add(acceptedInput);
-        printCards(set, Config.CHOSEN_CARD[0],  Config.CHOSEN_CARD[1]);
+        printCards(set, GuiConfig.CHOSEN_CARD[0],  GuiConfig.CHOSEN_CARD[1]);
     }
 
     /**
@@ -193,14 +193,14 @@ public class Console {
             acceptedInput.clear();
 
             if (turn.isMute()) {
-                println(String.format(Config.MUTISM_WARNING, CardsEnum.Mutism.getName()));
+                println(String.format(GuiConfig.MUTISM_WARNING, CardsEnum.Mutism.getName()));
             }
             //print all cards, and get all available IDs
             HashSet<Integer> handIDs = getIDs(cards);
-            printCards(handIDs, String.format(Config.AVAILABLE_CARDS[0], 
-                    player.getPlayer().getName()), Config.AVAILABLE_CARDS[1]);
+            printCards(handIDs, String.format(GuiConfig.AVAILABLE_CARDS[0], 
+                    player.getPlayer().getName()), GuiConfig.AVAILABLE_CARDS[1]);
 
-            String input = getInput(Config.CARDS_INPUT);
+            String input = getInput(GuiConfig.CARDS_INPUT);
 
             //filter all integers
             LinkedList<Integer> splitInput = parseAllInt(input);
@@ -211,10 +211,10 @@ public class Console {
 
             printRefused(refusedInput);
             //show accepted input and corresponding cards
-            printCards(acceptedInput, Config.CHOSEN_CARDS[0],
-                    Config.CHOSEN_CARDS[1]);
+            printCards(acceptedInput, GuiConfig.CHOSEN_CARDS[0],
+                    GuiConfig.CHOSEN_CARDS[1]);
 
-        } while (!getConfirmation(Config.CARDS_CONFIRM));
+        } while (!getConfirmation(GuiConfig.CARDS_CONFIRM));
 
         return getCardFromInteger(cards, acceptedInput, turn, player1);
     }
@@ -239,7 +239,7 @@ public class Console {
 
         //safety mesure for unvalid parameters
         if (cards == null || cards.isEmpty()) {
-            println(Config.AVAILABLE_CLONES[1]);
+            println(GuiConfig.AVAILABLE_CLONES[1]);
             return null;
         }
 
@@ -248,11 +248,11 @@ public class Console {
             acceptedInput = new Integer(0);
             //print all cards, and get all available IDs
             HashSet<Integer> handIDs = getIDs(cards);
-            printCards(handIDs, Config.AVAILABLE_CLONES[0],
-                    Config.AVAILABLE_CLONES[1]);
+            printCards(handIDs, GuiConfig.AVAILABLE_CLONES[0],
+                    GuiConfig.AVAILABLE_CLONES[1]);
 
             //get input
-            String input = getInput(Config.CLONE_INPUT);
+            String input = getInput(GuiConfig.CLONE_INPUT);
 
             //filter all integers
             LinkedList<Integer> splitInput = parseAllInt(input);
@@ -267,7 +267,7 @@ public class Console {
 
             printChosenCard(acceptedInput);
 
-        } while (!getConfirmation(Config.CLONE_CONFIRM));
+        } while (!getConfirmation(GuiConfig.CLONE_CONFIRM));
 
         //get card from integer
         AbstractCard output = AbstractCard.create(acceptedInput, !player1);
@@ -290,15 +290,15 @@ public class Console {
     public static boolean getConfirmation(String question) {
         String answer = "";
 
-        while (!answer.equalsIgnoreCase(Config.Y_N_CHAR[0])
-                && !answer.equalsIgnoreCase(Config.Y_N_CHAR[1])) {
-            println(question + "[" + Config.Y_N_CHAR[0].toUpperCase() + "/" 
-                    + Config.Y_N_CHAR[1].toLowerCase() + "]:");
+        while (!answer.equalsIgnoreCase(GuiConfig.Y_N_CHAR[0])
+                && !answer.equalsIgnoreCase(GuiConfig.Y_N_CHAR[1])) {
+            println(question + "[" + GuiConfig.Y_N_CHAR[0].toUpperCase() + "/" 
+                    + GuiConfig.Y_N_CHAR[1].toLowerCase() + "]:");
             answer = SCANNER.nextLine();
-            answer += answer.trim().isEmpty() && Config.Y_N_DIRECT_ACCEPT ?
-                    Config.Y_N_CHAR[0] : "";
+            answer += answer.trim().isEmpty() && GuiConfig.Y_N_DIRECT_ACCEPT ?
+                    GuiConfig.Y_N_CHAR[0] : "";
         }
-        return answer.equalsIgnoreCase(Config.Y_N_CHAR[0]);
+        return answer.equalsIgnoreCase(GuiConfig.Y_N_CHAR[0]);
     }
 
 //***************************** OTHER ******************************************
@@ -401,6 +401,6 @@ public class Console {
      *      the current date
      */
     public static String getCurrentDate() {
-        return Config.DATE_FORMAT.format(new Date());
+        return GuiConfig.DATE_FORMAT.format(new Date());
     }
 }

@@ -12,6 +12,10 @@ public class CardFact extends Fact {
      * e: past ennemy, card played during last turn by ennemy
      */
     private final char TYPE;
+    public static final char AVAILABLE = 'a',
+            USE = 'u',
+            SELF = 's',
+            ENNEMY = 'e';
 
     public CardFact(int cardID, char type) {
         super(CardsEnum.CARDS[cardID - 1].getName());

@@ -51,7 +51,7 @@ public class Recycling extends AbstractCard {
                 
             } else {
                 confirmation = Console.getConfirmation(String.format(
-                        Config.RECYCLE_CONFIRM, 
+                        GuiConfig.RECYCLE_CONFIRM, 
                         userPlayer.getPlayer().getName()));
             }
         }
