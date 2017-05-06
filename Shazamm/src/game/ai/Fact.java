@@ -12,7 +12,7 @@ public class Fact implements Comparable<Fact>{
             BET_ENLARGE = new Fact("betEnlarge"),
             
             WALL_E_1 = new Fact("wallE1"),
-            WALL_E_2 = new Fact("wallS1"),
+            WALL_E_2 = new Fact("wal0lS1"),
             WALL_S_1 = new Fact("wallE2"),
             
             MANA_BIG_A = new Fact("manaBigA"),
