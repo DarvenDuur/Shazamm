@@ -1,27 +1,15 @@
 package game.ai;
 
 import game.Turn;
+import java.util.HashSet;
 
 /**
  * Apply inference rules to the fact base
  */
 public class InferenceEngine {
-    private FactBase factBase;
+    private HashSet<FactBase> factBases;
 
-    /**
-     * @return the factBase
-     */
-    public FactBase getFactBase() {
-        return factBase;
-    }
-
-    /**
-     * @param factBase the factBase to set
-     */
-    public void setFactBase(FactBase factBase) {
-        this.factBase = factBase;
-    }
-    
+       
     
     /**
      * Extract fact bases from turn, run engine on them, resolve conflicts,
@@ -31,7 +19,24 @@ public class InferenceEngine {
      * @return 
      *      AIAction containing cards to play and mana to bet on this turn
      */
+    /**
+     * @deprecated 
+     * @param turn
+     * @return 
+     */
     public static AIAction run(Turn turn) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
     }
+    public void runEngine(){
+        HashSet<FactBase> generatedFactBases=new HashSet<>();
+        for (FactBase factBase : factBases) {
+            for(KnowledgeBase k : KnowledgeBase.values()){
+                if(k.isApplicable(factBase)){
+                    generatedFactBases.add(k.apply(factBase));
+                }
+            }
+        }
+    }
+
+  
 }
