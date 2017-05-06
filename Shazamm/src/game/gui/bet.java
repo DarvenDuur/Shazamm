@@ -1,16 +1,13 @@
 package game.gui;
 
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
-
 
 
 /**
@@ -22,7 +19,7 @@ public class bet extends JPanel {
 	private JLabel betLabel, end;
 	private JTextArea betTextF;
 	private JButton betButt;
-	private JPanel p;
+	private JPanel main;
 
     
     /**
@@ -30,33 +27,30 @@ public class bet extends JPanel {
      */
     public bet() {
         initComponents();
+        initContents();
     }
 
 
-    private void initComponents() {
-
-    	p = new JPanel();
-        p.setBackground(new Color(33, 41, 48));
-        p.setPreferredSize(new Dimension(200, 200));
-
+    
+    private void initContents(){
 
         this.betLabel = new JLabel("Enter your bet :");
         this.betLabel.setFont(new Font("Caladea", Font.BOLD, 22));
         this.betLabel.setForeground(new Color(174, 66, 74));
-        p.add(betLabel);
+        main.add(betLabel);
 
         this.betTextF = new JTextArea(1, 8);
         this.betTextF.setFont(new Font("Caladea", Font.TRUETYPE_FONT, 22));
-        p.add(betTextF);
+        main.add(betTextF);
 
         this.end = new JLabel("/50");
         this.end.setFont(new Font("Caladea", Font.BOLD, 22));
         this.end.setForeground(new Color(174, 66, 74));
-        p.add(end);
+        main.add(end);
 
         this.betButt = new JButton("Validate !");
         this.betButt.setPreferredSize(new Dimension(120, 30));
-        p.add(betButt);
+        main.add(betButt);
         
         
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -89,12 +83,20 @@ public class bet extends JPanel {
                 .addComponent(betButt)
                 .addContainerGap(126, Short.MAX_VALUE))
         );
-               
+        
+    	this.add(main);
+    }
+    
+
+    private void initComponents() {
+
+    	main = new JPanel();
+    	
+    	main.setBackground(new Color(33, 41, 48));
+    	main.setPreferredSize(new Dimension(200, 200));
+
         this.setBackground(new Color(33, 41, 48));
         this.setPreferredSize(new Dimension(300, 350));
-        
-        this.setBorder(javax.swing.BorderFactory.createRaisedBevelBorder());
-        //this.add(p, BorderLayout.CENTER);
     }
 
 }
