@@ -19,15 +19,16 @@ public class InferenceEngine {
      * @return 
      *      AIAction containing cards to play and mana to bet on this turn
      */
-    /**
-     * @deprecated 
-     * @param turn
-     * @return 
-     */
     public static AIAction run(Turn turn) {
-    
+        
+        InferenceEngine engine = new InferenceEngine();
+        engine.factBases = FactBase.extractTurn(turn);
+        engine.runEngine();
+        
+        return new AIAction(engine.bestFactBase(), turn);
     }
-    public void runEngine(){
+    
+    private void runEngine(){
         HashSet<FactBase> generatedFactBases=new HashSet<>();
         for (FactBase factBase : factBases) {
             for(KnowledgeBase k : KnowledgeBase.values()){
@@ -36,7 +37,16 @@ public class InferenceEngine {
                 }
             }
         }
+        factBases.addAll(generatedFactBases);
     }
 
-  
+    
+    /**
+     * @deprecated 
+     * @param turn
+     * @return 
+     */
+    private FactBase bestFactBase(){
+        
+    }
 }

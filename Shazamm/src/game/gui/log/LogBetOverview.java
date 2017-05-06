@@ -4,6 +4,7 @@ import game.Bridge;
 import game.Config;
 import game.Player;
 import game.cards.AbstractCard;
+import game.gui.GuiConfig;
 import java.util.HashSet;
 
 /**
@@ -99,13 +100,13 @@ public class LogBetOverview extends Log {
      */
     @Override
     public String toString() {
-        String string = super.toString() + Config.BET_OVERVIEW_STRING + "\n";
+        String string = super.toString() + GuiConfig.BET_OVERVIEW_STRING + "\n";
 
-        string += Config.BET + "\n";
+        string += GuiConfig.BET + "\n";
         string += this.PLAYER_1.getName() + ": " + this.PLAYER_1_BET + "\n";
         string += this.PLAYER_2.getName() + ": " + this.PLAYER_2_BET + "\n";
 
-        string += "\n" + Config.SPELLS + "\n";
+        string += "\n" + GuiConfig.SPELLS + "\n";
         string += this.PLAYER_1.getName() + ":\n";
         for (AbstractCard card : this.PLAYER_1_CARDS) {
             string += card.toString() + ";";

@@ -1,6 +1,6 @@
 package game.gui.log;
 
-import game.Config;
+import game.gui.GuiConfig;
 
 /**
  * Log containing turn number and round number
@@ -47,8 +47,8 @@ public class LogTitle extends Log {
      */
     @Override
     public String toString() {
-        return Config.ROUND_STRING + this.ROUND + " "
-                + Config.TURN_STRING + this.TRUN;
+        return GuiConfig.ROUND_STRING + this.ROUND + " "
+                + GuiConfig.TURN_STRING + this.TRUN;
     }
     
     public static int getTurnNumber(){

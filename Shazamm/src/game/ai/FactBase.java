@@ -1,12 +1,12 @@
 package game.ai;
 
+import game.Config;
 import game.PlayerState;
 import game.Turn;
 import game.cards.AbstractCard;
 import game.cards.CardManager;
 import game.cards.Clone;
 import game.gui.log.LogTitle;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 
@@ -28,7 +28,9 @@ public class FactBase extends HashSet<Fact> {
     private short clone=0;
     
 //******************************************************************************    
-    public void extractTurn(Turn turn){
+    public static HashSet<FactBase> extractTurn(Turn turn){
+        FactBase factBase = new FactBase();
+        
         PlayerState humanPlayer=turn.getPlayerState(true);
         PlayerState botPlayer=turn.getPlayerState(false);
         int firewallLocation=turn.getBridge().getFirewallLocation();
@@ -41,138 +43,15 @@ public class FactBase extends HashSet<Fact> {
         
         HashSet<AbstractCard> playerPlayedCards=playerCardManager.getLastDiscard();
         
-        this.generalFact(humanPlayer, botPlayer, firewallLocation);
-        this.availableCards(botCards);
-        lastPlayedCardsBot(botPlayedCards);
+        factBase.generalFact(humanPlayer, botPlayer, firewallLocation);
+        factBase.availableCards(botCards);
+        factBase.lastPlayedCardsBot(botPlayedCards);
         
-        lastPlayedCardsEnnemy(playerPlayedCards);
+        factBase.lastPlayedCardsEnnemy(playerPlayedCards);
         
-        ArrayList<FactBase> factBases = this.cloneManager(playerPlayedCards, 
-                botPlayedCards, botCards);
+        return factBase.cloneManager(playerPlayedCards, botPlayedCards, botCards);
     }
     
-//***************************** asAIAction *************************************
-    public AIAction asAIAction(Turn turn){
-        int availableMana = turn.getPlayerState(false).getMana();
-        return new AIAction(this.extractCards(turn), 
-                this.extractBet(availableMana));
-    }
-
-    private AbstractCard extractCard(int id, 
-            HashSet<AbstractCard> availableCards){
-        for (AbstractCard card : availableCards) {
-            if (card.getId()==id) {
-                return(card);
-            }
-        }
-        return null;
-    }
-    
-    private HashSet<AbstractCard> extractCards(Turn turn) {
-        HashSet<AbstractCard> cards = new HashSet<>();
-        int id;
-        
-        CardManager botCardManager=turn.getPlayerState(false).getCardManager();
-        HashSet<AbstractCard> botCards=botCardManager.getHand();
-        
-        for (Fact fact : this) {
-            if (fact instanceof CardFact) {
-                CardFact cardFact = (CardFact) fact;
-                if (cardFact.getType() == CardFact.USE){
-                    id = cardFact.getCardID();
-                    //if card is a cloned card
-                    if (id != this.clone && id != -this.clone){
-                        cards.add(this.extractCard(id, botCards));
-                    }
-                }
-            }
-        }
-        
-        this.extractClone(turn, cards);
-        
-        return cards;
-    }
-    
-    private void extractClone(Turn turn, HashSet<AbstractCard> cards){
-        //if a card is cloned
-        if (this.clone != 0){
-            CardManager botCardManager =
-                    turn.getPlayerState(false).getCardManager();
-            HashSet<AbstractCard> botCards =
-                    botCardManager.getHand();
-            
-            CardManager playerCardManager =
-                    turn.getPlayerState(true).getCardManager();
-            HashSet<AbstractCard> playerPlayedCards =
-                    playerCardManager.getLastDiscard();
-            
-            Clone cloneCard = (Clone) extractCard(2, botCards);
-            AbstractCard clonedCard;
-            
-            //if cloned card is from a double clone
-            if (this.clone < 0){
-                HashSet<AbstractCard> botPlayedCards = 
-                        botCardManager.getLastDiscard();
-                clonedCard = extractCard(2, playerPlayedCards);
-                AbstractCard secondClonedCard = extractCard(-this.clone, botPlayedCards);
-                
-                clonedCard.setClone(secondClonedCard);
-                
-            //if cloned card from a single clone
-            } else {
-                clonedCard = extractCard(this.clone, playerPlayedCards);
-            }
-            
-            cloneCard.setClone(clonedCard);
-            cards.add(cloneCard);
-        }
-    }
-    
-    /**
-     * use estimated available mana
-     * @return 
-     */
-    public int extractBet(){
-        if (this.contains(Fact.MANA_SMALL_R)){
-            return this.extractBet(LOW_MANA_LIMIT);
-        } else if (this.contains(Fact.Z2)){
-            return this.extractBet(Z2_LIMIT);
-        } else {
-            return this.extractBet(game.Config.START_MANA);
-        }
-    }
-    
-    public int extractBet(int availableMana) {
-        int bet;
-        if (this.contains(Fact.BET_1)){
-            bet = 1;
-        } else if (this.contains(Fact.BET_2)){
-            bet = 2;
-        } else if (this.contains(Fact.BET_6)){
-            bet = 3;
-                
-        //proportionnal bets 
-        } else if (this.contains(Fact.BET_BIG)){
-            bet = (int) (relativeBet(availableMana) * (1 + BET_VARIATION_RATIO));
-        } else if (this.contains(Fact.BET_SMALL)){
-            bet = (int) (relativeBet(availableMana) * (1 - BET_VARIATION_RATIO));
-        } else {
-            bet = relativeBet(availableMana);
-        }
-        
-        if (this.contains(Fact.BET_ENLARGE)){
-            bet += relativeBet(availableMana) * BET_VARIATION_RATIO;
-            
-            //bet corrector
-            bet = bet >= availableMana ? availableMana : bet;
-        }
-        return bet;
-    }
-   
-    private int relativeBet(int availableMana) {
-        return (int) (RELATIVE_BET_RATIO * availableMana);
-    }
- 
 //***************************** GENERAL FACTS **********************************
     private void generalFact(PlayerState player1, PlayerState botPlayer, 
             int firewallLocation){
@@ -323,14 +202,14 @@ public class FactBase extends HashSet<Fact> {
 
 //***************************** CLONE ******************************************
    
-    private ArrayList<FactBase> cloneManager(
+    public HashSet<FactBase> cloneManager(
             HashSet<AbstractCard> playerPlayedCards, 
             HashSet<AbstractCard> botPlayedCards,
             HashSet<AbstractCard> botCards) {
-        ArrayList<FactBase> factBases = new ArrayList<>();
+        HashSet<FactBase> factBases = new HashSet<>();
         factBases.add(this);
         
-        if (this.clone != 0) {
+        if (this.getClone() != 0) {
             this.clone = 0;
             addEnnemyClonable (factBases, playerPlayedCards, botPlayedCards,
                     botCards);
@@ -339,7 +218,7 @@ public class FactBase extends HashSet<Fact> {
         return factBases;
     }
 
-    private void addEnnemyClonable(ArrayList<FactBase> factBases, 
+    private void addEnnemyClonable(HashSet<FactBase> factBases, 
             HashSet<AbstractCard> playerPlayedCards, 
             HashSet<AbstractCard> botPlayedCards,
             HashSet<AbstractCard> botCards) {
@@ -363,7 +242,7 @@ public class FactBase extends HashSet<Fact> {
     }
     
     
-    private void addSelfColnable(ArrayList<FactBase> factBases, 
+    private void addSelfColnable(HashSet<FactBase> factBases, 
             HashSet<AbstractCard> playerPlayedCards, 
             HashSet<AbstractCard> botPlayedCards,
             HashSet<AbstractCard> botCards) {
@@ -377,6 +256,56 @@ public class FactBase extends HashSet<Fact> {
                 factBases.add(clonedBase);
             }
         }
+    }
+
+    /**
+     * use estimated available mana
+     * @return
+     */
+    public int extractBet() {
+        if (this.contains(Fact.MANA_SMALL_R)) {
+            return extractBet(LOW_MANA_LIMIT);
+        } else if (this.contains(Fact.Z2)) {
+            return extractBet(Z2_LIMIT);
+        } else {
+            return extractBet(Config.START_MANA);
+        }
+    }
+
+    public int extractBet(int availableMana) {
+        int bet;
+        if (this.contains(Fact.BET_1)) {
+            bet = 1;
+        } else if (this.contains(Fact.BET_2)) {
+            bet = 2;
+        } else if (this.contains(Fact.BET_6)) {
+            bet = 3;
+            //proportionnal bets
+        } else if (this.contains(Fact.BET_BIG)) {
+            bet = (int) (relativeBet(availableMana) * (1 + FactBase.BET_VARIATION_RATIO));
+        } else if (this.contains(Fact.BET_SMALL)) {
+            bet = (int) (relativeBet(availableMana) * (1 - FactBase.BET_VARIATION_RATIO));
+        } else {
+            bet = relativeBet(availableMana);
+        }
+        if (this.contains(Fact.BET_ENLARGE)) {
+            bet += relativeBet(availableMana) * FactBase.BET_VARIATION_RATIO;
+            //bet corrector
+            bet = bet >= availableMana ? availableMana : bet;
+        }
+        return bet;
+    }
+    
+    
+    private int relativeBet(int availableMana) {
+        return (int) (RELATIVE_BET_RATIO * availableMana);
+    }
+
+    /**
+     * @return the clone
+     */
+    public short getClone() {
+        return clone;
     }
 
 }

@@ -1,7 +1,7 @@
 package game.gui.log;
 
-import game.Config;
 import game.Player;
+import game.gui.GuiConfig;
 
 /**
  * Log for when a player bet
@@ -38,7 +38,7 @@ public class LogBet extends Log {
      */
     @Override
     public String toString() {
-        return super.toString() + this.PLAYER + " " + Config.BET_STRING;
+        return super.toString() + this.PLAYER + " " + GuiConfig.BET_STRING;
     }
 
 }

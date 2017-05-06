@@ -4,6 +4,7 @@ import game.Bridge;
 import game.Config;
 import game.Player;
 import game.Turn;
+import game.gui.GuiConfig;
 
 /**
  * Log summarysing a turn
@@ -175,7 +176,7 @@ public class LogTurnOverview extends Log {
                 return this.PLAYER_2.getName();
 
             case 0:
-                return Config.DRAW;
+                return GuiConfig.DRAW;
 
             default:
                 return "";
@@ -192,29 +193,29 @@ public class LogTurnOverview extends Log {
      */
     @Override
     public String toString() {
-        String string = super.toString() + Config.TURN_STRING + "\n";
+        String string = super.toString() + GuiConfig.TURN_STRING + "\n";
 
-        string += Config.MANA_STOCK_START + "\n";
+        string += GuiConfig.MANA_STOCK_START + "\n";
         string += this.PLAYER_1.getName() + ": " + this.PLAYER_1_MANA_START + "\n";
         string += this.PLAYER_2.getName() + ": " + this.PLAYER_2_MANA_START + "\n";
 
-        string += "\n" + Config.BET + "\n";
+        string += "\n" + GuiConfig.BET + "\n";
         string += this.PLAYER_1.getName() + ": " + this.PLAYER_1_BET + "\n";
         string += this.PLAYER_2.getName() + ": " + this.PLAYER_2_BET + "\n";
 
-        string += "\n" + Config.ATTACK_POWER + "\n";
+        string += "\n" + GuiConfig.ATTACK_POWER + "\n";
         string += this.PLAYER_1.getName() + ": " + this.PLAYER_1_BET + "\n";
         string += this.PLAYER_2.getName() + ": " + this.PLAYER_2_BET + "\n";
 
-        string += "\n" + Config.MANA_SPENT + "\n";
+        string += "\n" + GuiConfig.MANA_SPENT + "\n";
         string += this.PLAYER_1.getName() + ": " + this.getPlayer1ManaLoss() + "\n";
         string += this.PLAYER_2.getName() + ": " + this.getPlayer2ManaLoss() + "\n";
 
-        string += "\n" + Config.MANA_STOCK_END + "\n";
+        string += "\n" + GuiConfig.MANA_STOCK_END + "\n";
         string += this.PLAYER_1.getName() + ": " + this.Player1ManaEnd + "\n";
         string += this.PLAYER_2.getName() + ": " + this.Player2ManaEnd + "\n";
 
-        string += "\n" + Config.WINNER + this.getWinner() + "\n";
+        string += "\n" + GuiConfig.WINNER + this.getWinner() + "\n";
 
         return string;
     }

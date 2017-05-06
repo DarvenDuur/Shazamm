@@ -43,9 +43,6 @@ public class GuiConfig {
     
     public static final String DRAW = "Egalité";
     
-    public static final String AI_NAME="Ordinateur";
-    
-    
 //**************************** TEXT USED FOR CONSOLE ***************************
     // see askCards()
     public static final String MUTISM_WARNING = "Warning, %s is active.";

@@ -36,4 +36,8 @@ public class Config {
     
     //TODO
     public static final String BDD_PASSWORD = "";
+    
+    
+    
+    public static final String AI_NAME="Ordinateur";
 }
