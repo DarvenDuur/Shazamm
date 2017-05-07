@@ -6,6 +6,7 @@
 package shazamm;
 
 import game.Game;
+import game.ai.KnowledgeBase;
 import game.gui.Console;
 import game.gui.GuiConfig;
 

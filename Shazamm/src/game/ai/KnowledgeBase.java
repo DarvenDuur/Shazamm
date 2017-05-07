@@ -131,6 +131,35 @@ public enum KnowledgeBase {
             new Fact[]{new CardFact(12,CardFact.USE)},
             "harpagon", 0),
     
+    boostRAfter1(new Fact[]{new CardFact(13,CardFact.SELF), 
+        new CardFact(1,CardFact.AVAILABLE)}, 
+            new Fact[]{new CardFact(1,CardFact.USE)},
+            "boostRAfter1", 0),
+    
+    boostRAfter2(new Fact[]{new CardFact(13,CardFact.SELF), 
+        new CardFact(4,CardFact.AVAILABLE)},
+            new Fact[]{new CardFact(4,CardFact.USE)},
+            "boostRAfter2", 0),
+    
+    aspi1(new Fact[]{new CardFact(14,CardFact.AVAILABLE), 
+        new CardFact(1,CardFact.AVAILABLE)}, 
+            new Fact[]{new CardFact(14,CardFact.USE)},
+            "aspi1", 0),
+    
+    aspiAfter1(new Fact[]{new CardFact(14,CardFact.SELF)}, 
+            new Fact[]{new CardFact(1,CardFact.USE)},
+            "aspiAfter1", 0),
+    
+    aspiAfter2(new Fact[]{new CardFact(14,CardFact.SELF)}, 
+            new Fact[]{new CardFact(4,CardFact.USE)},
+            "aspiAfter2", 0),
+    
+    aspi2(new Fact[]{new CardFact(14,CardFact.AVAILABLE), 
+        new CardFact(4,CardFact.AVAILABLE)}, 
+            new Fact[]{new CardFact(4,CardFact.USE)},
+            new Fact[]{new CardFact(14,CardFact.USE)},
+            "aspi2", 1),
+    
     boostR1(new Fact[]{new CardFact(13,CardFact.AVAILABLE), 
         new CardFact(1,CardFact.AVAILABLE), Fact.WALL_E_1},
             new Fact[]{new CardFact(1,CardFact.USE)},
@@ -153,36 +182,7 @@ public enum KnowledgeBase {
         new CardFact(4,CardFact.AVAILABLE), Fact.WALL_S_1},
             new Fact[]{new CardFact(4,CardFact.USE)},
             new Fact[]{new CardFact(13,CardFact.USE)},
-            "boostR4", 1),
-    
-    boostRAfter1(new Fact[]{new CardFact(13,CardFact.SELF), 
-        new CardFact(1,CardFact.AVAILABLE)}, 
-            new Fact[]{new CardFact(1,CardFact.USE)},
-            "boostRAfter1", 0),
-    
-    boostRAfter2(new Fact[]{new CardFact(13,CardFact.SELF), 
-        new CardFact(4,CardFact.AVAILABLE)},
-            new Fact[]{new CardFact(4,CardFact.USE)},
-            "boostRAfter2", 0),
-    
-    aspi1(new Fact[]{new CardFact(14,CardFact.AVAILABLE), 
-        new CardFact(1,CardFact.AVAILABLE)}, 
-            new Fact[]{new CardFact(14,CardFact.USE)},
-            "aspi1", 0),
-    
-    aspi2(new Fact[]{new CardFact(14,CardFact.AVAILABLE), 
-        new CardFact(4,CardFact.AVAILABLE)}, 
-            new Fact[]{new CardFact(4,CardFact.USE)},
-            new Fact[]{new CardFact(14,CardFact.USE)},
-            "aspi2", 0),
-    
-    aspiAfter1(new Fact[]{new CardFact(14,CardFact.SELF)}, 
-            new Fact[]{new CardFact(1,CardFact.USE)},
-            "aspiAfter1", 0),
-    
-    aspiAfter2(new Fact[]{new CardFact(14,CardFact.SELF)}, 
-            new Fact[]{new CardFact(4,CardFact.USE)},
-            "aspiAfter2", 0);
+            "boostR4", 1);
     
     
     
