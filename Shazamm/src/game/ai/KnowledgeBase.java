@@ -210,7 +210,10 @@ public enum KnowledgeBase {
     private KnowledgeBase(Fact[] postulate, Fact[] incompatible, 
             Fact[] conclusion, String name, int weight){
         this.POSTULATE = new FactBase();
-        this.POSTULATE.addAll(Arrays.asList(postulate));
+        if (postulate != null){
+            this.POSTULATE.addAll(Arrays.asList(postulate));
+        }
+        
         this.INCOMPATIBLE = new FactBase();
         this.POSTULATE.addAll(Arrays.asList(incompatible));
         this.CONCLUSION = new FactBase();
