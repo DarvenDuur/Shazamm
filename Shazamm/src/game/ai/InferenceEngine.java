@@ -31,7 +31,7 @@ public class InferenceEngine {
     private void runEngine(){
         HashSet<FactBase> generatedFactBases=new HashSet<>();
         for (FactBase factBase : factBases) {
-            for(KnowledgeBase k : KnowledgeBase.values()){
+            for(KnowledgeBase k : KnowledgeBase.VALUES){
                 if(k.isApplicable(factBase)){
                     generatedFactBases.add(k.apply(factBase));
                 }

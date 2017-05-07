@@ -184,7 +184,7 @@ public enum KnowledgeBase {
             new Fact[]{new CardFact(13,CardFact.USE)},
             "boostR4", 1);
     
-    
+    public static final KnowledgeBase[] VALUES = KnowledgeBase.values();
     
     //necessary facts to activate knowledge
     final FactBase POSTULATE;

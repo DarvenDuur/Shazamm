@@ -69,7 +69,11 @@ public class Console {
         } else {
             println(text);
             for (Integer integer : cards) {
-                println(integer.toString() + ". " + CARDS[integer - 1].getName());
+                if (integer <= CARDS.length) {
+                    println(integer.toString() + ". " + CARDS[integer - 1].getName());
+                } else {
+                    println(integer.toString() + ". ");
+                }
             }
         }
     }
