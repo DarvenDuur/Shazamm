@@ -8,7 +8,7 @@ import java.util.HashSet;
  */
 public class InferenceEngine {
     private HashSet<FactBase> factBases;
-
+    private static final KnowledgeBase[] KNOWLEDGE_BASE = KnowledgeBase.values();
        
     
     /**
@@ -31,7 +31,7 @@ public class InferenceEngine {
     private void runEngine(){
         HashSet<FactBase> generatedFactBases=new HashSet<>();
         for (FactBase factBase : factBases) {
-            for(KnowledgeBase k : KnowledgeBase.VALUES){
+            for(KnowledgeBase k : KNOWLEDGE_BASE){
                 if(k.isApplicable(factBase)){
                     generatedFactBases.add(k.apply(factBase));
                 }

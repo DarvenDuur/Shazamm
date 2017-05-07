@@ -184,14 +184,6 @@ public enum KnowledgeBase {
             new Fact[]{new CardFact(13,CardFact.USE)},
             "boostR4", 1);
     
-    public static final KnowledgeBase[] VALUES = new KnowledgeBase[]{Z2, nonZ2,
-        mutisme1, mutisme2, mutisme3, larcin1, larcin2, FDM, milieu, recy1, recy2,
-        boostDouble, boost, qpg, qpgAfter1, qpgAfter2, qpgAfter3, qpgAfter4,
-        qpgAfter5, qpgAfter6, brasier1, brasier2, res1, res2, harpagon, 
-        boostRAfter1, boostRAfter2, aspi1, aspiAfter1, aspiAfter2, aspi2, boostR1,
-        boostR2, boostR3, boostR4
-    };
-    
     //necessary facts to activate knowledge
     final FactBase POSTULATE;
     
