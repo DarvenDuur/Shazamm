@@ -22,23 +22,23 @@ public class Board extends javax.swing.JPanel {
     /**
      * Creates new form Board
      */
-    public Board(int x, int y) {
+    public Board() {
         initComponents();
-        initContents(x, y);
+        initContents();
     }
 
-    private void initContents(int x, int y) {
-        this.posX = x;
-        this.posY = y;
+    public void initContents() {
+        this.posX = 0;
+        this.posY = 250;
         
         this.title = new ImageIcon(GuiConfig.PATH_IMG + "logo_shazamm.gif").getImage();
         this.Bridge = new ArrayList<>();
         
         for(int i = 1; i < 20; i++){
         	if(i < 10){
-                    Bridge.add(new ImageIcon(GuiConfig.PATH_IMG + "/pont/pont_0" + i + ".gif").getImage());
+            	Bridge.add(new ImageIcon(GuiConfig.PATH_IMG + "/pont/pont_0" + i + ".gif").getImage());
         	}else{
-                    Bridge.add(new ImageIcon(GuiConfig.PATH_IMG + "/pont/pont_" + i + ".gif").getImage());
+            	Bridge.add(new ImageIcon(GuiConfig.PATH_IMG + "/pont/pont_" + i + ".gif").getImage());
         	}
         }
     }

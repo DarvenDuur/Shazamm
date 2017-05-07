@@ -8,7 +8,9 @@ import javax.swing.JScrollPane;
 public class GuiPlayer extends javax.swing.JFrame {
 
     // Variables declaration
-    private JPanel cards, main;
+    private JPanel main;
+    private Bet betPanel;
+    private Card cards;
     private Statistics statistics;
     private FlowLayout layout = new FlowLayout();
     // End of variables declaration
@@ -31,12 +33,20 @@ public class GuiPlayer extends javax.swing.JFrame {
 
     	this.statistics = stat;
         this.cards = new Card();
-
+        this.betPanel = new Bet();
+        
     	main.add(new JScrollPane(statistics));
-    	main.add(new bet());
+    	main.add(betPanel);
     	main.add(new JScrollPane(cards));
     }
 
+    
+    public void update(){
+        statistics.initContents();
+        cards.initContents();
+        betPanel.initContents();
+    }
+    
 
     private void initComponents() {
         this.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
