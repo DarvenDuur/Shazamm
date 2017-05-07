@@ -1,10 +1,14 @@
 package game.gui;
 
+import game.Player;
+import game.Turn;
+import game.cards.AbstractCard;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Image;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
@@ -18,14 +22,15 @@ public class Card extends javax.swing.JPanel {
     private ArrayList<Image> Cards;
     private ArrayList<JCheckBox> chbx;
     private JPanel main;
+    private Turn turn;
 	
 	
     /**
      * Creates new panel of test
      */
-    public Card() {
+    public Card(Turn turn) {
         initComponents();
-        initContents();
+        initContents(turn);
         
         this.add(new JScrollPane(main));
     }
@@ -43,12 +48,13 @@ public class Card extends javax.swing.JPanel {
     }
     
     
-    protected void initContents() {
+    protected void initContents(Turn t) {
         
     	this.setLayout(new java.awt.GridLayout(1, 10));
     	
         this.Cards = new ArrayList<>();
         this.chbx = new ArrayList<>();
+        this.turn = t;
         
         for(int i = 1; i < 10; i++){
         	JPanel j = new JPanel();
@@ -73,6 +79,16 @@ public class Card extends javax.swing.JPanel {
         	
         	main.add(j);
         }
+    }
+    
+    public HashSet<AbstractCard> askCards(Player p){
+        if(turn.getPlayerState(turn.getPlayerState(true)).equals(p)){
+            
+        }
+        else{
+            
+        }
+        return Console.askCards(turn, );
     }
 
 }

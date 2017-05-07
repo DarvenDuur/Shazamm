@@ -17,11 +17,11 @@ public class Shazamm extends javax.swing.JFrame {
 
     // Variables declaration
     private JPanel main;
-    private Board board;
+    private static Board board;
     private Statistics statistics;
     private FlowLayout layout = new FlowLayout();
-    private GuiPlayer player1, player2;
-    private boolean onePlayer;
+    private static GuiPlayer player1, player2;
+    private static boolean onePlayer;
     // End of variables declaration
 
 
@@ -38,7 +38,7 @@ public class Shazamm extends javax.swing.JFrame {
     
     private void initContents(boolean onePlayer){
 
-    	main.setLayout(layout); 
+    	main.setLayout(layout);
 
         this.onePlayer = onePlayer;
     	this.statistics = new Statistics();
@@ -65,12 +65,12 @@ public class Shazamm extends javax.swing.JFrame {
     }
 
 
-    public static void run(boolean onePlayer) {
+    public static void run(boolean onePlayer){
         new Shazamm(onePlayer).setVisible(true);
     }
 
 
-    public void update(){
+    public static void update(){
     	board.initContents();
     	player1.update();
         
@@ -84,6 +84,6 @@ public class Shazamm extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        run(true);
+        run(false);
     }
 }
