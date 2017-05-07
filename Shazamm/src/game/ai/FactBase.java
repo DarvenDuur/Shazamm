@@ -9,6 +9,7 @@ import game.cards.Clone;
 import game.gui.log.LogTitle;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Random;
 
 /**
  * Regroups different facts
@@ -298,7 +299,10 @@ public class FactBase extends HashSet<Fact> {
     
     
     private int relativeBet(int availableMana) {
-        return (int) (RELATIVE_BET_RATIO * availableMana);
+        Random r = new Random();
+        
+        return (int) ((RELATIVE_BET_RATIO * availableMana) *
+                (1 + ((r.nextFloat() - 0.5)/2)));
     }
 
     /**

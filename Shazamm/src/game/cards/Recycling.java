@@ -41,8 +41,11 @@ public class Recycling extends AbstractCard {
         //get use mode from player
         boolean confirmation;
         if (userPlayer.getPlayer() instanceof BotPlayer){
-            //throw new UnsupportedOperationException("no AI for confirmation");
-            confirmation = true;
+            PlayerState opponent=super.getNotUserPlayer(round);
+            int opponentPower= opponent.getAttackPower();
+            int difference=opponentPower-userPlayer.getAttackPower();
+
+            confirmation=!(difference>5 || difference<-5);
             
         } else {
             //graphical mode
