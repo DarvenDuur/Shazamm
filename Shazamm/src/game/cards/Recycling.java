@@ -31,6 +31,7 @@ public class Recycling extends AbstractCard {
      * @see AbstractCard
      * @param round 
      *      round to which apply the card
+     * @deprecated 
      */
     @Override
     protected void apply(Round round){
@@ -46,8 +47,8 @@ public class Recycling extends AbstractCard {
         } else {
             //graphical mode
             if (GuiConfig.guiMode) {
-                throw new UnsupportedOperationException("no gui for confirmation");
-                //confirmation = ;
+                //throw new UnsupportedOperationException("no gui for confirmation");
+                confirmation = true;
                 
             } else {
                 confirmation = Console.getConfirmation(String.format(

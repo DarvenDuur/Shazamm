@@ -119,7 +119,7 @@ public class Round {
      *      last turn's player state, depending on parameter
      */
     public PlayerState getLastPlayerState(boolean player1){
-        return this.getLastPlayerState(player1);
+        return this.getLastTurn().getPlayerState(player1);
     }
 
     /**

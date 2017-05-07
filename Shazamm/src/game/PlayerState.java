@@ -192,7 +192,9 @@ public class PlayerState implements Cloneable {
      */
     private HashSet<AbstractCard> askCardsAI(Turn turn) {
         AIAction action = InferenceEngine.run(turn);
-        setBet(action.getBet());
+        this.setBet(action.getBet());
+        this.setAttackPower(this.getBet());
+        this.addMana(-this.getBet());
         return action.getCards();
     }    
 
@@ -215,6 +217,8 @@ public class PlayerState implements Cloneable {
     public void bet() {
         if (!(this.player instanceof BotPlayer)) {
             betHuman();
+        } else {
+            System.out.println("ryse");
         }
     }
 
