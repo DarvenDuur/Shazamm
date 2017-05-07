@@ -72,7 +72,7 @@ public class Turn implements Cloneable {
      *      the PlayerState for the player
      */
     public PlayerState getPlayerState(boolean player1) {
-        return this.getPlayerState(player1);
+        return this.bridge.getPlayerState(player1);
     }
 
     /**
