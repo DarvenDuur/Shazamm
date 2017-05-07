@@ -32,17 +32,20 @@ public class GuiTurn extends JPanel{
     	
         this.bet = new JLabel("Bet: " + playerBet);
         this.bet.setFont(new Font("Caladea", Font.BOLD, 16));
-        this.bet.setForeground(new Color(174, 66, 74));
+        this.bet.setForeground(color);
     	
         this.spell = new JLabel("Spells used :\n");
         this.spell.setFont(new Font("Caladea", Font.BOLD, 16));
-        this.spell.setForeground(new Color(174, 66, 74));
+        this.spell.setForeground(color);
 
         main.add(bet);
         main.add(spell);
         
         for(String s : cards){
-        	main.add(new JLabel("\t -" + s + "\n"));
+        	JLabel jb = new JLabel("\t -" + s + "\n");
+        	jb.setFont(new Font("Caladea", Font.BOLD, 16));
+        	jb.setForeground(color);
+        	main.add(jb);
         }
         
     	this.add(main);
