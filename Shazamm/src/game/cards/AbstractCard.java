@@ -269,4 +269,8 @@ public abstract class AbstractCard implements Comparable<AbstractCard> {
     public void setClone(AbstractCard secondClonedCard) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    public String toString(){
+        return this.getId() + ". " + this.getName();
+    }
 }

@@ -152,7 +152,7 @@ public class FactBase extends HashSet<Fact> {
         
         //evaluation des paris
         score *= 2;
-        score += this.extractBet();
+        score -= this.extractBet();
         
         return score;
     }

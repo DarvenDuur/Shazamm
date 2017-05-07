@@ -38,7 +38,8 @@ public class LogBet extends Log {
      */
     @Override
     public String toString() {
-        return super.toString() + "\n" + this.PLAYER + " " + GuiConfig.BET_STRING;
+        return super.toString() + "\n" 
+                + this.PLAYER + " " + GuiConfig.BET_STRING;
     }
 
 }
