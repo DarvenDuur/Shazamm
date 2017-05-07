@@ -36,9 +36,9 @@ public class Board extends javax.swing.JPanel {
         
         for(int i = 1; i < 20; i++){
         	if(i < 10){
-                    Bridge.add(new ImageIcon(GuiConfig.PATH_IMG + "/pont/pont_0" + i + ".gif").getImage());
+            	Bridge.add(new ImageIcon(GuiConfig.PATH_IMG + "/pont/pont_0" + i + ".gif").getImage());
         	}else{
-                    Bridge.add(new ImageIcon(GuiConfig.PATH_IMG + "/pont/pont_" + i + ".gif").getImage());
+            	Bridge.add(new ImageIcon(GuiConfig.PATH_IMG + "/pont/pont_" + i + ".gif").getImage());
         	}
         }
     }
