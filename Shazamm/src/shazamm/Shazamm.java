@@ -19,19 +19,25 @@ public class Shazamm {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        //extract mode fr
-        if (args[0].equals("console") || args[0].equals("-c")){
-            //run as console
-            GuiConfig.guiMode = false;
-            
-        } else if (args[0].equals("graphical") || args[0].equals("-g")){
-            //run graphical
-            GuiConfig.guiMode = true;
-            
-        //default mode
-        } else {
-            //graphical question
-            //activateGUI = graphicMode();
+        try{
+            //extract mode fr
+            if (args[0].equals("console") || args[0].equals("-c")){
+                //run as console
+                GuiConfig.guiMode = false;
+
+            } else if (args[0].equals("graphical") || args[0].equals("-g")){
+                //run graphical
+                GuiConfig.guiMode = true;
+
+            //default mode
+            } else {
+                //graphical question
+                //activateGUI = graphicMode();
+            }
+        }
+        catch(ArrayIndexOutOfBoundsException e){
+               //graphical question
+               //activateGUI = graphicMode();
         }
         
         //apply gui choice
