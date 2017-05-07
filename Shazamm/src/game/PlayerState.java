@@ -176,6 +176,7 @@ public class PlayerState implements Cloneable {
             if (GuiConfig.guiMode) {
                 throw new UnsupportedOperationException("no gui for ask cards");
                 //return null;
+                this.player.getGui().askCards();
             } else {
                 return askCardsHuman(turn);
             }

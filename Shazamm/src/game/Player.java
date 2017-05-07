@@ -1,5 +1,7 @@
 package game;
 
+import game.gui.GuiPlayer;
+
 /**
  * Player informations
  */
@@ -9,6 +11,8 @@ public class Player {
     
     // name of the player
     private final String NAME;
+    
+    private GuiPlayer gui;
     
 //***************************** CONSTRUCTOR ************************************
     /**
@@ -57,6 +61,20 @@ public class Player {
             str+="red ";
         }
         return str+=this.NAME;
+    }
+
+    /**
+     * @return the gui
+     */
+    public GuiPlayer getGui() {
+        return gui;
+    }
+
+    /**
+     * @param gui the gui to set
+     */
+    public void setGui(GuiPlayer gui) {
+        this.gui = gui;
     }
     
         
