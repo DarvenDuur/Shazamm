@@ -17,10 +17,8 @@ import javax.swing.JScrollPane;
 public class Shazamm extends javax.swing.JFrame {
 
     // Variables declaration
-    private JPanel board, main;
-	private Statistics statistics;
+    private JPanel board, statistics, cards, main;
     private FlowLayout layout = new FlowLayout();
-    private GuiPlayer player1, player2;
     // End of variables declaration
 
 
@@ -33,31 +31,34 @@ public class Shazamm extends javax.swing.JFrame {
         
         this.add(main);
     }
-
     
     private void initContents(){
 
     	main.setLayout(layout); 
 
     	this.statistics = new Statistics();
-    	
-    	this.player1 = new GuiPlayer(statistics); 
-    	this.player2 = new GuiPlayer(statistics); 
-    	
         this.board = new Board(0, 250);
-    	
+        this.cards = new Card();
+
+    	main.add(statistics);
     	main.add(board);
+    	main.add(new bet());
+    	main.add(new JScrollPane(cards));
     }
 
+    public void run() {
+        new Shazamm().setVisible(true);
+    }
 
     private void initComponents() {
         this.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         this.setTitle("Shazamm");
-        this.setSize(new java.awt.Dimension(700, 420));
+        this.setSize(new java.awt.Dimension(1024, 800));
         this.setResizable(false);
 
         this.main = new JPanel();
-        this.main.setBackground(new java.awt.Color(0, 0, 0));
+        this.main.setBackground(new java.awt.Color(65, 75, 86));
+        this.main.setPreferredSize(new java.awt.Dimension(1024, 800));
     }
 
 

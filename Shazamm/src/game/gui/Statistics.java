@@ -62,8 +62,8 @@ public class Statistics extends JPanel {
     	a.add("Test");
     	a.add("Test");
     	
-    	main.add(new GUITurn(13, a, true));
-    	main.add(new GUITurn(22, a, false));
+    	main.add(new GuiTurn(13, a, true));
+    	main.add(new GuiTurn(22, a, false));
     	
     }
 
