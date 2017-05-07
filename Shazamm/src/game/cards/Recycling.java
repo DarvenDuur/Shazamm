@@ -41,14 +41,14 @@ public class Recycling extends AbstractCard {
         //get use mode from player
         boolean confirmation;
         if (userPlayer.getPlayer() instanceof BotPlayer){
-            throw new UnsupportedOperationException("no AI for confirmation");
-            //confirmation = ;
+            //throw new UnsupportedOperationException("no AI for confirmation");
+            confirmation = true;
             
         } else {
             //graphical mode
             if (GuiConfig.guiMode) {
-                //throw new UnsupportedOperationException("no gui for confirmation");
-                confirmation = true;
+                throw new UnsupportedOperationException("no gui for confirmation");
+                //confirmation = true;
                 
             } else {
                 confirmation = Console.getConfirmation(String.format(

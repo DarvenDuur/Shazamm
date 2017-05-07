@@ -36,7 +36,7 @@ public abstract class Log {
      */
     @Override
     public String toString() {
-        return this.DATE + "\t";
+        return this.DATE;
     }
 
 }
