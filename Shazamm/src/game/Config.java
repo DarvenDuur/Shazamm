@@ -28,16 +28,16 @@ public class Config {
     public static final int FIRST_TURN_DRAW = 5;
 
 //*************************** BDD **********************************************
-    //TODO
+    // name of database
     public static final String BDD_NAME = "";
     
-    //TODO
+    // username for database
     public static final String BDD_USERNAME = "root";
     
-    //TODO
+    // user's password
     public static final String BDD_PASSWORD = "";
     
     
-    
+    // playername for AI player
     public static final String AI_NAME="Ordinateur";
 }

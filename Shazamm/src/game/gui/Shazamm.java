@@ -18,31 +18,35 @@ public class Shazamm extends javax.swing.JFrame {
     // Variables declaration
     private JPanel main;
     private Board board;
-	private Statistics statistics;
+    private Statistics statistics;
     private FlowLayout layout = new FlowLayout();
     private GuiPlayer player1, player2;
+    private boolean onePlayer;
     // End of variables declaration
 
 
     /**
      * Creates new form Shazamm
      */
-    public Shazamm() {
+    public Shazamm(boolean onePlayer) {
         initComponents();
-        initContents();
+        initContents(onePlayer);
         
         this.add(main);
     }
 
     
-    private void initContents(){
+    private void initContents(boolean onePlayer){
 
     	main.setLayout(layout); 
 
+        this.onePlayer = onePlayer;
     	this.statistics = new Statistics();
     	
-    	this.player1 = new GuiPlayer(statistics); 
-    	this.player2 = new GuiPlayer(statistics); 
+    	this.player1 = new GuiPlayer(statistics);
+        if(!onePlayer){
+            this.player2 = new GuiPlayer(statistics); 
+        }
     	
         this.board = new Board();
     	
@@ -61,28 +65,25 @@ public class Shazamm extends javax.swing.JFrame {
     }
 
 
-    public void run() {
-        new Shazamm().setVisible(true);
+    public static void run(boolean onePlayer) {
+        new Shazamm(onePlayer).setVisible(true);
     }
-    
-    
+
+
     public void update(){
     	board.initContents();
     	player1.update();
-    	player2.update();
+        
+        if(!onePlayer){
+            player2.update(); 
+        }
     }
-    
-    
+
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Shazamm().setVisible(true);
-            }
-        });
+        run(true);
     }
 }

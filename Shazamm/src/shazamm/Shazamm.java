@@ -6,7 +6,6 @@
 package shazamm;
 
 import game.Game;
-import game.ai.KnowledgeBase;
 import game.gui.Console;
 import game.gui.GuiConfig;
 
@@ -29,22 +28,15 @@ public class Shazamm {
             } else if (args[0].equals("graphical") || args[0].equals("-g")){
                 //run graphical
                 GuiConfig.guiMode = true;
-
-            //default mode
-            } else {
-                //graphical question
-                //activateGUI = graphicMode();
             }
         }
         catch(ArrayIndexOutOfBoundsException e){
-               //graphical question
-               //activateGUI = graphicMode();
+            
         }
         
         //apply gui choice
         boolean activateAI = false;
         if (GuiConfig.guiMode){
-            graphicMode();
             //ask ai mode
             //activateAI = false;
         } else {
@@ -54,13 +46,10 @@ public class Shazamm {
         }
             
         Game game = new Game(activateAI);
+        
+        // start gui
+        game.gui.Shazamm.run(activateAI);
+        
         game.play();
-    }
-    
-    /**
-     * Launch GUI
-     */
-    private static void graphicMode(){
-        game.gui.Shazamm.main(new String[]{""});
     }
 }

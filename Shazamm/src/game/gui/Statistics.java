@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.util.ArrayList;
-
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -14,10 +13,10 @@ import javax.swing.JPanel;
  */
 public class Statistics extends JPanel {
 
-	private JPanel main;
-	private JLabel title;
+    private JPanel main;
+    private JLabel title;
 
-	
+
     /**
      * Creates new form Statistics
      */

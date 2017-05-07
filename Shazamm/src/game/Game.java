@@ -112,6 +112,8 @@ public class Game {
         while(!playRound()){
             //play rounds while the ending conditions are not met
         }
+        
+        //update database
         ConnexionBDD bdd = new ConnexionBDD(Config.BDD_NAME, 
                 Config.BDD_USERNAME, Config.BDD_PASSWORD);
         bdd.updatePlayer(PLAYER1.getName(), this.winner());

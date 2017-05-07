@@ -34,7 +34,10 @@ public class Turn implements Cloneable {
      * If both are true, players "exchange" their cards. */
     private boolean player1Theft, player2Theft;
     
+    // security for interruption of play
     private static boolean canContinuePlay = true;
+    
+    // memory for interruption of play 
     private static Round temporaryRound = null;
 
 
@@ -186,6 +189,7 @@ public class Turn implements Cloneable {
     /**
      * Play turn get action and bet input and apply it to this turn.
      *      Clear console between each player.
+     *      Break flow before player input
      * @param round 
      *      Parent round, needed to apply actions globally
      */
@@ -200,16 +204,23 @@ public class Turn implements Cloneable {
         //print bridge initial state
         Console.println(this.getBridge().toString());
 
+        game.gui.Shazamm.update();
+        
         //where we whait for both players to finish their choice in GUI
+        // initialising variables for interruption
         temporaryRound = round;
         canContinuePlay = true;
-        //replace listner
+        
+        //replace listner in console mode
         if (!GuiConfig.guiMode) {
             this.playPart2();
         }
     }
     
-    private void playPart2(){
+    /**
+     * Resume play flow
+     */
+    public void playPart2(){
         if (canContinuePlay) {
             Round round = temporaryRound;
             canContinuePlay = false;
