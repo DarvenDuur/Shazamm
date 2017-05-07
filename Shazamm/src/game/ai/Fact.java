@@ -1,5 +1,7 @@
 package game.ai;
 
+import java.util.Objects;
+
 public class Fact implements Comparable<Fact>{
     //usual facts
     public static final Fact 
@@ -36,15 +38,18 @@ public class Fact implements Comparable<Fact>{
      */
     @Override
     public int compareTo(Fact o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (o instanceof Fact) {
+            return this.hashCode() - o.hashCode();
+        } else {
+            return 0;
+        }
     }
-    
-    /**
-     * @deprecated 
-     */
+
     @Override
     public int hashCode() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int hash = 7;
+        hash = 11 * hash + this.name.hashCode();
+        return hash;
     }
 
     /**
@@ -52,5 +57,23 @@ public class Fact implements Comparable<Fact>{
      */
     public String getName() {
         return name;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Fact other = (Fact) obj;
+        if (!Objects.equals(this.name, other.name)) {
+            return false;
+        }
+        return true;
     }
 }

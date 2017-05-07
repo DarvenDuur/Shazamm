@@ -36,5 +36,34 @@ public class CardFact extends Fact {
     public char getType() {
         return TYPE;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 83 * hash + this.CARD_ID;
+        hash = 83 * hash + this.TYPE;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final CardFact other = (CardFact) obj;
+        if (this.CARD_ID != other.CARD_ID) {
+            return false;
+        }
+        if (this.TYPE != other.TYPE) {
+            return false;
+        }
+        return true;
+    }
     
 }
