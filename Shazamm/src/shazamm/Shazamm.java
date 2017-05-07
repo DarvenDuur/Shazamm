@@ -47,9 +47,6 @@ public class Shazamm {
             
         Game game = new Game(activateAI);
         
-        // start gui
-        game.gui.Shazamm.run(activateAI);
-        
-        game.play();
+        game.play(activateAI);
     }
 }

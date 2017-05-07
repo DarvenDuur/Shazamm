@@ -4,6 +4,7 @@ import game.bdd.ConnexionBDD;
 import java.util.LinkedList;
 import java.util.Random;
 import game.gui.Console;
+import game.gui.GuiConfig;
 
 /**
  * Main Shazamm game system, manages rounds and global victory
@@ -107,8 +108,15 @@ public class Game {
 //***************************** OTHER ******************************************
     /**
      * loop rounds until game end condition is met (a player is in the lava)
+     * @param activateAI
+     *      parameter to pass to GUI
      */
-    public void play(){
+    public void play(boolean activateAI){
+        if (GuiConfig.guiMode){
+            // start gui
+            game.gui.Shazamm.run(activateAI, PLAYER1, PLAYER2);
+        }
+        
         while(!playRound()){
             //play rounds while the ending conditions are not met
         }
