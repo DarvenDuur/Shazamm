@@ -30,6 +30,7 @@ public class bet extends JPanel {
         initContents();
     }
 
+
     
     private void initContents(){
 
