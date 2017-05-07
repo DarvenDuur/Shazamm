@@ -2,6 +2,8 @@ package game;
 
 import game.cards.AbstractCard;
 import game.gui.Console;
+import game.gui.GuiConfig;
+import game.gui.log.Log;
 import game.gui.log.LogBetOverview;
 import game.gui.log.LogTurnOverview;
 import game.gui.log.LogSystem;
@@ -31,6 +33,9 @@ public class Turn implements Cloneable {
      * appropriating the effects to himself.
      * If both are true, players "exchange" their cards. */
     private boolean player1Theft, player2Theft;
+    
+    private static boolean canContinuePlay = true;
+    private static Round temporaryRound = null;
 
 
 //***************************** CONSTRUCTOR ************************************
@@ -188,61 +193,82 @@ public class Turn implements Cloneable {
         Console.clear();
         //add turn presentation log
         LogSystem.addLog(new LogTitle());
-
+        if (!GuiConfig.guiMode) {
+            Console.println(LogSystem.getLastLogs(1));
+        }
+        
         //print bridge initial state
         Console.println(this.getBridge().toString());
 
-        //get current player states
-        PlayerState player1 = this.getPlayerState(true);
-        PlayerState player2 = this.getPlayerState(false);
-
         //where we whait for both players to finish their choice in GUI
-        
-        //bet
-        player1.bet();
-        Console.clear();
-        player2.bet();
-        Console.clear();
-
-        //collect actions input
-        HashSet<AbstractCard> player1Cards = player1.askCards(this);
-        Console.clear();
-        HashSet<AbstractCard> player2Cards = player2.askCards(this);
-        Console.clear();
-
-        //discard cards played by each player
-        player1.getCardManager().discardAll(player1Cards);
-        player2.getCardManager().discardAll(player2Cards);
-
-        //merge and sort card lists
-        ArrayList<AbstractCard> cards = new ArrayList<>();
-        cards.addAll(player1Cards);
-        cards.addAll(player2Cards);
-        Collections.sort(cards);
-
-        //create turn summary log
-        LogTurnOverview turnLog = new LogTurnOverview(this.getBridge());
-
-        //apply cards' action to the turn
-        for (AbstractCard card : cards) {
-            card.generalApply(round);
+        temporaryRound = round;
+        canContinuePlay = true;
+        //replace listner
+        if (!GuiConfig.guiMode) {
+            this.playPart2();
         }
+    }
+    
+    private void playPart2(){
+        if (canContinuePlay) {
+            Round round = temporaryRound;
+            canContinuePlay = false;
+        
+            //get current player states
+            PlayerState player1 = this.getPlayerState(true);
+            PlayerState player2 = this.getPlayerState(false);
 
-        //apply bet
-        this.applyBets();
+            //bet
+            player1.bet();
+            Console.clear();
+            player2.bet();
+            Console.clear();
+            if (!GuiConfig.guiMode) {
+                Console.println(LogSystem.getLastLogs(2));
+            }
 
-        this.endOfTurnDraw();
-        this.end();
+            //collect actions input
+            HashSet<AbstractCard> player1Cards = player1.askCards(this);
+            Console.clear();
+            HashSet<AbstractCard> player2Cards = player2.askCards(this);
+            Console.clear();
 
-        //add bet summary log
-        LogSystem.addLog(new LogBetOverview(this.getBridge()));
-        //update turn summary log
-        turnLog.setFinalTurn(this);
-        LogSystem.addLog(turnLog);
+            //discard cards played by each player
+            player1.getCardManager().discardAll(player1Cards);
+            player2.getCardManager().discardAll(player2Cards);
 
-        //print 5 last logs (turn title, 2 bets, bet summary, turn summary)
-        Console.clear();
-        Console.println(LogSystem.getLastLogs(5));
+            //merge and sort card lists
+            ArrayList<AbstractCard> cards = new ArrayList<>();
+            cards.addAll(player1Cards);
+            cards.addAll(player2Cards);
+            Collections.sort(cards);
+
+            //create turn summary log
+            LogTurnOverview turnLog = new LogTurnOverview(this.getBridge());
+
+            //apply cards' action to the turn
+            for (AbstractCard card : cards) {
+                card.generalApply(round);
+            }
+
+            //apply bet
+            this.applyBets();
+
+            this.endOfTurnDraw();
+            this.end();
+
+            //add bet summary log
+            LogSystem.addLog(new LogBetOverview(this.getBridge()));
+            //update turn summary log
+            turnLog.setFinalTurn(this);
+            LogSystem.addLog(turnLog);
+
+            //print 5 last logs (turn title, 2 bets, bet summary, turn summary)
+            for (Log log : LogSystem.getLastLogs(2)){
+                Console.clear();
+                Console.println(log);
+            }
+        }
     }
 
     /**

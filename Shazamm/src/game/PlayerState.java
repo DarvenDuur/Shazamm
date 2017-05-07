@@ -217,9 +217,9 @@ public class PlayerState implements Cloneable {
     public void bet() {
         if (!(this.player instanceof BotPlayer)) {
             betHuman();
-        } else {
-            System.out.println("ryse");
         }
+        
+        LogSystem.addLog(new LogBet(this.player));
     }
 
     /**
@@ -247,8 +247,6 @@ public class PlayerState implements Cloneable {
         this.setBet(manaAmount);
         this.setAttackPower(manaAmount);
         this.addMana(-manaAmount);
-
-        LogSystem.addLog(new LogBet(this.player));
     }
     
 //***************************** OTHER ******************************************
