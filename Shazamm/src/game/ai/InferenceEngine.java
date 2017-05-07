@@ -2,6 +2,7 @@ package game.ai;
 
 import game.Turn;
 import java.util.HashSet;
+import java.util.Iterator;
 
 /**
  * Apply inference rules to the fact base
@@ -47,16 +48,17 @@ public class InferenceEngine {
      * @return the best factBase
      */
     private FactBase bestFactBase(){
-        
-        int score=0;
-        FactBase BestFact=null;
-        int temp=0;
-        
-        for (FactBase factBase : factBases) {
-            temp=factBase.evaluate();
+        Iterator  it =factBases.iterator();
+        FactBase BestFact=factBases.iterator().next();
+        int score=BestFact.evaluate();
+        int temp;
+
+        while(it.hasNext()){
+            FactBase tempFactBase=(FactBase)it.next();
+            temp=tempFactBase.evaluate();
             if(temp<=score){
                 score=temp;
-                BestFact=factBase;
+                BestFact=tempFactBase;
             }
         }
         return BestFact;

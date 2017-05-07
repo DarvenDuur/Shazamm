@@ -42,7 +42,7 @@ public class AIAction {
      *      Cards to play this turn
      */
     public HashSet<AbstractCard> getCards(){
-        return this.getCards();
+        return this.CARDS;
     }
 
 //***************************** asAIAction *************************************
