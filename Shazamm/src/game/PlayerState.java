@@ -213,7 +213,7 @@ public class PlayerState implements Cloneable {
      * Define bet value
      */
     public void bet() {
-        if (this.player instanceof BotPlayer) {
+        if (!(this.player instanceof BotPlayer)) {
             betHuman();
         }
     }
