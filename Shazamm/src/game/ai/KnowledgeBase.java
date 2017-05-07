@@ -209,9 +209,12 @@ public enum KnowledgeBase {
     
     private KnowledgeBase(Fact[] postulate, Fact[] incompatible, 
             Fact[] conclusion, String name, int weight){
-        this.POSTULATE = (FactBase) new HashSet<Fact>(Arrays.asList(postulate));
-        this.INCOMPATIBLE = (FactBase) new HashSet<Fact>(Arrays.asList(incompatible));
-        this.CONCLUSION = (FactBase) new HashSet<Fact>(Arrays.asList(conclusion));
+        this.POSTULATE = new FactBase();
+        this.POSTULATE.addAll(Arrays.asList(postulate));
+        this.INCOMPATIBLE = new FactBase();
+        this.POSTULATE.addAll(Arrays.asList(incompatible));
+        this.CONCLUSION = new FactBase();
+        this.CONCLUSION.addAll(Arrays.asList(conclusion));
         this.NAME = name;
         this.WEIGHT = weight;
     }
@@ -219,9 +222,12 @@ public enum KnowledgeBase {
     
     private KnowledgeBase(Fact[] postulate, Fact[] conclusion,
             String name, int weight){
-        this.POSTULATE = (FactBase) new HashSet<Fact>(Arrays.asList(postulate));
-        this.INCOMPATIBLE = (FactBase) new HashSet<Fact>();
-        this.CONCLUSION = (FactBase) new HashSet<Fact>(Arrays.asList(conclusion));
+        this.POSTULATE = new FactBase();
+        this.POSTULATE.addAll(Arrays.asList(postulate));
+        this.INCOMPATIBLE = new FactBase();
+        this.CONCLUSION = new FactBase();
+        this.CONCLUSION.addAll(Arrays.asList(conclusion));
+        
         this.NAME = name;
         this.WEIGHT = weight;
     }
