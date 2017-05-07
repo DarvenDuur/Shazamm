@@ -199,12 +199,13 @@ public class Turn implements Cloneable {
         LogSystem.addLog(new LogTitle());
         if (!GuiConfig.guiMode) {
             Console.println(LogSystem.getLastLogs(1));
+            
+            //print bridge initial state
+            Console.println(this.getBridge().toString());
+        } else {
+            game.gui.Shazamm.update();
         }
         
-        //print bridge initial state
-        Console.println(this.getBridge().toString());
-
-        game.gui.Shazamm.update();
         
         //where we whait for both players to finish their choice in GUI
         // initialising variables for interruption
@@ -274,10 +275,13 @@ public class Turn implements Cloneable {
             turnLog.setFinalTurn(this);
             LogSystem.addLog(turnLog);
 
-            //print 5 last logs (turn title, 2 bets, bet summary, turn summary)
-            for (Log log : LogSystem.getLastLogs(2)){
-                Console.clear();
-                Console.println(log);
+            if (!GuiConfig.guiMode) {
+                for (Log log : LogSystem.getLastLogs(2)){
+                    Console.clear();
+                    Console.println(log);
+                }
+            } else {
+                game.gui.Shazamm.update();
             }
         }
     }
