@@ -117,7 +117,6 @@ public class LogBetOverview extends Log {
         for (AbstractCard card : this.PLAYER_2_CARDS) {
             string += card.toString() + ";";
         }
-        string += "\n";
 
         return string;
     }
