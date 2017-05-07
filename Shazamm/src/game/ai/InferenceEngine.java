@@ -44,12 +44,14 @@ public class InferenceEngine {
     /**
      * 
      * @param turn
-     * @return 
+     * @return the best factBase
      */
     private FactBase bestFactBase(){
+        
         int score=0;
-        FactBase BestFact=new FactBase() ;
+        FactBase BestFact=null;
         int temp=0;
+        
         for (FactBase factBase : factBases) {
             temp=factBase.evaluate();
             if(temp<=score){
