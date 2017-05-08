@@ -2,6 +2,9 @@ package game.ai;
 
 import java.util.Objects;
 
+/**
+ * Fact representing information about current situation
+ */
 public class Fact implements Comparable<Fact>{
     //usual facts
     public static final Fact 
@@ -25,17 +28,17 @@ public class Fact implements Comparable<Fact>{
             Z2 = new Fact("Z2"),
             BEGIN = new Fact("begin");
 
+    //fact name, used for hash and display
     private String name;
 
+    /**
+     * @param name 
+     *      name of the fact
+     */
     protected Fact(String name) {
         this.name = name;
     }
     
-    
-    
-    /**
-     * @deprecated 
-     */
     @Override
     public int compareTo(Fact o) {
         if (o instanceof Fact) {
