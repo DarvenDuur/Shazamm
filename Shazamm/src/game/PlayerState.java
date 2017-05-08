@@ -159,6 +159,10 @@ public class PlayerState implements Cloneable {
     }
     
 //***************************** CARDS ******************************************
+    public void UpdateCards(Turn turn){
+        this.player.getGui().update(turn);
+    }
+    
     /**
      * Get input cards from player
      * @param turn 
@@ -174,9 +178,7 @@ public class PlayerState implements Cloneable {
         } else {
             //graphical mode
             if (GuiConfig.guiMode) {
-                throw new UnsupportedOperationException("no gui for ask cards");
-                //return null;
-                this.player.getGui().askCards();
+                return this.player.getGui().askCards();
             } else {
                 return askCardsHuman(turn);
             }

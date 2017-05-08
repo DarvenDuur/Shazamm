@@ -5,6 +5,7 @@
  */
 package game.gui;
 
+import game.Player;
 import java.awt.FlowLayout;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -18,9 +19,8 @@ public class Shazamm extends javax.swing.JFrame {
     // Variables declaration
     private JPanel main;
     private static Board board;
-    private Statistics statistics;
     private FlowLayout layout = new FlowLayout();
-    private static GuiPlayer player1, player2;
+    private static Player player1, player2;
     private static boolean onePlayer;
     // End of variables declaration
 
@@ -28,24 +28,25 @@ public class Shazamm extends javax.swing.JFrame {
     /**
      * Creates new form Shazamm
      */
-    public Shazamm(boolean onePlayer) {
+    public Shazamm(boolean onePlayer, Player p1, Player p2) {
         initComponents();
-        initContents(onePlayer);
+        initContents(onePlayer, p1, p2);
         
         this.add(main);
     }
 
     
-    private void initContents(boolean onePlayer){
+    private void initContents(boolean onePlayer, Player p1, Player p2){
 
     	main.setLayout(layout);
 
         this.onePlayer = onePlayer;
-    	this.statistics = new Statistics();
     	
-    	this.player1 = new GuiPlayer(statistics);
+    	this.player1 = p1;
+        p1.setGui(new GuiPlayer(true));
         if(!onePlayer){
-            this.player2 = new GuiPlayer(statistics); 
+            this.player2 = p2;
+            p2.setGui(new GuiPlayer(false));
         }
     	
         this.board = new Board();
@@ -65,25 +66,12 @@ public class Shazamm extends javax.swing.JFrame {
     }
 
 
-    public static void run(boolean onePlayer){
-        new Shazamm(onePlayer).setVisible(true);
+    public static void run(boolean onePlayer, Player p1, Player p2){
+        new Shazamm(onePlayer, p1, p2).setVisible(true);
     }
 
 
     public static void update(){
     	board.initContents();
-    	player1.update();
-        
-        if(!onePlayer){
-            player2.update(); 
-        }
-    }
-
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        run(false);
     }
 }

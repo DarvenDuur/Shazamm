@@ -3,12 +3,14 @@ package game.gui;
 import game.Player;
 import game.Turn;
 import game.cards.AbstractCard;
+import game.cards.Clone;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Image;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
@@ -23,14 +25,16 @@ public class Card extends javax.swing.JPanel {
     private ArrayList<JCheckBox> chbx;
     private JPanel main;
     private Turn turn;
+    private final boolean PLAYER_1;
 	
 	
     /**
      * Creates new panel of test
      */
-    public Card(Turn turn) {
+    public Card(boolean player1) {
         initComponents();
-        initContents(turn);
+        this.PLAYER_1 = player1;
+        //initContents(turn);
         
         this.add(new JScrollPane(main));
     }
@@ -56,17 +60,22 @@ public class Card extends javax.swing.JPanel {
         this.chbx = new ArrayList<>();
         this.turn = t;
         
-        for(int i = 1; i < 10; i++){
+        HashSet<AbstractCard> cards = this.turn.getPlayerState(PLAYER_1).
+                getCardManager().getHand();
+        
+        for(AbstractCard card : cards){
         	JPanel j = new JPanel();
 
         	j.setBackground(new Color(0, 0, 0));
         	j.setPreferredSize(new Dimension(220, 300));
         	j.setLayout(new FlowLayout());
         	
-        	Cards.add(new ImageIcon(GuiConfig.PATH_IMG + "/cartes/0" + i + "v.jpg").getImage());
+                Image icon = new ImageIcon(GuiConfig.PATH_IMG + "/cartes/" + 
+                        card.getImageName()).getImage().getScaledInstance(200, 
+                                250, Image.SCALE_DEFAULT);
+        	
+                Cards.add(icon);
         	chbx.add(new JCheckBox());
-
-        	Image icon = new ImageIcon(GuiConfig.PATH_IMG + "/cartes/0" + i + "v.jpg").getImage().getScaledInstance(200, 250, Image.SCALE_DEFAULT);
         	
         	JLabel lab = new JLabel();
         	lab.setIcon(new ImageIcon(icon));
@@ -81,14 +90,24 @@ public class Card extends javax.swing.JPanel {
         }
     }
     
-    public HashSet<AbstractCard> askCards(Player p){
-        if(turn.getPlayerState(turn.getPlayerState(true)).equals(p)){
-            
+    public HashSet<AbstractCard> askCards(){
+        HashSet<AbstractCard> cards = this.turn.getPlayerState(PLAYER_1).
+                getCardManager().getHand(),
+                output = new HashSet<>();
+        
+        HashSet<Integer> integers = ;
+        
+        for (AbstractCard card : cards) {
+            if (integers.contains(card.getId())) {
+                output.add(card);
+
+                //if card is a Clone card, get cloned card
+                if (card instanceof Clone) {
+                    ((Clone) card).setClone(askClone(turn, player1));
+                }
+            }
         }
-        else{
-            
-        }
-        return Console.askCards(turn, );
+        return output;
     }
 
 }

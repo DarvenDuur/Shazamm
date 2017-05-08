@@ -1,6 +1,9 @@
 package game.gui;
 
+import game.Turn;
+import game.cards.AbstractCard;
 import java.awt.FlowLayout;
+import java.util.HashSet;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -19,20 +22,20 @@ public class GuiPlayer extends javax.swing.JFrame {
     /**
      * Creates new form GuiPlayer
      */
-    public GuiPlayer(Statistics stat) {
+    public GuiPlayer(boolean player1) {
         initComponents();
-        initContents(stat);
+        initContents(player1);
         
         this.setVisible(true);
     }
 
 
-    private void initContents(Statistics stat){
+    private void initContents(boolean player1){
 
     	main.setLayout(layout); 
 
-    	this.statistics = stat;
-        this.cards = new Card();
+    	this.statistics = new Statistics();
+        this.cards = new Card(player1);
         this.betPanel = new Bet();
         
     	main.add(new JScrollPane(statistics));
@@ -41,9 +44,9 @@ public class GuiPlayer extends javax.swing.JFrame {
     }
 
     
-    public void update(){
+    public void update(Turn t){
         statistics.initContents();
-        cards.initContents();
+        cards.initContents(t);
         betPanel.initContents();
     }
     
@@ -60,5 +63,9 @@ public class GuiPlayer extends javax.swing.JFrame {
         
         this.add(main);
 
+    }
+
+    public HashSet<AbstractCard> askCards() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
