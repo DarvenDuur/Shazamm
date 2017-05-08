@@ -53,6 +53,9 @@ public class GuiPlayer extends javax.swing.JFrame {
         betPanel.initContents(PLAYER_1);
     }
     
+    public int getBet(){
+        return this.betPanel.getBet();
+    }
     
     public void update(Turn t, GuiTurn g){
         statistics.update(g);
@@ -76,6 +79,6 @@ public class GuiPlayer extends javax.swing.JFrame {
     }
 
     public HashSet<AbstractCard> askCards() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.cards.askCards();
     }
 }

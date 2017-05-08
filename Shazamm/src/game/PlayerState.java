@@ -229,22 +229,30 @@ public class PlayerState implements Cloneable {
      * Get input for the bet, check if input is valid, and deduce mana cost
      */
     private void betHuman() {
-        Console.println(this.player.getName()
-                + ", here is the content of your hand:");
-        for (AbstractCard card : this.getCardManager().getHand()) {
-            Console.println(card.getName());
-        }
+        int manaAmount = 0;
+        if (!GuiConfig.guiMode) {
+            Console.println(this.player.getName()
+                    + ", here is the content of your hand:");
+            for (AbstractCard card : this.getCardManager().getHand()) {
+                Console.println(card.getName());
+            }
 
-        int manaAmount = Console.getIntInput(
-                "Please enter a bet (" + this.mana + " available):");
-        boolean betDone = this.verifyBet(manaAmount);
+            manaAmount = Console.getIntInput(
+                    "Please enter a bet (" + this.mana + " available):");
+            
 
-        //while input is invalid, ask for a valid bet
-        while (!betDone) {
-            manaAmount = Console.getIntInput("Input invalid (" + this.mana
-                    + "). Please enter a valid bet:");
+            boolean betDone = this.verifyBet(manaAmount);
+            
+            //while input is invalid, ask for a valid bet
+            while (!betDone) {
+                manaAmount = Console.getIntInput("Input invalid (" + this.mana
+                        + "). Please enter a valid bet:");
 
-            betDone = this.verifyBet(manaAmount);
+                betDone = this.verifyBet(manaAmount);
+            }
+        } else {
+            manaAmount = this.player.getGui().getBet();
+            manaAmount = this.verifyBet(manaAmount) ? manaAmount : 1;
         }
 
         this.setBet(manaAmount);
