@@ -46,15 +46,10 @@ public class GuiPlayer extends javax.swing.JFrame {
     	main.add(new JScrollPane(cards));
     }
 
+    
     public void update(Turn t){
         statistics.initContents();
-        cards.update(t);
-        betPanel.initContents(PLAYER_1);
-    }
-    
-    public void update(){
-        statistics.initContents();
-        cards.update();
+        cards.initContents(t);
         betPanel.initContents(PLAYER_1);
     }
     
@@ -65,7 +60,7 @@ public class GuiPlayer extends javax.swing.JFrame {
     public void update(Turn t, GuiTurn g){
         statistics.update(g);
         cards.initComponents();
-        //cards.initContents(t);
+        cards.initContents(t);
         betPanel.initContents(PLAYER_1);
     }
     

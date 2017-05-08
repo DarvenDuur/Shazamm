@@ -5,6 +5,7 @@
  */
 package game.gui;
 
+import game.Bridge;
 import game.Config;
 import game.Player;
 import java.awt.FlowLayout;
@@ -99,7 +100,7 @@ public class Shazamm extends javax.swing.JFrame {
     }
 
 
-    public static void update(){
-    	board.initContents();
+    public static void update(Bridge bridge){
+    	board.update(bridge);
     }
 }
