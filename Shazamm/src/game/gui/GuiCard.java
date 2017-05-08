@@ -27,9 +27,8 @@ public class GuiCard extends javax.swing.JPanel {
         this.add(lab);
     }
     
-    public Card mouseClicked(MouseEvent e) {
-        
-        return null;
+    public AbstractCard mouseClicked(MouseEvent e) {
+        return card;
     }
     
     public void mouseEntered(MouseEvent e) {

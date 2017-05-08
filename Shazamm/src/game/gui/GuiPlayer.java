@@ -53,6 +53,14 @@ public class GuiPlayer extends javax.swing.JFrame {
         betPanel.initContents(PLAYER_1);
     }
     
+    
+    public void update(Turn t, GuiTurn g){
+        statistics.update(g);
+        cards.initComponents();
+        cards.initContents(t);
+        betPanel.initContents(PLAYER_1);
+    }
+    
 
     private void initComponents() {
         this.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -65,7 +73,6 @@ public class GuiPlayer extends javax.swing.JFrame {
         this.main.setPreferredSize(new java.awt.Dimension(1024, 800));
         
         this.add(main);
-
     }
 
     public HashSet<AbstractCard> askCards() {

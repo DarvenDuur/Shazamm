@@ -10,7 +10,6 @@ import game.Player;
 import java.awt.FlowLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 
 
 /**

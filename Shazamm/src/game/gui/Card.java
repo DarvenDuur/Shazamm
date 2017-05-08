@@ -29,13 +29,11 @@ public class Card extends javax.swing.JPanel {
     }
 
     
-    private void initComponents() {
+    protected void initComponents() {
 
     	main = new JPanel();
-    	main.setBackground(new Color(0, 0, 0));
-
+    	main.setBackground(Color.BLACK);
         main.setMaximumSize(new Dimension(2700, 350));
-        
         this.setPreferredSize(new Dimension(700, 350));   
     }
     
@@ -51,7 +49,7 @@ public class Card extends javax.swing.JPanel {
                 getCardManager().getHand();
         
         for(AbstractCard card : cards){
-
+            main.add(new GuiCard(card));
         }
     }
     

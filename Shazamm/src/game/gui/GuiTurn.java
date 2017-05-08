@@ -10,9 +10,9 @@ import javax.swing.JPanel;
 
 public class GuiTurn extends JPanel{
 
-	private JPanel main;
-	private JLabel spell, bet;
-	private Color color;
+    private JPanel main;
+    private JLabel spell, bet;
+    private Color color;
     private FlowLayout layout = new FlowLayout();
 
 
@@ -24,12 +24,21 @@ public class GuiTurn extends JPanel{
     private void initContents(int playerBet, ArrayList<String> cards, boolean player){
     	
     	if(player){
-    		this.color = new Color(175, 65, 75);
+            this.color = new Color(175, 65, 75);
     	}
     	else{
-    		this.color = new Color(50, 189, 189);
+            this.color = new Color(50, 189, 189);
     	}
     	
+        JPanel one = new JPanel();
+        one.setBackground(new java.awt.Color(33, 41, 48));
+        one.setSize(new java.awt.Dimension(400, 100));
+        
+        JPanel two = new JPanel();
+        two.setBackground(new java.awt.Color(33, 41, 48));
+        two.setPreferredSize(new java.awt.Dimension(400, 100));
+        two.setMaximumSize(new java.awt.Dimension(400, 500));
+        
         this.bet = new JLabel("Bet: " + playerBet);
         this.bet.setFont(new Font("Caladea", Font.BOLD, 16));
         this.bet.setForeground(color);
@@ -38,17 +47,16 @@ public class GuiTurn extends JPanel{
         this.spell.setFont(new Font("Caladea", Font.BOLD, 16));
         this.spell.setForeground(color);
 
-        main.add(bet);
-        main.add(spell);
         
         for(String s : cards){
-        	JLabel jb = new JLabel("\t -" + s + "\n");
-        	jb.setFont(new Font("Caladea", Font.BOLD, 16));
-        	jb.setForeground(color);
-        	main.add(jb);
+            spell.setText(spell.getText() + "\t -" + s + "\n");
         }
         
-    	this.add(main);
+        one.add(bet);
+        two.add(spell);
+        
+    	this.add(one);
+    	this.add(two);
     }
     
     
@@ -56,11 +64,8 @@ public class GuiTurn extends JPanel{
 
     	main = new JPanel();
     	main.setLayout(layout); 
-
         main.setBackground(new java.awt.Color(33, 41, 48));
         
-        main.setPreferredSize(new java.awt.Dimension(400, 100));
-
     	this.setBackground(new java.awt.Color(255, 255, 255));
     }
 	

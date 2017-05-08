@@ -35,12 +35,12 @@ public class Statistics extends JPanel {
         this.title = new JLabel("Preceding round :");
         this.title.setFont(new Font("Caladea", Font.BOLD, 22));
         this.title.setForeground(new Color(174, 66, 74));
-        this.setPreferredSize(new Dimension(990, 400));
+        //this.setPreferredSize(new Dimension(990, 400));
     	
     	p.add(title);
 
     	this.add(p);
-    	update();
+
     }
     
     
@@ -49,26 +49,14 @@ public class Statistics extends JPanel {
     	this.main = new JPanel();
 
         main.setBackground(new Color(33, 41, 48));
-        //main.setMaximumSize(new Dimension(1000, 1200));
-
-        main.setPreferredSize(new Dimension(1000, 400));
+        main.setMaximumSize(new Dimension(1000, 1200));
+        this.setPreferredSize(new Dimension(1000, 400));
 
     	this.setBackground(new Color(33, 41, 48));
     }
     
     
-    public void update(){
-    	ArrayList<String> a = new ArrayList<>();
-    	a.add("Test");
-    	a.add("Test");
-    	a.add("Test");
-    	a.add("Test");
-    	a.add("Test");
-    	
-    	main.add(new GuiTurn(13, a, true));
-    	main.add(new GuiTurn(22, a, false));
-    	
-    	this.add(main);
+    public void update(GuiTurn a){
+    	main.add(a);
     }
-
 }
