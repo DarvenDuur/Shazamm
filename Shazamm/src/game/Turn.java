@@ -221,6 +221,9 @@ public class Turn implements Cloneable {
         if (!GuiConfig.guiMode) {
             this.continuePlay(true);
             this.continuePlay(true);
+        } else {
+            this.getPlayerState(true).getPlayer().getGui().update(this);
+            this.getPlayerState(false).getPlayer().getGui().update(this);
         }
     }
     
