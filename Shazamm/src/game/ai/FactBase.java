@@ -208,7 +208,7 @@ public class FactBase extends HashSet<Fact> {
                 clone = this.clone < 0 ? - this.clone : this.clone;
         
         //if cloned card is not used
-        if (!this.contains(new CardFact(clone,CardFact.USE)) && clone != 0){
+        if (clone != 0 && !this.contains(new CardFact(clone,CardFact.USE))){
             return 0;
         }
         
