@@ -16,7 +16,6 @@ public class Statistics extends JPanel {
     private JPanel main;
     private JLabel title;
 
-
     /**
      * Creates new form Statistics
      */
@@ -29,6 +28,7 @@ public class Statistics extends JPanel {
     protected void initContents(){
     	
     	JPanel p = new JPanel();
+        main.setMaximumSize(new Dimension(1000, 4000));
     	p.setPreferredSize(new Dimension(1000, 100));
     	p.setBackground(new Color(33, 41, 48));
     	
@@ -49,7 +49,7 @@ public class Statistics extends JPanel {
     	this.main = new JPanel();
 
         main.setBackground(new Color(33, 41, 48));
-        main.setMaximumSize(new Dimension(1000, 1200));
+        //main.setMaximumSize(new Dimension(1000, 1200));
 
         main.setPreferredSize(new Dimension(1000, 400));
 

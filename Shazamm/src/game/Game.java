@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.Random;
 import game.gui.Console;
 import game.gui.GuiConfig;
+import static game.gui.Shazamm.getName;
 
 /**
  * Main Shazamm game system, manages rounds and global victory
@@ -34,14 +35,21 @@ public class Game {
             
         //Player versus AI
         if (activateAI){
-            String  namePlayer = Console.getInput("Player, what"
-                    + " is your username?");
-            
-            // forbiding use of AI name
-            while (namePlayer.equals(Config.AI_NAME)) {
-                System.out.println("please try a new username");
+            String  namePlayer;
+            if (GuiConfig.guiMode){
+                namePlayer = getName("Player, what"
+                        + " is your username?");
+                
+            }else{
                 namePlayer = Console.getInput("Player, what"
                         + " is your username?");
+
+                // forbiding use of AI name
+                while (namePlayer.equals(Config.AI_NAME)) {
+                    System.out.println("please try a new username");
+                    namePlayer = Console.getInput("Player, what"
+                            + " is your username?");
+                }
             }
             
             this.PLAYER1 = new Player(namePlayer, greenPlayer);
@@ -49,25 +57,33 @@ public class Game {
             
         //Player versus player
         } else {
-            String  namePlayer1 = Console.getInput("Player 1, what"
-                    + " is your username?");
-            
-            // forbiding use of AI name
-            while (namePlayer1.equals(Config.AI_NAME)) {
-                System.out.println("please try a new username");
-                namePlayer1 = Console.getInput("Player 1, what"
+            String  namePlayer1, namePlayer2 = "";
+            if (GuiConfig.guiMode){
+                namePlayer1 = getName("Player 1, what"
                         + " is your username?");
-            }
-            
-            String  namePlayer2 = Console.getInput("Player 2, what"
+            }else{
+                namePlayer1 = Console.getInput("Player 1, what"
                     + " is your username?");
+
+                // forbiding use of AI name
+                while (namePlayer1.equals(Config.AI_NAME)) {
+                    System.out.println("please try a new username");
+                    namePlayer1 = Console.getInput("Player 1, what"
+                            + " is your username?");
+                }
+            }
 
             // uniqueness of name
             while (namePlayer1.equals(namePlayer2) ||
-                    namePlayer2.equals(Config.AI_NAME)) {
-                System.out.println("please try a new username");
-                namePlayer2 = Console.getInput("Player 2, what"
+                    namePlayer2.equals(Config.AI_NAME) || 
+                    "".equals(namePlayer2)) {
+                if (GuiConfig.guiMode){
+                    namePlayer2 = getName("Player 2, what is your username?");
+                } else {
+                    System.out.println("please try a new username");
+                    namePlayer2 = Console.getInput("Player 2, what"
                         + " is your username?");
+                }
             }
 
             // create 2 players
@@ -81,7 +97,6 @@ public class Game {
             
         }
         
-            
         // create the first round of the game
         Round firstRound = new Round(this.PLAYER1, this.PLAYER2,
                 Config.BRIDGE_MAX_SIZE, 0);
@@ -115,6 +130,7 @@ public class Game {
         if (GuiConfig.guiMode){
             // start gui
             game.gui.Shazamm.run(activateAI, PLAYER1, PLAYER2);
+            System.out.println("game gui");
         }
         
         while(!playRound()){

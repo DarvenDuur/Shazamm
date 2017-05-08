@@ -1,33 +1,22 @@
 package game.gui;
 
-import game.Player;
 import game.Turn;
 import game.cards.AbstractCard;
 import game.cards.Clone;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Image;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.LinkedList;
-
-import javax.swing.ImageIcon;
-import javax.swing.JCheckBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
+import java.awt.*;
+import java.util.*;
+import javax.swing.*;
 
 
 public class Card extends javax.swing.JPanel {
-	
-    private ArrayList<Image> Cards;
-    private ArrayList<JCheckBox> chbx;
+
+    private ArrayList<AbstractCard> cards;
+    private ArrayList<GuiCard> guiCards;
     private JPanel main;
     private Turn turn;
     private final boolean PLAYER_1;
-	
-	
+
+
     /**
      * Creates new panel of test
      */
@@ -35,11 +24,11 @@ public class Card extends javax.swing.JPanel {
         initComponents();
         this.PLAYER_1 = player1;
         //initContents(turn);
-        
+
         this.add(new JScrollPane(main));
     }
 
-
+    
     private void initComponents() {
 
     	main = new JPanel();
@@ -47,8 +36,7 @@ public class Card extends javax.swing.JPanel {
 
         main.setMaximumSize(new Dimension(2700, 350));
         
-        this.setPreferredSize(new Dimension(700, 350));
-        
+        this.setPreferredSize(new Dimension(700, 350));   
     }
     
     
@@ -56,58 +44,66 @@ public class Card extends javax.swing.JPanel {
         
     	this.setLayout(new java.awt.GridLayout(1, 10));
     	
-        this.Cards = new ArrayList<>();
-        this.chbx = new ArrayList<>();
+        this.cards = new ArrayList<>();
         this.turn = t;
         
         HashSet<AbstractCard> cards = this.turn.getPlayerState(PLAYER_1).
                 getCardManager().getHand();
         
         for(AbstractCard card : cards){
-        	JPanel j = new JPanel();
 
-        	j.setBackground(new Color(0, 0, 0));
-        	j.setPreferredSize(new Dimension(220, 300));
-        	j.setLayout(new FlowLayout());
-        	
-                Image icon = new ImageIcon(GuiConfig.PATH_IMG + "/cartes/" + 
-                        card.getImageName()).getImage().getScaledInstance(200, 
-                                250, Image.SCALE_DEFAULT);
-        	
-                Cards.add(icon);
-        	chbx.add(new JCheckBox());
-        	
-        	JLabel lab = new JLabel();
-        	lab.setIcon(new ImageIcon(icon));
-
-        	JCheckBox c = new JCheckBox();
-        	c.setBackground(new Color(0, 0, 0));
-        	
-        	j.add(lab);
-        	j.add(c);
-        	
-        	main.add(j);
         }
     }
     
+    
     public HashSet<AbstractCard> askCards(){
-        HashSet<AbstractCard> cards = this.turn.getPlayerState(PLAYER_1).
-                getCardManager().getHand(),
-                output = new HashSet<>();
+        HashSet<AbstractCard> select = new HashSet<>();
         
-        HashSet<Integer> integers = ;
         
-        for (AbstractCard card : cards) {
-            if (integers.contains(card.getId())) {
-                output.add(card);
 
-                //if card is a Clone card, get cloned card
-                if (card instanceof Clone) {
-                    ((Clone) card).setClone(askClone(turn, PLAYER_1));
-                }
-            }
-        }
-        return output;
+        return select;
     }
 
+    
+    public void addCards(){//on click
+        CardPopup c = new CardPopup(this, this.getEnnemyPlayedCards(), 
+                getClone(this.cards));
+        new JOptionPane(c);
+        c.askClone();
+    }
+
+    public static Clone getClone(ArrayList<AbstractCard> cards){ 
+        Clone clone = null;
+        Iterator it = cards.iterator();
+        while(clone == null && it.hasNext()){
+            AbstractCard abCard=(AbstractCard)it.next();
+            
+            if(abCard instanceof Clone){
+                clone =(Clone) abCard;
+            }
+        }
+        
+        return clone;
+    }
+
+    private ArrayList<AbstractCard> getEnnemyPlayedCards() {
+        //get last discarded cards of ennemy player
+        ArrayList<AbstractCard> cards = new ArrayList<>();
+        cards.addAll(this.turn.getBridge().getPlayerState(!this.PLAYER_1).
+                getCardManager().getLastDiscard());
+                
+        return cards;
+    }
+
+    ArrayList<AbstractCard> getSelfPlayedCards() {
+        //get last discarded cards of ennemy player
+        ArrayList<AbstractCard> cards = new ArrayList<>();
+        cards.addAll(this.turn.getBridge().getPlayerState(this.PLAYER_1).
+                getCardManager().getLastDiscard());
+                
+        //remove clone
+        cards.remove(getClone(cards));
+        
+        return cards;
+    }
 }

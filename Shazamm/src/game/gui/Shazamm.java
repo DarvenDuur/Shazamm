@@ -5,6 +5,7 @@
  */
 package game.gui;
 
+import game.Config;
 import game.Player;
 import java.awt.FlowLayout;
 import javax.swing.JOptionPane;
@@ -43,6 +44,26 @@ public class Shazamm extends javax.swing.JFrame {
             return false;
         }
     }
+    
+    public static String getName(String message){
+        
+        String s = (String) JOptionPane.showInputDialog(
+            null,
+            message,
+            "Name",
+            JOptionPane.PLAIN_MESSAGE,
+            null,
+            null,
+            null);
+
+        //If a string was returned, say so.
+        if ((s == null) && (s.length() == 0) || s.equals(Config.AI_NAME)) {
+            s = getName(message);
+        }
+        
+        return s;
+    }
+    
     
     private void initContents(boolean onePlayer, Player p1, Player p2){
 

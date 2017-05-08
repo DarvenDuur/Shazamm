@@ -211,6 +211,7 @@ public class Turn implements Cloneable {
             Console.println(this.getBridge().toString());
         } else {
             game.gui.Shazamm.update();
+            System.out.println("play gui");
         }
         
         
@@ -223,7 +224,12 @@ public class Turn implements Cloneable {
             this.continuePlay(true);
         } else {
             this.getPlayerState(true).getPlayer().getGui().update(this);
-            this.getPlayerState(false).getPlayer().getGui().update(this);
+            System.out.println(!(this.getPlayerState(false).getPlayer() instanceof BotPlayer));
+            if (!(this.getPlayerState(false).getPlayer() instanceof BotPlayer)){
+                this.getPlayerState(false).getPlayer().getGui().update(this);
+            }
+            
+            System.out.println("play player gui");
         }
     }
     
@@ -283,6 +289,7 @@ public class Turn implements Cloneable {
             Console.println(LogSystem.getLastLogs(2));
         } else {
             game.gui.Shazamm.update();
+            System.out.println("play 2 gui");
         }
 
         //collect actions input

@@ -33,7 +33,7 @@ public class Shazamm {
         } catch(ArrayIndexOutOfBoundsException e){
             GuiConfig.guiMode = game.gui.Shazamm.YesNo(GuiConfig.GUI_MODE_ASK);
         }
-        
+        System.out.println(GuiConfig.guiMode);
         //apply gui choice
         boolean activateAI = false;
         if (GuiConfig.guiMode){
