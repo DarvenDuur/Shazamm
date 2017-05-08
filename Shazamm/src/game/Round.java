@@ -183,21 +183,22 @@ public class Round {
         while (!this.isEnded()) {
             //get last turn added; if first turn, uses initial turn
             turn = this.getLastTurn();
+            if (turn.canPlay()){
+                //play turn
+                turn.play(this);
 
-            //play turn
-            turn.play(this);
+                //check if the turn fills round end condition
+                if (turn.isRoundEnd()) {
+                    this.end();
+                } else {
 
-            //check if the turn fills round end condition
-            if (turn.isRoundEnd()) {
-                this.end();
-            } else {
-
-                //if round isn't ended, prepare the next turn
-                try {
-                    this.turns.add((Turn) turn.clone());
-                    Console.println("New Turn");
-                } catch (CloneNotSupportedException ex) {
-                    Logger.getLogger(Round.class.getName()).log(Level.SEVERE, null, ex);
+                    //if round isn't ended, prepare the next turn
+                    try {
+                        this.turns.add((Turn) turn.clone());
+                        Console.println("New Turn");
+                    } catch (CloneNotSupportedException ex) {
+                        Logger.getLogger(Round.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
             }
         }

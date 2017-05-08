@@ -35,7 +35,7 @@ public class Turn implements Cloneable {
     private boolean player1Theft, player2Theft;
     
     // security for interruption of play
-    private static boolean canContinuePlay = true;
+    private static boolean canContinuePlay = false;
     
     // security for interruption of play
     private static boolean canContinuePlayer1 = false;
@@ -201,17 +201,18 @@ public class Turn implements Cloneable {
      *      Parent round, needed to apply actions globally
      */
     public void play(Round round) {
-        Console.clear();
+        
         //add turn presentation log
         LogSystem.addLog(new LogTitle());
         if (!GuiConfig.guiMode) {
+            Console.clear();
+            
             Console.println(LogSystem.getLastLogs(1));
             
             //print bridge initial state
             Console.println(this.getBridge().toString());
         } else {
             game.gui.Shazamm.update();
-            System.out.println("play gui");
         }
         
         
@@ -221,10 +222,9 @@ public class Turn implements Cloneable {
         //replace listner in console mode
         if (!GuiConfig.guiMode) {
             this.continuePlay(true);
-            this.continuePlay(true);
+            this.continuePlay(false);
         } else {
             this.getPlayerState(true).getPlayer().getGui().update(this);
-            System.out.println(!(this.getPlayerState(false).getPlayer() instanceof BotPlayer));
             if (!(this.getPlayerState(false).getPlayer() instanceof BotPlayer)){
                 this.getPlayerState(false).getPlayer().getGui().update(this);
             }
@@ -262,11 +262,9 @@ public class Turn implements Cloneable {
             canContinuePlayer2 = true;
         }
         
-        if (canContinuePlayer1 && canContinuePlayer2) {
-            if (canContinuePlay) {
+        if (canContinuePlayer1 && canContinuePlayer2 && canContinuePlay) {
                 canContinuePlay = false;
                 tempTurn.playPart2(tempRound);
-            }
         }
     }
     
@@ -280,7 +278,9 @@ public class Turn implements Cloneable {
 
         //bet
         player1.bet();
-        Console.clear();
+        if (!GuiConfig.guiMode) {
+            Console.clear();
+        }
         player2.bet();
         
         //print bet log
@@ -289,14 +289,17 @@ public class Turn implements Cloneable {
             Console.println(LogSystem.getLastLogs(2));
         } else {
             game.gui.Shazamm.update();
-            System.out.println("play 2 gui");
         }
 
         //collect actions input
         HashSet<AbstractCard> player1Cards = player1.askCards(this);
-        Console.clear();
+        if (!GuiConfig.guiMode) {
+            Console.clear();
+        }
         HashSet<AbstractCard> player2Cards = player2.askCards(this);
-        Console.clear();
+        if (!GuiConfig.guiMode) {
+            Console.clear();
+        }
 
         //discard cards played by each player
         player1.getCardManager().discardAll(player1Cards);
@@ -481,5 +484,9 @@ public class Turn implements Cloneable {
         str += this.winner + "\n";
         str += this.mute;
         return str;
+    }
+
+    boolean canPlay() {
+        return !canContinuePlay;
     }
 }
