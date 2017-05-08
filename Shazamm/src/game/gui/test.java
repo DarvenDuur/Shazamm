@@ -15,6 +15,7 @@ public class test extends javax.swing.JPanel {
      * Creates new form Bet
      */
     public test() {
+        Shazamm.YesNo("test");
         initComponents();
     }
 
@@ -79,10 +80,16 @@ public class test extends javax.swing.JPanel {
     }                                              
 
 
+    public static void main(String[] args) {
+        
+        Shazamm.YesNo("test");
+    }
+    
     // Variables declaration - do not modify                     
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JToggleButton jToggleButton1;
-    // End of variables declaration                   
+    // End of variables declaration      
+    
 }

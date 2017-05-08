@@ -13,6 +13,14 @@ public class GuiConfig {
     public static boolean guiMode = false;
     
     public final static String PATH_IMG = "../Graphique/img/";
+    
+    public final static String AI_MODE_ASK = "Do you wish to play against AI?"
+            + " Otherwise you will play with two players.",
+            
+            GUI_MODE_ASK = "Do you wish to run Shazamm in graphical mode?"
+            + "Otherwise the game will run in console mode.";
+    
+    
 
 //**************************** TEXT USED FOR LOG PRINTING **********************
     /* For eaach of folowing parameters, please refer to Log.toString and 

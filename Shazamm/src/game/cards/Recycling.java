@@ -50,8 +50,9 @@ public class Recycling extends AbstractCard {
         } else {
             //graphical mode
             if (GuiConfig.guiMode) {
-                throw new UnsupportedOperationException("no gui for confirmation");
-                //confirmation = true;
+                confirmation = game.gui.Shazamm.YesNo(String.format(
+                        GuiConfig.RECYCLE_CONFIRM, 
+                        userPlayer.getPlayer().getName()));
                 
             } else {
                 confirmation = Console.getConfirmation(String.format(

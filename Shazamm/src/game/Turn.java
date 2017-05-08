@@ -37,8 +37,15 @@ public class Turn implements Cloneable {
     // security for interruption of play
     private static boolean canContinuePlay = true;
     
+    // security for interruption of play
+    private static boolean canContinuePlayer1 = false;
+    
+    // security for interruption of play
+    private static boolean canContinuePlayer2 = false;
+    
     // memory for interruption of play 
-    private static Round temporaryRound = null;
+    private static Round tempRound = null;
+    private static Turn tempTurn = null;
 
 
 //***************************** CONSTRUCTOR ************************************
@@ -208,83 +215,119 @@ public class Turn implements Cloneable {
         
         
         //where we whait for both players to finish their choice in GUI
-        // initialising variables for interruption
-        temporaryRound = round;
-        canContinuePlay = true;
+        this.interuptPlay(round);
         
         //replace listner in console mode
         if (!GuiConfig.guiMode) {
-            this.playPart2();
+            this.continuePlay(true);
+            this.continuePlay(true);
+        }
+    }
+    
+    /**
+     * save usefull values and interupt flow
+     * @param round 
+     *      round to keep in memory
+     */
+    public void interuptPlay(Round round){
+        canContinuePlayer1 = false;
+        //if player is a bot, automaticaly consider it ready
+        canContinuePlayer2 = this.getPlayerState(false).getPlayer() 
+                instanceof BotPlayer;
+        canContinuePlay = true;
+        
+        // initialising variables for interruption
+        tempRound = round;
+        tempTurn = this;
+    }
+    
+    /**
+     * try tu continue play flow, while loading usefull values
+     * @param player1 
+     *      player asking to continue
+     */
+    public static void continuePlay(boolean player1){
+        if (player1) {
+            canContinuePlayer1 = true;
+        } else {
+            canContinuePlayer2 = true;
+        }
+        
+        if (canContinuePlayer1 && canContinuePlayer2) {
+            if (canContinuePlay) {
+                canContinuePlay = false;
+                tempTurn.playPart2(tempRound);
+            }
         }
     }
     
     /**
      * Resume play flow
      */
-    public void playPart2(){
-        if (canContinuePlay) {
-            Round round = temporaryRound;
-            canContinuePlay = false;
+    private void playPart2(Round round){
+        //get current player states
+        PlayerState player1 = this.getPlayerState(true);
+        PlayerState player2 = this.getPlayerState(false);
+
+        //bet
+        player1.bet();
+        Console.clear();
+        player2.bet();
         
-            //get current player states
-            PlayerState player1 = this.getPlayerState(true);
-            PlayerState player2 = this.getPlayerState(false);
+        //print bet log
+        if (!GuiConfig.guiMode) {
+            Console.clear();
+            Console.println(LogSystem.getLastLogs(2));
+        } else {
+            game.gui.Shazamm.update();
+        }
 
-            //bet
-            player1.bet();
-            Console.clear();
-            player2.bet();
-            Console.clear();
-            if (!GuiConfig.guiMode) {
-                Console.println(LogSystem.getLastLogs(2));
+        //collect actions input
+        HashSet<AbstractCard> player1Cards = player1.askCards(this);
+        Console.clear();
+        HashSet<AbstractCard> player2Cards = player2.askCards(this);
+        Console.clear();
+
+        //discard cards played by each player
+        player1.getCardManager().discardAll(player1Cards);
+        player2.getCardManager().discardAll(player2Cards);
+
+        //merge and sort card lists
+        ArrayList<AbstractCard> cards = new ArrayList<>();
+        cards.addAll(player1Cards);
+        cards.addAll(player2Cards);
+        Collections.sort(cards);
+
+        //create turn summary log
+        LogTurnOverview turnLog = new LogTurnOverview(this.getBridge());
+
+        //apply cards' action to the turn
+        for (AbstractCard card : cards) {
+            card.generalApply(round);
+        }
+
+        //apply bet
+        this.applyBets();
+
+        this.endOfTurnDraw();
+        this.end();
+
+        //add bet summary log
+        LogSystem.addLog(new LogBetOverview(this.getBridge()));
+        //update turn summary log
+        turnLog.setFinalTurn(this);
+        LogSystem.addLog(turnLog);
+
+        if (!GuiConfig.guiMode) {
+            for (Log log : LogSystem.getLastLogs(2)){
+                Console.clear();
+                Console.println(log);
             }
-
-            //collect actions input
-            HashSet<AbstractCard> player1Cards = player1.askCards(this);
-            Console.clear();
-            HashSet<AbstractCard> player2Cards = player2.askCards(this);
-            Console.clear();
-
-            //discard cards played by each player
-            player1.getCardManager().discardAll(player1Cards);
-            player2.getCardManager().discardAll(player2Cards);
-
-            //merge and sort card lists
-            ArrayList<AbstractCard> cards = new ArrayList<>();
-            cards.addAll(player1Cards);
-            cards.addAll(player2Cards);
-            Collections.sort(cards);
-
-            //create turn summary log
-            LogTurnOverview turnLog = new LogTurnOverview(this.getBridge());
-
-            //apply cards' action to the turn
-            for (AbstractCard card : cards) {
-                card.generalApply(round);
-            }
-
-            //apply bet
-            this.applyBets();
-
-            this.endOfTurnDraw();
-            this.end();
-
-            //add bet summary log
-            LogSystem.addLog(new LogBetOverview(this.getBridge()));
-            //update turn summary log
-            turnLog.setFinalTurn(this);
-            LogSystem.addLog(turnLog);
-
-            if (!GuiConfig.guiMode) {
-                for (Log log : LogSystem.getLastLogs(2)){
-                    Console.clear();
-                    Console.println(log);
-                }
-            } else {
-                game.gui.Shazamm.update();
-            }
+        } else {
+            game.gui.Shazamm.update();
         }
     }
+
 
     /**
      * Set isPlayer1Winner to 0 for draw, -1 for player1, 1 for player2

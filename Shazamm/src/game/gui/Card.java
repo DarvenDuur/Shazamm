@@ -103,7 +103,7 @@ public class Card extends javax.swing.JPanel {
 
                 //if card is a Clone card, get cloned card
                 if (card instanceof Clone) {
-                    ((Clone) card).setClone(askClone(turn, player1));
+                    ((Clone) card).setClone(askClone(turn, PLAYER_1));
                 }
             }
         }

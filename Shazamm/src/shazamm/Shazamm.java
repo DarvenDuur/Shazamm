@@ -28,6 +28,8 @@ public class Shazamm {
             } else if (args[0].equals("graphical") || args[0].equals("-g")){
                 //run graphical
                 GuiConfig.guiMode = true;
+            } else {
+                GuiConfig.guiMode = game.gui.Shazamm.YesNo(GuiConfig.GUI_MODE_ASK);
             }
         }
         catch(ArrayIndexOutOfBoundsException e){
@@ -38,11 +40,9 @@ public class Shazamm {
         boolean activateAI = false;
         if (GuiConfig.guiMode){
             //ask ai mode
-            //activateAI = false;
+            activateAI = game.gui.Shazamm.YesNo(GuiConfig.AI_MODE_ASK);
         } else {
-            activateAI = Console.getConfirmation(
-                    "Do you wish to play against AI?"
-                            + " Otherwise you will play with two players.");
+            activateAI = Console.getConfirmation(GuiConfig.AI_MODE_ASK);
         }
             
         Game game = new Game(activateAI);

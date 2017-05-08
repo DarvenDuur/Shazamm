@@ -1,5 +1,6 @@
 package game.gui;
 
+import game.Turn;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -18,19 +19,19 @@ import javax.swing.JTextArea;
  */
 public class Bet extends JPanel {
 
-	private JLabel betLabel, end;
-	private JTextArea betTextF;
-	private JButton betButt;
-	private JPanel main;
-	private int bet = -1;
+    private JLabel betLabel, end;
+    private JTextArea betTextF;
+    private JButton betButt;
+    private JPanel main;
+    private int bet = -1;
 	
     
     /**
      * Creates new form Statistics
      */
-    public Bet() {
+    public Bet(boolean player1) {
         initComponents();
-        initContents();
+        initContents(player1);
     }
 
 
@@ -38,7 +39,7 @@ public class Bet extends JPanel {
         return bet;
     }
     
-    protected void initContents(){
+    protected void initContents(boolean player1){
 
         this.betLabel = new JLabel("Enter your bet :");
         this.betLabel.setFont(new Font("Caladea", Font.BOLD, 22));
@@ -57,11 +58,17 @@ public class Bet extends JPanel {
         this.betButt = new JButton("Validate !");
         this.betButt.setPreferredSize(new Dimension(120, 30));
         this.betButt.addActionListener(new ActionListener(){
+            @Override
             public void actionPerformed(ActionEvent e){
-                    try{
-                            bet = Integer.parseInt(betTextF.getText());
-                    }
-                    catch(java.lang.NumberFormatException expt){}
+                try{
+                    bet = Integer.parseInt(betTextF.getText());
+                }
+                catch(java.lang.NumberFormatException expt){
+                    bet = 1;
+                }
+                
+                // update button state and const
+                Turn.continuePlay(player1);
             }
         });
         main.add(betButt);

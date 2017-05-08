@@ -7,6 +7,7 @@ package game.gui;
 
 import game.Player;
 import java.awt.FlowLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -35,6 +36,13 @@ public class Shazamm extends javax.swing.JFrame {
         this.add(main);
     }
 
+    public static boolean YesNo(String s){
+        if (JOptionPane.showConfirmDialog(null, s, "", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            return true;
+        } else {
+            return false;
+        }
+    }
     
     private void initContents(boolean onePlayer, Player p1, Player p2){
 
