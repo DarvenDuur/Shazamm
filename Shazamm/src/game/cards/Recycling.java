@@ -31,7 +31,6 @@ public class Recycling extends AbstractCard {
      * @see AbstractCard
      * @param round 
      *      round to which apply the card
-     * @deprecated 
      */
     @Override
     protected void apply(Round round){
@@ -40,6 +39,8 @@ public class Recycling extends AbstractCard {
         
         //get use mode from player
         boolean confirmation;
+        
+        //bot player
         if (userPlayer.getPlayer() instanceof BotPlayer){
             PlayerState opponent=super.getNotUserPlayer(round);
             int opponentPower= opponent.getAttackPower();
@@ -47,6 +48,7 @@ public class Recycling extends AbstractCard {
 
             confirmation=!(difference>5 || difference<-5);
             
+        // human player
         } else {
             //graphical mode
             if (GuiConfig.guiMode) {
@@ -54,6 +56,7 @@ public class Recycling extends AbstractCard {
                         GuiConfig.RECYCLE_CONFIRM, 
                         userPlayer.getPlayer().getName()));
                 
+            //console mode
             } else {
                 confirmation = Console.getConfirmation(String.format(
                         GuiConfig.RECYCLE_CONFIRM, 
