@@ -191,7 +191,7 @@ public class Round {
                 if (turn.isRoundEnd()) {
                     this.end();
                 } else {
-
+                    
                     //if round isn't ended, prepare the next turn
                     try {
                         this.turns.add((Turn) turn.clone());
@@ -200,6 +200,8 @@ public class Round {
                         Logger.getLogger(Round.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
+            } else {
+                Turn.continuePlay();
             }
         }
 

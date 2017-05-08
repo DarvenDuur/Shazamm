@@ -23,7 +23,7 @@ public class Card extends javax.swing.JPanel {
     public Card(boolean player1) {
         initComponents();
         this.PLAYER_1 = player1;
-        //initContents(turn);
+        this.guiCards = new ArrayList<>();
 
         this.add(new JScrollPane(main));
     }
@@ -40,7 +40,7 @@ public class Card extends javax.swing.JPanel {
     
     protected void initContents(Turn t) {
         
-    	this.setLayout(new java.awt.GridLayout(1, 10));
+    	//this.setLayout(new java.awt.GridLayout(1, 10));
     	
         this.cards = new ArrayList<>();
         this.turn = t;
@@ -48,9 +48,14 @@ public class Card extends javax.swing.JPanel {
         HashSet<AbstractCard> cards = this.turn.getPlayerState(PLAYER_1).
                 getCardManager().getHand();
         
-        for(AbstractCard card : cards){
-            main.add(new GuiCard(card));
+        this.cards.addAll(cards);
+        guiCards.clear();
+
+        for(int index = 0; index < cards.size(); index ++){
+            guiCards.add(new GuiCard(this.cards.get(index)));
+            main.add(guiCards.get(index));
         }
+        update();
     }
     
     
@@ -93,7 +98,7 @@ public class Card extends javax.swing.JPanel {
         return cards;
     }
 
-    ArrayList<AbstractCard> getSelfPlayedCards() {
+    protected ArrayList<AbstractCard> getSelfPlayedCards() {
         //get last discarded cards of ennemy player
         ArrayList<AbstractCard> cards = new ArrayList<>();
         cards.addAll(this.turn.getBridge().getPlayerState(this.PLAYER_1).
@@ -103,5 +108,28 @@ public class Card extends javax.swing.JPanel {
         cards.remove(getClone(cards));
         
         return cards;
+    }
+
+    public void update(){
+        for(GuiCard card : guiCards){
+            card.update();
+        }
+    }
+    
+    public void update(Turn t){
+        this.cards = new ArrayList<>();
+        this.turn = t;
+        
+        HashSet<AbstractCard> cards = this.turn.getPlayerState(PLAYER_1).
+                getCardManager().getHand();
+        
+        this.cards.addAll(cards);
+        guiCards.clear();
+
+        for(int index = 0; index < cards.size(); index ++){
+            guiCards.add(new GuiCard(this.cards.get(index)));
+            main.add(guiCards.get(index));
+        }
+        update();
     }
 }

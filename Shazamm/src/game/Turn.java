@@ -201,6 +201,7 @@ public class Turn implements Cloneable {
      *      Parent round, needed to apply actions globally
      */
     public void play(Round round) {
+        canContinuePlay = false;
         
         //add turn presentation log
         LogSystem.addLog(new LogTitle());
@@ -216,13 +217,16 @@ public class Turn implements Cloneable {
         }
         
         
+        System.out.println(canContinuePlayer1+" "+canContinuePlayer2+" "+canContinuePlay);
         //where we whait for both players to finish their choice in GUI
         this.interuptPlay(round);
         
+        System.out.println(canContinuePlayer1+" "+canContinuePlayer2+" "+canContinuePlay);
+        
         //replace listner in console mode
         if (!GuiConfig.guiMode) {
-            this.continuePlay(true);
-            this.continuePlay(false);
+            continuePlay(true);
+            continuePlay(false);
         } else {
             this.getPlayerState(true).getPlayer().getGui().update(this);
             if (!(this.getPlayerState(false).getPlayer() instanceof BotPlayer)){
@@ -259,6 +263,15 @@ public class Turn implements Cloneable {
         } else {
             canContinuePlayer2 = true;
         }
+        
+        System.out.println(canContinuePlayer1+" "+canContinuePlayer2+" "+canContinuePlay);
+        
+        if (canContinuePlayer1 && canContinuePlayer2 && canContinuePlay) {
+                canContinuePlay = false;
+                tempTurn.playPart2(tempRound);
+        }
+    }
+    public static void continuePlay(){
         
         if (canContinuePlayer1 && canContinuePlayer2 && canContinuePlay) {
                 canContinuePlay = false;
@@ -337,6 +350,8 @@ public class Turn implements Cloneable {
         } else {
             game.gui.Shazamm.update(this.getBridge());
         }
+        System.out.println("end");
+        
     }
 
 

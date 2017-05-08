@@ -38,9 +38,9 @@ public class Board extends javax.swing.JPanel {
         this.posY = 250;
         
         this.title = new ImageIcon(GuiConfig.PATH_IMG + "logo_shazamm.gif").getImage();
-        this.Bridge = new ArrayList<>();
-        this.Player = new ArrayList<>();
-        this.Firewall = new ArrayList<>();
+        this.Bridge = new ArrayList<>(Config.BRIDGE_MAX_SIZE*2+1);
+        this.Player = new ArrayList<>(Config.BRIDGE_MAX_SIZE*2+1);
+        this.Firewall = new ArrayList<>(Config.BRIDGE_MAX_SIZE*2+1);
         
         int leftBridge = Config.BRIDGE_MAX_SIZE+1 - (size),
                 rightBridge = Config.BRIDGE_MAX_SIZE+1 + (size);
