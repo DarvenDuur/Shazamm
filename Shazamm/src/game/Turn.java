@@ -147,6 +147,7 @@ public class Turn implements Cloneable {
      */
     public void end() {
         this.ended = true;
+        this.setWinner();
     }
 
     /**
@@ -206,9 +207,11 @@ public class Turn implements Cloneable {
         //add turn presentation log
         LogSystem.addLog(new LogTitle());
         if (!GuiConfig.guiMode) {
-            Console.clear();
             
-            Console.println(LogSystem.getLastLogs(1));
+            for (Log log : LogSystem.getLastLogs(1)){
+                Console.clear();
+                Console.println(log);
+            }
             
             //print bridge initial state
             Console.println(this.getBridge().toString());
@@ -217,11 +220,8 @@ public class Turn implements Cloneable {
         }
         
         
-        System.out.println(canContinuePlayer1+" "+canContinuePlayer2+" "+canContinuePlay);
         //where we whait for both players to finish their choice in GUI
         this.interuptPlay(round);
-        
-        System.out.println(canContinuePlayer1+" "+canContinuePlayer2+" "+canContinuePlay);
         
         //replace listner in console mode
         if (!GuiConfig.guiMode) {
@@ -264,8 +264,6 @@ public class Turn implements Cloneable {
             canContinuePlayer2 = true;
         }
         
-        System.out.println(canContinuePlayer1+" "+canContinuePlayer2+" "+canContinuePlay);
-        
         if (canContinuePlayer1 && canContinuePlayer2 && canContinuePlay) {
                 canContinuePlay = false;
                 tempTurn.playPart2(tempRound);
@@ -297,7 +295,9 @@ public class Turn implements Cloneable {
         //print bet log
         if (!GuiConfig.guiMode) {
             Console.clear();
-            Console.println(LogSystem.getLastLogs(2));
+            for (Log log : LogSystem.getLastLogs(2)){
+                Console.println(log);
+            }
         } else {
             game.gui.Shazamm.update(this.getBridge());
         }
@@ -350,7 +350,6 @@ public class Turn implements Cloneable {
         } else {
             game.gui.Shazamm.update(this.getBridge());
         }
-        System.out.println("end");
         
     }
 

@@ -50,11 +50,13 @@ public class LogSystem {
     public static LinkedList<Log> getLastLogs(int number) {
         LinkedList<Log> logs = new LinkedList<>();
         
-        while (number > 0){
-            for (LinkedList<Log> roundLogs : getLogs()){
+        for (LinkedList<Log> roundLogs : getLogs()){
+            if (number > 0){
                 for (Log log : roundLogs){
-                    logs.add(log);
-                    number--;
+                    if (number > 0){
+                        logs.add(log);
+                        number--;
+                    }
                 }
             }
         }
