@@ -130,6 +130,7 @@ public class Game {
         if (GuiConfig.guiMode){
             // start gui
             game.gui.Shazamm.run(activateAI, PLAYER1, PLAYER2);
+            System.out.println("game gui");
         }
         
         while(!playRound()){

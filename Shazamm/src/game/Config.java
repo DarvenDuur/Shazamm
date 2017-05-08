@@ -1,8 +1,5 @@
 package game;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-
 /**
  * Contain all constant values that will be used by the program.
  * In later versions, will be loded from a file.
