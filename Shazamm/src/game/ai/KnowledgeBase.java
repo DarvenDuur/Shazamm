@@ -229,21 +229,25 @@ public enum KnowledgeBase {
     
 
     /**
-     * 
+     * check if rule is appliable to given fact base
      * @param factBase
+     *      fact base to test
      * @return 
+     *      true if rule can be applied
      */
     public boolean isApplicable(FactBase factBase){
         boolean isApplicable=true;
 
         Iterator it=this.POSTULATE.iterator();
-        //Parcours la partie gauche
-        while(it.hasNext() &&isApplicable){
+        
+        //test left part (postulate)
+        while(it.hasNext() && isApplicable){
             if(!factBase.contains((Fact)it.next())){
                isApplicable=false;
             }
         }
-        //parcours des incompatibles si possible;
+        
+        //test incompatible if all postulates are present
         if(isApplicable){
             it=this.INCOMPATIBLE.iterator();
             while(it.hasNext() && isApplicable){
@@ -252,12 +256,22 @@ public enum KnowledgeBase {
                 }
             }
         }
+        
         return isApplicable;
     }
+    
+    /**
+     * generate a clone of fact base and apply rule on it
+     * @param base
+     *      fact base to clone
+     * @return 
+     *      clone on wich rule is applied
+     */
     public FactBase apply(FactBase base) {
-        //foreach donc on clone
+        //clone fact base
         FactBase returnBase=(FactBase)base.clone();
-        //ajout des conclusion à la base de faits.
+        
+        //add content of CONCLUSION to the clone
         returnBase.addAll(this.CONCLUSION);
         return returnBase;
     }
