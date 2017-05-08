@@ -10,8 +10,7 @@ import game.gui.Console;
 import game.gui.GuiConfig;
 
 /**
- *
- * @author darven
+ * main class, get modes for game (gui and AI)
  */
 public class Shazamm {
 
@@ -31,9 +30,8 @@ public class Shazamm {
             } else {
                 GuiConfig.guiMode = game.gui.Shazamm.YesNo(GuiConfig.GUI_MODE_ASK);
             }
-        }
-        catch(ArrayIndexOutOfBoundsException e){
-            
+        } catch(ArrayIndexOutOfBoundsException e){
+            GuiConfig.guiMode = game.gui.Shazamm.YesNo(GuiConfig.GUI_MODE_ASK);
         }
         
         //apply gui choice
