@@ -59,28 +59,38 @@ public class AIAction {
     private void extractClone(Turn turn, int clone) {
         //if a card is cloned
         if (clone != 0) {
+            //extract bot player current hand
             CardManager botCardManager = turn.getPlayerState(false).getCardManager();
             HashSet<AbstractCard> botCards = botCardManager.getHand();
             
+            //extract human player previously played cards
             CardManager playerCardManager = turn.getPlayerState(true).getCardManager();
             HashSet<AbstractCard> playerPlayedCards = playerCardManager.getLastDiscard();
             
+            //fetch clone card in bot player hand
             Clone cloneCard = (Clone) extractCard(2, botCards);
             AbstractCard clonedCard;
             
             //if cloned card is from a double clone
             if (clone < 0) {
-                HashSet<AbstractCard> botPlayedCards = botCardManager.getLastDiscard();
+                //extract bot player previously played cards
+                HashSet<AbstractCard> botPlayedCards = 
+                        botCardManager.getLastDiscard();
+                
+                //fetch clone card in human player previously played cards
                 clonedCard = extractCard(2, playerPlayedCards);
                 
+                //fetch cloned card in bot player previously played cards
                 AbstractCard secondClonedCard = extractCard(-clone, botPlayedCards);
                 clonedCard.setClone(secondClonedCard);
                 
             //if cloned card from a single clone
             } else {
+                //fetch cloned card in human player previously played cards
                 clonedCard = extractCard(clone, playerPlayedCards);
             }
             
+            //set cloned card and add clone card to cards to play
             cloneCard.setClone(clonedCard);
             this.CARDS.add(cloneCard);
         }
@@ -93,14 +103,17 @@ public class AIAction {
      * @param availableCards
      *      available cards
      * @return 
-     *      extracted card
+     *      extracted card, or null if card not found
      */
     private AbstractCard extractCard(int id, HashSet<AbstractCard> availableCards) {
+        // browse all cards to find the one with correct id
         for (AbstractCard card : availableCards) {
             if (card.getId() == id) {
                 return card;
             }
         }
+        
+        // if card not found return null
         return null;
     }
 
@@ -115,6 +128,7 @@ public class AIAction {
         int clone = factBase.getClone();
         int id;
         
+        //extract bot player current hand
         CardManager botCardManager = turn.getPlayerState(false).getCardManager();
         HashSet<AbstractCard> botCards = botCardManager.getHand();
         
