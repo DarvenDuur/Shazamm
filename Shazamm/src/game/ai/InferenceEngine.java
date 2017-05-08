@@ -8,7 +8,10 @@ import java.util.Iterator;
  * Apply inference rules to the fact base
  */
 public class InferenceEngine {
+    // set of fact bases ???
     private HashSet<FactBase> factBases;
+    
+    // array of knowledge base values, avoid multiple calls of values()
     private static final KnowledgeBase[] KNOWLEDGE_BASE = KnowledgeBase.values();
        
     
@@ -21,7 +24,7 @@ public class InferenceEngine {
      *      AIAction containing cards to play and mana to bet on this turn
      */
     public static AIAction run(Turn turn) {
-        
+        // create new inference engine
         InferenceEngine engine = new InferenceEngine();
         engine.factBases = FactBase.extractTurn(turn);
         engine.runEngine();

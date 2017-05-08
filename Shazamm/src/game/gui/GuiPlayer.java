@@ -38,7 +38,7 @@ public class GuiPlayer extends javax.swing.JFrame {
     	main.setLayout(layout); 
 
     	this.statistics = new Statistics();
-        this.cards = new Card(player1);
+        this.cards = new Card(PLAYER_1);
         this.betPanel = new Bet(PLAYER_1);
         
     	main.add(new JScrollPane(statistics));

@@ -114,7 +114,7 @@ public class FactBase extends HashSet<Fact> {
         if(bigAdvantage(differenceRatio)){
             this.add(Fact.MANA_BIG_A);
         }
-        if(smallDifference(differenceRatioa)){
+        if(smallDifference(differenceRatio)){
             this.add(Fact.MANA_SMALL_A);
         }
         if(smallAdvantage(differenceRatio)){
