@@ -1,9 +1,6 @@
 package game;
 
 import game.cards.AbstractCard;
-import game.gui.Console;
-import game.gui.GuiConfig;
-import game.gui.log.Log;
 import game.gui.log.LogBetOverview;
 import game.gui.log.LogTurnOverview;
 import game.gui.log.LogSystem;

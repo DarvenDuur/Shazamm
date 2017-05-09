@@ -1,6 +1,5 @@
 package game.gui;
 
-import game.Turn;
 import game.TurnGraphical;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -67,6 +66,7 @@ public class Bet extends JPanel {
                 catch(java.lang.NumberFormatException expt){
                     bet = 1;
                 }
+                bet = bet < 1 ? 1: bet;
                 
                 // update button state and const
                 turn.continuePlay(player1);
