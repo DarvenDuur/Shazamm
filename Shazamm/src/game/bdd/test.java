@@ -16,6 +16,7 @@ public class test {
         //update database
         ConnexionBDD bdd = new ConnexionBDD(Config.BDD_NAME, 
                 Config.BDD_USERNAME, Config.BDD_PASSWORD);
-        bdd.updatePlayer(Config.AI_NAME, (short)-1);
+        bdd.test();
+        
     }
 }

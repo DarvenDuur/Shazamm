@@ -160,7 +160,11 @@ public class PlayerState implements Cloneable {
     
 //***************************** CARDS ******************************************
     public void UpdateCards(Turn turn){
-        this.player.getGui().update(turn);
+        if (turn instanceof TurnGraphical){
+            this.player.getGui().update((TurnGraphical) turn);
+        }else{
+            System.out.println("Error");
+        }
     }
     
     /**
@@ -179,6 +183,8 @@ public class PlayerState implements Cloneable {
             //graphical mode
             if (GuiConfig.guiMode) {
                 return this.player.getGui().askCards();
+                
+                
             } else {
                 return askCardsHuman(turn);
             }

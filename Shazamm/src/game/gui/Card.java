@@ -1,80 +1,74 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package game.gui;
 
 import game.Turn;
 import game.cards.AbstractCard;
 import game.cards.Clone;
-import java.awt.*;
-import java.util.*;
-import javax.swing.*;
+import java.awt.FlowLayout;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
 
 
+/**
+ * @author Reiji
+ */
 public class Card extends javax.swing.JPanel {
 
     private ArrayList<AbstractCard> cards;
     private ArrayList<GuiCard> guiCards;
-    private JPanel main;
     private Turn turn;
     private final boolean PLAYER_1;
-
+    private FlowLayout layout = new FlowLayout();
 
     /**
-     * Creates new panel of test
+     * Creates new form Card
      */
     public Card(boolean player1) {
-        initComponents();
         this.PLAYER_1 = player1;
-        this.guiCards = new ArrayList<>();
-
-        this.add(new JScrollPane(main));
+        initComponents();
     }
 
-    
-    protected void initComponents() {
-
-    	main = new JPanel();
-    	main.setBackground(Color.BLACK);
-        main.setMaximumSize(new Dimension(2700, 350));
-        this.setPreferredSize(new Dimension(700, 350));   
-    }
-    
-    
     protected void initContents(Turn t) {
-        
-    	//this.setLayout(new java.awt.GridLayout(1, 10));
-    	
+
+        this.guiCards = new ArrayList<>();
         this.cards = new ArrayList<>();
         this.turn = t;
-        
+
         HashSet<AbstractCard> cards = this.turn.getPlayerState(PLAYER_1).
                 getCardManager().getHand();
-        
+      
         this.cards.addAll(cards);
+     
         guiCards.clear();
-
-        for(int index = 0; index < cards.size(); index ++){
+    
+        for (int index = 0; index < cards.size(); index++) {
+            
             guiCards.add(new GuiCard(this.cards.get(index)));
+            guiCards.get(index).setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 20, 0, 0));
             main.add(guiCards.get(index));
         }
+        
+        main.setLayout(new java.awt.GridLayout(1,
+                this.turn.getPlayerState(PLAYER_1).getCardManager().getHand().size()));
+        
         update();
     }
-    
+
+    public void update() {
+
+    }
     
     public HashSet<AbstractCard> askCards(){
         HashSet<AbstractCard> select = new HashSet<>();
-        
-        
 
         return select;
     }
-
     
-    public void addCards(){//on click
-        CardPopup c = new CardPopup(this, this.getEnnemyPlayedCards(), 
-                getClone(this.cards));
-        new JOptionPane(c);
-        c.askClone();
-    }
-
     public static Clone getClone(ArrayList<AbstractCard> cards){ 
         Clone clone = null;
         Iterator it = cards.iterator();
@@ -82,7 +76,7 @@ public class Card extends javax.swing.JPanel {
             AbstractCard abCard=(AbstractCard)it.next();
             
             if(abCard instanceof Clone){
-                clone =(Clone) abCard;
+                clone = (Clone) abCard;
             }
         }
         
@@ -110,26 +104,58 @@ public class Card extends javax.swing.JPanel {
         return cards;
     }
 
-    public void update(){
-        for(GuiCard card : guiCards){
-            card.update();
-        }
-    }
-    
-    public void update(Turn t){
-        this.cards = new ArrayList<>();
-        this.turn = t;
-        
-        HashSet<AbstractCard> cards = this.turn.getPlayerState(PLAYER_1).
-                getCardManager().getHand();
-        
-        this.cards.addAll(cards);
-        guiCards.clear();
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
 
-        for(int index = 0; index < cards.size(); index ++){
-            guiCards.add(new GuiCard(this.cards.get(index)));
-            main.add(guiCards.get(index));
-        }
-        update();
-    }
+        jScrollPane1 = new javax.swing.JScrollPane();
+        main = new javax.swing.JPanel();
+
+        setBackground(new java.awt.Color(0, 255, 204));
+        setMaximumSize(new java.awt.Dimension(3080, 350));
+        setMinimumSize(new java.awt.Dimension(730, 350));
+        setPreferredSize(new java.awt.Dimension(730, 350));
+
+        jScrollPane1.setBackground(new java.awt.Color(0, 0, 0));
+        jScrollPane1.setMaximumSize(new java.awt.Dimension(3080, 350));
+        jScrollPane1.setMinimumSize(new java.awt.Dimension(730, 350));
+        jScrollPane1.setPreferredSize(new java.awt.Dimension(730, 350));
+
+        main.setBackground(new java.awt.Color(0, 0, 0));
+        main.setMaximumSize(new java.awt.Dimension(3080, 350));
+        main.setMinimumSize(new java.awt.Dimension(730, 350));
+        main.setPreferredSize(new java.awt.Dimension(730, 350));
+
+        javax.swing.GroupLayout mainLayout = new javax.swing.GroupLayout(main);
+        main.setLayout(mainLayout);
+        mainLayout.setHorizontalGroup(
+            mainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 731, Short.MAX_VALUE)
+        );
+        mainLayout.setVerticalGroup(
+            mainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 350, Short.MAX_VALUE)
+        );
+
+        jScrollPane1.setViewportView(main);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 750, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
+        getAccessibleContext().setAccessibleParent(this);
+    }// </editor-fold>//GEN-END:initComponents
+
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPanel main;
+    // End of variables declaration//GEN-END:variables
 }
