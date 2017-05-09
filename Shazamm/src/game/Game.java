@@ -24,7 +24,8 @@ public class Game {
      *      if true, the second player is controlled by AI
      */
     public Game(boolean activateAI) {
-        Timer.setTimeLimit(Console.getIntInput(GuiConfig.TIME_LIMIT));
+        setTimerLimit();
+        
         // init list of rounds
         this.rounds = new LinkedList<>();
 
@@ -105,6 +106,10 @@ public class Game {
 
         // add the first round to list of rounds
         this.rounds.add(firstRound);
+    }
+    
+    protected void setTimerLimit(){
+        Timer.setTimeLimit(Console.getIntInput(GuiConfig.TIME_LIMIT));
     }
     
 //***************************** GETTER *****************************************

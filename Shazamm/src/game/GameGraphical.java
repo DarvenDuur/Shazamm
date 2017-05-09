@@ -1,10 +1,5 @@
 package game;
 
-import game.bdd.ConnexionBDD;
-import java.util.LinkedList;
-import java.util.Random;
-import game.gui.Console;
-import game.gui.GuiConfig;
 import static game.gui.Shazamm.getName;
 
 /**
@@ -46,6 +41,11 @@ public class GameGraphical extends Game {
 
         // add the first round to list of rounds
         this.rounds.add(firstRound);
+    }
+    
+    @Override
+    protected void setTimerLimit(){
+        Timer.setTimeLimit(game.gui.Shazamm.getTimeLimit());
     }
 
 //***************************** OTHER ******************************************
