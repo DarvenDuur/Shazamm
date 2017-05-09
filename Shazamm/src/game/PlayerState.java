@@ -256,23 +256,22 @@ public class PlayerState implements Cloneable {
             betDone = this.verifyBet(manaAmount);
         }
 
-        this.updateBet(manaAmount);
+        this.setBet(manaAmount);
     }
     
-    public void updateBet(int manaAmount){
-        this.setBet(manaAmount);
-        this.setAttackPower(manaAmount);
-        this.addMana(-manaAmount);
+    public void updateBet(){
+        this.setAttackPower(this.getBet());
+        this.addMana(-this.getBet());
     }
     
     /**
      * [GUI] Get input for the bet, check if input is valid, and deduce mana cost
      */
-    public int betGui(){
+    public void betGui(){
         int manaAmount = this.player.getGui().getBet();
         manaAmount = this.verifyBet(manaAmount) ? manaAmount : 1;
         
-        return manaAmount;
+        this.setBet(manaAmount);
     }
     
 //***************************** OTHER ******************************************

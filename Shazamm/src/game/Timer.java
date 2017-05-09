@@ -5,36 +5,46 @@
  */
 package game;
 
-import game.gui.Console;
-import game.gui.GuiConfig;
-import java.util.Date;
-
 /**
  *
  * @author MG
  */
 public class Timer {
     
-    private static long timeLimit;
-    private static long timeBegin;
+    private static long timeLimit = 0;
+    private long timeBegin, timeStop;
+
+    public Timer() {
+        
+    }
     
     /**
-     * 
      * @return true if the player is in the time 
      */
-    public static boolean isInTime(){
-        if(!(timeLimit<=0) && timeBegin-Config.DATE.getTime()>=timeLimit){
+    public boolean isInTime(){
+        if(!(timeLimit<=0) && timeBegin - timeStop >= timeLimit){
             return false;
         }
         return true;
     }
     
-    public static void timeLimit(int time){
-       timeLimit=time*1000;
+    /**
+     * Setup time limit
+     * @param time 
+     */
+    public static void setTimeLimit(int time){
+        timeLimit = time * 1000;
        
     }
     
-    public static void setTimeBegin(){
-        timeBegin=Config.DATE.getTime();
+    /**
+     * start timer
+     */
+    public void start(){
+        timeBegin = Config.DATE.getTime();
     }    
+    
+    public void stop(){
+        timeStop = Config.DATE.getTime();
+    }
 }

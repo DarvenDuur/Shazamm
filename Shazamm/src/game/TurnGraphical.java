@@ -15,8 +15,8 @@ import java.util.HashSet;
 public class TurnGraphical extends Turn {
     private HashSet<AbstractCard> player1Cards, player2Cards;
     private PlayerState player1, player2;
-    private int betPlayer1, betPlayer2;
     private boolean canContinuePlayer1, canContinuePlayer2;
+    private Timer timerPlayer1, timerPlayer2;
 
 //***************************** CONSTRUCTOR ************************************
     /**
@@ -29,8 +29,8 @@ public class TurnGraphical extends Turn {
         player1 = this.getPlayerState(true);
         player2 = this.getPlayerState(false);
         
-        betPlayer1 = 0;
-        betPlayer2 = 0;
+        timerPlayer1 = new Timer();
+        timerPlayer2 = new Timer();
         
         player1Cards = player1.getCardManager().getHand();
         player2Cards = player2.getCardManager().getHand();
@@ -46,8 +46,10 @@ public class TurnGraphical extends Turn {
         game.gui.Shazamm.update(this.getBridge());
         
         //replace listner in console mode
+        timerPlayer1.start();
         player1.getPlayer().getGui().update(this);
         if (!(player2.getPlayer() instanceof BotPlayer)){
+            timerPlayer2.start();
             player2.getPlayer().getGui().update(this);
         }
     }
@@ -62,10 +64,12 @@ public class TurnGraphical extends Turn {
         player1Cards = this.getPlayerState(true).askCards(this);
         player2Cards = this.getPlayerState(false).askCards(this);
         
-        //update bet
-        betPlayer1 = player1.betGui();
+        //update bet and timer
+        timerPlayer1.stop();
+        player1.betGui();
         if (!(player2.getPlayer() instanceof BotPlayer)){
-            betPlayer2 = player2.betGui();
+            timerPlayer2.stop();
+            player2.betGui();
         }
     }
     
@@ -96,6 +100,16 @@ public class TurnGraphical extends Turn {
      *      round on wich apply cards
      */
     public void endPlay(Round round){
+        if(!timerPlayer1.isInTime()){
+            player1.setBet(1);
+            player1Cards=new HashSet<>();
+        }
+        
+        if(!timerPlayer2.isInTime()){
+            player2.setBet(1);
+            player2Cards=new HashSet<>();
+        }
+        
         //discard cards played by each player
         player1.getCardManager().discardAll(player1Cards);
         player2.getCardManager().discardAll(player2Cards);
@@ -113,6 +127,9 @@ public class TurnGraphical extends Turn {
         for (AbstractCard card : cards) {
             card.generalApply(round);
         }
+        
+        player1.updateBet();
+        player2.updateBet();
 
         //apply bet
         this.applyBets();

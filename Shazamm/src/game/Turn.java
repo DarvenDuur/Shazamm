@@ -2,7 +2,6 @@ package game;
 
 import game.cards.AbstractCard;
 import game.gui.Console;
-import game.gui.GuiConfig;
 import game.gui.log.Log;
 import game.gui.log.LogBetOverview;
 import game.gui.log.LogTurnOverview;
@@ -207,24 +206,32 @@ public class Turn implements Cloneable {
         PlayerState player1 = this.getPlayerState(true);
         PlayerState player2 = this.getPlayerState(false);
 
-        Timer.setTimeBegin();
+        //start timer
+        Timer timer = new Timer();
+        timer.start();
         //bet
         player1.bet();
         //collect actions input
         HashSet<AbstractCard> player1Cards = player1.askCards(this);
-        if(!Timer.isInTime()){
-            //THINK ABOUT IT
-         player1Cards=new HashSet<>();
+        //timer end
+        timer.stop();
+        if(!timer.isInTime()){
+            player1.setBet(1);
+            player1Cards=new HashSet<>();
         }
         Console.clear();
         
-        Timer.setTimeBegin();
+        //start timer
+        timer.start();
         //bet
         player2.bet();
         //collect actions input
         HashSet<AbstractCard> player2Cards = player2.askCards(this);
-        if(!Timer.isInTime()){
-           player1Cards=new HashSet<>();
+        //timer end
+        timer.stop();
+        if(!timer.isInTime()){
+            player1.setBet(1);
+            player2Cards=new HashSet<>();
         }
         //print bet log
         Console.clear();
