@@ -117,10 +117,8 @@ public class Game {
 //***************************** OTHER ******************************************
     /**
      * loop rounds until game end condition is met (a player is in the lava)
-     * @param activateAI
-     *      parameter to pass to GUI
      */
-    public void play(boolean activateAI){
+    public void play(){
         
         while(!playRound()){
             //play rounds while the ending conditions are not met

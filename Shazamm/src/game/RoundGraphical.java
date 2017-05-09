@@ -67,7 +67,6 @@ public class RoundGraphical extends Round {
                 //if round isn't ended, prepare the next turn
                 try {
                     this.turns.add((Turn) turn.clone());
-                    Console.println("New Turn");
                 } catch (CloneNotSupportedException ex) {
                     Logger.getLogger(Round.class.getName()).log(Level.SEVERE, null, ex);
                 }

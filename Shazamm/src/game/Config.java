@@ -26,13 +26,13 @@ public class Config {
 
 //*************************** BDD **********************************************
     // name of database
-    public static final String BDD_NAME = "";
+    public static final String BDD_NAME = "shazamm";
     
     // username for database
     public static final String BDD_USERNAME = "root";
     
     // user's password
-    public static final String BDD_PASSWORD = "";
+    public static final String BDD_PASSWORD = "root";
     
     
     // playername for AI player
