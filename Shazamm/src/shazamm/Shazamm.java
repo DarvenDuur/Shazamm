@@ -6,6 +6,7 @@
 package shazamm;
 
 import game.Game;
+import game.GameGraphical;
 import game.gui.Console;
 import game.gui.GuiConfig;
 
@@ -42,9 +43,15 @@ public class Shazamm {
         } else {
             activateAI = Console.getConfirmation(GuiConfig.AI_MODE_ASK);
         }
-            
-        Game game = new Game(activateAI);
         
-        game.play(activateAI);
+        if (GuiConfig.guiMode){
+            GameGraphical game = new GameGraphical(activateAI);
+            game.play();
+        } else {
+            Game game = new Game(activateAI);
+            game.play();
+        }
+        
+        
     }
 }

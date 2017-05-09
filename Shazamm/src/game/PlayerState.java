@@ -160,7 +160,11 @@ public class PlayerState implements Cloneable {
     
 //***************************** CARDS ******************************************
     public void UpdateCards(Turn turn){
-        this.player.getGui().update(turn);
+        if (turn instanceof TurnGraphical){
+            this.player.getGui().update((TurnGraphical) turn);
+        }else{
+            System.out.println("Error");
+        }
     }
     
     /**
@@ -179,6 +183,8 @@ public class PlayerState implements Cloneable {
             //graphical mode
             if (GuiConfig.guiMode) {
                 return this.player.getGui().askCards();
+                
+                
             } else {
                 return askCardsHuman(turn);
             }
@@ -226,38 +232,47 @@ public class PlayerState implements Cloneable {
     }
 
     /**
-     * Get input for the bet, check if input is valid, and deduce mana cost
+     * [Console] Get input for the bet, check if input is valid, and deduce mana cost
      */
     private void betHuman() {
         int manaAmount = 0;
-        if (!GuiConfig.guiMode) {
-            Console.println(this.player.getName()
-                    + ", here is the content of your hand:");
-            for (AbstractCard card : this.getCardManager().getHand()) {
-                Console.println(card.getName());
-            }
-
-            manaAmount = Console.getIntInput(
-                    "Please enter a bet (" + this.mana + " available):");
-            
-
-            boolean betDone = this.verifyBet(manaAmount);
-            
-            //while input is invalid, ask for a valid bet
-            while (!betDone) {
-                manaAmount = Console.getIntInput("Input invalid (" + this.mana
-                        + "). Please enter a valid bet:");
-
-                betDone = this.verifyBet(manaAmount);
-            }
-        } else {
-            manaAmount = this.player.getGui().getBet();
-            manaAmount = this.verifyBet(manaAmount) ? manaAmount : 1;
+        Console.println(this.player.getName()
+                + ", here is the content of your hand:");
+        for (AbstractCard card : this.getCardManager().getHand()) {
+            Console.println(card.getName());
         }
 
+        manaAmount = Console.getIntInput(
+               "Please enter a bet (" + this.mana + " available):");
+            
+
+        boolean betDone = this.verifyBet(manaAmount);
+            
+        //while input is invalid, ask for a valid bet
+        while (!betDone) {
+            manaAmount = Console.getIntInput("Input invalid (" + this.mana
+                    + "). Please enter a valid bet:");
+
+            betDone = this.verifyBet(manaAmount);
+        }
+
+        this.updateBet(manaAmount);
+    }
+    
+    public void updateBet(int manaAmount){
         this.setBet(manaAmount);
         this.setAttackPower(manaAmount);
         this.addMana(-manaAmount);
+    }
+    
+    /**
+     * [GUI] Get input for the bet, check if input is valid, and deduce mana cost
+     */
+    public int betGui(){
+        int manaAmount = this.player.getGui().getBet();
+        manaAmount = this.verifyBet(manaAmount) ? manaAmount : 1;
+        
+        return manaAmount;
     }
     
 //***************************** OTHER ******************************************

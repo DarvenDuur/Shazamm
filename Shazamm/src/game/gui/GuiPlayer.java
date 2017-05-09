@@ -1,6 +1,7 @@
 package game.gui;
 
 import game.Turn;
+import game.TurnGraphical;
 import game.cards.AbstractCard;
 import java.awt.FlowLayout;
 import java.util.HashSet;
@@ -18,6 +19,7 @@ public class GuiPlayer extends javax.swing.JFrame {
     private FlowLayout layout = new FlowLayout();
     private final boolean PLAYER_1;
     // End of variables declaration
+    private TurnGraphical turn;
 
 
     /**
@@ -25,6 +27,7 @@ public class GuiPlayer extends javax.swing.JFrame {
      */
     public GuiPlayer(boolean player1) {
         PLAYER_1 = player1;
+        this.turn = null;
         initComponents();
         initContents();
         
@@ -38,7 +41,7 @@ public class GuiPlayer extends javax.swing.JFrame {
 
     	this.statistics = new Statistics();
         this.cards = new Card(PLAYER_1);
-        this.betPanel = new Bet(PLAYER_1);
+        this.betPanel = new Bet(PLAYER_1, turn);
         
     	main.add(new JScrollPane(statistics));
     	main.add(betPanel);
@@ -46,21 +49,21 @@ public class GuiPlayer extends javax.swing.JFrame {
     }
 
     
-    public void update(Turn t){
+    public void update(TurnGraphical t){
         statistics.initContents();
         cards.initContents(t);
-        betPanel.initContents(PLAYER_1);
+        betPanel.initContents(PLAYER_1, t);
     }
     
     public int getBet(){
         return this.betPanel.getBet();
     }
     
-    public void update(Turn t, GuiTurn g){
+    public void update(TurnGraphical t, GuiTurn g){
         statistics.update(g);
         // cards.initConponement()
         cards.initContents(t);
-        betPanel.initContents(PLAYER_1);
+        betPanel.initContents(PLAYER_1, t);
     }
     
 

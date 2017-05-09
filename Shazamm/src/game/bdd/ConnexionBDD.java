@@ -1,5 +1,6 @@
 package game.bdd;
 
+import game.Config;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -41,7 +42,7 @@ public class ConnexionBDD {
     /**
      * open the mysql connexion
      */
-    public void openConnexion() {
+    private void openConnexion() {
         String connectUrl = "jdbc:mysql://localhost/"+ this.dbname;
         if (con != null) {
             this.closeConnexion();
@@ -62,7 +63,7 @@ public class ConnexionBDD {
     /**
      * close the mysql connexion
      */
-    public void closeConnexion() {
+    private void closeConnexion() {
         if (con != null) {
             try {
                 con.close();
@@ -76,7 +77,7 @@ public class ConnexionBDD {
      * @param name
      *      Name of the player to add
      */
-    public void addPlayer(String name){
+    private void addPlayer(String name){
         this.updateTuples("INSERT INTO `Player`(`USERNAME`,"
                     + " `TOTAL_OF_GAME`, "
                     + "`TOTAL_OF_VICTORY`, "
@@ -96,7 +97,7 @@ public class ConnexionBDD {
      * @return 
      *      ResultSet containing player data
      */
-    public ResultSet getPlayer(String name){
+    private ResultSet getPlayer(String name){
         return getTuples("SELECT * FROM Player WHERE USERNAME='"+name +"';");
     }
    
@@ -107,39 +108,45 @@ public class ConnexionBDD {
      * @param win 
      *      -1 for loss, 0 for draw, 1 for victory
      */
-    public void updatePlayer(String name,short win){
-        ResultSet rs=getPlayer(name);
+    public void updatePlayer(String name, short win){
+        openConnexion();
+        ResultSet rs = getPlayer(name);
         
         int totalOfDraw = 0;
         int totalOfVictory = 0;
         int totalOfGame = 0;
         
-        //if player do not exist, create it
-        if(rs == null){ 
+        try {
+            totalOfGame = rs.getInt(2);
+            totalOfVictory = rs.getInt(3);
+            totalOfDraw = rs.getInt(4);
+                
+        } catch (Exception e) {
             addPlayer(name);
-        }else{
-            try {
-                totalOfGame=rs.getInt(2);
-                totalOfVictory=rs.getInt(3);
-                totalOfDraw=rs.getInt(4);
-            } catch(Exception e){}
+            rs = getPlayer(name);
+            System.out.println("Create " + name);
         }
+        
         totalOfGame++;
+        
+        System.out.println(totalOfGame);
+        
         switch (win){
             case 1:
                 totalOfVictory++;
                 break;
                 
-            default:
+            case 0:
                 totalOfDraw++;
         }
+        
         updateTuples("UPDATE `Player`"
-                + "SET `TOTAL_OF_GAME` = " + totalOfGame
+                + " SET `TOTAL_OF_GAME` = " + totalOfGame
                 + ", `TOTAL_OF_VICTORY` = " + totalOfVictory
                 + ", `TOTAL_OF_EQUALITY` = " + totalOfDraw
-                + "WHERE `USERNAME`= \"" + name.toString() + "\";");
+                + " WHERE `USERNAME`= \"" + name.toString() + "\";");
         
-    
+        closeConnexion();
     }
     
     /**
@@ -151,16 +158,13 @@ public class ConnexionBDD {
      */
     private boolean updateTuples(String query){
         try{
-            System.out.println(query);
-            
             Statement statement =con.createStatement();
             statement.executeUpdate(query);
             
             return true;
         }
         catch(Exception e){
-            System.out.println("impossible");
-            System.out.println(e);
+            System.out.println("\"" + query + "\" impossible : " + e);
             return false;
         }
         
@@ -181,5 +185,9 @@ public class ConnexionBDD {
         catch(Exception e){
             return null;
         }
+    }
+
+    void test() {
+        updatePlayer(Config.AI_NAME, (short) -1);
     }
 }

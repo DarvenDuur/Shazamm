@@ -1,6 +1,7 @@
 package game.gui;
 
 import game.Turn;
+import game.TurnGraphical;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -29,9 +30,9 @@ public class Bet extends JPanel {
     /**
      * Creates new form Statistics
      */
-    public Bet(boolean player1) {
+    public Bet(boolean player1, TurnGraphical turn) {
         initComponents();
-        initContents(player1);
+        initContents(player1, turn);
     }
 
 
@@ -39,7 +40,7 @@ public class Bet extends JPanel {
         return bet;
     }
     
-    protected void initContents(boolean player1){
+    protected void initContents(boolean player1, TurnGraphical turn){
 
         this.betLabel = new JLabel("Enter your bet :");
         this.betLabel.setFont(new Font("Caladea", Font.BOLD, 22));
@@ -68,7 +69,7 @@ public class Bet extends JPanel {
                 }
                 
                 // update button state and const
-                Turn.continuePlay(player1);
+                turn.continuePlay(player1);
             }
         });
         main.add(betButt);

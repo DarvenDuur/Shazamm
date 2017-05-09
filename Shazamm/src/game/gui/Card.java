@@ -66,8 +66,6 @@ public class Card extends javax.swing.JPanel {
     public HashSet<AbstractCard> askCards(){
         HashSet<AbstractCard> select = new HashSet<>();
 
-
-
         return select;
     }
     

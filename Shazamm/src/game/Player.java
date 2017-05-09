@@ -6,8 +6,6 @@ import game.gui.GuiPlayer;
  * Player informations
  */
 public class Player {
-    // if true, will be displayed as green mage (will probably be removed)
-    private final boolean GREEN;
     
     // name of the player
     private final String NAME;
@@ -21,26 +19,24 @@ public class Player {
      * @param green 
      *      true if has to be displayed as green mage
      */
-    public Player(String name,boolean green) {
-        this.GREEN = green;
+    public Player(String name) {
         this.NAME = name;
     }
 
 //***************************** GETTER *****************************************
     /**
      * @return 
-     *      true if has to be displayed as green mage
-     */
-    public boolean getColor() {
-        return GREEN;
-    }
-
-    /**
-     * @return 
      *      the name of the player
      */
     public String getName() {
         return NAME;
+    }
+
+    /**
+     * @return the gui
+     */
+    public GuiPlayer getGui() {
+        return gui;
     }
 
 //***************************** OTHER ******************************************
@@ -53,21 +49,7 @@ public class Player {
      */
     @Override
     public String toString(){
-        String str="";
-        if(this.GREEN){
-            str+="green ";
-        }
-        else{
-            str+="red ";
-        }
-        return str+=this.NAME;
-    }
-
-    /**
-     * @return the gui
-     */
-    public GuiPlayer getGui() {
-        return gui;
+        return this.NAME;
     }
 
     /**
