@@ -130,7 +130,6 @@ public class Game {
         if (GuiConfig.guiMode){
             // start gui
             game.gui.Shazamm.run(activateAI, PLAYER1, PLAYER2);
-            System.out.println("game gui");
         }
         
         while(!playRound()){
@@ -166,9 +165,9 @@ public class Game {
             round = new Round(this.rounds.getLast());
         }
 
-        /*when the round is finished, add to list of rounds
-        (could be after executing the round)*/
-        rounds.addLast(round);
+            /*when the round is finished, add to list of rounds
+            (could be after executing the round)*/
+            rounds.addLast(round);
 
         /*execute the round, and returns true if the raoun fills the game ending
         condition*/

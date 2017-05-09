@@ -35,7 +35,7 @@ public class Turn implements Cloneable {
     private boolean player1Theft, player2Theft;
     
     // security for interruption of play
-    private static boolean canContinuePlay = false;
+    private static boolean interupted = false;
     
     // security for interruption of play
     private static boolean canContinuePlayer1 = false;
@@ -74,7 +74,7 @@ public class Turn implements Cloneable {
      *      0 for draw, -1 for player1, 1 for player2, -2 for unended turn
      */
     public short getWinner() {
-        if (!this.ended) {
+        if (!this.isEnded()) {
             return -2;
         }
         return winner;
@@ -202,7 +202,7 @@ public class Turn implements Cloneable {
      *      Parent round, needed to apply actions globally
      */
     public void play(Round round) {
-        canContinuePlay = false;
+        interupted = false;
         
         //add turn presentation log
         LogSystem.addLog(new LogTitle());
@@ -245,7 +245,7 @@ public class Turn implements Cloneable {
         //if player is a bot, automaticaly consider it ready
         canContinuePlayer2 = this.getPlayerState(false).getPlayer() 
                 instanceof BotPlayer;
-        canContinuePlay = true;
+        interupted = true;
         
         // initialising variables for interruption
         tempRound = round;
@@ -264,15 +264,13 @@ public class Turn implements Cloneable {
             canContinuePlayer2 = true;
         }
         
-        if (canContinuePlayer1 && canContinuePlayer2 && canContinuePlay) {
-                canContinuePlay = false;
-                tempTurn.playPart2(tempRound);
-        }
+        continuePlay();
     }
+    
     public static void continuePlay(){
-        
-        if (canContinuePlayer1 && canContinuePlayer2 && canContinuePlay) {
-                canContinuePlay = false;
+        if (canContinuePlayer1 && canContinuePlayer2 && interupted && 
+                !tempTurn.isEnded() && !tempRound.isEnded()) {
+                interupted = false;
                 tempTurn.playPart2(tempRound);
         }
     }
@@ -499,6 +497,13 @@ public class Turn implements Cloneable {
     }
 
     boolean canPlay() {
-        return !canContinuePlay;
+        return !interupted;
+    }
+
+    /**
+     * @return the ended
+     */
+    public boolean isEnded() {
+        return ended;
     }
 }
