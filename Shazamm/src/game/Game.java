@@ -89,6 +89,9 @@ public class Game {
             namePlayer1 = Console.getInput("Player 1, what is your username?");
         }
 
+        namePlayer2 = Console.getInput("Player 2, what"
+                + " is your username?");
+        
         // uniqueness of name
         while (namePlayer1.equals(namePlayer2) ||
                 namePlayer2.equals(Config.AI_NAME) || 

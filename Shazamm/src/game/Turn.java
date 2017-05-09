@@ -230,7 +230,7 @@ public class Turn implements Cloneable {
         //timer end
         timer.stop();
         if(!timer.isInTime()){
-            player1.setBet(1);
+            player2.setBet(1);
             player2Cards=new HashSet<>();
         }
         //print bet log
@@ -239,6 +239,9 @@ public class Turn implements Cloneable {
             Console.println(log);
         }
 
+        player1.updateBet();
+        player2.updateBet();
+        
         //discard cards played by each player
         player1.getCardManager().discardAll(player1Cards);
         player2.getCardManager().discardAll(player2Cards);
