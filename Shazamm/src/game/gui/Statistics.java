@@ -28,8 +28,8 @@ public class Statistics extends JPanel {
     protected void initContents(){
     	
     	JPanel p = new JPanel();
-        main.setMaximumSize(new Dimension(1000, 4000));
-    	p.setPreferredSize(new Dimension(1000, 100));
+        main.setMaximumSize(new Dimension(1024, 4000));
+    	p.setPreferredSize(new Dimension(1024, 100));
     	p.setBackground(new Color(33, 41, 48));
     	
         this.title = new JLabel("Preceding round :");
@@ -49,8 +49,8 @@ public class Statistics extends JPanel {
     	this.main = new JPanel();
 
         main.setBackground(new Color(33, 41, 48));
-        main.setMaximumSize(new Dimension(1000, 1200));
-        this.setPreferredSize(new Dimension(1000, 400));
+        main.setMaximumSize(new Dimension(1024, 1200));
+        this.setPreferredSize(new Dimension(1024, 400));
 
     	this.setBackground(new Color(33, 41, 48));
     }

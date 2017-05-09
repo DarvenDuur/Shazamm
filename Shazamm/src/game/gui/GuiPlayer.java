@@ -16,7 +16,6 @@ public class GuiPlayer extends javax.swing.JFrame {
     private Card cards;
     private Statistics statistics;
     private FlowLayout layout = new FlowLayout();
-    
     private final boolean PLAYER_1;
     // End of variables declaration
 
@@ -59,7 +58,7 @@ public class GuiPlayer extends javax.swing.JFrame {
     
     public void update(Turn t, GuiTurn g){
         statistics.update(g);
-        cards.initComponents();
+        // cards.initConponement()
         cards.initContents(t);
         betPanel.initContents(PLAYER_1);
     }
@@ -68,7 +67,7 @@ public class GuiPlayer extends javax.swing.JFrame {
     private void initComponents() {
         this.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         this.setTitle("Player");
-        this.setSize(new java.awt.Dimension(1024, 800));
+        this.setSize(new java.awt.Dimension(1280, 800));
         this.setResizable(false);
 
         this.main = new JPanel();
