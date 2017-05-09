@@ -34,6 +34,20 @@ public class Turn implements Cloneable {
      * If both are true, players "exchange" their cards. */
     private boolean player1Theft, player2Theft;
     
+    // security for interruption of play
+    private static boolean interupted = false;
+    
+    // security for interruption of play
+    private static boolean canContinuePlayer1 = false;
+    
+    // security for interruption of play
+    private static boolean canContinuePlayer2 = false;
+    
+    // memory for interruption of play 
+    private static Round tempRound = null;
+    private static Turn tempTurn = null;
+
+
 //***************************** CONSTRUCTOR ************************************
     /**
      * @param bridge 
@@ -60,6 +74,9 @@ public class Turn implements Cloneable {
      *      0 for draw, -1 for player1, 1 for player2, -2 for unended turn
      */
     public short getWinner() {
+        if (!this.isEnded()) {
+            return -2;
+        }
         return winner;
     }
     
@@ -185,36 +202,113 @@ public class Turn implements Cloneable {
      *      Parent round, needed to apply actions globally
      */
     public void play(Round round) {
+        interupted = false;
+        
         //add turn presentation log
         LogSystem.addLog(new LogTitle());
-        for (Log log : LogSystem.getLastLogs(1)){
-            Console.clear();
-            Console.println(log);
-        }
+        if (!GuiConfig.guiMode) {
             
-        //print bridge initial state
-        Console.println(this.getBridge().toString());
+            for (Log log : LogSystem.getLastLogs(1)){
+                Console.clear();
+                Console.println(log);
+            }
+            
+            //print bridge initial state
+            Console.println(this.getBridge().toString());
+        } else {
+            game.gui.Shazamm.update(this.getBridge());
+        }
         
+        
+        //where we whait for both players to finish their choice in GUI
+        this.interuptPlay(round);
+        
+        //replace listner in console mode
+        if (!GuiConfig.guiMode) {
+            continuePlay(true);
+            continuePlay(false);
+        } else {
+            this.getPlayerState(true).getPlayer().getGui().update(this);
+            if (!(this.getPlayerState(false).getPlayer() instanceof BotPlayer)){
+                this.getPlayerState(false).getPlayer().getGui().update(this);
+            }
+        }
+    }
+    
+    /**
+     * save usefull values and interupt flow
+     * @param round 
+     *      round to keep in memory
+     */
+    public void interuptPlay(Round round){
+        canContinuePlayer1 = false;
+        //if player is a bot, automaticaly consider it ready
+        canContinuePlayer2 = this.getPlayerState(false).getPlayer() 
+                instanceof BotPlayer;
+        interupted = true;
+        
+        // initialising variables for interruption
+        tempRound = round;
+        tempTurn = this;
+    }
+    
+    /**
+     * try tu continue play flow, while loading usefull values
+     * @param player1 
+     *      player asking to continue
+     */
+    public static void continuePlay(boolean player1){
+        if (player1) {
+            canContinuePlayer1 = true;
+        } else {
+            canContinuePlayer2 = true;
+        }
+        
+        continuePlay();
+    }
+    
+    public static void continuePlay(){
+        if (canContinuePlayer1 && canContinuePlayer2 && interupted && 
+                !tempTurn.isEnded() && !tempRound.isEnded()) {
+                interupted = false;
+                tempTurn.playPart2(tempRound);
+        }
+    }
+    
+    /**
+     * Resume play flow
+     */
+    private void playPart2(Round round){
         //get current player states
         PlayerState player1 = this.getPlayerState(true);
         PlayerState player2 = this.getPlayerState(false);
 
         //bet
         player1.bet();
-        Console.clear();
+        if (!GuiConfig.guiMode) {
+            Console.clear();
+        }
         player2.bet();
         
         //print bet log
-        Console.clear();
-        for (Log log : LogSystem.getLastLogs(2)){
-            Console.println(log);
+        if (!GuiConfig.guiMode) {
+            Console.clear();
+            for (Log log : LogSystem.getLastLogs(2)){
+                Console.println(log);
+            }
+        } else {
+            game.gui.Shazamm.update(this.getBridge());
         }
 
         //collect actions input
         HashSet<AbstractCard> player1Cards = player1.askCards(this);
-        Console.clear();
+        if (!GuiConfig.guiMode) {
+            Console.clear();
+        }
         HashSet<AbstractCard> player2Cards = player2.askCards(this);
-        Console.clear();
+        if (!GuiConfig.guiMode) {
+            Console.clear();
+        }
 
         //discard cards played by each player
         player1.getCardManager().discardAll(player1Cards);
@@ -246,9 +340,13 @@ public class Turn implements Cloneable {
         turnLog.setFinalTurn(this);
         LogSystem.addLog(turnLog);
 
-        for (Log log : LogSystem.getLastLogs(2)){
-            Console.clear();
-            Console.println(log);
+        if (!GuiConfig.guiMode) {
+            for (Log log : LogSystem.getLastLogs(2)){
+                Console.clear();
+                Console.println(log);
+            }
+        } else {
+            game.gui.Shazamm.update(this.getBridge());
         }
         
     }
@@ -396,5 +494,16 @@ public class Turn implements Cloneable {
         str += this.winner + "\n";
         str += this.mute;
         return str;
+    }
+
+    boolean canPlay() {
+        return !interupted;
+    }
+
+    /**
+     * @return the ended
+     */
+    public boolean isEnded() {
+        return ended;
     }
 }

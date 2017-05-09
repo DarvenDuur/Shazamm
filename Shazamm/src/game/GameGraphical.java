@@ -127,6 +127,10 @@ public class Game {
      *      parameter to pass to GUI
      */
     public void play(boolean activateAI){
+        if (GuiConfig.guiMode){
+            // start gui
+            game.gui.Shazamm.run(activateAI, PLAYER1, PLAYER2);
+        }
         
         while(!playRound()){
             //play rounds while the ending conditions are not met
