@@ -129,8 +129,6 @@ public class ConnexionBDD {
         
         totalOfGame++;
         
-        System.out.println(totalOfGame);
-        
         switch (win){
             case 1:
                 totalOfVictory++;
@@ -158,7 +156,10 @@ public class ConnexionBDD {
      */
     private boolean updateTuples(String query){
         try{
-            Statement statement =con.createStatement();
+            if (con == null){
+                openConnexion();
+            }
+            Statement statement = con.createStatement();
             statement.executeUpdate(query);
             
             return true;

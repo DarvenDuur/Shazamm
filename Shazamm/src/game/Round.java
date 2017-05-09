@@ -47,12 +47,8 @@ public class Round {
 
         //init the new turn 
         Bridge bridge = new Bridge(playerState1, playerState2, size, firewallLocation);
-        Turn initTurn = new Turn(bridge);
-
-        initTurn.startOfRoundActions();
-        initTurn.end();
-
-        this.turns.add(initTurn);
+        
+        initTurn(bridge);
     }
 
     /**
@@ -160,6 +156,18 @@ public class Round {
     }
 
 //***************************** OTHER ******************************************
+    /**
+     * setup initial turn
+     */
+    protected void initTurn(Bridge bridge){
+        Turn initTurn = new Turn(bridge);
+
+        initTurn.startOfRoundActions();
+        initTurn.end();
+
+        this.turns.add(initTurn);
+    }
+    
     /**
      * Play turns untill the end of the round
      * @return 

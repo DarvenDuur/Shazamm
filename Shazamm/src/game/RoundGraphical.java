@@ -50,7 +50,7 @@ public class RoundGraphical extends Round {
 
         //play turns while turn does not end the round
         //get last turn added; if first turn, uses initial turn
-        TurnGraphical turn = (TurnGraphical) this.getLastTurn();
+        TurnGraphical turn = this.getLastTurn();
         while (!this.isEnded() || !turn.isEnded()) {
             
             //play turn
@@ -76,5 +76,21 @@ public class RoundGraphical extends Round {
         /*true if, in the last turn of the round, at least one of the
         players is out of the bridge (game ending condition)*/
         return this.getWinner() != -2;
+    }
+    
+    public TurnGraphical getLastTurn() {
+        return (TurnGraphical) this.turns.getLast();
+    }
+    
+    /**
+     * setup initial turn
+     */
+    protected void initTurn(Bridge bridge){
+        TurnGraphical initTurn = new TurnGraphical(bridge);
+
+        initTurn.startOfRoundActions();
+        initTurn.end();
+
+        this.turns.add(initTurn);
     }
 }
