@@ -1,7 +1,6 @@
 package game.gui;
 
 import game.Bridge;
-import game.Config;
 import game.PlayerState;
 import game.Round;
 import game.Turn;

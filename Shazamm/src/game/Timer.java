@@ -22,7 +22,7 @@ public class Timer {
      * @return true if the player is in the time 
      */
     public boolean isInTime(){
-        if(!(timeLimit<=0) && timeBegin - timeStop >= timeLimit){
+        if(!(timeLimit<=0) &&  timeStop + timeBegin >= timeLimit){
             return false;
         }
         return true;

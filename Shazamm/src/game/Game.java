@@ -38,9 +38,7 @@ public class Game {
         
         //Player versus AI
         if (activateAI){
-            String  namePlayer = "";
-            
-            setPvEName(namePlayer);
+            String  namePlayer = setPvEName();
             
             // create 2 players
             this.player1 = new Player(namePlayer);
@@ -48,9 +46,9 @@ public class Game {
             
         //Player versus player
         } else {
-            String namePlayer1 = "",
-                    namePlayer2 = "";
-            setPvPNames(namePlayer1, namePlayer2);
+            String namePlayer1 = setPvPNames(),
+                    namePlayer2 = setPvPNames(namePlayer1);
+            System.out.println(namePlayer1 + ":" + namePlayer2);
             
             // attribute side
             Random  random = new Random();
@@ -66,8 +64,8 @@ public class Game {
         }
     }
     
-    protected void setPvEName(String  namePlayer){
-        namePlayer = Console.getInput("Player, what"
+    protected String setPvEName(){
+        String namePlayer = Console.getInput("Player, what"
                 + " is your username?");
         
         // forbiding use of AI name
@@ -76,10 +74,12 @@ public class Game {
             namePlayer = Console.getInput("Player, what"
                     + " is your username?");
         }
+        
+        return namePlayer;
     }
     
-    protected void setPvPNames(String namePlayer1, String namePlayer2){
-        namePlayer1 = Console.getInput("Player 1, what"
+    protected String setPvPNames(){
+        String namePlayer1 = Console.getInput("Player 1, what"
                 + " is your username?");
         
         // forbiding use of AI name
@@ -88,8 +88,11 @@ public class Game {
             System.out.println("please try a new username");
             namePlayer1 = Console.getInput("Player 1, what is your username?");
         }
+        return namePlayer1;
+    }
+    protected String setPvPNames(String namePlayer1){
 
-        namePlayer2 = Console.getInput("Player 2, what"
+        String namePlayer2 = Console.getInput("Player 2, what"
                 + " is your username?");
         
         // uniqueness of name
@@ -100,6 +103,8 @@ public class Game {
             namePlayer2 = Console.getInput("Player 2, what"
                     + " is your username?");
         }
+        
+        return namePlayer2;
     }
     
     protected void setFirstRound(){
