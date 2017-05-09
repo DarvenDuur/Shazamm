@@ -27,7 +27,7 @@ public class Config {
     public static final int FIRST_TURN_DRAW = 5;
     
     public static final Date DATE=new Date();
-
+    
 //*************************** BDD **********************************************
     // name of database
     public static final String BDD_NAME = "shazamm";

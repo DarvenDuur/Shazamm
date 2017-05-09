@@ -14,25 +14,27 @@ import java.util.Date;
  * @author MG
  */
 public class Timer {
-    //FAIRE TITRE
-   
-    public static void main(String[] args){
-        //recuperation voir ou  inserer
-        long timeLimit=Console.getIntInput(GuiConfig.TIME_LIMIT)*1000;
-        
-        
-        //Algo debut du prog de decision
-        long timeBegin=Config.DATE.getTime();
-        //ligne de code 
-        
-        
+    
+    private static long timeLimit;
+    private static long timeBegin;
+    
+    /**
+     * 
+     * @return true if the player is in the time 
+     */
+    public static boolean isInTime(){
         if(!(timeLimit<=0) && timeBegin-Config.DATE.getTime()>=timeLimit){
-            
+            return false;
         }
-        
-        
-        
-        
-        
+        return true;
+    }
+    
+    public static void timeLimit(int time){
+       timeLimit=time*1000;
+       
+    }
+    
+    public static void setTimeBegin(){
+        timeBegin=Config.DATE.getTime();
     }    
 }

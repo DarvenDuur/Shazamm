@@ -4,6 +4,7 @@ import game.bdd.ConnexionBDD;
 import java.util.LinkedList;
 import java.util.Random;
 import game.gui.Console;
+import game.gui.GuiConfig;
 
 /**
  * Main Shazamm game system, manages rounds and global victory
@@ -23,7 +24,7 @@ public class Game {
      *      if true, the second player is controlled by AI
      */
     public Game(boolean activateAI) {
-
+        Timer.timeLimit(Console.getIntInput(GuiConfig.TIME_LIMIT));
         // init list of rounds
         this.rounds = new LinkedList<>();
 
