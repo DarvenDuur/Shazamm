@@ -144,8 +144,8 @@ public class CardManager implements Cloneable {
      */
     public void discardAll(HashSet<AbstractCard> cards){
         this.lastDiscard.clear();
-        for (Iterator<AbstractCard> iterator = cards.iterator(); iterator.hasNext(); ){
-            this.discardCard((AbstractCard) iterator.next());
+        for (AbstractCard card : cards ){
+            this.discardCard(card);
         }
     }
     

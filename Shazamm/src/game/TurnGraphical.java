@@ -116,12 +116,6 @@ public class TurnGraphical extends Turn {
             player2Cards=new HashSet<>();
         }
         
-        try {
-            game.gui.Shazamm.update((Bridge) this.getBridge().clone());
-        } catch (CloneNotSupportedException ex) {
-            Logger.getLogger(TurnGraphical.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
         //discard cards played by each player
         player1.getCardManager().discardAll(player1Cards);
         player2.getCardManager().discardAll(player2Cards);

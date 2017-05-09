@@ -68,7 +68,7 @@ public class Card extends javax.swing.JPanel {
 
         for (GuiCard guiCard : guiCards) {
             if (guiCard.isActive()) {
-                select.add(guiCard.getCard());
+                select.add((AbstractCard) guiCard.getCard());
             }
         }
         
