@@ -4,7 +4,10 @@ import game.Config;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * System managing connection to a Shazamm database (localhost)
@@ -98,7 +101,13 @@ public class ConnexionBDD {
      *      ResultSet containing player data
      */
     private ResultSet getPlayer(String name){
-        return getTuples("SELECT * FROM Player WHERE USERNAME='"+name +"';");
+        ResultSet tuples = getTuples("SELECT * FROM `Player` WHERE `USERNAME` = '"+name +"';");
+        try {
+            tuples.next();
+        } catch (SQLException ex) {
+            Logger.getLogger(ConnexionBDD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return tuples;
     }
    
     /**
@@ -117,12 +126,11 @@ public class ConnexionBDD {
         int totalOfGame = 0;
         
         try {
-            
-            System.out.println("try");
             totalOfGame = rs.getInt(2);
             totalOfVictory = rs.getInt(3);
             totalOfDraw = rs.getInt(4);
                 
+        //if player not in the DB yet
         } catch (Exception e) {
             addPlayer(name);
             rs = getPlayer(name);
@@ -182,15 +190,12 @@ public class ConnexionBDD {
      */
     private ResultSet getTuples(String query){
         try{
-            Statement statement =con.createStatement();
+            Statement statement = con.createStatement();
             return statement.executeQuery(query);
-        }
-        catch(Exception e){
+        } catch(Exception e){
+            System.out.println(e + "\n" + query);
+            System.out.println("4786532");
             return null;
         }
-    }
-
-    void test() {
-        updatePlayer(Config.AI_NAME, (short) -1);
     }
 }
