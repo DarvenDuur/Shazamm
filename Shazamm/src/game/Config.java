@@ -1,5 +1,7 @@
 package game;
 
+import java.util.Date;
+
 /**
  * Contain all constant values that will be used by the program.
  * In later versions, will be loded from a file.
@@ -23,6 +25,8 @@ public class Config {
 
     // number of cards each player draw at the first turn of each round
     public static final int FIRST_TURN_DRAW = 5;
+    
+    public static final Date DATE=new Date();
 
 //*************************** BDD **********************************************
     // name of database
@@ -33,7 +37,6 @@ public class Config {
     
     // user's password
     public static final String BDD_PASSWORD = "root";
-    
     
     // playername for AI player
     public static final String AI_NAME="Ordinateur";
