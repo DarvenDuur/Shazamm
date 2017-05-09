@@ -1,6 +1,7 @@
 package game;
 
 import static game.gui.Shazamm.getName;
+import static game.gui.Shazamm.getTimeLimit;
 
 /**
  * Main Shazamm game system, manages rounds and global victory
@@ -45,7 +46,7 @@ public class GameGraphical extends Game {
     
     @Override
     protected void setTimerLimit(){
-        Timer.setTimeLimit(game.gui.Shazamm.getTimeLimit());
+        Timer.setTimeLimit(getTimeLimit());
     }
 
 //***************************** OTHER ******************************************

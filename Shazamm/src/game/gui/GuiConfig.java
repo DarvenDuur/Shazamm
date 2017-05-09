@@ -19,9 +19,9 @@ public class GuiConfig {
             
             GUI_MODE_ASK = "Do you wish to run Shazamm in graphical mode?"
             + "Otherwise the game will run in console mode.";
+            
     
     
-
 //**************************** TEXT USED FOR LOG PRINTING **********************
     /* For eaach of folowing parameters, please refer to Log.toString and 
      * overwriting methodes */

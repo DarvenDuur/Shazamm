@@ -65,10 +65,8 @@ public class TurnGraphical extends Turn {
         player2Cards = this.getPlayerState(false).askCards(this);
         
         //update bet and timer
-        timerPlayer1.stop();
         player1.betGui();
         if (!(player2.getPlayer() instanceof BotPlayer)){
-            timerPlayer2.stop();
             player2.betGui();
         }
     }
@@ -80,8 +78,10 @@ public class TurnGraphical extends Turn {
      */
     public void continuePlay(boolean player1){
         if (player1) {
+            timerPlayer1.stop();
             canContinuePlayer1 = true;
         } else {
+            timerPlayer2.stop();
             canContinuePlayer2 = true;
         }
         

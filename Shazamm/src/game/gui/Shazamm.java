@@ -47,7 +47,9 @@ public class Shazamm extends javax.swing.JFrame {
     
     public static String getName(String message){
         
-        String s = (String) JOptionPane.showInputDialog(
+        String s;
+        do {
+            s = (String) JOptionPane.showInputDialog(
             null,
             message,
             "Name",
@@ -55,15 +57,34 @@ public class Shazamm extends javax.swing.JFrame {
             null,
             null,
             null);
-
-        //If a string was returned, say so.
-        if ((s == null) && (s.length() == 0) || s.equals(Config.AI_NAME)) {
-            s = getName(message);
-        }
+        } while ((s == null) || (s.length() == 0) || s.equals(Config.AI_NAME));
         
         return s;
     }
     
+    public static int getTimeLimit(){
+        String s;
+        boolean isValid = false;
+        
+        do {
+            s = (String) JOptionPane.showInputDialog(
+                null,
+                GuiConfig.TIME_LIMIT,
+                "Limi",
+                JOptionPane.PLAIN_MESSAGE,
+                null,
+                null,
+                null);
+            try {
+                Integer.getInteger(s);
+                isValid = true;
+            } catch (Error e) {
+                
+            }
+        } while (!isValid);
+        
+        return Integer.getInteger(s);
+    }
     
     private void initContents(boolean onePlayer, Player p1, Player p2){
 
