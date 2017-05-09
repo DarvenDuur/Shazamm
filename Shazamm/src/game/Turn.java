@@ -209,20 +209,20 @@ public class Turn implements Cloneable {
 
         //bet
         player1.bet();
+        //collect actions input
+        HashSet<AbstractCard> player1Cards = player1.askCards(this);
+        
         Console.clear();
+        //bet
         player2.bet();
+        //collect actions input
+        HashSet<AbstractCard> player2Cards = player2.askCards(this);
         
         //print bet log
         Console.clear();
         for (Log log : LogSystem.getLastLogs(2)){
             Console.println(log);
         }
-
-        //collect actions input
-        HashSet<AbstractCard> player1Cards = player1.askCards(this);
-        Console.clear();
-        HashSet<AbstractCard> player2Cards = player2.askCards(this);
-        Console.clear();
 
         //discard cards played by each player
         player1.getCardManager().discardAll(player1Cards);

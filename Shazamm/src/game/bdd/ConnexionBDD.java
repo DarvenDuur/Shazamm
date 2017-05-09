@@ -117,6 +117,8 @@ public class ConnexionBDD {
         int totalOfGame = 0;
         
         try {
+            
+            System.out.println("try");
             totalOfGame = rs.getInt(2);
             totalOfVictory = rs.getInt(3);
             totalOfDraw = rs.getInt(4);

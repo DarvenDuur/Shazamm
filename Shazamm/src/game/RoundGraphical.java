@@ -85,6 +85,7 @@ public class RoundGraphical extends Round {
     /**
      * setup initial turn
      */
+    @Override
     protected void initTurn(Bridge bridge){
         TurnGraphical initTurn = new TurnGraphical(bridge);
 
