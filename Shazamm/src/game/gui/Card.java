@@ -39,8 +39,8 @@ public class Card extends javax.swing.JPanel {
         this.cards = new ArrayList<>();
         this.turn = t;
 
-        HashSet<AbstractCard> cards = this.turn.getPlayerState(PLAYER_1).
-                getCardManager().getHand();
+        HashSet<AbstractCard> cards = (HashSet<AbstractCard>) this.turn.getPlayerState(PLAYER_1).
+                getCardManager().getHand().clone();
       
         this.cards.addAll(cards);
      
@@ -66,6 +66,12 @@ public class Card extends javax.swing.JPanel {
     public HashSet<AbstractCard> askCards(){
         HashSet<AbstractCard> select = new HashSet<>();
 
+        for (GuiCard guiCard : guiCards) {
+            if (guiCard.isActive()) {
+                select.add(guiCard.getCard());
+            }
+        }
+        
         return select;
     }
     

@@ -13,7 +13,7 @@ public class GuiCard extends javax.swing.JPanel{
     private boolean active;
 
     public GuiCard(AbstractCard card) {
-        this.card = card;
+        this.card = (AbstractCard) card.clone();
 
         this.setBackground(Color.BLACK);
         this.setPreferredSize(new Dimension(220, 300));
@@ -31,17 +31,26 @@ public class GuiCard extends javax.swing.JPanel{
             
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                active = !active;
+                active = !isActive();
+                if (isActive()) {
+                    setBackground(Color.CYAN);
+                } else {
+                    setBackground(Color.DARK_GRAY);
+                }
             }
 
             @Override
             public void mouseEntered(MouseEvent me) {
-                setBackground(Color.WHITE);
+                if (!isActive()) {
+                    setBackground(Color.DARK_GRAY);
+                }
             }
 
             @Override
             public void mouseExited(MouseEvent me) {
-                setBackground(Color.BLACK);
+                if (!isActive()) {
+                    setBackground(Color.BLACK);
+                }
             }
 
             @Override
@@ -50,6 +59,20 @@ public class GuiCard extends javax.swing.JPanel{
             @Override
             public void mouseReleased(MouseEvent me) {}
         });
+    }
+
+    /**
+     * @return the active
+     */
+    public boolean isActive() {
+        return active;
+    }
+
+    /**
+     * @return the card
+     */
+    public AbstractCard getCard() {
+        return card;
     }
     
 }

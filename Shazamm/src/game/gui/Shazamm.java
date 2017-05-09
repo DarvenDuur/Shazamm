@@ -8,6 +8,7 @@ package game.gui;
 import game.Bridge;
 import game.Config;
 import game.Player;
+import game.TurnGraphical;
 import java.awt.FlowLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -20,7 +21,7 @@ public class Shazamm extends javax.swing.JFrame {
 
     // Variables declaration
     private JPanel main;
-    private static Board board;
+    private static Board board = new Board();
     private FlowLayout layout = new FlowLayout();
     private static Player player1, player2;
     private static boolean onePlayer;
@@ -30,9 +31,9 @@ public class Shazamm extends javax.swing.JFrame {
     /**
      * Creates new form Shazamm
      */
-    public Shazamm(boolean onePlayer, Player p1, Player p2) {
+    public Shazamm(boolean onePlayer, Player p1, Player p2, TurnGraphical turn) {
         initComponents();
-        initContents(onePlayer, p1, p2);
+        initContents(onePlayer, p1, p2, turn);
         
         this.add(main);
     }
@@ -63,40 +64,42 @@ public class Shazamm extends javax.swing.JFrame {
     }
     
     public static int getTimeLimit(){
-        String s;
+        String input;
         boolean isValid = false;
+        int limit = 0;
         
         do {
-            s = (String) JOptionPane.showInputDialog(
+            input = (String) JOptionPane.showInputDialog(
                 null,
                 GuiConfig.TIME_LIMIT,
-                "Limi",
+                "Time limit",
                 JOptionPane.PLAIN_MESSAGE,
                 null,
                 null,
                 null);
             try {
-                Integer.getInteger(s);
+                limit = Integer.parseInt(input);
                 isValid = true;
-            } catch (Error e) {
-                
+            } catch (Exception ex){
+            } catch (Error er) {
             }
         } while (!isValid);
         
-        return Integer.getInteger(s);
+        return limit;
     }
     
-    private void initContents(boolean onePlayer, Player p1, Player p2){
+    private void initContents(boolean onePlayer, Player p1, Player p2, 
+            TurnGraphical turn){
 
     	main.setLayout(layout);
 
         this.onePlayer = onePlayer;
     	
     	this.player1 = p1;
-        p1.setGui(new GuiPlayer(true));
+        p1.setGui(new GuiPlayer(true, turn));
         if(!onePlayer){
             this.player2 = p2;
-            p2.setGui(new GuiPlayer(false));
+            p2.setGui(new GuiPlayer(false, turn));
         }
     	
         this.board = new Board();
@@ -113,11 +116,12 @@ public class Shazamm extends javax.swing.JFrame {
 
         this.main = new JPanel();
         this.main.setBackground(new java.awt.Color(0, 0, 0));
+        
     }
 
 
-    public static void run(boolean onePlayer, Player p1, Player p2){
-        new Shazamm(onePlayer, p1, p2).setVisible(true);
+    public static void run(boolean onePlayer, Player p1, Player p2, TurnGraphical turn){
+        new Shazamm(onePlayer, p1, p2, turn).setVisible(true);
     }
 
 

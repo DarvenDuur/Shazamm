@@ -10,6 +10,7 @@ import static game.Config.HAND_REFILL_SIZE;
 import java.util.Random;
 import static game.Config.SHUFFLE_STEPS;
 import java.util.HashSet;
+import java.util.Iterator;
 
 /**
  *
@@ -143,8 +144,8 @@ public class CardManager implements Cloneable {
      */
     public void discardAll(HashSet<AbstractCard> cards){
         this.lastDiscard.clear();
-        for (AbstractCard card : cards){
-            this.discardCard(card);
+        for (Iterator<AbstractCard> iterator = cards.iterator(); iterator.hasNext(); ){
+            this.discardCard((AbstractCard) iterator.next());
         }
     }
     
@@ -201,9 +202,9 @@ public class CardManager implements Cloneable {
     @Override
     public Object clone() throws CloneNotSupportedException{
         CardManager clone = (CardManager) super.clone();
-        clone.deck = (LinkedList<AbstractCard>) clone.deck.clone();
-        clone.discard = (HashSet<AbstractCard>) clone.getDiscard().clone();
-        clone.hand = (HashSet<AbstractCard>) clone.hand.clone();
+        clone.deck = this.deck;
+        clone.discard = this.discard;
+        clone.hand = this.hand;
         return clone;
     }
     

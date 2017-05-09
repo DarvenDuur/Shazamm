@@ -2,6 +2,7 @@ package game;
 
 import static game.gui.Shazamm.getName;
 import static game.gui.Shazamm.getTimeLimit;
+import static game.gui.Shazamm.run;
 
 /**
  * Main Shazamm game system, manages rounds and global victory

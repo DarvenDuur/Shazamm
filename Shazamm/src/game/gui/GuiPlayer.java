@@ -25,9 +25,9 @@ public class GuiPlayer extends javax.swing.JFrame {
     /**
      * Creates new form GuiPlayer
      */
-    public GuiPlayer(boolean player1) {
+    public GuiPlayer(boolean player1, TurnGraphical turn) {
         PLAYER_1 = player1;
-        this.turn = null;
+        this.turn = turn;
         initComponents();
         initContents();
         

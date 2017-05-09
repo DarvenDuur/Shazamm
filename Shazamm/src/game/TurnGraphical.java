@@ -1,6 +1,7 @@
 package game;
 
 import game.cards.AbstractCard;
+import static game.gui.Shazamm.run;
 import game.gui.log.LogBetOverview;
 import game.gui.log.LogTurnOverview;
 import game.gui.log.LogSystem;
@@ -8,6 +9,8 @@ import game.gui.log.LogTitle;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Turn of the game, managing interractions with the bridge
@@ -41,6 +44,9 @@ public class TurnGraphical extends Turn {
      * initialise gui
      */
     public void play() {
+        
+        run((player2.getPlayer() instanceof BotPlayer),
+                player1.getPlayer(), player2.getPlayer(), this);
         //add turn presentation log
         LogSystem.addLog(new LogTitle());
         game.gui.Shazamm.update(this.getBridge());
@@ -108,6 +114,12 @@ public class TurnGraphical extends Turn {
         if(!timerPlayer2.isInTime()){
             player2.setBet(1);
             player2Cards=new HashSet<>();
+        }
+        
+        try {
+            game.gui.Shazamm.update((Bridge) this.getBridge().clone());
+        } catch (CloneNotSupportedException ex) {
+            Logger.getLogger(TurnGraphical.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         //discard cards played by each player

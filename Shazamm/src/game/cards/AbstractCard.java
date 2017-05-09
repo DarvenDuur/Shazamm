@@ -7,7 +7,7 @@ import game.Round;
  * Basic Shazaam card
  * @see CardsEnum for more precise information on the cards
  */
-public abstract class AbstractCard implements Comparable<AbstractCard> {
+public abstract class AbstractCard implements Comparable<AbstractCard>, Cloneable {
 
     //card ID, from 1 to 14
     protected final int ID;
@@ -237,6 +237,11 @@ public abstract class AbstractCard implements Comparable<AbstractCard> {
     }
 
 //**************************** OTHER *******************************************
+    public Object clone(){
+        AbstractCard clone = create(ID, BELONG_PLAYER_1);
+        return clone;
+    }
+    
     /**
      * Specific action, must called from generalApply()
      * @param round 

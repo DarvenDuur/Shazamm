@@ -112,7 +112,6 @@ public class GuiConfig {
     // see getConfirmation(), if true, can press enter dirrectly to accept
     public static final boolean Y_N_DIRECT_ACCEPT = true;
     
-     public static final String TIME_LIMIT="What is the time limit to take a "
-            + "decisions? (It is expressed in seconds,0 "
-             + "if you don't want a timer)";
+     public static final String TIME_LIMIT="What is the time limit to make a "
+            + "decision? (In seconds, 0 if you don't want a timer)";
 }

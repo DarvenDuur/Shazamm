@@ -54,7 +54,7 @@ public class RoundGraphical extends Round {
         while (!this.isEnded() || !turn.isEnded()) {
             
             //play turn
-            turn.play(this);
+            turn.play();
             while (!turn.isEnded()) {
                 //whait the turn to end
             }
