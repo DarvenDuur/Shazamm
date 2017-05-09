@@ -14,14 +14,14 @@ public class Round {
     /* List of all the turns of this round. 
      * The last turn of the list is the turn currently played, 
      * and if turn is ended, it is the last turn of the round. */
-    private final LinkedList<Turn> turns;
+    protected final LinkedList<Turn> turns;
 
     /* Curent state of the round, if false, can not proceed to next round
      * necessary to avoid doing extra turns or replaying the whole round */
-    private boolean ended;
+    protected boolean ended;
 
     // Winner of the turn, 0 for draw, -1 for player1, 1 for player2
-    private short winner; 
+    protected short winner; 
 
 //***************************** CONSTRUCTOR ************************************   
     /**
@@ -159,15 +159,7 @@ public class Round {
         LogSystem.endRound();
     }
 
-    /**
-     * add turn at the end of the turn list
-     * @param turn 
-     *      turn to add
-     */
-    public void addTurn(Turn turn) {
-        this.turns.addLast(turn);
-    }
-
+//***************************** OTHER ******************************************
     /**
      * Play turns untill the end of the round
      * @return 
@@ -207,7 +199,6 @@ public class Round {
         return this.getWinner() != -2;
     }
 
-//***************************** OTHER ******************************************
     /**
      * For console printing
      * @see 

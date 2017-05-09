@@ -104,6 +104,14 @@ public class Turn implements Cloneable {
      * @return 
      *      mute, if true no spell can be applied
      */
+    public boolean isEnded() {
+        return ended;
+    }
+    
+    /**
+     * @return 
+     *      mute, if true no spell can be applied
+     */
     public boolean isMute() {
         return mute;
     }
@@ -253,11 +261,10 @@ public class Turn implements Cloneable {
         
     }
 
-
     /**
      * Set isPlayer1Winner to 0 for draw, -1 for player1, 1 for player2
      */
-    private void applyBets() {
+    protected void applyBets() {
         this.setWinner();
 
         //move firewall toward loser
@@ -272,7 +279,7 @@ public class Turn implements Cloneable {
      *      If number of cards inferior to minimum hand size (see Config),
      *      draw cards until hand has the minimum accepted size.
      */
-    private void endOfTurnDraw() {
+    protected void endOfTurnDraw() {
         PlayerState player1, player2;
         player1 = this.bridge.getPlayerState(true);
         player2 = this.bridge.getPlayerState(false);

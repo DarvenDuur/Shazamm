@@ -4,18 +4,16 @@ import game.bdd.ConnexionBDD;
 import java.util.LinkedList;
 import java.util.Random;
 import game.gui.Console;
-import game.gui.GuiConfig;
-import static game.gui.Shazamm.getName;
 
 /**
  * Main Shazamm game system, manages rounds and global victory
  */
 public class Game {
     // all rounds of the game
-    private final LinkedList<Round> rounds;
+    protected LinkedList<Round> rounds;
     
     //Player objects containing the data of the two players
-    private final Player PLAYER1, PLAYER2;
+    protected Player player1, player2;
 
 //***************************** CONSTRUCTOR ************************************
     /**
@@ -29,87 +27,83 @@ public class Game {
         // init list of rounds
         this.rounds = new LinkedList<>();
 
-        // attribute color (display only)
-        Random  random      = new Random();
-        boolean greenPlayer = random.nextBoolean();
-            
+        definePlayers(activateAI);
+        
+        setFirstRound();
+    }
+    
+    protected final void definePlayers(boolean activateAI){
+        
         //Player versus AI
         if (activateAI){
-            String  namePlayer;
-            if (GuiConfig.guiMode){
-                namePlayer = getName("Player, what"
-                        + " is your username?");
-                
-            }else{
-                namePlayer = Console.getInput("Player, what"
-                        + " is your username?");
-
-                // forbiding use of AI name
-                while (namePlayer.equals(Config.AI_NAME)) {
-                    System.out.println("please try a new username");
-                    namePlayer = Console.getInput("Player, what"
-                            + " is your username?");
-                }
-            }
+            String  namePlayer = "";
             
-            this.PLAYER1 = new Player(namePlayer, greenPlayer);
-            this.PLAYER2 = new BotPlayer(!greenPlayer);
+            setPvEName(namePlayer);
+            
+            // create 2 players
+            this.player1 = new Player(namePlayer);
+            this.player2 = new BotPlayer();
             
         //Player versus player
         } else {
-            String  namePlayer1, namePlayer2 = "";
-            if (GuiConfig.guiMode){
-                namePlayer1 = getName("Player 1, what"
-                        + " is your username?");
-            }else{
-                namePlayer1 = Console.getInput("Player 1, what"
-                    + " is your username?");
-
-                // forbiding use of AI name
-                while (namePlayer1.equals(Config.AI_NAME)) {
-                    System.out.println("please try a new username");
-                    namePlayer1 = Console.getInput("Player 1, what"
-                            + " is your username?");
-                }
-            }
-
-            // uniqueness of name
-            while (namePlayer1.equals(namePlayer2) ||
-                    namePlayer2.equals(Config.AI_NAME) || 
-                    "".equals(namePlayer2)) {
-                if (GuiConfig.guiMode){
-                    namePlayer2 = getName("Player 2, what is your username?");
-                } else {
-                    System.out.println("please try a new username");
-                    namePlayer2 = Console.getInput("Player 2, what"
-                        + " is your username?");
-                }
-            }
+            String namePlayer1 = "",
+                    namePlayer2 = "";
+            setPvPNames(namePlayer1, namePlayer2);
+            
+            // attribute side
+            Random  random = new Random();
 
             // create 2 players
-            if(greenPlayer){
-                this.PLAYER1 = new Player(namePlayer1, greenPlayer);
-                this.PLAYER2 = new Player(namePlayer2, !greenPlayer);
+            if(random.nextBoolean()){
+                this.player1 = new Player(namePlayer1);
+                this.player2 = new Player(namePlayer2);
             } else {
-                this.PLAYER1 = new Player(namePlayer2, !greenPlayer);
-                this.PLAYER2 = new Player(namePlayer1, greenPlayer);
+                this.player1 = new Player(namePlayer2);
+                this.player2 = new Player(namePlayer1);
             }
-            
         }
+    }
+    
+    protected void setPvEName(String  namePlayer){
+        namePlayer = Console.getInput("Player, what"
+                + " is your username?");
         
+        // forbiding use of AI name
+        while (namePlayer.equals(Config.AI_NAME)) {
+            Console.println("please try a new username");
+            namePlayer = Console.getInput("Player, what"
+                    + " is your username?");
+        }
+    }
+    
+    protected void setPvPNames(String namePlayer1, String namePlayer2){
+        namePlayer1 = Console.getInput("Player 1, what"
+                + " is your username?");
+        
+        // forbiding use of AI name
+        while (namePlayer1.equals(Config.AI_NAME) || 
+                "".equals(namePlayer1)) {
+            System.out.println("please try a new username");
+            namePlayer1 = Console.getInput("Player 1, what is your username?");
+        }
+
+        // uniqueness of name
+        while (namePlayer1.equals(namePlayer2) ||
+                namePlayer2.equals(Config.AI_NAME) || 
+                "".equals(namePlayer2)) {
+            System.out.println("please try a new username");
+            namePlayer2 = Console.getInput("Player 2, what"
+                    + " is your username?");
+        }
+    }
+    
+    protected void setFirstRound(){
         // create the first round of the game
-        Round firstRound = new Round(this.PLAYER1, this.PLAYER2,
+        Round firstRound = new Round(this.player1, this.player2,
                 Config.BRIDGE_MAX_SIZE, 0);
 
         // add the first round to list of rounds
         this.rounds.add(firstRound);
-    }
-
-    /**
-     * Call generic constructor with PvP mode
-     */
-    public Game() {
-        this(false);
     }
     
 //***************************** GETTER *****************************************
@@ -135,8 +129,8 @@ public class Game {
         //update database
         ConnexionBDD bdd = new ConnexionBDD(Config.BDD_NAME, 
                 Config.BDD_USERNAME, Config.BDD_PASSWORD);
-        bdd.updatePlayer(PLAYER1.getName(), this.winner());
-        bdd.updatePlayer(PLAYER2.getName(), (short) -this.winner());
+        bdd.updatePlayer(player1.getName(), this.winner());
+        bdd.updatePlayer(player2.getName(), (short) -this.winner());
     }
 
     /**
@@ -151,19 +145,19 @@ public class Game {
         if the last round added to rounds is not ended, will use it;
         otherwize use the data of the last round to create a new one*/
         if (rounds.isEmpty()){
-            round = new Round(this.PLAYER1, this.PLAYER2,
+            round = new Round(this.player1, this.player2,
                 Config.BRIDGE_MAX_SIZE, 0);
 
-        }else if (!rounds.getLast().isEnded()){
-            round = rounds.getLast();
-
-        }else{
-            round = new Round(this.rounds.getLast());
+        } else {
+            round = this.rounds.getLast();
+            if (round.isEnded()){
+                round = new Round(round);
+            }
         }
-
-            /*when the round is finished, add to list of rounds
-            (could be after executing the round)*/
-            rounds.addLast(round);
+            
+        /*when the round is finished, add to list of rounds
+        (could be after executing the round)*/
+        rounds.addLast(round);
 
         /*execute the round, and returns true if the raoun fills the game ending
         condition*/

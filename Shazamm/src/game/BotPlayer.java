@@ -11,8 +11,8 @@ package game;
  */
 public class BotPlayer extends Player {
     
-    public BotPlayer(boolean green) {
-        super(Config.AI_NAME, green);
+    public BotPlayer() {
+        super(Config.AI_NAME);
     }
     
     
